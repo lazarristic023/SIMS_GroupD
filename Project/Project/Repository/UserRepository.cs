@@ -13,20 +13,20 @@ namespace Project.Repository
 
         private const string FilePath = "../../../Resources/Data/users.csv";
 
-        private readonly Serializer<User> _serializer;
+        private readonly Serializer<User> serializer;
 
-        private List<User> _users;
+        private List<User> users;
 
         public UserRepository()
         {
-            _serializer = new Serializer<User>();
-            _users = _serializer.FromCSV(FilePath);
+            serializer = new Serializer<User>();
+            users = serializer.FromCSV(FilePath);
         }
 
         public User GetByUsername(string username)
         {
-            _users = _serializer.FromCSV(FilePath);
-            return _users.FirstOrDefault(u => u.Username == username);
+            users = serializer.FromCSV(FilePath);
+            return users.FirstOrDefault(u => u.Username == username);
         }
 
     }

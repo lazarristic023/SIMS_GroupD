@@ -63,9 +63,34 @@ namespace Project.View
             {
                 if (user.Password == txtPassword.Password)
                 {
-                    /*CommentsOverview commentsOverview = new CommentsOverview(user);
-                    commentsOverview.Show();
-                    Close();*/
+                    switch (user.Role)
+                    {
+                        case Role.OWNER:
+                            OwnerView ownerView = new OwnerView();
+                            ownerView.Show();
+                            Close();
+                            break;
+
+                        case Role.GUIDE:
+                            GuideView guideView = new GuideView();
+                            guideView.Show();
+                            Close();
+                            break;
+
+                        case Role.GUEST1:
+                            Guest1View guest1View = new Guest1View();
+                            guest1View.Show();
+                            Close();
+                            break;
+
+                        default:
+                            Guest2View guest2View = new Guest2View();
+                            guest2View.Show();
+                            Close();
+                            break;
+
+
+                    }
                 }
                 else
                 {
