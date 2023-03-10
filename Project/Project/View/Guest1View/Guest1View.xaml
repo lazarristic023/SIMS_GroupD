@@ -6,7 +6,41 @@
         xmlns:local="clr-namespace:Project.View"
         mc:Ignorable="d"
         Title="Guest1View" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <StackPanel >
+        <ToolBar >
+            <Button x:Name="btSignOut" Content="Sign out" Margin="2" BorderBrush="Black" HorizontalAlignment="Right"
+                    Click="btSignOut_Click"/>
+        </ToolBar>
+
+        <TabControl Margin="8,10">
+
+            <TabItem Header="Your reservations">
+            </TabItem>
+
+            <TabItem Header="Accommodations">
+                <Grid Height="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding Path=Accommodations}"/>
+                    
+                    <ComboBox x:Name="cbCountry"  SelectionChanged="cbCountry_SelectionChanged" ItemsSource="{Binding Path=Countries,UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=SelectedCountry, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="109,53,0,0" VerticalAlignment="Top" Width="120">
+
+
+                    </ComboBox>
+
+                    <ComboBox ItemsSource="{Binding Path=CountryCities, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedItem="{Binding Path=SelectedCity, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,53,0,0" VerticalAlignment="Top" Width="120">
+
+                    </ComboBox>
+                </Grid>
+            </TabItem>
+
+
+        </TabControl>
+
+    </StackPanel>
 </Window>
