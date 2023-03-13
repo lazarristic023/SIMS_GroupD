@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <Folder Include="Controller\" />
-    <Folder Include="Resources\Data\" />
+    <Folder Include="Controller\" />
     <Folder Include="Resources\Images\" />
   </ItemGroup>
 
