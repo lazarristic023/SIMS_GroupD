@@ -18,9 +18,6 @@ namespace Project.Model
 
         public Location Location { get; set; }
 
-        public string City { get; set; }
-        public string Country { get; set; }
-
         public int OwnerId { get; set; }
         public User Owner { get; set; }
 
@@ -43,7 +40,7 @@ namespace Project.Model
         {
             Name = name;
             OwnerId = ownerId;
-            this.AccommodationType = at;
+            AccommodationType = at;
             Location = location;
             MaxGuests = maxGuests;
             MinReservationDays = minReservationDays;

@@ -27,6 +27,8 @@ namespace Project.View
         public ObservableCollection<AccommodationReservation> Reservations { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
 
+        public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
+
         public ObservableCollection<string> Countries { get; set; }
         public ObservableCollection<string> CountryCities { get; set; }
 
@@ -39,6 +41,7 @@ namespace Project.View
             controller = new Guest1Controller(u);
             Reservations = new ObservableCollection<AccommodationReservation>(controller.GetAccommodationReservations());
             Accommodations = new ObservableCollection<Accommodation>(controller.GetAccommodations());
+            FilteredAccommodations = new ObservableCollection<Accommodation>(Accommodations);
             Countries = new ObservableCollection<string>();
             CountryCities = new ObservableCollection<string>();
             FillCountriesList();
@@ -73,6 +76,181 @@ namespace Project.View
                     CountryCities.Add(location.City);
                 }
             }
+        }
+
+        private void btSearch_Click(object sender, RoutedEventArgs e)
+        {
+            List<Accommodation> temp = new List<Accommodation>();
+            List<Accommodation> tempFiltered = new List<Accommodation>();
+            bool hasEntered = false;
+
+            temp.AddRange(Accommodations);
+
+            // Name textbox
+            if (!string.IsNullOrWhiteSpace(tbName.Text))
+            {
+                hasEntered = true;
+
+                foreach (Accommodation accommodation in temp)
+                {
+                    if (accommodation.Name.Contains(tbName.Text))
+                    {
+                        tempFiltered.Add(accommodation);
+                    }
+                }
+            }
+
+            if (hasEntered)
+            {
+                hasEntered = false;
+                temp.Clear();
+                temp.AddRange(tempFiltered);
+                tempFiltered.Clear();
+            }
+
+            // Location comboboxes
+
+            if (!string.IsNullOrEmpty(SelectedCountry))
+            {
+                bool isCityChosen = false;
+                hasEntered = true;
+                if (!string.IsNullOrEmpty(SelectedCity))
+                {
+                    isCityChosen = true;
+                }
+
+                foreach (Accommodation accommodation in temp)
+                {
+                    if ((accommodation.Location.Country == SelectedCountry) || (isCityChosen && accommodation.Location.City == SelectedCity))
+                    {
+                        tempFiltered.Add(accommodation);
+                    }
+                }
+
+            }
+
+            if (hasEntered)
+            {
+                hasEntered = false;
+                temp.Clear();
+                temp.AddRange(tempFiltered);
+                tempFiltered.Clear();
+            }
+
+            // Number of guests
+
+            if (!string.IsNullOrWhiteSpace(tbGuestNum.Text))
+            {
+                if (!IsDigitsOnly(tbGuestNum.Text))
+                {
+                    string sMessageBoxText = $"Number of guests field must contain only digits!";
+                    string sCaption = "Input error - Number of guests";
+
+                    MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                    MessageBoxImage icnMessageBox = MessageBoxImage.Error;
+
+                    MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                    return;
+                }
+
+                hasEntered = true;
+                int guestNum = Convert.ToInt32(tbGuestNum.Text);
+
+                foreach (Accommodation accommodation in temp)
+                {
+                    if (guestNum <= accommodation.MaxGuests)
+                    {
+                        tempFiltered.Add(accommodation);
+                    }
+                }
+
+            }
+
+            if (hasEntered)
+            {
+                hasEntered = false;
+                temp.Clear();
+                temp.AddRange(tempFiltered);
+                tempFiltered.Clear();
+            }
+
+
+            // Number of days
+
+            if (!string.IsNullOrWhiteSpace(tbDaysNum.Text))
+            {
+                if (!IsDigitsOnly(tbDaysNum.Text))
+                {
+                    string sMessageBoxText = $"Number of days field must contain only digits!";
+                    string sCaption = "Input error - Number of days";
+
+                    MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                    MessageBoxImage icnMessageBox = MessageBoxImage.Error;
+
+                    MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                    return;
+                }
+
+                hasEntered = true;
+                int daysNum = Convert.ToInt32(tbDaysNum.Text);
+
+                foreach (Accommodation accommodation in temp)
+                {
+                    if (daysNum >= accommodation.MinReservationDays)
+                    {
+                        tempFiltered.Add(accommodation);
+                    }
+                }
+
+            }
+
+            if (hasEntered)
+            {
+                hasEntered = false;
+                temp.Clear();
+                temp.AddRange(tempFiltered);
+                tempFiltered.Clear();
+            }
+
+            // Accommodation type checkboxes
+
+            if ((chbHouse.IsChecked == false) && (chbAppartment.IsChecked == false) && (chbCottage.IsChecked == false))
+            {
+                FilteredAccommodations.Clear();
+                foreach (Accommodation a in temp)
+                {
+                    FilteredAccommodations.Add(a);
+                }
+                return;
+            }
+
+            foreach (Accommodation accommodation in temp)
+            {
+                if((accommodation.AccommodationType == AccommodationType.HOUSE && (bool)chbHouse.IsChecked) ||
+                    (accommodation.AccommodationType == AccommodationType.APPARTMENT && (bool)chbAppartment.IsChecked) ||
+                    (accommodation.AccommodationType == AccommodationType.COTTAGE && (bool)chbCottage.IsChecked))
+                {
+                    tempFiltered.Add(accommodation);
+                }
+            }
+
+            FilteredAccommodations.Clear();
+            foreach (Accommodation a in tempFiltered)
+            {
+                FilteredAccommodations.Add(a);
+            }
+            
+
+        }
+
+        private bool IsDigitsOnly(string str)
+        {
+            return str.All(c => c >= '0' && c <= '9');
+        }
+
+        private void lbViewDetails_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

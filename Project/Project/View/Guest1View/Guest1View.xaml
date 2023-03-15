@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View"
         mc:Ignorable="d"
-        Title="Guest1View" Height="450" Width="800">
+        Title="Guest1View" Height="500" Width="880">
     <StackPanel >
         <ToolBar >
             <Button x:Name="btSignOut" Content="Sign out" Margin="2" BorderBrush="Black" HorizontalAlignment="Right"
@@ -15,27 +15,61 @@
         <TabControl Margin="8,10">
 
             <TabItem Header="Your reservations">
+                <DataGrid ItemsSource="{Binding Path=Reservations}"/>
             </TabItem>
 
             <TabItem Header="Accommodations">
-                <Grid Height="300">
+                <Grid Height="330">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding Path=Accommodations}"/>
-                    
+                    <DataGrid Grid.Row="1" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FilteredAccommodations}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                            <DataGridTextColumn Header="Country" Binding="{Binding Path=Location.Country}"/>
+                            <DataGridTextColumn Header="City" Binding="{Binding Path=Location.City}"/>
+                            <DataGridTextColumn Header="Accommodation type" Binding="{Binding Path=AccommodationType}"/>
+                            <DataGridTextColumn Header="Maximum guest number" Binding="{Binding Path=MaxGuests}"/>
+                            <DataGridTextColumn Header="Minimum reservation days" Binding="{Binding Path=MinReservationDays}"/>
+                            <DataGridTextColumn Header="Minimum cancellation period" Binding="{Binding Path=CancellationPeriod}"/>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextDecorations="Underline" Text="View details" Foreground="Blue"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
                     <ComboBox x:Name="cbCountry"  SelectionChanged="cbCountry_SelectionChanged" ItemsSource="{Binding Path=Countries,UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding Path=SelectedCountry, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="109,53,0,0" VerticalAlignment="Top" Width="120">
-
-
-                    </ComboBox>
+                              SelectedItem="{Binding Path=SelectedCountry, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="72,81,0,0" VerticalAlignment="Top" Width="100"/>
 
                     <ComboBox ItemsSource="{Binding Path=CountryCities, UpdateSourceTrigger=PropertyChanged}" 
-                              SelectedItem="{Binding Path=SelectedCity, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,53,0,0" VerticalAlignment="Top" Width="120">
+                              SelectedItem="{Binding Path=SelectedCity, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="185,81,0,0" VerticalAlignment="Top" Width="100"/>
 
-                    </ComboBox>
+                    <Label Content="Location" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top"/>
+
+                    <Label Content="Name" HorizontalAlignment="Left" Margin="19,31,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="tbName"  HorizontalAlignment="Left" Margin="72,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170"/>
+
+                    <Label Content="Numer of guests" HorizontalAlignment="Left" Margin="324,31,0,0" VerticalAlignment="Top"/>
+                    <TextBox Name="tbGuestNum" HorizontalAlignment="Left" Margin="430,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+
+                    <Label Content="Number of days" HorizontalAlignment="Left" Margin="324,79,0,0" VerticalAlignment="Top"/>
+                    <TextBox Name="tbDaysNum" HorizontalAlignment="Left" Margin="430,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+
+                    <Label Content="Accommodation type" HorizontalAlignment="Left" Margin="556,18,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Name="chbHouse" IsChecked="False" Content="House" HorizontalAlignment="Left" Margin="559,55,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Name="chbAppartment" IsChecked="False" Content="Appartment" HorizontalAlignment="Left" Margin="559,80,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Name="chbCottage" IsChecked="False" Content="Cottage" HorizontalAlignment="Left" Margin="559,105,0,0" VerticalAlignment="Top"/>
+                    
+                    <Button Name="btSearch" Click="btSearch_Click" Content="Search" HorizontalAlignment="Left" Margin="730,45,0,0" VerticalAlignment="Top" Height="40" Width="57"/>
+
+
                 </Grid>
             </TabItem>
 
