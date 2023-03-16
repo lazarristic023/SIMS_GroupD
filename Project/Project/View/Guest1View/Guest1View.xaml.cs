@@ -121,8 +121,18 @@ namespace Project.View
 
                 foreach (Accommodation accommodation in temp)
                 {
-                    if ((accommodation.Location.Country == SelectedCountry) || (isCityChosen && accommodation.Location.City == SelectedCity))
+                    if (accommodation.Location.Country == SelectedCountry)
                     {
+                        if (isCityChosen)
+                        {
+                            if (accommodation.Location.City == SelectedCity)
+                            {
+                                tempFiltered.Add(accommodation);
+                                
+                            }
+                                                         
+                            continue;
+                        }
                         tempFiltered.Add(accommodation);
                     }
                 }
@@ -248,7 +258,8 @@ namespace Project.View
             return str.All(c => c >= '0' && c <= '9');
         }
 
-        private void lbViewDetails_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+
+        private void tbViewDetails_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
         }
