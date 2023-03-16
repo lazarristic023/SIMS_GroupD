@@ -78,7 +78,7 @@ namespace Project.View
                             break;
 
                         case Role.GUEST1:
-                            Guest1View guest1View = new Guest1View();
+                            Guest1View guest1View = new Guest1View(user);
                             guest1View.Show();
                             Close();
                             break;
