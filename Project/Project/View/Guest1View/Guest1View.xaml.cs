@@ -3,6 +3,7 @@ using Project.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,8 @@ namespace Project.View
 
         public string SelectedCountry { get; set; }
         public string SelectedCity { get; set; }
+
+        public Accommodation SelectedAccommodation { get; set; }
         public Guest1View(User u)
         {
             InitializeComponent();
@@ -259,9 +262,10 @@ namespace Project.View
         }
 
 
-        private void tbViewDetails_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void tbViewDetails_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-
+            AccommodationInfoView accommodationInfoView = new AccommodationInfoView(controller, SelectedAccommodation);
+            accommodationInfoView.Show();
         }
     }
 }

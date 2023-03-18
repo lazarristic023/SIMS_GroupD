@@ -25,7 +25,7 @@
                         <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid Grid.Row="1" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FilteredAccommodations}">
+                    <DataGrid SelectedItem="{Binding Path=SelectedAccommodation}" Grid.Row="1" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FilteredAccommodations}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
                             <DataGridTextColumn Header="Country" Binding="{Binding Path=Location.Country}"/>
@@ -37,7 +37,7 @@
                             <DataGridTemplateColumn Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock x:Name="tbViewDetails" MouseLeftButtonDown="tbViewDetails_MouseLeftButtonDown"  
+                                        <TextBlock x:Name="tbViewDetails" MouseLeftButtonUp="tbViewDetails_MouseLeftButtonUp"  
                                                    TextDecorations="Underline" Text="View details" Foreground="Blue"/>
                                         
                                     </DataTemplate>

@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class ImageRepository
+    public class AccommodationImageRepository
     {
-        private const string FilePath = "../../../Resources/Data/images.csv";
+        private const string FilePath = "../../../Resources/Data/accImages.csv";
 
-        private readonly Serializer<Image> serializer;
+        private readonly Serializer<AccommodationImage> serializer;
 
-        private List<Image> images;
+        private List<AccommodationImage> images;
 
-        public ImageRepository()
+        public AccommodationImageRepository()
         {
-            serializer = new Serializer<Image>();
+            serializer = new Serializer<AccommodationImage>();
             images = serializer.FromCSV(FilePath);
         }
 
@@ -34,7 +34,7 @@ namespace Project.Repository
             return images[images.Count - 1].Id + 1;
         }
 
-        public Image Add(Image image)
+        public AccommodationImage Add(AccommodationImage image)
         {
             image.Id = GenerateId();
             images.Add(image);
@@ -42,9 +42,9 @@ namespace Project.Repository
             return image;
         }
 
-        public Image Update(Image image)
+        public AccommodationImage Update(AccommodationImage image)
         {
-            Image oldImage = GetImageById(image.Id);
+            AccommodationImage oldImage = GetImageById(image.Id);
             if (oldImage == null) return null;
 
             oldImage.Url = image.Url;
@@ -55,9 +55,9 @@ namespace Project.Repository
             return oldImage;
         }
 
-        public Image Remove(int id)
+        public AccommodationImage Remove(int id)
         {
-            Image image = GetImageById(id);
+            AccommodationImage image = GetImageById(id);
             if (image == null) return null;
 
             images.Remove(image);
@@ -65,12 +65,12 @@ namespace Project.Repository
             return image;
         }
 
-        public Image GetImageById(int id)
+        public AccommodationImage GetImageById(int id)
         {
             return images.Find(v => v.Id == id);
         }
 
-        public List<Image> GetAllImages()
+        public List<AccommodationImage> GetAllImages()
         {
             return images;
         }

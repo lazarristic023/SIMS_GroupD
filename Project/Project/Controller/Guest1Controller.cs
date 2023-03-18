@@ -15,14 +15,14 @@ namespace Project.Controller
         public AccommodationReservationRepository AccReservationRepository { get; set; }
 
         public List<Location> AccommodationLocations { get; set; }
-        public ImageRepository ImageRepository { get; set; }
+        public AccommodationImageRepository ImageRepository { get; set; }
 
         public Guest1Controller()
         {
             Guest = new Guest1();
             AccommodationRepository = new AccommodationRepository();
             AccReservationRepository = new AccommodationReservationRepository();
-            ImageRepository = new ImageRepository();
+            ImageRepository = new AccommodationImageRepository();
             AccommodationLocations = new List<Location>();
             LinkAccommodationsAndImages();
             LinkGuest1Reservation();
@@ -35,7 +35,7 @@ namespace Project.Controller
             Guest = new Guest1(u);
             AccommodationRepository = new AccommodationRepository();
             AccReservationRepository = new AccommodationReservationRepository();
-            ImageRepository = new ImageRepository();
+            ImageRepository = new AccommodationImageRepository();
             AccommodationLocations = new List<Location>();
             LinkAccommodationsAndImages();
             LinkGuest1Reservation();
@@ -67,7 +67,8 @@ namespace Project.Controller
         {
             return AccommodationLocations;
         }
-            
+        //{Binding Path=ChosenAccommodation.Location.Country}
+        //{Binding Path=ChosenAccommodation.Location.City}
         private void LinkAccommodationsAndImages()
         {
             foreach (var image in ImageRepository.GetAllImages())
