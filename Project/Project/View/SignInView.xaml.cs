@@ -66,7 +66,7 @@ namespace Project.View
                     switch (user.Role)
                     {
                         case Role.OWNER:
-                            OwnerView ownerView = new OwnerView();
+                            OwnerView ownerView = new OwnerView(user);
                             ownerView.Show();
                             Close();
                             break;

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Project.Controller;
+using Project.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +22,29 @@ namespace Project.View
     /// </summary>
     public partial class OwnerView : Window
     {
-        public OwnerView()
+        private User user;
+        
+        private OwnerController controller;
+
+        public ObservableCollection<Accommodation> Accommodations { get; set; }
+
+
+
+        public OwnerView(User u)
         {
             InitializeComponent();
+            DataContext = this;
+            controller = new OwnerController(u);
+
+            Accommodations = new ObservableCollection<Accommodation>(controller.Owner.Accommodations);          //controller.Owner.Accommodations;
+            
+        }
+
+        private void btSignOut_Click(object sender, RoutedEventArgs e)
+        {
+            SignInView signInView = new SignInView();
+            Close();
+            signInView.Show();
         }
     }
 }
