@@ -5,8 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View"
         mc:Ignorable="d"
-        Title="OwnerView" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="OwnerView" Height="500" Width="880">
+    <StackPanel>
+        <ToolBar>
+            <Button x:Name="btSignOut" Content="Sign out" Margin="2" BorderBrush="Black" HorizontalAlignment="Right" Click="btSignOut_Click"/>
+        </ToolBar>
+
+        <TabControl Margin="8,10">
+
+            <TabItem Header="My accommodations">
+                <DataGrid ItemsSource="{Binding Path=Accommodations}"/>
+            </TabItem>
+
+        </TabControl>
+
+
+    </StackPanel>
 </Window>
