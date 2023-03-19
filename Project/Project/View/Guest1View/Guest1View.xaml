@@ -15,7 +15,7 @@
         <TabControl Margin="8,10">
 
             <TabItem Header="Your reservations">
-                <DataGrid ItemsSource="{Binding Path=Reservations}"/>
+                <DataGrid ItemsSource="{Binding Path=MyReservations}"/>
             </TabItem>
 
             <TabItem Header="Accommodations">

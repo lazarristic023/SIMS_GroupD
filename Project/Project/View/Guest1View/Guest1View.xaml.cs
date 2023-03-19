@@ -1,5 +1,6 @@
 ﻿using Project.Controller;
 using Project.Model;
+using Project.Observer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,11 +22,11 @@ namespace Project.View
     /// <summary>
     /// Interaction logic for Guest1View.xaml
     /// </summary>
-    public partial class Guest1View : Window
+    public partial class Guest1View : Window, IObserver
     {
-        private Guest1Controller controller;
+        private Guest1Controller _controller;
         private User user;
-        public ObservableCollection<AccommodationReservation> Reservations { get; set; }
+        public ObservableCollection<AccommodationReservation> MyReservations { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
 
         public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
@@ -41,10 +42,13 @@ namespace Project.View
         {
             InitializeComponent();
             DataContext = this;
-            controller = new Guest1Controller(u);
-            Reservations = new ObservableCollection<AccommodationReservation>(controller.GetAccommodationReservations());
-            Accommodations = new ObservableCollection<Accommodation>(controller.GetAccommodations());
+
+            _controller = new Guest1Controller(u);
+            MyReservations = new ObservableCollection<AccommodationReservation>(_controller.GetMyAccommodationReservations());
+            Accommodations = new ObservableCollection<Accommodation>(_controller.GetAccommodations());
             FilteredAccommodations = new ObservableCollection<Accommodation>(Accommodations);
+            _controller.SubscribeToReservationRepo(this);
+
             Countries = new ObservableCollection<string>();
             CountryCities = new ObservableCollection<string>();
             FillCountriesList();
@@ -60,7 +64,7 @@ namespace Project.View
 
         private void FillCountriesList()
         {
-            foreach (var location in controller.GetAccommodationLocations())
+            foreach (var location in _controller.GetAccommodationLocations())
             {
                 if (!Countries.Contains(location.Country))
                 {
@@ -72,7 +76,7 @@ namespace Project.View
         private void cbCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CountryCities.Clear();
-            foreach (var location in controller.GetAccommodationLocations())
+            foreach (var location in _controller.GetAccommodationLocations())
             {
                 if (location.Country == SelectedCountry)
                 {
@@ -157,7 +161,7 @@ namespace Project.View
                 if (!IsDigitsOnly(tbGuestNum.Text))
                 {
                     string sMessageBoxText = $"Number of guests field must contain only digits!";
-                    string sCaption = "Input error - Number of guests";
+                    string sCaption = "Input error: Number of guests";
 
                     MessageBoxButton btnMessageBox = MessageBoxButton.OK;
                     MessageBoxImage icnMessageBox = MessageBoxImage.Error;
@@ -195,7 +199,7 @@ namespace Project.View
                 if (!IsDigitsOnly(tbDaysNum.Text))
                 {
                     string sMessageBoxText = $"Number of days field must contain only digits!";
-                    string sCaption = "Input error - Number of days";
+                    string sCaption = "Input error: Number of days";
 
                     MessageBoxButton btnMessageBox = MessageBoxButton.OK;
                     MessageBoxImage icnMessageBox = MessageBoxImage.Error;
@@ -264,8 +268,22 @@ namespace Project.View
 
         private void tbViewDetails_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            AccommodationInfoView accommodationInfoView = new AccommodationInfoView(controller, SelectedAccommodation);
+            AccommodationInfoView accommodationInfoView = new AccommodationInfoView(_controller, SelectedAccommodation);
             accommodationInfoView.Show();
+        }
+
+        private void UpdateMyReservationsList()
+        {
+            MyReservations.Clear();
+            foreach (var reservation in _controller.GetMyAccommodationReservations())
+            {
+                MyReservations.Add(reservation);
+            }
+        }
+
+        public void Update()
+        {
+            UpdateMyReservationsList();
         }
     }
 }

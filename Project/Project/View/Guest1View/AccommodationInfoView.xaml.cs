@@ -63,7 +63,9 @@ namespace Project.View
 
         private void btMakeReserv_Click(object sender, RoutedEventArgs e)
         {
-
+            ReserveView reserveView = new ReserveView(Controller, ChosenAccommodation);
+            reserveView.Show();
         }
+
     }
 }

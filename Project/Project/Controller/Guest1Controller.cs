@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Project.Model;
+using Project.Observer;
 using Project.Repository;
+
 
 namespace Project.Controller
 {
@@ -54,7 +56,7 @@ namespace Project.Controller
             }
         }
 
-        public List<AccommodationReservation> GetAccommodationReservations()
+        public List<AccommodationReservation> GetMyAccommodationReservations()
         {
             return Guest.Reservations;
         }
@@ -67,8 +69,7 @@ namespace Project.Controller
         {
             return AccommodationLocations;
         }
-        //{Binding Path=ChosenAccommodation.Location.Country}
-        //{Binding Path=ChosenAccommodation.Location.City}
+
         private void LinkAccommodationsAndImages()
         {
             foreach (var image in ImageRepository.GetAllImages())
@@ -100,6 +101,11 @@ namespace Project.Controller
                 }
             }
 
+        }
+
+        public void SubscribeToReservationRepo(IObserver observer)
+        {
+            AccReservationRepository.Subscribe(observer);
         }
 
 
