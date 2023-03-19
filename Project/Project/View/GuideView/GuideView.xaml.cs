@@ -48,5 +48,15 @@ namespace Project.View
                 
 
         }
+
+        private void AddPoints_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Submit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

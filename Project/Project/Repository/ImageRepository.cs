@@ -70,6 +70,11 @@ namespace Project.Repository
             return images.Find(v => v.Id == id);
         }
 
+        public Image GetImageByEntityIdandType(int id, PictureType type)
+        {
+            return images.Find(v => v.EntityId == id && v.Type == type);
+        }
+
         public List<Image> GetAllImages()
         {
             return images;

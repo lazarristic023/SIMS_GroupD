@@ -15,7 +15,11 @@ namespace Project.Model
         public string City { get; set; }
 
         public string Country { get; set; }
-        public Location() { }
+        public Location() 
+        {
+            City = "";
+            Country = "";
+        }
 
         public Location(string city, string country)
         {
