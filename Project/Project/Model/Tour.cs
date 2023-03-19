@@ -20,6 +20,8 @@ namespace Project.Model
         public DateTime StartTime { get; set; }
         public int Duration { get; set; }
         public string CoverImageUrl { get; set; }
+        public List<Image> Images { get; set; }
+        public Location Location { get; set; }
         public List<int> TourPoints { get; set; }
 
 
