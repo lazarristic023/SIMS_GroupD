@@ -12,7 +12,7 @@ namespace Project.Repository
     public class AccommodationReservationRepository : ISubject
     {
 
-        private const string FilePath = "../../../Resources/Data/_accReservations.csv";
+        private const string FilePath = "../../../Resources/Data/accReservations.csv";
 
         private readonly Serializer<AccommodationReservation> _serializer;
 
