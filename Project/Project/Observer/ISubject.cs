@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Project.Observer
 {
+<<<<<<< HEAD
     public interface ISubject
+=======
+    interface ISubject
+>>>>>>> development
     {
         void Subscribe(IObserver observer);
         void Unsubscribe(IObserver observer);

@@ -29,7 +29,11 @@ namespace Project.Model
         {
             Id = -1;
             Url = url;
+<<<<<<< HEAD
             EntityId=entityId;
+=======
+            EntityId = entityId;
+>>>>>>> development
             Type = type;
         }
 
@@ -67,6 +71,5 @@ namespace Project.Model
             else
                 return PictureType.TOUR;
         }
-
     }
 }

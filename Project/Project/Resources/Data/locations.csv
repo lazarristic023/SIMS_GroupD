@@ -1,6 +1,14 @@
 0|Novi Sad|Serbia
+<<<<<<< HEAD
 1|Beograd|Serbia
 2|Kragujevac|Serbia
 3|Subotica|Serbia
 4|London|United Kingdom
 5|Sarajevo|Bosna and Hercegovina
+=======
+1|Belgrade|Serbia
+2|Nis|Serbia
+3|Sarajevo|BiH
+4|Banja Luka|BiH
+5|Zagreb|Croatia
+>>>>>>> development

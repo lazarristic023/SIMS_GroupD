@@ -1,6 +1,6 @@
-﻿using System;
-using Project.Model;
+﻿using Project.Model;
 using Project.Serializer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -80,13 +80,21 @@ namespace Project.Repository
 
             foreach (Image image in images)
             {
+<<<<<<< HEAD
                 if(image.EntityId == id && image.Type == type)
+=======
+                if (image.EntityId == id && image.Type == type)
+>>>>>>> development
                 {
                     imagesIds.Add(image.Id);
                 }
             }
 
+<<<<<<< HEAD
             foreach(int identificator in imagesIds)
+=======
+            foreach (int identificator in imagesIds)
+>>>>>>> development
             {
                 filteredImages.Add(images.Find(v => v.Id == identificator));
             }
