@@ -29,11 +29,7 @@ namespace Project.Model
         {
             Id = -1;
             Url = url;
-<<<<<<< HEAD
-            EntityId=entityId;
-=======
             EntityId = entityId;
->>>>>>> development
             Type = type;
         }
 

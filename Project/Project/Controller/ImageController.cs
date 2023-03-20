@@ -1,10 +1,7 @@
 ﻿using Project.Model;
 using Project.Repository;
 using System;
-<<<<<<< HEAD
 using System.CodeDom;
-=======
->>>>>>> development
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,15 +20,9 @@ namespace Project.Controller
 
         public void Create(string url, int entityId, PictureType type)
         {
-<<<<<<< HEAD
-            Image image = new Image(url,entityId,type);
-            imageRepository.Add(image);
-            
-=======
             Image image = new Image(url, entityId, type);
             imageRepository.Add(image);
 
->>>>>>> development
 
         }
 
@@ -39,11 +30,7 @@ namespace Project.Controller
         {
             List<Image> imageList = imageRepository.GetImagesByEntityIdandType(id, PictureType.TOUR);
             List<string> urls = new List<string>();
-<<<<<<< HEAD
-            
-=======
 
->>>>>>> development
             foreach (Image image in imageList)
             {
                 urls.Add(image.Url);
