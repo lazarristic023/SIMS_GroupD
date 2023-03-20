@@ -11,7 +11,7 @@
 
             <StatusBar DockPanel.Dock="Bottom">Status bar</StatusBar>
 
-            <TabControl x:Name="tabControl" Margin="10" SelectionChanged="tabControl_SelectionChanged">
+            <TabControl x:Name="tabControl" Margin="10">
                 <TabItem Header="My tours" >
 
                     <DockPanel>
@@ -33,8 +33,14 @@
 
                         </Grid>
 
-                        <DataGrid DockPanel.Dock="Right" Margin="10" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+                        <DataGrid x:Name="myTourDataGrid" DockPanel.Dock="Right" Margin="10" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                                   AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+                            <DataGrid.RowStyle>
+                                <Style TargetType="{x:Type DataGridRow}">
+                                    <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
+                                </Style>
+                            </DataGrid.RowStyle>
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*"></DataGridTextColumn>
                                 <DataGridTextColumn Header="Country" Binding="{Binding Location.Country}" Width="1.5*"></DataGridTextColumn>
@@ -55,244 +61,7 @@
 
                     
                 </TabItem>
-                <TabItem x:Name="addTourTab" Header="Add tour">
 
-                    <DockPanel>
-                        <Button x:Name="Submit" DockPanel.Dock="Bottom" Margin="0,10,0,0" Width="300" HorizontalAlignment="Center" Click="Submit_Click">Submit</Button>
-
-                        <Grid DockPanel.Dock="Left" Width="400">
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Grid.Column="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30"></RowDefinition>
-                                    <RowDefinition Height="75"></RowDefinition>
-                                    <RowDefinition Height="200"></RowDefinition>
-                                    <RowDefinition Height="30"></RowDefinition>
-                                    <RowDefinition Height="30"></RowDefinition>
-                                    <RowDefinition Height="30"></RowDefinition>
-
-
-
-
-                                </Grid.RowDefinitions>
-
-                                <Grid Grid.Row="0" >
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="70"></ColumnDefinition>
-                                        <ColumnDefinition></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-
-
-                                    <Label  Grid.Column="0">Tour name:</Label>
-                                    <TextBox x:Name="tourNameTextbox" Grid.Column="1" Height="20" Text="{Binding Path=NameOfTour, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-
-
-                                </Grid>
-
-                                <GroupBox BorderBrush="Black"  Grid.Row="1">
-                                    <GroupBox.Header>
-                                        <Label Content="Location"/>
-                                    </GroupBox.Header>
-
-                                    <Grid>
-
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-
-                                        </Grid.RowDefinitions>
-
-
-
-
-
-                                        <Grid Grid.Row="0">
-
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
-                                            <WrapPanel Grid.Column="0">
-                                                <Label>Country:</Label>
-                                                <ComboBox x:Name="countryComboBox" SelectionChanged="countryComboBox_SelectionChanged" Width="120" Height="20" Text="{Binding Path=Country, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                                                
-                                            </WrapPanel>
-                                            <WrapPanel Grid.Column="1">
-                                                <Label>City:</Label>
-                                                <ComboBox x:Name="cityComboBox" Width="130" Height="20" Text="{Binding Path=City, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                                            </WrapPanel>
-                                        </Grid>
-
-
-                                    </Grid>
-
-                                </GroupBox>
-
-
-                                <GroupBox Grid.Row="2" BorderBrush="Black">
-                                    <GroupBox.Header>
-                                        <Label>Date and time of tour start</Label>
-                                    </GroupBox.Header>
-
-                                    <Grid>
-
-                                        <Grid.RowDefinitions>
-
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition Height="110"></RowDefinition>
-
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition></ColumnDefinition>
-                                            <ColumnDefinition></ColumnDefinition>
-
-                                        </Grid.ColumnDefinitions>
-
-                                        <WrapPanel Grid.Row="0" Grid.Column="0">
-                                            <Label >Date:</Label>
-                                            <DatePicker x:Name="date" Width="130" Height="25"></DatePicker>
-                                        </WrapPanel>
-                                        <WrapPanel Grid.Row="1" Grid.Column="0">
-                                            <Label Content="Time:"/>
-                                            <TextBox x:Name="time" ToolTip="hh:mm" Width="130" Height="20"></TextBox>
-                                        </WrapPanel>
-
-                                        <Button x:Name="AddDate" Grid.Row="0" Grid.Column="1" Margin="2,2,2,5" Content="Add date to list" Click="AddDate_Click"/>
-
-                                        <!--<DataGrid Grid.Row="2" Grid.ColumnSpan="2">
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn Header="Date" Width="*"></DataGridTextColumn>
-                                                <DataGridTextColumn Header="Time" Width="*"></DataGridTextColumn>
-
-                                            </DataGrid.Columns>
-                                        </DataGrid>-->
-
-                                        <ListBox x:Name="dateTimeList" Grid.Row="2" Grid.ColumnSpan="2">
-                                            
-                                        </ListBox>
-
-
-
-
-
-                                    </Grid>
-
-
-                                </GroupBox>
-
-
-
-
-
-
-
-                                <Grid Grid.Row="3">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition></ColumnDefinition>
-                                        <ColumnDefinition></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0">Duration (hours):</Label>
-                                    <TextBox Grid.Column="1" Height="20" Text="{Binding Path=Duration, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                </Grid>
-
-                                <Grid Grid.Row="4">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition></ColumnDefinition>
-                                        <ColumnDefinition></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0">Language:</Label>
-                                    <ComboBox Grid.Column="1" Height="20" Text="{Binding Path=LanguageOfTour, UpdateSourceTrigger=PropertyChanged}">
-                                        <ComboBoxItem>English</ComboBoxItem>
-                                        <ComboBoxItem>Serbian</ComboBoxItem>
-                                    </ComboBox>
-                                </Grid>
-
-                                <Grid Grid.Row="5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition></ColumnDefinition>
-                                        <ColumnDefinition></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0">Max number of guests:</Label>
-                                    <TextBox Grid.Column="1" Height="20" Text="{Binding Path=MaxGuests, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
-                                </Grid>
-
-
-
-
-
-                            </Grid>
-                        </Grid>
-
-
-
-                        <!--DESNA STRANA-->
-                        <Grid DockPanel.Dock="Right" Width="350">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="230"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition Height="105"></RowDefinition>
-                                <RowDefinition Height="20"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition Height="70"></RowDefinition>
-
-                            </Grid.RowDefinitions>
-
-
-                            <GroupBox Grid.Row="0" BorderBrush="black">
-                                <GroupBox.Header>
-                                    <Label>Tour points</Label>
-                                </GroupBox.Header>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition></RowDefinition>
-                                        <RowDefinition></RowDefinition>
-                                        <RowDefinition></RowDefinition>
-                                        <RowDefinition></RowDefinition>
-                                        <RowDefinition Height="70"></RowDefinition>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition></ColumnDefinition>
-                                        <ColumnDefinition></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-
-
-                                    <Label Grid.Column="0" Grid.Row="0">Start point:</Label>
-                                    <TextBox x:Name="startPointTextBox" Grid.Column="1" Grid.Row="0" Height="20" TextChanged="startPointTextBox_TextChanged" ></TextBox>
-
-
-
-                                    <Label Grid.Column="0" Grid.Row="1">End point:</Label>
-                                    <TextBox x:Name="endPointTextBox" Grid.Column="1" Grid.Row="1" Height="20" TextChanged="startPointTextBox_TextChanged"></TextBox>
-
-
-                                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">Add more points in the order in which they will be visited (optional):</TextBlock>
-                                    <TextBox x:Name="pointInput" Grid.Row="3" Grid.Column="0" Height="20" KeyUp="pointInput_KeyUp"></TextBox>
-                                    <Button x:Name="AddPoints" Grid.Column="1" Grid.Row="3" Content="Add more tour points" Height="20" Margin="5,0,0,0" Click="AddPoints_Click"/>
-                                    <ListBox x:Name="pointsList" Grid.Row="4" Grid.ColumnSpan="2"></ListBox>
-
-                                </Grid>
-                            </GroupBox>
-
-
-
-
-                            <Label Grid.Row="1">Description:</Label>
-                            <TextBox Grid.Row="2" Width="330" Height="100" TextWrapping="Wrap" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                            <Button x:Name="AddPictureButton" Grid.Row="4" Margin="10,0,10,5" Click="AddPictureButton_Click">Add pictures...</Button>
-                            <ListBox x:Name="imageList" Grid.Row="5" Margin="5,0,5,0">
-
-                            </ListBox>
-
-
-                        </Grid>
-                    </DockPanel>
-
-
-                </TabItem>
             </TabControl>
         </DockPanel>
     </Grid>

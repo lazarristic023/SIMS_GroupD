@@ -70,9 +70,28 @@ namespace Project.Repository
             return images.Find(v => v.Id == id);
         }
 
-        public Image GetImageByEntityIdandType(int id, PictureType type)
+        public List<Image> GetImagesByEntityIdandType(int id, PictureType type)
         {
-            return images.Find(v => v.EntityId == id && v.Type == type);
+            List<Image> images = new List<Image>();
+            List<Image> filteredImages = new List<Image>();
+            images = GetAllImages();
+
+            List<int> imagesIds = new List<int>();
+
+            foreach (Image image in images)
+            {
+                if(image.EntityId == id && image.Type == type)
+                {
+                    imagesIds.Add(image.Id);
+                }
+            }
+
+            foreach(int identificator in imagesIds)
+            {
+                filteredImages.Add(images.Find(v => v.Id == identificator));
+            }
+
+            return filteredImages;
         }
 
         public List<Image> GetAllImages()

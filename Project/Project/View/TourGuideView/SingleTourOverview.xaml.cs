@@ -1,5 +1,5 @@
-﻿using Microsoft.Win32;
-using Project.Controller;
+﻿using Project.Controller;
+using Project.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,37 +15,29 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.IO;
-using System.Reflection.Metadata;
-using Project.Model;
-using System.Collections.ObjectModel;
-using Project.Observer;
+using Image = System.Windows.Controls.Image;
 
 namespace Project.View.TourGuideView
 {
     /// <summary>
-    /// Interaction logic for TourGuideMainView.xaml
+    /// Interaction logic for SingleTourOverview.xaml
     /// </summary>
-    public partial class TourGuideMainView : Window, INotifyPropertyChanged, IObserver
+    public partial class SingleTourOverview : Window,INotifyPropertyChanged
     {
+        private string _name;
+        public string NameOfTour
+        {
+            get => _name;
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    OnPropertyChanged();
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private readonly TourGuideController _tourGuideController;
-        private readonly TourAppointmentsController _tourAppointmentsController;
-        private readonly ImageController _imageController;
-        private readonly TourPointController _tourPointController;
-        private readonly TourPointsListController _tourPointsListController;
-        private readonly LocationController _locationController;
-
-        public Tour SelectedTour { get; set; }
-
-        
-
-
-        public ObservableCollection<Tour> Tours { get; set; }
-        public ObservableCollection<TourPointsList> Points { get; set; }
-
-        User User { get; set; }
+                }
+            }
+        }
 
         private int _id;
         public int Id
@@ -53,7 +45,7 @@ namespace Project.View.TourGuideView
             get => _id;
             set
             {
-                if(value != _id)
+                if (value != _id)
                 {
                     _id = value;
                     OnPropertyChanged();
@@ -85,21 +77,6 @@ namespace Project.View.TourGuideView
                 {
                     _city = value;
                     OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _name;
-        public string NameOfTour
-        {
-            get => _name;
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    OnPropertyChanged();
-
                 }
             }
         }
@@ -189,6 +166,8 @@ namespace Project.View.TourGuideView
         }
 
         private string _coverImageUrl;
+
+
         public string CoverImageUrl
         {
             get => _coverImageUrl;
@@ -202,72 +181,98 @@ namespace Project.View.TourGuideView
             }
         }
 
-
-        public TourGuideMainView(User user)
+        private List<DateTime> _appointments;
+        public List<DateTime> Appointments
         {
-            InitializeComponent();
-            DataContext =  this;
-
-            User = user;
-
-            
-            
-            _tourGuideController = new TourGuideController();
-            _tourGuideController.Subscribe(this);
-            _tourAppointmentsController = new TourAppointmentsController();
-            _imageController = new ImageController();
-            _tourPointController = new TourPointController();
-            _tourPointsListController = new TourPointsListController();
-            _locationController = new LocationController();
-
-
-            Tours = new ObservableCollection<Tour>(_tourGuideController.GetAllTours());
-
-        }
-
-
-        public void Update()
-        {
-            UpdateTours();
-        }
-
-        public void UpdateTours()
-        {
-            Tours.Clear();
-
-            foreach (var tour in _tourGuideController.GetAllTours())
+            get => _appointments;
+            set
             {
-                Tours.Add(tour);
+                if(value != _appointments)
+                {
+                    _appointments = value;
+                    OnPropertyChanged();
+                }
             }
         }
+
+        private readonly TourAppointmentsController _tourAppointmentsController;
+        private readonly ImageController _imageController;
+
+        Tour Tour { get; set; }
+        DateTime SelectedAppointment { get; set; }
+
+        public SingleTourOverview(Tour sendedTour)
+        {
+            InitializeComponent();
+            DataContext = this;
+
+            Tour = sendedTour;
+            _tourAppointmentsController = new TourAppointmentsController();
+            _imageController = new ImageController();
+
+            Id = Tour.Id;
+            NameOfTour = sendedTour.Name;
+            City = sendedTour.Location.City;
+            Country = sendedTour.Location.Country;
+            Description = sendedTour.Description;
+            LanguageOfTour = sendedTour.Language;
+            MaxGuests = sendedTour.MaxGuests;
+            Duration = sendedTour.Duration;
+            Appointments = _tourAppointmentsController.GetAllAppointmentsDatesByTourId(Tour.Id);
+
+
+
+
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void SingleTourOverview_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(SelectedAppointment == null)
+            {
+                startTour.IsEnabled = false;
+            }
+        }
+
+        private Image CreateImage(string imageUrl)
+        {
+            //treba foreach itd
+
+                Image image = new Image();
+                image.Width = 100;
+                image.Height = 100;
+                image.Source = new BitmapImage(new Uri(imageUrl));
+                return image;
+         
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            usernameLabel.Content = User.Username;
 
-        }
+                startTour.IsEnabled = false;
 
-
-        private void addTourButton_Click(object sender, RoutedEventArgs e)
-        {
-            AddNewTour addNewTour = new AddNewTour(_tourGuideController,_tourAppointmentsController,_imageController,_tourPointController,_tourPointsListController,_locationController);
-            addNewTour.Show();
-        }
-
-
-        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if(SelectedTour != null)
-            {
-                SingleTourOverview singleTour = new SingleTourOverview(SelectedTour);
-                singleTour.Show();
-            }
             
+
+            foreach(string url in _imageController.GetImageUrlByTourId(Id))
+            {
+                var image = CreateImage(url);
+                imagesWrap.Children.Add(image);
+            }
+
+            
+        }
+
+        private void apointmentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SelectedAppointment != null)
+            {
+                startTour.IsEnabled = true;
+            }
         }
     }
 }

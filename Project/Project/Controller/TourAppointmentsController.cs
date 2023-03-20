@@ -24,5 +24,22 @@ namespace Project.Controller
             tourAppointmentsRepository.Add(tourAppointments);
 
         }
+
+        public List<DateTime> GetAllAppointmentsDatesByTourId(int id)
+        {
+            List<DateTime> todayAppointments = new List<DateTime>();
+
+            TourAppointments tourAppointments = tourAppointmentsRepository.GetById(id);
+
+            foreach (DateTime date in tourAppointments.TourDates)
+            {
+                if(date == DateTime.Today)
+                {
+                    todayAppointments.Add(date);
+                }
+            }
+
+            return todayAppointments;
+        }
     }
 }

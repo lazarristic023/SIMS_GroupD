@@ -296,10 +296,6 @@ namespace Project.View.TourGuideView
             images.Clear();
 
 
-
-
-            MessageBox.Show("Tour is added");
-
             Close();
         }
 
@@ -333,6 +329,14 @@ namespace Project.View.TourGuideView
             foreach (string element in country)
             {
                 countryComboBox.Items.Add(element);
+            }
+
+            StreamReader languageSource = new StreamReader(@"../../../Resources/Data/languages.csv");
+            content = languageSource.ReadToEnd();
+            string[] language = content.Split('|');
+            foreach(string element in language)
+            {
+                languageComboBox.Items.Add(element);
             }
 
             AddPoints.IsEnabled = false;

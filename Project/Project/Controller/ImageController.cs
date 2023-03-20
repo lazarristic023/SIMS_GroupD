@@ -25,5 +25,18 @@ namespace Project.Controller
             
 
         }
+
+        public List<string> GetImageUrlByTourId(int id)
+        {
+            List<Image> imageList = imageRepository.GetImagesByEntityIdandType(id, PictureType.TOUR);
+            List<string> urls = new List<string>();
+            
+            foreach (Image image in imageList)
+            {
+                urls.Add(image.Url);
+            }
+
+            return urls;
+        }
     }
 }
