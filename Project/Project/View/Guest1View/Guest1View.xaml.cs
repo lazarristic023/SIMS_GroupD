@@ -285,5 +285,24 @@ namespace Project.View
         {
             UpdateMyReservationsList();
         }
+
+        private void btMakeReservation_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedAccommodation == null)
+            {
+                string sMessageBoxText = $"Choose an accommodation first!";
+                string sCaption = "Reservation not chosen";
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+
+                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                return;
+            }
+
+            ReserveView reserveView = new ReserveView(_controller, SelectedAccommodation);
+            reserveView.Show();
+        }
     }
 }
