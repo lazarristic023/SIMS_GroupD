@@ -108,6 +108,13 @@ namespace Project.Controller
             AccReservationRepository.Subscribe(observer);
         }
 
+        public void AddReservation(AccommodationReservation reservation)
+        {
+            Guest.Reservations.Add(reservation);
+            AccReservationRepository.Add(reservation);
+            
+        }
+
 
     }
 }

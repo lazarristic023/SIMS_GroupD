@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace Project.View
 {
@@ -25,11 +26,14 @@ namespace Project.View
         public Guest1Controller Controller { get; set; }
         public Accommodation Accommodation { get; set; }
 
+        int recursion = 0;
+
         public ObservableCollection<AccommodationReservation> ReservationDates { get; set; }
 
-        public DateTime StartDate { get; set; } = DateTime.Now;
+        public AccommodationReservation SelectedReservation { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now.Date;
 
-        public DateTime EndDate { get; set; } = DateTime.Now;
+        public DateTime EndDate { get; set; } = DateTime.Now.Date;
 
         public ReserveView(Guest1Controller controller, Accommodation accommodation)
         {
@@ -54,7 +58,7 @@ namespace Project.View
                 
 
                 MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-                dpEnd.SelectedDate = DateTime.Now;
+                dpEnd.SelectedDate = DateTime.Now.Date;
             }
 
         }
@@ -71,7 +75,7 @@ namespace Project.View
 
 
                 MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-                dpStart.SelectedDate = DateTime.Now;
+                dpStart.SelectedDate = DateTime.Now.Date;
             }
 
         }
@@ -83,62 +87,83 @@ namespace Project.View
 
             double numOfDays = Convert.ToDouble(tbDays.Text);
 
+            double daysBetween = (EndDate - StartDate).TotalDays;
 
 
-            List<AccommodationReservation> reservationsInRange = new List<AccommodationReservation>(GetReservationsInDateRange());
+            ReservationDates.Clear();
 
-            var selectedDates = Enumerable
-              .Range(0, int.MaxValue)
-              .Select(index => new DateTime?(StartDate.AddDays(index)))
-              .TakeWhile(date => date <= EndDate)
-              .ToDictionary(date => date.Value.Date, date => true);
+            while (true) {
 
-            selectedDates.Add(EndDate, true);
+                List<AccommodationReservation> reservationsInRange = new List<AccommodationReservation>(GetReservationsInDateRange());
 
-            foreach (var reservation in reservationsInRange)
-            {
-                var reservationDates = Enumerable
-                  .Range(0, int.MaxValue)
-                  .Select(index => new DateTime?(reservation.StartDate.AddDays(index)))
-                  .TakeWhile(date => date <= reservation.EndDate)
-                  .ToList();
+                var selectedDates = Enumerable
+                    .Range(0, int.MaxValue)
+                    .Select(index => new DateTime?(StartDate.AddDays(index)))
+                    .TakeWhile(date => date <= EndDate)
+                    .ToDictionary(date => date.Value.Date, date => true);
 
-                foreach (var date in reservationDates)
+
+                foreach (var reservation in reservationsInRange)
                 {
-                    if (selectedDates.ContainsKey(date.Value.Date))
+                    var reservationDates = Enumerable
+                        .Range(0, int.MaxValue)
+                        .Select(index => new DateTime?(reservation.StartDate.AddDays(index)))
+                        .TakeWhile(date => date <= reservation.EndDate)
+                        .ToList();
+
+                    foreach (var date in reservationDates)
                     {
-                        selectedDates[date.Value.Date] = false;
+                        if (selectedDates.ContainsKey(date.Value.Date))
+                        {
+                            selectedDates[date.Value.Date] = false;
+                        }
                     }
+
                 }
 
+                foreach (var date in selectedDates)
+                {
+                    if (date.Value == false)
+                    {
+                        continue;
+                    }
+
+                    if (date.Key.AddDays(numOfDays) > EndDate)
+                    {
+                        break;
+                    }
+
+                    if (selectedDates[date.Key.AddDays(numOfDays)] == false)
+                    {
+                        continue;
+                    }
+
+                    AccommodationReservation reservation =
+                        new(0, date.Key, date.Key.AddDays(numOfDays), Controller.Guest.User.Id, Accommodation.Id);
+
+                    ReservationDates.Add(reservation);
+
+                }
+
+                if (ReservationDates.Count == 0)
+                {
+                    StartDate = EndDate.AddDays(1);
+                    EndDate = StartDate.AddDays(daysBetween);
+                    recursion++;
+                    //btSearchFree_Click(sender, e);
+                }
+                else if (ReservationDates.Count > 0 && recursion > 0)
+                {
+                    tbOops.Text = $"We have not been able to find free dates. Here are some alternatives in the next {(recursion+1) * (int)daysBetween} days:";
+                    recursion = 0;
+                    break;
+                }
+                else
+                {
+                    tbOops.Text = string.Empty;
+                    break;
+                }
             }
-
-            foreach (var date in selectedDates)
-            {
-                if (date.Value == false)
-                {
-                    continue;
-                }
-
-                if (date.Key.AddDays(numOfDays) > EndDate)
-                {
-                    return;
-                }
-
-                if (selectedDates[date.Key.AddDays(numOfDays)] == false)
-                {
-                    continue;
-                }
-
-                AccommodationReservation reservation = 
-                    new(0,date.Key,date.Key.AddDays(numOfDays),Controller.Guest.User.Id, Accommodation.Id);
-
-                ReservationDates.Add(reservation);
-
-            }
-
-
-
 
         }
 
@@ -333,6 +358,48 @@ namespace Project.View
             }
 
             return reservationsInRange;
+        }
+
+        private void btReserve_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedReservation == null)
+            {
+                string sMessageBoxText = $"Choose a reservation first!";
+                string sCaption = "Reservation not chosen";
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+
+                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                return;
+            }
+
+            var reservation = Controller.Guest.Reservations.Find(r => (r.AccommodationId == SelectedReservation.AccommodationId) &&
+                                                    (r.StartDate == SelectedReservation.StartDate) &&
+                                                    (r.EndDate == SelectedReservation.EndDate));
+            if (reservation != null)
+            {
+                string sMessageBoxText = $"You have already made this reservation!";
+                string sCaption = "Reservation already exists";
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Error;
+
+
+                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                return;
+            }
+
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to reserve this accommodation at chosen date?", "Confirm reservation",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Controller.AddReservation(SelectedReservation);
+                
+            }
+
         }
     }
 }
