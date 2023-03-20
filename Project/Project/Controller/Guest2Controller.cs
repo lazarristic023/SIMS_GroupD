@@ -15,6 +15,7 @@ namespace Project.Controller
         public TourReservationRepository TourReservationRepository { get; set; }
         public List<Location> TourLocations { get; set; }
         public ImageRepository ImageRepository { get; set; }
+        public List<string> Languages { get; set; }
 
         public Guest2Controller()
         {
@@ -23,7 +24,10 @@ namespace Project.Controller
             TourReservationRepository = new TourReservationRepository();
             ImageRepository = new ImageRepository();
             TourLocations = new List<Location>();
-
+            Languages = new List<string>();
+            LinkGuest2TourReservations();
+            LinkToursAndImages();
+            FillTourLocationsList();
         }
 
         public Guest2Controller(User u)
@@ -33,7 +37,11 @@ namespace Project.Controller
             TourReservationRepository = new TourReservationRepository();
             ImageRepository = new ImageRepository();
             TourLocations = new List<Location>();
-
+            Languages = new List<string>();
+            LinkGuest2TourReservations();
+            LinkToursAndImages();
+            FillTourLocationsList();
+            FillTourLanguagesList();
         }
 
         private void LinkGuest2TourReservations()
@@ -52,6 +60,8 @@ namespace Project.Controller
             return Guest.Reservations;
         }
 
+
+
         public List<Tour> GetTours()
         {
             return TourRepository.GetAll();
@@ -60,6 +70,11 @@ namespace Project.Controller
         public List<Location> GetTourLocations()
         {
             return TourLocations;
+        }
+
+        public List<string> GetTourLanguages()
+        {
+            return Languages;
         }
 
         private void LinkToursAndImages()
@@ -89,6 +104,19 @@ namespace Project.Controller
                 if(location == null)
                 {
                     TourLocations.Add(tour.Location);
+                }
+            }
+        }
+
+        private void FillTourLanguagesList()
+        {
+            foreach(var tour in TourRepository.GetAll())
+            {
+                string language = Languages.Find(l => (l.ToString() == tour.Language.ToString()) && (l.ToString() == tour.Language.ToString()));
+
+                if(language == null)
+                {
+                    Languages.Add(tour.Language);
                 }
             }
         }

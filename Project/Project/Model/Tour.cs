@@ -11,8 +11,9 @@ namespace Project.Model
     public class Tour: ISerializable
     {
         public int Id { get; set; }
-        //public Location Location { get; set; }
         public int LocationId { get; set; }
+
+        public Location Location { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Language { get; set; }
@@ -21,10 +22,50 @@ namespace Project.Model
         public int Duration { get; set; }
         public string CoverImageUrl { get; set; }
         public List<Image> Images { get; set; }
-        public Location Location { get; set; }
         public List<int> TourPoints { get; set; }
+        
+        public Tour()
+        {
+            Images = new List<Image>();
+            Location = new Location();
+        }
 
+        public Tour(string name, string description, string language, int maxGuests, DateTime startTime, int duration, string coverImgUrl)
+        {
+            Name = name;
+            Description = description;
+            Language = language;
+            MaxGuests = maxGuests;
+            StartTime = startTime;
+            Duration = duration;
+            CoverImageUrl = coverImgUrl;
+            Images = new List<Image>();
+            TourPoints = new List<int>();
+        }
 
+        public string[] ToCSV()
+        {
+            string[] csvValues = { Id.ToString(), Name, Location.Country,Location.City, Description, Language, MaxGuests.ToString(), 
+                StartTime.ToString(), Duration.ToString(), CoverImageUrl};
+            return csvValues;
+        }
+
+        public void FromCSV(string[] values)
+        {
+            Id = Convert.ToInt32(values[0]);
+            Name = Convert.ToString(values[1]);
+            Location.Country = values[2];
+            Location.City = values[3];
+            Description = values[4];
+            Language = values[5];
+            MaxGuests = Convert.ToInt32(values[6]);
+            StartTime = DateTime.Parse(values[7]);
+            Duration = Convert.ToInt32(values[8]);
+            CoverImageUrl = values[9];
+
+        }
+
+        /*
         public Tour(int id, int locationId, string name, string description, string language, int maxGuests, DateTime startTime, int duration, string coverImageUrl)
         {
             Id = id;
@@ -81,6 +122,6 @@ namespace Project.Model
             Duration = int.Parse(values[7]);
             CoverImageUrl = values[8];
 
-        }
+        }*/
     }
 }

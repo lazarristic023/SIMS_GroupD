@@ -25,8 +25,10 @@
 
                     <DataGrid Grid.Row="1" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FilteredTours}">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
                             <DataGridTextColumn Header="Country" Binding="{Binding Path=Location.Country}"/>
                             <DataGridTextColumn Header="City" Binding="{Binding Path=Location.City}"/>
+                            <DataGridTextColumn Header="Start Time" Binding="{Binding Path=StartTime}"/>
                             <DataGridTextColumn Header="Tour duration" Binding="{Binding Path=Duration}"/>
                             <DataGridTextColumn Header="Language" Binding="{Binding Path=Language}"/>
                             <DataGridTextColumn Header="Maximum guests on tour" Binding="{Binding Path=MaxGuests}"/>
