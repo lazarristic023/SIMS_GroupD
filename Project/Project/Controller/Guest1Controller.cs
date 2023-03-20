@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Project.Model;
+using Project.Observer;
 using Project.Repository;
+
 
 namespace Project.Controller
 {
@@ -15,14 +17,14 @@ namespace Project.Controller
         public AccommodationReservationRepository AccReservationRepository { get; set; }
 
         public List<Location> AccommodationLocations { get; set; }
-        public ImageRepository ImageRepository { get; set; }
+        public AccommodationImageRepository ImageRepository { get; set; }
 
         public Guest1Controller()
         {
             Guest = new Guest1();
             AccommodationRepository = new AccommodationRepository();
             AccReservationRepository = new AccommodationReservationRepository();
-            ImageRepository = new ImageRepository();
+            ImageRepository = new AccommodationImageRepository();
             AccommodationLocations = new List<Location>();
             LinkAccommodationsAndImages();
             LinkGuest1Reservation();
@@ -35,7 +37,7 @@ namespace Project.Controller
             Guest = new Guest1(u);
             AccommodationRepository = new AccommodationRepository();
             AccReservationRepository = new AccommodationReservationRepository();
-            ImageRepository = new ImageRepository();
+            ImageRepository = new AccommodationImageRepository();
             AccommodationLocations = new List<Location>();
             LinkAccommodationsAndImages();
             LinkGuest1Reservation();
@@ -54,7 +56,7 @@ namespace Project.Controller
             }
         }
 
-        public List<AccommodationReservation> GetAccommodationReservations()
+        public List<AccommodationReservation> GetMyAccommodationReservations()
         {
             return Guest.Reservations;
         }
@@ -67,7 +69,7 @@ namespace Project.Controller
         {
             return AccommodationLocations;
         }
-            
+
         private void LinkAccommodationsAndImages()
         {
             foreach (var image in ImageRepository.GetAllImages())
@@ -99,6 +101,18 @@ namespace Project.Controller
                 }
             }
 
+        }
+
+        public void SubscribeToReservationRepo(IObserver observer)
+        {
+            AccReservationRepository.Subscribe(observer);
+        }
+
+        public void AddReservation(AccommodationReservation reservation)
+        {
+            Guest.Reservations.Add(reservation);
+            AccReservationRepository.Add(reservation);
+            
         }
 
 

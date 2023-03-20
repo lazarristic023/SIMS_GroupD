@@ -15,7 +15,7 @@ namespace Project.Model
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int GuestId { get; set; }
-        public User Guest { get; set; }
+        public Guest1 Guest { get; set; }
 
         public int AccommodationId { get; set; }
         public Accommodation Accommodation { get; set; }
@@ -29,6 +29,18 @@ namespace Project.Model
             EndDate = end;
             GuestId = guestId;
             AccommodationId = accId;
+
+        }
+
+        public AccommodationReservation(AccommodationReservation accommodationReservation)
+        {
+            Id = accommodationReservation.Id;
+            StartDate = accommodationReservation.StartDate;
+            EndDate = accommodationReservation.EndDate;
+            GuestId = accommodationReservation.GuestId;
+            AccommodationId = accommodationReservation.AccommodationId;
+            Guest = accommodationReservation.Guest;
+            Accommodation = accommodationReservation.Accommodation;
 
         }
 

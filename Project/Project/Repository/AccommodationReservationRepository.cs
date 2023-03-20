@@ -2,44 +2,49 @@
 using Project.Serializer;
 using System;
 using System.Collections.Generic;
+using Project.Observer;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class AccommodationReservationRepository
+    public class AccommodationReservationRepository : ISubject
     {
 
         private const string FilePath = "../../../Resources/Data/accReservations.csv";
 
-        private readonly Serializer<AccommodationReservation> serializer;
+        private readonly Serializer<AccommodationReservation> _serializer;
 
-        private List<AccommodationReservation> accReservations;
+        private List<AccommodationReservation> _accReservations;
+
+        private List<IObserver> _observers;
 
         public AccommodationReservationRepository()
         {
-            serializer = new Serializer<AccommodationReservation>();
-            accReservations = serializer.FromCSV(FilePath);
+            _serializer = new Serializer<AccommodationReservation>();
+            _accReservations = _serializer.FromCSV(FilePath);
+            _observers = new List<IObserver>();
         }
 
 
         private void SaveInFile()
         {
-            serializer.ToCSV(FilePath, accReservations);
+            _serializer.ToCSV(FilePath, _accReservations);
         }
 
         private int GenerateId()
         {
-            if (accReservations.Count == 0) return 0;
-            return accReservations[accReservations.Count - 1].Id + 1;
+            if (_accReservations.Count == 0) return 0;
+            return _accReservations[_accReservations.Count - 1].Id + 1;
         }
 
         public AccommodationReservation Add(AccommodationReservation accReservation)
         {
             accReservation.Id = GenerateId();
-            accReservations.Add(accReservation);
+            _accReservations.Add(accReservation);
             SaveInFile();
+            NotifyObservers();
             return accReservation;
         }
 
@@ -55,6 +60,7 @@ namespace Project.Repository
 
 
             SaveInFile();
+            NotifyObservers();
             return oldReservation;
         }
 
@@ -63,20 +69,39 @@ namespace Project.Repository
             AccommodationReservation reservation = GetReservationById(id);
             if (reservation == null) return null;
 
-            accReservations.Remove(reservation);
+            _accReservations.Remove(reservation);
             SaveInFile();
+            NotifyObservers();
             return reservation;
         }
 
         public AccommodationReservation GetReservationById(int id)
         {
-            return accReservations.Find(v => v.Id == id);
+            return _accReservations.Find(v => v.Id == id);
         }
 
         public List<AccommodationReservation> GetAllReservations()
         {
-            return accReservations;
+            return _accReservations;
         }
 
+
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
     }
 }

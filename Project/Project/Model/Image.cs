@@ -25,6 +25,14 @@ namespace Project.Model
             Type = type;
         }
 
+        public Image(string url, int entityId, PictureType type)
+        {
+            Id = -1;
+            Url = url;
+            EntityId = entityId;
+            Type = type;
+        }
+
         public string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), Url, EntityId.ToString(), PictureTypeToString() };
@@ -59,6 +67,5 @@ namespace Project.Model
             else
                 return PictureType.TOUR;
         }
-
     }
 }

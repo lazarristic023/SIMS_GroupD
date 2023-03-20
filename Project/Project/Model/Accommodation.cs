@@ -27,12 +27,12 @@ namespace Project.Model
         public int MinReservationDays { get; set; }
         public int CancellationPeriod { get; set; }
 
-        public List<Image> Images { get; set; }
+        public List<AccommodationImage> Images { get; set; }
 
         // morao sam new location jer bi bilo null polje
         public Accommodation()
         {
-            Images = new List<Image>();
+            Images = new List<AccommodationImage>();
             Location = new Location();
         }
 
@@ -45,7 +45,7 @@ namespace Project.Model
             MaxGuests = maxGuests;
             MinReservationDays = minReservationDays;
             CancellationPeriod = cancellationPeriod;
-            Images = new List<Image>();
+            Images = new List<AccommodationImage>();
 
         }
 
@@ -95,6 +95,11 @@ namespace Project.Model
             else
                 return AccommodationType.COTTAGE;
 
+        }
+
+        public List<AccommodationImage> GetAccommodationImages()
+        {
+            return Images;
         }
 
 
