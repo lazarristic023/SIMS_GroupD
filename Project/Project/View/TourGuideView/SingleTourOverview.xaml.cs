@@ -274,5 +274,11 @@ namespace Project.View.TourGuideView
                 startTour.IsEnabled = true;
             }
         }
+
+        private void startTour_Click(object sender, RoutedEventArgs e)
+        {
+            TourTracking tourTracking = new TourTracking(Id);
+            tourTracking.Show();
+        }
     }
 }

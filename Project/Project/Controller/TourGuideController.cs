@@ -46,5 +46,10 @@ namespace Project.Controller
         {
             return tourRepository.GetAll();
         }
+
+        public Tour GetById(int id)
+        {
+            return tourRepository.GetById(id);
+        }
     }
 }
