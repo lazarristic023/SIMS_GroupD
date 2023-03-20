@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View"
         mc:Ignorable="d"
-        Title="Guest1View" Height="500" Width="880">
+        Title="Guest1View" Height="530" Width="880">
     <StackPanel >
         <ToolBar >
             <Button x:Name="btSignOut" Content="Sign out" Margin="2" BorderBrush="Black" HorizontalAlignment="Right"
@@ -27,10 +27,10 @@
             </TabItem>
 
             <TabItem Header="Accommodations">
-                <Grid Height="420">
+                <Grid Height="440">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="165"/>
+                        <RowDefinition Height="140"/>
+                        <RowDefinition Height="175"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -78,8 +78,8 @@
                     <CheckBox Name="chbCottage" IsChecked="False" Content="Cottage" HorizontalAlignment="Left" Margin="559,105,0,0" VerticalAlignment="Top"/>
 
                     <Button Name="btSearch" Click="btSearch_Click" Content="Search" HorizontalAlignment="Left" Margin="730,45,0,0" VerticalAlignment="Top" Height="40" Width="57"/>
-                    <Button x:Name="btMakeReservation" Click="btMakeReservation_Click" FontWeight="DemiBold" Content="Make reservation" Margin="379,21,379,57" Grid.Row="2"/>
-                    <Label Height="30" Foreground="LightCoral" Content="NOTE: Select accommodation first" Margin="335,53,318,0" Grid.Row="2"/>
+                    <Button x:Name="btMakeReservation" Click="btMakeReservation_Click" FontWeight="DemiBold" Content="Make reservation" Margin="371,21,371,77" Grid.Row="2"/>
+                    <Label Height="25" Foreground="LightCoral" Content="NOTE: Select accommodation first" Margin="340,53,312,47" Grid.Row="2"/>
 
 
                 </Grid>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View"
         mc:Ignorable="d"
-        Title="ReserveView" Height="540" Width="500">
+        Title="ReserveView" Height="560" Width="500">
     <Grid>
         <Label FontWeight="DemiBold" Content="Number of days:" HorizontalAlignment="Left" Margin="62,104,0,0" VerticalAlignment="Top"/>
         <Label FontWeight="DemiBold" Content="Starting date:" HorizontalAlignment="Left" Margin="62,160,0,0" VerticalAlignment="Top"/>
@@ -28,9 +28,9 @@
         <TextBlock FontWeight="Bold" TextDecorations="Underline" FontSize="20" HorizontalAlignment="Center" Margin="0,10,0,0" Text="Make reservation" VerticalAlignment="Top"/>
         <Label FontWeight="DemiBold" Content="Number of guests:" HorizontalAlignment="Left" Margin="62,61,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbGuests" HorizontalAlignment="Center" Margin="0,65,0,0"  VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btReserve" Click="btReserve_Click" Content="Reserve" HorizontalAlignment="Center" Margin="0,463,0,0" VerticalAlignment="Top" Width="80"/>
+        <Button x:Name="btReserve" Click="btReserve_Click" Content="Reserve" HorizontalAlignment="Center" Margin="0,458,0,0" VerticalAlignment="Top" Width="80"/>
         <Separator Background="DarkBlue"  HorizontalAlignment="Center" Margin="0,250,0,0" VerticalAlignment="Top" Height="7" Width="432"/>
-        <Label Foreground="LightCoral" Content="NOTE: Select reservation first" HorizontalAlignment="Left" Margin="168,488,0,0" VerticalAlignment="Top" Width="192"/>
+        <Label Foreground="LightCoral" Content="NOTE: Select reservation first" HorizontalAlignment="Left" Margin="168,483,0,0" VerticalAlignment="Top" Width="192"/>
 
 
     </Grid>
