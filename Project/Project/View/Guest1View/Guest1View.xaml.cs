@@ -25,7 +25,7 @@ namespace Project.View
     public partial class Guest1View : Window, IObserver
     {
         private Guest1Controller _controller;
-        private User user;
+
         public ObservableCollection<AccommodationReservation> MyReservations { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
 
@@ -44,10 +44,10 @@ namespace Project.View
             DataContext = this;
 
             _controller = new Guest1Controller(u);
-            MyReservations = new ObservableCollection<AccommodationReservation>(_controller.GetMyAccommodationReservations());
-            Accommodations = new ObservableCollection<Accommodation>(_controller.GetAccommodations());
+            MyReservations = new ObservableCollection<AccommodationReservation>(_controller.GetGuestReservations());
+            Accommodations = new ObservableCollection<Accommodation>(_controller.GetAllAccommodations());
             FilteredAccommodations = new ObservableCollection<Accommodation>(Accommodations);
-            _controller.SubscribeToReservationRepo(this);
+            _controller.SubscribeToReservationRepository(this);
 
             Countries = new ObservableCollection<string>();
             CountryCities = new ObservableCollection<string>();
@@ -275,7 +275,7 @@ namespace Project.View
         private void UpdateMyReservationsList()
         {
             MyReservations.Clear();
-            foreach (var reservation in _controller.GetMyAccommodationReservations())
+            foreach (var reservation in _controller.GetGuestReservations())
             {
                 MyReservations.Add(reservation);
             }
