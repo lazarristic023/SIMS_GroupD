@@ -45,7 +45,13 @@
                 <GroupBox.Header>
                     <Label>Guests</Label>
                 </GroupBox.Header>
-                <ListBox></ListBox>
+                <ListBox ItemsSource="{Binding Rezervacije}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Guest}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </GroupBox>
             
             

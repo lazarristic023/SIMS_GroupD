@@ -62,6 +62,13 @@ namespace Project.Repository
             return appointments.Find(v => v.Id == id);
         }
 
+
+        public Appointment GetByDateAndTour(DateTime date,int id)
+        {
+            return appointments.Find(v => v.TourId == id && v.DateAndTimeOfAppointment == date);
+        }
+
+
         public List<Appointment> GetAll()
         {
             return appointments;

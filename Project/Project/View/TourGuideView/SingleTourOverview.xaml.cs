@@ -195,6 +195,20 @@ namespace Project.View.TourGuideView
             }
         }
 
+        private List<Rezervacija> _rezervacije;
+        public List<Rezervacija> Rezervacije
+        {
+            get => _rezervacije;
+            set
+            {
+                if(value != _rezervacije)
+                {
+                    _rezervacije = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         //private readonly TourAppointmentsController _tourAppointmentsController;
         private readonly ImageController _imageController;
         private readonly AppointmentController _appointmentController;
@@ -224,10 +238,9 @@ namespace Project.View.TourGuideView
             Duration = Tour.Duration;
             Appointments = _appointmentController.GetAppointmentsDatesByTourId(Tour.Id);
 
-
-
-
         }
+
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

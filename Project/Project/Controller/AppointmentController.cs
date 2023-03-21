@@ -31,6 +31,28 @@ namespace Project.Controller
 
         }
 
+        public List<Appointment> GetByTourId(int id)
+        {
+            List<Appointment> allAppointments = appointmentRepository.GetAll();
+            List<Appointment> appointments = new List<Appointment>();
+
+            foreach(Appointment appoint in allAppointments)
+            {
+                if(appoint.TourId == id)
+                {
+                    appointments.Add(appoint);
+                }
+            }
+
+            return appointments;
+
+        }
+        
+        public Appointment GetByDateAndTourId(DateTime date,int tourId)
+        {
+            return appointmentRepository.GetByDateAndTour(date, tourId);
+        }
+
         public List<DateTime> GetAppointmentsDatesByTourId(int id)
         {
             List<DateTime> dates = new List<DateTime>();

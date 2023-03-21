@@ -87,7 +87,14 @@
                 <GroupBox.Header>
                     <Label Content="Guests with reservation"/>
                 </GroupBox.Header>
-                <ListBox x:Name="guestsWithReservation">
+                <ListBox x:Name="guestsWithReservation" ItemsSource="{Binding Rezervacije, UpdateSourceTrigger=PropertyChanged}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Guest}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                     
                 </ListBox>
             </GroupBox>
