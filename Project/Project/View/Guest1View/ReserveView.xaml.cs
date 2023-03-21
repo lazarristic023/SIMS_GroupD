@@ -396,6 +396,8 @@ namespace Project.View
 
             if (result == MessageBoxResult.Yes)
             {
+                SelectedReservation.Guest = Controller.Guest;
+                SelectedReservation.Accommodation = Accommodation;
                 Controller.AddReservation(SelectedReservation);
                 
             }

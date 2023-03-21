@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View"
         mc:Ignorable="d"
-        Title="AccommodationInfoView" Height="500" Width="800">
+        Title="AccommodationInfoView" Height="510" Width="800">
     <Grid>
         <TextBlock TextDecorations="Underline" FontWeight="Bold" FontSize="24" Text="Accommodation Info" HorizontalAlignment="Left" Margin="268,12,0,0" VerticalAlignment="Top"/>
         <Label Content="Name:" FontWeight="DemiBold"  HorizontalAlignment="Left" Margin="52,74,0,0" VerticalAlignment="Top"/>
@@ -37,7 +37,7 @@
         <Label FontWeight="DemiBold" Content="Owner:" HorizontalAlignment="Left" Margin="440,309,0,0" VerticalAlignment="Top"/>
         <TextBlock Foreground="Blue" HorizontalAlignment="Left" Margin="503,314,0,0" TextDecorations="Underline" Text="View profile" VerticalAlignment="Top"/>
         <Button x:Name="btMakeReserv" Click="btMakeReserv_Click"  Background="Silver" HorizontalAlignment="Left" Margin="355,402,0,0" VerticalAlignment="Top" Height="40" Width="74">
-            <TextBlock FontWeight="Bold" Text="Make reservation" TextWrapping="Wrap" TextAlignment="Center"/>
+            <TextBlock FontWeight="DemiBold" Text="Make reservation" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
 
 
