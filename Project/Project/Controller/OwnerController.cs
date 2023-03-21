@@ -13,17 +13,35 @@ namespace Project.Controller
         public Owner Owner { get; set; }
         public AccommodationRepository AccommodationRepository { get; set; }
 
+        public LocationRepository LocationRepository { get; set; }
+
+        public List<Location> Locations { get; set; }
+        public ImageRepository ImageRepository { get; set; }
+
         public OwnerController()
         {
             Owner = new Owner();
             AccommodationRepository = new AccommodationRepository();
+            LocationRepository = new LocationRepository();
+            Locations = new List<Location>();
+            ImageRepository = new ImageRepository();
             LinkOwnerAccommodation();
+            FillLocationsList();
         }
         public OwnerController(User u)
         {
             Owner = new Owner(u);
             AccommodationRepository = new AccommodationRepository();
+            LocationRepository = new LocationRepository();
+            Locations = new List<Location>();
+            ImageRepository = new ImageRepository();
             LinkOwnerAccommodation();
+            FillLocationsList();
+        }
+
+        public List<Location> GetLocations()
+        {
+            return Locations;
         }
         private void LinkOwnerAccommodation()
         {
@@ -34,6 +52,15 @@ namespace Project.Controller
                     Owner.Accommodations.Add(accommodation);
                 }
             }
+        }
+
+        private void FillLocationsList()
+        {
+            foreach (var location in LocationRepository.GetAllLocations())
+            {
+                Locations.Add(location);
+            }
+
         }
 
     }

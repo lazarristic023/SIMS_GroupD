@@ -17,9 +17,8 @@ namespace Project.Model
 
         public Image() { }
 
-        public Image(int id, string url, int entityId, PictureType type)
+        public Image(string url, int entityId, PictureType type)
         {
-            Id = id;
             Url = url;
             EntityId = entityId;
             Type = type;
