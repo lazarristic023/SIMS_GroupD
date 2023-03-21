@@ -184,6 +184,21 @@ namespace Project.View.TourGuideView
             }
         }
 
+        private Location _location = new Location();
+
+        public Location LocationOfTour
+        {
+            get => _location;
+            set
+            {
+                if(value != _location)
+                {
+                    _location = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private readonly TourGuideController _tourGuideController;
         private readonly TourAppointmentsController _tourAppointmentsController;
         private readonly ImageController _imageController;
@@ -208,6 +223,8 @@ namespace Project.View.TourGuideView
             _tourPointController = tourPointController;
             _tourPointsListController = tourPointsListController;
             _locationController = locationController;
+
+            LocationOfTour = new Location();
 
 
         }
@@ -266,14 +283,15 @@ namespace Project.View.TourGuideView
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            int locationId = -1;
 
-            if (cityComboBox.SelectedItem.Equals != null && countryComboBox.SelectedItem != null)
+            if (cityComboBox.SelectedItem != null && countryComboBox.SelectedItem != null)
             {
-                locationId = _locationController.Create(cityComboBox.SelectedItem.ToString(), countryComboBox.SelectedItem.ToString());
+                
+                _location = _locationController.Create(cityComboBox.SelectedItem.ToString(), countryComboBox.SelectedItem.ToString());
             }
 
-            int tourId = _tourGuideController.Create(locationId, NameOfTour, Description, LanguageOfTour, MaxGuests, Duration);
+            //int tourId = _tourGuideController.Create(16, "asdasdasd", "asdadssd", "asdada", 5, 1);
+            int tourId = _tourGuideController.Create(_location, NameOfTour, Description, LanguageOfTour, MaxGuests, Duration);
 
 
             _tourAppointmentsController.Create(tourId, dates);

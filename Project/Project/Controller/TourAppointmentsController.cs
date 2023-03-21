@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.Observer;
 using Project.Repository;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,11 @@ namespace Project.Controller
         public TourAppointmentsController()
         {
             tourAppointmentsRepository = new TourAppointmentsRepositorycs();
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            tourAppointmentsRepository.Subscribe(observer);
         }
 
         public void Create(int tourId, List<DateTime> tourDates)

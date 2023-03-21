@@ -27,7 +27,9 @@ namespace Project.Model
         //public string CoverImageUrl { get; set; }
         //public List<int> TourPoints { get; set; }
 
-        public LocationController locationController { get; set; }
+        private readonly LocationController locationController;
+
+
 
         public Tour(int locationId, string name, string description, string language, int maxGuests, int duration)
         {
@@ -39,7 +41,26 @@ namespace Project.Model
             MaxGuests = maxGuests;
             Duration = duration;
             Location = new Location();
+            Country = "";
+            City = "";
+            locationController = new LocationController();
             
+        }
+
+        public Tour(Location location, string name, string description, string language, int maxGuests, int duration)
+        {
+            Id = -1;
+            LocationId = location.Id;
+            Name = name;
+            Description = description;
+            Language = language;
+            MaxGuests = maxGuests;
+            Duration = duration;
+            Location = location;
+            Country = location.Country;
+            City = location.City;
+            locationController = new LocationController();
+
         }
 
 
@@ -54,26 +75,14 @@ namespace Project.Model
             Language = "";
             MaxGuests = 0;
             Duration = 0;
+            Location = new Location();
+            City = "";
+            Country = "";
+            locationController = new LocationController();
         }
 
-        public Tour(string name,int maxGuests)
-        {
-            Id = -1;
-            LocationId = -1;
-            Name = name;
-            Description = "";
-            Language = "";
-            MaxGuests = maxGuests;
-            Duration = 0;
-        }
 
-        public string GetCountry(int id)
-        {
-            string country = "";
-            LocationController locationController = new LocationController();
-            country = locationController.GetCountryById(id);
-            return country;
-        }
+
 
         public string[] ToCSV() {
             string[] csvValues = { 
@@ -99,6 +108,9 @@ namespace Project.Model
             Language = values[4];
             MaxGuests = int.Parse(values[5]);
             Duration = int.Parse(values[6]);
+            Location = locationController.GetById(Id);
+            //City = locationController.GetCityById(LocationId);
+            //Country = locationController.GetCountryById(LocationId);
 
 
 

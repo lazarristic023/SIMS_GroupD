@@ -206,18 +206,20 @@ namespace Project.View.TourGuideView
             InitializeComponent();
             DataContext = this;
 
+            Tour = new Tour();
+
             Tour = sendedTour;
             _tourAppointmentsController = new TourAppointmentsController();
             _imageController = new ImageController();
 
             Id = Tour.Id;
-            NameOfTour = sendedTour.Name;
-            City = sendedTour.Location.City;
-            Country = sendedTour.Location.Country;
-            Description = sendedTour.Description;
-            LanguageOfTour = sendedTour.Language;
-            MaxGuests = sendedTour.MaxGuests;
-            Duration = sendedTour.Duration;
+            NameOfTour = Tour.Name;
+            City = Tour.Location.City;
+            Country = Tour.Location.Country;
+            Description = Tour.Description;
+            LanguageOfTour = Tour.Language;
+            MaxGuests = Tour.MaxGuests;
+            Duration = Tour.Duration;
             Appointments = _tourAppointmentsController.GetAllAppointmentsDatesByTourId(Tour.Id);
 
 

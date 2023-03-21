@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.Observer;
 using Project.Repository;
 using System;
 using System.CodeDom;
@@ -18,6 +19,10 @@ namespace Project.Controller
             imageRepository = new ImageRepository();
         }
 
+        public void Subscribe(IObserver observer)
+        {
+            imageRepository.Subscribe(observer);
+        }
         public void Create(string url, int entityId, PictureType type)
         {
             Image image = new Image(url, entityId, type);

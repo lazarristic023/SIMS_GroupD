@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.Observer;
 using Project.Repository;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,11 @@ namespace Project.Controller
             tourPointController = new TourPointController();
         }
 
+        public void Subscribe(IObserver observer)
+        {
+            tourPointsListRepository.Subscribe(observer);
+        }
+
         public void Create(int tourId, List<int> pointsId)
         {
             TourPointsList tourPointsList = new TourPointsList(tourId,pointsId);
@@ -26,29 +32,40 @@ namespace Project.Controller
         
         }
 
-        public List<string> GetAllPointsByTourId(int id) {
-           List<TourPointsList> tourPointsLists = tourPointsListRepository.GetAll();
-            List<string> points = new List<string>();
+        public TourPointsList GetByTourId(int id) {
+            List<TourPointsList> tourPointsLists = GetAll();
+            TourPointsList tourPoints = new TourPointsList();
 
             foreach(TourPointsList tourPointsList in tourPointsLists)
             {
                 if(tourPointsList.TourId == id)
                 {
-                    foreach(int pointid in tourPointsList.PointsId)
-                    {
-                        points.Add(tourPointController.GetById(pointid).Name);
-                    }
+                    tourPoints = tourPointsList;
                 }
 
             }
 
-            return points;
+            return tourPoints;
         
         }
 
         public List<TourPointsList> GetAll()
         {
             return tourPointsListRepository.GetAll();
+        }
+
+        public List<TourPoint> GetPointsByTourId(int id)
+        {
+            List<TourPoint> points = new List<TourPoint>();
+
+            TourPointsList tourPointsList = GetByTourId(id);
+
+            foreach (int tourPointId in tourPointsList.PointsId)
+            {
+                points.Add(tourPointController.GetById(tourPointId));
+            }
+
+            return points;
         }
     }
 }

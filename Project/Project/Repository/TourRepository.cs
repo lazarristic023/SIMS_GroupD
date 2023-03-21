@@ -67,11 +67,11 @@ namespace Project.Repository
 
         public List<Tour> GetAll()
         {
-            foreach(Tour tour in tours)
-            {
+            //foreach(Tour tour in tours)
+            //{
 
-                tour.Location = _locationController.GetById(tour.LocationId);
-            }
+            //    tour.Location = _locationController.GetById(tour.LocationId);
+            //}
             return tours;
         }
 

@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.Observer;
 using Project.Serializer;
 using System;
 using System.Collections.Generic;
@@ -8,17 +9,19 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class ImageRepository
+    public class ImageRepository: ISubject
     {
         private const string FilePath = "../../../Resources/Data/images.csv";
 
         private readonly Serializer<Image> serializer;
+        private readonly List<IObserver> _observers;
 
         private List<Image> images;
 
         public ImageRepository()
         {
             serializer = new Serializer<Image>();
+            _observers = new List<IObserver>();
             images = serializer.FromCSV(FilePath);
         }
 
@@ -99,5 +102,22 @@ namespace Project.Repository
             return images;
         }
 
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach(var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
     }
 }

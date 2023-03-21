@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.Observer;
 using Project.Repository;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,10 @@ namespace Project.Controller
             tourPointRepository = new TourPointRepository();
         }
 
+        public void Subscribe(IObserver observer)
+        {
+            tourPointRepository.Subscribe(observer);
+        }
         public int Create(string name, bool action)
         {
 
@@ -25,9 +30,15 @@ namespace Project.Controller
 
         }
 
+        public void UpdateAction(int id, bool action)
+        {
+            tourPointRepository.Update(id, action);
+        }
+
         public TourPoint GetById(int id)
         {
             return tourPointRepository.GetById(id);
         }
+
     }
 }

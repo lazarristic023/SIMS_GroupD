@@ -14,13 +14,29 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="nextPoint" Grid.Column="0" Content="Next point" Margin="10"/>
-                <Button x:Name="endTour" Grid.Column="1" Content="Finish the tour" Margin="10"/>
+                <Button x:Name="nextPoint" Grid.Column="0" Content="Next point" Margin="10" Click="nextPoint_Click"/>
+                <Button x:Name="endTour" Grid.Column="1" Content="Finish the tour" Margin="10" Click="endTour_Click"/>
             </Grid>
 
             <Label Background="DarkGray" x:Name="tourName" DockPanel.Dock="Top" HorizontalAlignment="Center"></Label>
 
             <Grid DockPanel.Dock="Left" Width="300" Margin="10">
+
+
+                    <ListBox x:Name="pointsListBox" ItemsSource="{Binding tourPoints, UpdateSourceTrigger=PropertyChanged}">
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PointName}"></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+
+
+                
+    
+                
                 
                 
             </Grid>

@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.Observer;
 using Project.Serializer;
 using System;
 using System.Collections.Generic;
@@ -8,17 +9,19 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class TourPointsListRepository
+    public class TourPointsListRepository: ISubject
     {
         private const string FilePath = "../../../Resources/Data/tourpointslist.csv";
 
         private readonly Serializer<TourPointsList> serializer;
+        private readonly List<IObserver> _observers;
 
         private List<TourPointsList> tourPointsLists;
 
         public TourPointsListRepository()
         {
             serializer = new Serializer<TourPointsList>();
+            _observers = new List<IObserver>();
             tourPointsLists = serializer.FromCSV(FilePath);
         }
 
@@ -66,6 +69,24 @@ namespace Project.Repository
         public List<TourPointsList> GetAll()
         {
             return tourPointsLists;
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach(var observer in _observers)
+            {
+                observer.Update();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.Observer;
 using Project.Repository;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,18 @@ namespace Project.Controller
             locationRepository = new LocationRepository();
         }
 
-        public int Create(string city, string country)
+        public Location Create(string city, string country)
         {
             Location location = new Location(city,country);
 
             Location createdLocation = locationRepository.Add(location);
-            return createdLocation.Id;
+            return createdLocation;
 
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            locationRepository.Subscribe(observer);
         }
 
         public Location GetById(int id)

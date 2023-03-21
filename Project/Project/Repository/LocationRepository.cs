@@ -14,12 +14,14 @@ namespace Project.Repository
         private const string FilePath = "../../../Resources/Data/locations.csv";
 
         private readonly Serializer<Location> serializer;
+        private readonly List<IObserver> _observers;
 
         private List<Location> locations;
 
         public LocationRepository()
         {
             serializer = new Serializer<Location>();
+            _observers = new List<IObserver>();
             locations = serializer.FromCSV(FilePath);
         }
 
@@ -27,6 +29,7 @@ namespace Project.Repository
         private void SaveInFile()
         {
             serializer.ToCSV(FilePath, locations);
+
         }
 
         private int GenerateId()
@@ -40,6 +43,7 @@ namespace Project.Repository
             location.Id = GenerateId();
             locations.Add(location);
             SaveInFile();
+            NotifyObservers();
             return location;
         }
 
@@ -91,17 +95,20 @@ namespace Project.Repository
 
         public void Subscribe(IObserver observer)
         {
-            throw new NotImplementedException();
+            _observers.Add(observer);
         }
 
         public void Unsubscribe(IObserver observer)
         {
-            throw new NotImplementedException();
+            _observers.Remove(observer);
         }
 
         public void NotifyObservers()
         {
-            throw new NotImplementedException();
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
         }
     }
 }

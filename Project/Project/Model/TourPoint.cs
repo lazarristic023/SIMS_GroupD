@@ -11,7 +11,7 @@ namespace Project.Model
     public class TourPoint: ISerializable
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string PointName { get; set; }
 
 
         public bool Action { get; set; }
@@ -19,7 +19,7 @@ namespace Project.Model
         public TourPoint()
         {
             Id = -1;
-            Name = "";
+            PointName = "";
 
             Action = false;
 
@@ -28,7 +28,7 @@ namespace Project.Model
         public TourPoint(string name,bool action)
         {
             Id = -1;
-            Name = name;
+            PointName = name;
 
             Action = action;
         }
@@ -37,7 +37,7 @@ namespace Project.Model
         {
             string[] csvValues = {
                 Id.ToString(),
-                Name,
+                PointName,
 
                 Action.ToString()
                
@@ -48,7 +48,7 @@ namespace Project.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            Name = values[1];
+            PointName = values[1];
 
             Action = bool.Parse(values[2]);
 
