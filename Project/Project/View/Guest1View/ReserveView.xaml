@@ -16,8 +16,8 @@
 
         <DatePicker x:Name="dpEnd" SelectedDateChanged="dpEnd_SelectedDateChanged"  SelectedDate="{Binding Path=EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     HorizontalAlignment="Left" Margin="180,205,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btSearchFree" Click="btSearchFree_Click" Content="Search" HorizontalAlignment="Left" Margin="389,117,0,0" VerticalAlignment="Top" Height="33" Width="65"/>
-        <TextBlock Foreground="Red" Name="tbOops" Width="auto" HorizontalAlignment="Left" Margin="37,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="btSearchFreeDates" Click="btSearchFreeDates_Click" Content="Search" HorizontalAlignment="Left" Margin="389,117,0,0" VerticalAlignment="Top" Height="33" Width="65"/>
+        <TextBlock Foreground="Red" Name="tbNotFound" Width="auto" HorizontalAlignment="Left" Margin="37,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <DataGrid SelectedItem="{Binding Path=SelectedReservation}" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=ReservationDates}" Margin="52,304,52,91">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Start Date" Binding="{Binding Path=StartDate}" Width="1*"/>

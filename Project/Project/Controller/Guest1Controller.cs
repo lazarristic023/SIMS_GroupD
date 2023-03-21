@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using Project.Model;
@@ -27,7 +28,7 @@ namespace Project.Controller
             ImageRepository = new AccommodationImageRepository();
             AccommodationLocations = new List<Location>();
             LinkAccommodationsAndImages();
-            LinkGuest1Reservation();
+            LinkGuestAndReservations();
             FillAccommodationLocationsList();
         }
 
@@ -40,12 +41,12 @@ namespace Project.Controller
             ImageRepository = new AccommodationImageRepository();
             AccommodationLocations = new List<Location>();
             LinkAccommodationsAndImages();
-            LinkGuest1Reservation();
+            LinkGuestAndReservations();
             FillAccommodationLocationsList();
 
         }
 
-        private void LinkGuest1Reservation()
+        private void LinkGuestAndReservations()
         {
             foreach (var reservation in AccReservationRepository.GetAllReservations())
             {
@@ -56,11 +57,17 @@ namespace Project.Controller
             }
         }
 
-        public List<AccommodationReservation> GetMyAccommodationReservations()
+        public List<AccommodationReservation> GetGuestReservations()
         {
             return Guest.Reservations;
         }
-        public List<Accommodation> GetAccommodations()
+
+        public List<AccommodationReservation> GetAllReservations()
+        {
+            return AccReservationRepository.GetAllReservations();
+        }
+
+        public List<Accommodation> GetAllAccommodations()
         {
             return AccommodationRepository.GetAllAccommodations();
         }
@@ -103,7 +110,7 @@ namespace Project.Controller
 
         }
 
-        public void SubscribeToReservationRepo(IObserver observer)
+        public void SubscribeToReservationRepository(IObserver observer)
         {
             AccReservationRepository.Subscribe(observer);
         }

@@ -80,7 +80,7 @@ namespace Project.View
 
         }
 
-        private void btSearchFree_Click(object sender, RoutedEventArgs e)
+        private void btSearchFreeDates_Click(object sender, RoutedEventArgs e)
         {
 
             if (!CheckConditions()) return;
@@ -150,17 +150,17 @@ namespace Project.View
                     StartDate = EndDate.AddDays(1);
                     EndDate = StartDate.AddDays(daysBetween);
                     recursion++;
-                    //btSearchFree_Click(sender, e);
+                    
                 }
                 else if (ReservationDates.Count > 0 && recursion > 0)
                 {
-                    tbOops.Text = $"We have not been able to find free dates. Here are some alternatives in the next {(recursion+1) * (int)daysBetween} days:";
+                    tbNotFound.Text = $"We have not been able to find free dates. Here are some alternatives in the next {(recursion+1) * (int)daysBetween} days:";
                     recursion = 0;
                     break;
                 }
                 else
                 {
-                    tbOops.Text = string.Empty;
+                    tbNotFound.Text = string.Empty;
                     break;
                 }
             }
@@ -341,7 +341,7 @@ namespace Project.View
 
         private List<AccommodationReservation> GetReservationsInDateRange()
         {
-            List<AccommodationReservation> reservations = new List<AccommodationReservation>(Controller.GetMyAccommodationReservations());
+            List<AccommodationReservation> reservations = new List<AccommodationReservation>(Controller.GetAllReservations());
             List<AccommodationReservation> reservationsInRange = new List<AccommodationReservation>();
 
             foreach (var reservation in reservations)
