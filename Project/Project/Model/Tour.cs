@@ -13,7 +13,6 @@ namespace Project.Model
     public class Tour: ISerializable
     {
         public int Id { get; set; }
-        public Location Location { get; set; }
 
         public string Country { get; set; }
         public string City { get; set; }  

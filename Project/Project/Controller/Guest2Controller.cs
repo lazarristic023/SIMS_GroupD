@@ -26,8 +26,8 @@ namespace Project.Controller
             TourLocations = new List<Location>();
             Languages = new List<string>();
             LinkGuest2TourReservations();
-            LinkToursAndImages();
             FillTourLocationsList();
+            FillTourLanguagesList();
         }
 
         public Guest2Controller(User u)
@@ -39,7 +39,6 @@ namespace Project.Controller
             TourLocations = new List<Location>();
             Languages = new List<string>();
             LinkGuest2TourReservations();
-            LinkToursAndImages();
             FillTourLocationsList();
             FillTourLanguagesList();
         }
@@ -77,23 +76,7 @@ namespace Project.Controller
             return Languages;
         }
 
-        private void LinkToursAndImages()
-        {
-            foreach(var image in ImageRepository.GetAllImages())
-            {
-                Tour tour = TourRepository.GetAll().Find(a => a.Id == image.EntityId);
-                if(tour == null)
-                {
-                    continue;
-                }
-                if(tour.Images.Exists(i => i.Id == image.Id))
-                {
-                    continue;
-                }
-
-                tour.Images.Add(image);
-            }
-        }
+        
 
         private void FillTourLocationsList()
         {
