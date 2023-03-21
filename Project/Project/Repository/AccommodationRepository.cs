@@ -35,6 +35,12 @@ namespace Project.Repository
             return accommodations[accommodations.Count - 1].Id + 1;
         }
 
+        public int GetLastId()
+        {
+            if (accommodations.Count == 0) return 0;
+            return accommodations[accommodations.Count - 1].Id + 1;
+        }
+
         public Accommodation Add(Accommodation accommodation)
         {
             accommodation.Id = GenerateId();

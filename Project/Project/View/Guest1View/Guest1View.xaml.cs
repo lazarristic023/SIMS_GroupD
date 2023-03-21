@@ -52,7 +52,7 @@ namespace Project.View
             Countries = new ObservableCollection<string>();
             CountryCities = new ObservableCollection<string>();
             FillCountriesList();
-
+            
         }
 
         private void btSignOut_Click(object sender, RoutedEventArgs e)
