@@ -1,4 +1,5 @@
-﻿using Project.Controller;
+﻿using Project.Observer;
+using Project.Controller;
 using Project.Model;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Project.View
     /// <summary>
     /// Interaction logic for Guest2View.xaml
     /// </summary>
-    public partial class Guest2View : Window
+    public partial class Guest2View : Window, IObserver
     {
         private Guest2Controller controller;
         private User user;
@@ -34,6 +35,7 @@ namespace Project.View
         public string SelectedCountry { get; set; }
         public string SelectedCity { get; set; }
         public string SelectedLanguage { get; set; }
+        public Tour SelectedTour { get; set; }
 
 
         public Guest2View(User u)
@@ -44,6 +46,7 @@ namespace Project.View
             TourReservations = new ObservableCollection<TourReservation>(controller.GetTourReservations());
             Tours = new ObservableCollection<Tour>(controller.GetTours());
             FilteredTours = new ObservableCollection<Tour>(Tours);
+            controller.SubscribeToReservationRepo(this);
             Countries = new ObservableCollection<string>();
             CountryCities = new ObservableCollection<string>();
             Languages = new ObservableCollection<string>();
@@ -58,10 +61,7 @@ namespace Project.View
             signInView.Show();
         }
 
-        private void tbViewDetails_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
+        
 
         private void cbCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -243,6 +243,26 @@ namespace Project.View
         private bool IsDigitsOnly(string str)
         {
             return str.All(c => c >= '0' && c <= '9');
+        }
+
+        private void tbViewDetails_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            TourInfoView tourInfoView = new TourInfoView(controller, SelectedTour);
+            tourInfoView.Show();
+        }
+
+        private void UpdateMyTourReservationsList()
+        {
+            TourReservations.Clear();
+            foreach(var reservation in controller.GetTourReservations())
+            {
+                TourReservations.Add(reservation);
+            }
+        }
+
+        public void Update()
+        {
+            UpdateMyTourReservationsList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Project.Model;
+﻿using Project.Observer;
+using Project.Model;
 using Project.Serializer;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class TourReservationRepository
+    public class TourReservationRepository : ISubject
     {
         private const string FilePath = "../../../Resources/Data/tourReservations.csv";
 
@@ -16,10 +17,13 @@ namespace Project.Repository
 
         private List<TourReservation> tourReservations;
 
+        private List<IObserver> observers;
+
         public TourReservationRepository()
         {
             serializer = new Serializer<TourReservation>();
             tourReservations = serializer.FromCSV(FilePath);
+            observers = new List<IObserver>();
         }
 
         private void SaveInFile()
@@ -38,6 +42,7 @@ namespace Project.Repository
             tourReservation.Id = GenerateId();
             tourReservations.Add(tourReservation);
             SaveInFile();
+            NotifyObservers();
             return tourReservation;
         }
 
@@ -52,7 +57,19 @@ namespace Project.Repository
             oldTourReservation.TourId = tourReservation.TourId;
 
             SaveInFile();
+            NotifyObservers();
             return oldTourReservation;
+        }
+
+        public TourReservation Remove(int id)
+        {
+            TourReservation reservation = GetTourReservationById(id);
+            if (reservation == null) return null;
+
+            tourReservations.Remove(reservation);
+            SaveInFile(); 
+            NotifyObservers();
+            return reservation;
         }
 
         public TourReservation GetTourReservationById(int id)
@@ -63,6 +80,24 @@ namespace Project.Repository
         public List<TourReservation> GetAllTourReservations()
         {
             return tourReservations;
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach(var observer in observers)
+            {
+                observer.Update();
+            }
         }
     }
 }
