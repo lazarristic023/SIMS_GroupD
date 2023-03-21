@@ -88,7 +88,7 @@ namespace Project.View
                             break;
 
                         default:
-                            Guest2View guest2View = new Guest2View();
+                            Guest2View guest2View = new Guest2View(user);
                             guest2View.Show();
                             Close();
                             break;
