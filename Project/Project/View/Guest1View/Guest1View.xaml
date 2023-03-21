@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View"
         mc:Ignorable="d"
-        Title="Guest1View" Height="500" Width="880">
+        Title="Guest1View" Height="530" Width="880">
     <StackPanel >
         <ToolBar >
             <Button x:Name="btSignOut" Content="Sign out" Margin="2" BorderBrush="Black" HorizontalAlignment="Right"
@@ -15,17 +15,26 @@
         <TabControl Margin="8,10">
 
             <TabItem Header="Your reservations">
-                <DataGrid ItemsSource="{Binding Path=MyReservations}"/>
+                <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=MyReservations}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Start Date" Binding="{Binding Path=StartDate}" Width="2*"/>
+                        <DataGridTextColumn Header="End Date" Binding="{Binding Path=EndDate}" Width="2*"/>
+                        <DataGridTextColumn Header="Accommodation Name" Binding="{Binding Path=Accommodation.Name}" Width="2*"/>
+                        <DataGridTextColumn Header="Country" Binding="{Binding Path=Accommodation.Location.Country}" Width="*"/>
+                        <DataGridTextColumn Header="City" Binding="{Binding Path=Accommodation.Location.City}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
 
             <TabItem Header="Accommodations">
-                <Grid Height="330">
+                <Grid Height="440">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="140"/>
+                        <RowDefinition Height="175"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid SelectedItem="{Binding Path=SelectedAccommodation}" Grid.Row="1" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FilteredAccommodations}">
+                    <DataGrid MouseDoubleClick="tbViewDetails_MouseLeftButtonUp" SelectedItem="{Binding Path=SelectedAccommodation}" Grid.Row="1" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FilteredAccommodations}" Margin="0,0,0,10">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
                             <DataGridTextColumn Header="Country" Binding="{Binding Path=Location.Country}"/>
@@ -39,7 +48,7 @@
                                     <DataTemplate>
                                         <TextBlock x:Name="tbViewDetails" MouseLeftButtonUp="tbViewDetails_MouseLeftButtonUp"  
                                                    TextDecorations="Underline" Text="View details" Foreground="Blue"/>
-                                        
+
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -67,8 +76,10 @@
                     <CheckBox Name="chbHouse" IsChecked="False" Content="House" HorizontalAlignment="Left" Margin="559,55,0,0" VerticalAlignment="Top"/>
                     <CheckBox Name="chbAppartment" IsChecked="False" Content="Appartment" HorizontalAlignment="Left" Margin="559,80,0,0" VerticalAlignment="Top"/>
                     <CheckBox Name="chbCottage" IsChecked="False" Content="Cottage" HorizontalAlignment="Left" Margin="559,105,0,0" VerticalAlignment="Top"/>
-                    
+
                     <Button Name="btSearch" Click="btSearch_Click" Content="Search" HorizontalAlignment="Left" Margin="730,45,0,0" VerticalAlignment="Top" Height="40" Width="57"/>
+                    <Button x:Name="btMakeReservation" Click="btMakeReservation_Click" FontWeight="DemiBold" Content="Make reservation" Margin="371,21,371,77" Grid.Row="2"/>
+                    <Label Height="25" Foreground="LightCoral" Content="NOTE: Select accommodation first" Margin="340,53,312,47" Grid.Row="2"/>
 
 
                 </Grid>

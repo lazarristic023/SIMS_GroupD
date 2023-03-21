@@ -70,7 +70,7 @@ namespace Project.View
                     switch (user.Role)
                     {
                         case Role.OWNER:
-                            OwnerView ownerView = new OwnerView();
+                            OwnerView ownerView = new OwnerView(user);
                             ownerView.Show();
                             Close();
                             break;
@@ -88,7 +88,7 @@ namespace Project.View
                             break;
 
                         default:
-                            Guest2View guest2View = new Guest2View();
+                            Guest2View guest2View = new Guest2View(user);
                             guest2View.Show();
                             Close();
                             break;

@@ -25,7 +25,7 @@ namespace Project.View
     public partial class Guest1View : Window, IObserver
     {
         private Guest1Controller _controller;
-        private User user;
+
         public ObservableCollection<AccommodationReservation> MyReservations { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
 
@@ -44,15 +44,15 @@ namespace Project.View
             DataContext = this;
 
             _controller = new Guest1Controller(u);
-            MyReservations = new ObservableCollection<AccommodationReservation>(_controller.GetMyAccommodationReservations());
-            Accommodations = new ObservableCollection<Accommodation>(_controller.GetAccommodations());
+            MyReservations = new ObservableCollection<AccommodationReservation>(_controller.GetGuestReservations());
+            Accommodations = new ObservableCollection<Accommodation>(_controller.GetAllAccommodations());
             FilteredAccommodations = new ObservableCollection<Accommodation>(Accommodations);
-            _controller.SubscribeToReservationRepo(this);
+            _controller.SubscribeToReservationRepository(this);
 
             Countries = new ObservableCollection<string>();
             CountryCities = new ObservableCollection<string>();
             FillCountriesList();
-
+            
         }
 
         private void btSignOut_Click(object sender, RoutedEventArgs e)
@@ -275,7 +275,7 @@ namespace Project.View
         private void UpdateMyReservationsList()
         {
             MyReservations.Clear();
-            foreach (var reservation in _controller.GetMyAccommodationReservations())
+            foreach (var reservation in _controller.GetGuestReservations())
             {
                 MyReservations.Add(reservation);
             }
@@ -284,6 +284,25 @@ namespace Project.View
         public void Update()
         {
             UpdateMyReservationsList();
+        }
+
+        private void btMakeReservation_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedAccommodation == null)
+            {
+                string sMessageBoxText = $"Choose an accommodation first!";
+                string sCaption = "Reservation not chosen";
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+
+                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                return;
+            }
+
+            ReserveView reserveView = new ReserveView(_controller, SelectedAccommodation);
+            reserveView.Show();
         }
     }
 }
