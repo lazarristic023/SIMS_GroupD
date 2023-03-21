@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project.Observer
 {
-    interface ISubject
+    public interface ISubject
     {
         void Subscribe(IObserver observer);
         void Unsubscribe(IObserver observer);

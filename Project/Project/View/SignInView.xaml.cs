@@ -18,6 +18,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Project.View.TourGuideView;
+using Project.Controller;
 
 namespace Project.View
 {
@@ -27,6 +29,7 @@ namespace Project.View
     public partial class SignInView : Window
     {
         private readonly UserRepository _repository;
+        private readonly TourGuideController _controller;
 
         private string _username;
         public string Username
@@ -54,6 +57,7 @@ namespace Project.View
             InitializeComponent();
             DataContext = this;
             _repository = new UserRepository();
+            _controller = new TourGuideController();
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
@@ -66,14 +70,14 @@ namespace Project.View
                     switch (user.Role)
                     {
                         case Role.OWNER:
-                            OwnerView ownerView = new OwnerView();
+                            OwnerView ownerView = new OwnerView(user);
                             ownerView.Show();
                             Close();
                             break;
 
                         case Role.GUIDE:
-                            GuideView guideView = new GuideView();
-                            guideView.Show();
+                            TourGuideMainView tourGuideMainView = new TourGuideMainView(user);
+                            tourGuideMainView.Show();
                             Close();
                             break;
 

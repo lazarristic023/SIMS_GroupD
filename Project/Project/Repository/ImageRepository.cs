@@ -80,13 +80,13 @@ namespace Project.Repository
 
             foreach (Image image in images)
             {
-                if (image.EntityId == id && image.Type == type)
+                if(image.EntityId == id && image.Type == type)
                 {
                     imagesIds.Add(image.Id);
                 }
             }
 
-            foreach (int identificator in imagesIds)
+            foreach(int identificator in imagesIds)
             {
                 filteredImages.Add(images.Find(v => v.Id == identificator));
             }
