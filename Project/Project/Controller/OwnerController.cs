@@ -16,7 +16,8 @@ namespace Project.Controller
         public LocationRepository LocationRepository { get; set; }
 
         public List<Location> Locations { get; set; }
-        public ImageRepository ImageRepository { get; set; }
+        public AccommodationImageRepository AccommodationImageRepository { get; set; }
+
 
         public OwnerController()
         {
@@ -24,7 +25,7 @@ namespace Project.Controller
             AccommodationRepository = new AccommodationRepository();
             LocationRepository = new LocationRepository();
             Locations = new List<Location>();
-            ImageRepository = new ImageRepository();
+            AccommodationImageRepository = new AccommodationImageRepository();
             LinkOwnerAccommodation();
             FillLocationsList();
         }
@@ -34,7 +35,7 @@ namespace Project.Controller
             AccommodationRepository = new AccommodationRepository();
             LocationRepository = new LocationRepository();
             Locations = new List<Location>();
-            ImageRepository = new ImageRepository();
+            AccommodationImageRepository = new AccommodationImageRepository();
             LinkOwnerAccommodation();
             FillLocationsList();
         }

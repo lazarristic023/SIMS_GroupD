@@ -31,7 +31,7 @@ namespace Project.View
         private OwnerController controller;
 
 
-        private List<Model.Image> tempImages;
+        private List<AccommodationImage> tempImages;
 
         public ObservableCollection<Accommodation> Accommodations { get; set; }
 
@@ -57,7 +57,7 @@ namespace Project.View
 
             Countries = new ObservableCollection<string>();
 
-            tempImages = new List<Model.Image>();
+            tempImages = new List<AccommodationImage>();
 
             CountryCities = new ObservableCollection<string>();
             FillCountriesList();
@@ -113,7 +113,7 @@ namespace Project.View
             }
             try
             {
-                Model.Image image = new Model.Image(tbAddLink.Text, controller.AccommodationRepository.GetLastId(), PictureType.ACCOMMODATION);
+                AccommodationImage image = new AccommodationImage(0,tbAddLink.Text, controller.AccommodationRepository.GetLastId());
                 tempImages.Add(image);
                 MessageBox.Show("Image added successfully!");
             }
@@ -181,13 +181,14 @@ namespace Project.View
             Accommodation accommodation = new Accommodation(name, controller.Owner.User.Id, type, location, guestNumber, advanceReservation, cancellationPeriod);
             foreach(var image in tempImages)
             {
-                controller.ImageRepository.Add(image);
+                controller.AccommodationImageRepository.Add(image);
                 accommodation.Images.Add(image);
             }
             
             accommodation = controller.AccommodationRepository.Add(accommodation);
             Accommodations.Add(accommodation);
             MessageBox.Show("You've successfully added accommodation to your account.");
+            tempImages.Clear();
             /*
                         Location location = new Location(SelectedCity, SelectedCountry);
                         //public Accommodation(string name, int ownerId, AccommodationType at, Location location, int maxGuests, int minReservationDays, int cancellationPeriod = 1)
