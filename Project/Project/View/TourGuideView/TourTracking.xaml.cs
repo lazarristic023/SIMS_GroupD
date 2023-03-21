@@ -72,6 +72,7 @@ namespace Project.View.TourGuideView
         {
             tourName.Content = _tourGuideController.GetById(tourId).Name;
             selectedPoint = (TourPoint)pointsListBox.SelectedItem;
+            selectedPoint = ChangeActivity(selectedPoint);
 
 
             
@@ -121,6 +122,7 @@ namespace Project.View.TourGuideView
 
         private void endTour_Click(object sender, RoutedEventArgs e)
         {
+            selectedPoint.Action = false;
             EndTheAppointment();
         }
 
@@ -132,7 +134,7 @@ namespace Project.View.TourGuideView
 
         private void nextPoint_Click(object sender, RoutedEventArgs e)
         {
-            var pom = selectedPoint;
+            selectedPoint = ChangeActivity(selectedPoint);
 
             pointsListBox.SelectedIndex++;
             numberOfNextClicks++;
@@ -142,8 +144,28 @@ namespace Project.View.TourGuideView
             {
                 EndTheAppointment();
             }
+
+            selectedPoint = (TourPoint)pointsListBox.SelectedItem;
+            selectedPoint = ChangeActivity(selectedPoint);
        
         }
+
+        public TourPoint ChangeActivity(TourPoint point)
+        {
+            if(point.Action == true)
+            {
+                point.Action = false;
+            }
+            else
+            {
+                point.Action = true;
+            }
+
+            return point;
+
+        }
+        
+
 
         public void Update()
         {
@@ -159,5 +181,7 @@ namespace Project.View.TourGuideView
                 tourPoints.Add(point);
             }
         }
+
+        
     }
 }

@@ -195,8 +195,9 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private readonly TourAppointmentsController _tourAppointmentsController;
+        //private readonly TourAppointmentsController _tourAppointmentsController;
         private readonly ImageController _imageController;
+        private readonly AppointmentController _appointmentController;
 
         Tour Tour { get; set; }
         DateTime SelectedAppointment { get; set; }
@@ -209,7 +210,8 @@ namespace Project.View.TourGuideView
             Tour = new Tour();
 
             Tour = sendedTour;
-            _tourAppointmentsController = new TourAppointmentsController();
+            //_tourAppointmentsController = new TourAppointmentsController();
+            _appointmentController = new AppointmentController();
             _imageController = new ImageController();
 
             Id = Tour.Id;
@@ -220,7 +222,7 @@ namespace Project.View.TourGuideView
             LanguageOfTour = Tour.Language;
             MaxGuests = Tour.MaxGuests;
             Duration = Tour.Duration;
-            Appointments = _tourAppointmentsController.GetAllAppointmentsDatesByTourId(Tour.Id);
+            Appointments = _appointmentController.GetAppointmentsDatesByTourId(Tour.Id);
 
 
 

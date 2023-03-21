@@ -200,29 +200,32 @@ namespace Project.View.TourGuideView
         }
 
         private readonly TourGuideController _tourGuideController;
-        private readonly TourAppointmentsController _tourAppointmentsController;
+        //private readonly TourAppointmentsController _tourAppointmentsController;
         private readonly ImageController _imageController;
         private readonly TourPointController _tourPointController;
         private readonly TourPointsListController _tourPointsListController;
         private readonly LocationController _locationController;
+        private readonly AppointmentController _appointmentController;
 
         List<DateTime> dates = new List<DateTime>();
         List<string> images = new List<string>();
         List<int> pointsIds = new List<int>();
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public AddNewTour(TourGuideController tourGuideController,TourAppointmentsController tourAppointmentsController,ImageController imageController,
-                            TourPointController tourPointController,TourPointsListController tourPointsListController, LocationController locationController)
+        public AddNewTour(TourGuideController tourGuideController,/*TourAppointmentsController tourAppointmentsController,*/ImageController imageController,
+                            TourPointController tourPointController,TourPointsListController tourPointsListController, LocationController locationController,
+                            AppointmentController appointmentController)
         {
             InitializeComponent();
             DataContext = this;
 
             _tourGuideController = tourGuideController;
-            _tourAppointmentsController = tourAppointmentsController;
+            //_tourAppointmentsController = tourAppointmentsController;
             _imageController = imageController;
             _tourPointController = tourPointController;
             _tourPointsListController = tourPointsListController;
             _locationController = locationController;
+            _appointmentController = appointmentController;
 
             LocationOfTour = new Location();
 
@@ -294,7 +297,13 @@ namespace Project.View.TourGuideView
             int tourId = _tourGuideController.Create(_location, NameOfTour, Description, LanguageOfTour, MaxGuests, Duration);
 
 
-            _tourAppointmentsController.Create(tourId, dates);
+            //_tourAppointmentsController.Create(tourId, dates);
+
+            foreach(DateTime date in dates)
+            {
+                _appointmentController.Create(tourId,date);
+            }
+
             dates.Clear();
 
             if (startPointTextBox.Text != "" && endPointTextBox.Text != "")

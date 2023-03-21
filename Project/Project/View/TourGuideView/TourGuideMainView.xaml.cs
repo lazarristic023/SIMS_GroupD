@@ -36,6 +36,7 @@ namespace Project.View.TourGuideView
         private readonly TourPointController _tourPointController;
         private readonly TourPointsListController _tourPointsListController;
         private readonly LocationController _locationController;
+        private readonly AppointmentController _appointmentController;
 
         public Tour SelectedTour { get; set; }
 
@@ -230,6 +231,9 @@ namespace Project.View.TourGuideView
 
             _locationController = new LocationController();
             _locationController.Subscribe(this);
+
+            _appointmentController = new AppointmentController();
+            _appointmentController.Subscribe(this);
             
 
 
@@ -267,7 +271,7 @@ namespace Project.View.TourGuideView
 
         private void addTourButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNewTour addNewTour = new AddNewTour(_tourGuideController,_tourAppointmentsController,_imageController,_tourPointController,_tourPointsListController,_locationController);
+            AddNewTour addNewTour = new AddNewTour(_tourGuideController, /*_tourAppointmentsController,*/ _imageController,_tourPointController,_tourPointsListController,_locationController, _appointmentController);
             addNewTour.Show();
         }
 
