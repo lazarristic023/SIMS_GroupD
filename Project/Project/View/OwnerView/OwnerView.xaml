@@ -14,6 +14,7 @@
         <TabControl Margin="8,10">
 
             <TabItem Header="My accommodations">
+<<<<<<< HEAD
                 <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=Accommodations}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
@@ -106,5 +107,13 @@
 
 
 
+=======
+                <DataGrid ItemsSource="{Binding Path=Accommodations}"/>
+            </TabItem>
+
+        </TabControl>
+
+
+>>>>>>> 6e2c6ddfce407b491bb4007cfe2cd26b3fe5fb48
     </StackPanel>
 </Window>

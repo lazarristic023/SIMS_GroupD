@@ -30,6 +30,7 @@ namespace Project.View
         
         private OwnerController controller;
 
+
         private List<Model.Image> tempImages;
 
         public ObservableCollection<Accommodation> Accommodations { get; set; }
@@ -41,6 +42,9 @@ namespace Project.View
         public string SelectedCountry { get; set; }
 
         public string SelectedCity { get; set; }
+
+
+
 
 
         public OwnerView(User u)
@@ -66,6 +70,7 @@ namespace Project.View
             acc = controller.AccommodationRepository.Add(acc);
             Accommodations.Add(acc);
             */
+
         }
 
         private void btSignOut_Click(object sender, RoutedEventArgs e)
