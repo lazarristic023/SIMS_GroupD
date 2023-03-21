@@ -36,11 +36,12 @@ namespace Project.Repository
             return tourPoints[tourPoints.Count - 1].Id + 1;
         }
 
-        public void Add(TourPoint tourPoint)
+        public int Add(TourPoint tourPoint)
         {
             tourPoint.Id = GenerateId();
             tourPoints.Add(tourPoint);
             SaveInFile();
+            return tourPoint.Id;
 
         }
 

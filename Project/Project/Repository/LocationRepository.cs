@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Project.Serializer;
+using Project.Observer;
 
 namespace Project.Repository
 {
-    public class LocationRepository
+    public class LocationRepository: ISubject
     {
         private const string FilePath = "../../../Resources/Data/locations.csv";
 
@@ -70,9 +71,37 @@ namespace Project.Repository
             return locations.Find(v => v.Id == id);
         }
 
+        public string GetCountryById(int id)
+        { 
+            Location location = GetLocationById(id);
+            return location.Country;
+
+        }
+
+        public string GetCityById(int id)
+        {
+            Location location = GetLocationById(id);
+            return location.City;
+        }
+
         public List<Location> GetAllLocations()
         {
             return locations;
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void NotifyObservers()
+        {
+            throw new NotImplementedException();
         }
     }
 }

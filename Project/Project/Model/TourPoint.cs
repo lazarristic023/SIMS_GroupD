@@ -12,23 +12,24 @@ namespace Project.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Order { get; set; }
+
+
         public bool Action { get; set; }
 
         public TourPoint()
         {
             Id = -1;
             Name = "";
-            Order = 0;
+
             Action = false;
 
         }
 
-        public TourPoint(int id, string name, int order, bool action, int tourId)
+        public TourPoint(string name,bool action)
         {
-            Id = id;
+            Id = -1;
             Name = name;
-            Order = order;
+
             Action = action;
         }
 
@@ -37,7 +38,7 @@ namespace Project.Model
             string[] csvValues = {
                 Id.ToString(),
                 Name,
-                Order.ToString(),
+
                 Action.ToString()
                
             };
@@ -48,8 +49,8 @@ namespace Project.Model
         {
             Id = int.Parse(values[0]);
             Name = values[1];
-            Order = int.Parse(values[2]);
-            Action = bool.Parse(values[3]);
+
+            Action = bool.Parse(values[2]);
 
         }
     }

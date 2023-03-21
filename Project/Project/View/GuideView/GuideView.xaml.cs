@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using System.IO;
 
 namespace Project.View
 {
@@ -22,6 +24,39 @@ namespace Project.View
         public GuideView()
         {
             InitializeComponent();
+        }
+
+        private void AddPictureButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(openFileDialog.FileName);
+                bitmap.DecodePixelHeight = 200;
+                bitmap.EndInit();
+
+                imageList.Items.Add(bitmap);
+               
+
+
+
+            }
+                
+
+        }
+
+        private void AddPoints_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Submit_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
