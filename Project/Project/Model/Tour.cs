@@ -68,6 +68,8 @@ namespace Project.Model
             Duration = 0;
         }
 
+        
+
         public string GetCountry(int id)
         {
             string country = "";

@@ -1,4 +1,5 @@
-﻿using Project.Serializer;
+﻿
+using Project.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Project.Model
 
         public int GuestId { get; set; } 
 
-        public User Guest { get; set; } 
+        public Guest2 Guest { get; set; } 
 
         public int TourId { get; set; }
 
@@ -30,6 +31,26 @@ namespace Project.Model
             Id = id;
             StartDate = start;
             EndDate = end;
+            GuestId = guestId;
+            TourId = tourId;
+        }
+
+        public TourReservation(TourReservation tourReservation)
+        {
+            Id = tourReservation.Id;
+            StartDate = tourReservation.StartDate;
+            EndDate = tourReservation.EndDate;
+            GuestId = tourReservation.GuestId;
+            TourId = tourReservation.TourId;
+            Guest = tourReservation.Guest;
+            Tour = tourReservation.Tour;
+        }
+
+        public TourReservation(int id, List<DateTime>TourDates, int guestId, int tourId)
+        {
+            Id = id;
+            StartDate = TourDates[0];
+            EndDate = TourDates[1];
             GuestId = guestId;
             TourId = tourId;
         }

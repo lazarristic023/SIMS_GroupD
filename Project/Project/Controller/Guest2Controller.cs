@@ -1,4 +1,5 @@
-﻿using Project.Model;
+﻿using Project.Observer;
+using Project.Model;
 using Project.Repository;
 using System;
 using System.Collections.Generic;
@@ -102,6 +103,17 @@ namespace Project.Controller
                     Languages.Add(tour.Language);
                 }
             }
+        }
+
+        public void SubscribeToReservationRepo(IObserver observer)
+        {
+            TourReservationRepository.Subscribe(observer);
+        }
+
+        public void AddReservation(TourReservation reservation)
+        {
+            Guest.Reservations.Add(reservation);
+            TourReservationRepository.Add(reservation);
         }
     }
 }
