@@ -126,13 +126,7 @@ namespace Project.View
 
             }
 
-            if (hasEntered)
-            {
-                hasEntered = false;
-                temp.Clear();
-                temp.AddRange(tempFiltered);
-                tempFiltered.Clear();
-            }
+            ResetTempLists(ref hasEntered, temp, tempFiltered);
 
             // Number of guests
 
@@ -163,14 +157,7 @@ namespace Project.View
 
             }
 
-            if (hasEntered)
-            {
-                hasEntered = false;
-                temp.Clear();
-                temp.AddRange(tempFiltered);
-                tempFiltered.Clear();
-            }
-
+            ResetTempLists(ref hasEntered, temp, tempFiltered);
 
             // Duration of tour
 
@@ -198,9 +185,19 @@ namespace Project.View
                         tempFiltered.Add(tour);
                     }
                 }
-
             }
 
+            ResetTempLists(ref hasEntered, temp, tempFiltered);
+
+            FilteredTours.Clear();
+            foreach (Tour t in temp)
+            {
+                FilteredTours.Add(t);
+            }
+        }
+
+        void ResetTempLists(ref bool hasEntered, List<Tour> temp, List<Tour> tempFiltered)
+        {
             if (hasEntered)
             {
                 hasEntered = false;
@@ -208,14 +205,6 @@ namespace Project.View
                 temp.AddRange(tempFiltered);
                 tempFiltered.Clear();
             }
-
-            FilteredTours.Clear();
-            foreach(Tour t in temp)
-            {
-                FilteredTours.Add(t);
-            }
-
-            
         }
 
         private void FillCountriesList()
