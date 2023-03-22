@@ -149,7 +149,7 @@ namespace Project.View
 
                 foreach (Tour tour in temp)
                 {
-                    if (guestNum >= tour.MaxGuests)
+                    if (guestNum <= tour.MaxGuests)
                     {
                         tempFiltered.Add(tour);
                     }
@@ -253,5 +253,7 @@ namespace Project.View
         {
             UpdateMyTourReservationsList();
         }
+
+
     }
 }

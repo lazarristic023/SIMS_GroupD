@@ -138,7 +138,7 @@ namespace Project.View
             
             TourReservation tourReservation = new TourReservation(Tour.Id, new DateTime(), new DateTime(), 4, Tour.Id);
             Controller.AddReservation(tourReservation);
-
+            Close();
         }
     }
 }
