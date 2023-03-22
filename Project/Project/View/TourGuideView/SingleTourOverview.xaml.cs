@@ -1,5 +1,6 @@
 ﻿using Project.Controller;
 using Project.Model;
+using Project.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -195,15 +196,15 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private List<Rezervacija> _rezervacije;
-        public List<Rezervacija> Rezervacije
+        private List<string> _reservations;
+        public List<string> Reservations
         {
-            get => _rezervacije;
+            get => _reservations;
             set
             {
-                if(value != _rezervacije)
+                if(value != _reservations)
                 {
-                    _rezervacije = value;
+                    _reservations = value;
                     OnPropertyChanged();
                 }
             }
@@ -213,8 +214,11 @@ namespace Project.View.TourGuideView
         private readonly ImageController _imageController;
         private readonly AppointmentController _appointmentController;
 
+        private readonly TourReservationRepository tourReservationRepository;
+
         Tour Tour { get; set; }
         DateTime SelectedAppointment { get; set; }
+
 
         public SingleTourOverview(Tour sendedTour)
         {
@@ -227,6 +231,8 @@ namespace Project.View.TourGuideView
             //_tourAppointmentsController = new TourAppointmentsController();
             _appointmentController = new AppointmentController();
             _imageController = new ImageController();
+            tourReservationRepository = new TourReservationRepository();
+
 
             Id = Tour.Id;
             NameOfTour = Tour.Name;
@@ -237,7 +243,25 @@ namespace Project.View.TourGuideView
             MaxGuests = Tour.MaxGuests;
             Duration = Tour.Duration;
             Appointments = _appointmentController.GetAppointmentsDatesByTourId(Tour.Id);
+            Reservations = GetApproprietReservations(); // U buducnosti napraviti preko kontrolera ili repository-a
 
+        }
+
+
+        public List<string> GetApproprietReservations()
+        {
+            List<TourReservation> tourReservations = tourReservationRepository.GetAllTourReservations();
+            List<string> approprietReservations = new List<string>();
+
+            foreach(TourReservation reservation in tourReservations)
+            {
+                if(reservation.TourId == Id)
+                {
+                    approprietReservations.Add(reservation.GuestId.ToString());
+                }
+            }
+
+            return approprietReservations;
         }
 
 
