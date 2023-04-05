@@ -48,162 +48,21 @@ namespace Project.View.TourGuideView
 
         User User { get; set; }
 
-        //private int _id;
-        //public int Id
-        //{
-        //    get => _id;
-        //    set
-        //    {
-        //        if(value != _id)
-        //        {
-        //            _id = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
+        
 
-        //private string _country;
-        //public string Country
-        //{
-        //    get => _country;
-        //    set
-        //    {
-        //        if (value != _country)
-        //        {
-        //            _country = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
-        //private string _city;
-        //public string City
-        //{
-        //    get => _city;
-        //    set
-        //    {
-        //        if (value != _city)
-        //        {
-        //            _city = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
-        //private string _name;
-        //public string NameOfTour
-        //{
-        //    get => _name;
-        //    set
-        //    {
-        //        if (value != _name)
-        //        {
-        //            _name = value;
-        //            OnPropertyChanged();
-
-        //        }
-        //    }
-        //}
-
-        //private string _description;
-        //public string Description
-        //{
-        //    get => _description;
-        //    set
-        //    {
-        //        if (value != _description)
-        //        {
-        //            _description = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
-        //private string _language;
-        //public string LanguageOfTour
-        //{
-        //    get => _language;
-        //    set
-        //    {
-        //        if (value != _language)
-        //        {
-        //            _language = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
-        //private int _maxGuests;
-        //public int MaxGuests
-        //{
-        //    get => _maxGuests;
-        //    set
-        //    {
-        //        if (value != _maxGuests)
-        //        {
-        //            _maxGuests = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
-        //private DateTime _startDate;
-        //public DateTime StartDate
-        //{
-        //    get => _startDate;
-        //    set
-        //    {
-        //        if (value != _startDate)
-        //        {
-        //            _startDate = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
-        //private string _startTime;
-        //public string StartTime
-        //{
-        //    get => _startTime;
-        //    set
-        //    {
-        //        if (value != _startTime)
-        //        {
-        //            _startTime = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
-        //private int _duration;
-        //public int Duration
-        //{
-        //    get => _duration;
-        //    set
-        //    {
-        //        if (value != _duration)
-        //        {
-        //            _duration = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
-        //private string _coverImageUrl;
-        //public string CoverImageUrl
-        //{
-        //    get => _coverImageUrl;
-        //    set
-        //    {
-        //        if (value != _coverImageUrl)
-        //        {
-        //            _coverImageUrl = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
-
+        private string _imagesource;
+        public string ImageSource
+        {
+            get => _imagesource;
+            set
+            {
+                if (value != _imagesource)
+                {
+                    _imagesource = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public TourGuideMainView(User user)
         {
@@ -211,8 +70,6 @@ namespace Project.View.TourGuideView
             DataContext =  this;
 
             User = user;
-
-            //SelectedTour = new Tour();
              
             _tourGuideController = new TourGuideController();
             _tourGuideController.Subscribe(this);
@@ -234,7 +91,8 @@ namespace Project.View.TourGuideView
 
             _appointmentController = new AppointmentController();
             _appointmentController.Subscribe(this);
-            
+
+            ImageSource = "../../Resources/Data/images.csv";
 
 
             Tours = new ObservableCollection<Tour>(_tourGuideController.GetAllTours());
@@ -271,7 +129,7 @@ namespace Project.View.TourGuideView
 
         private void addTourButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNewTour addNewTour = new AddNewTour(_tourGuideController, /*_tourAppointmentsController,*/ _imageController,_tourPointController,_tourPointsListController,_locationController, _appointmentController);
+            AddNewTour addNewTour = new AddNewTour(_tourGuideController, _imageController,_tourPointController,_tourPointsListController,_locationController, _appointmentController);
             addNewTour.Show();
         }
 

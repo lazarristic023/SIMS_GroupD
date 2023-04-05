@@ -46,5 +46,15 @@ namespace Project.Controller
         {
             return locationRepository.GetCityById(id);
         }
+
+        public string[] GetAllCountries()
+        {
+            return locationRepository.GetAllCountries();
+        }
+
+        public string[] GetAppropriateCities(string country)
+        {
+            return locationRepository.GetAppropriateCities(country);
+        }
     }
 }

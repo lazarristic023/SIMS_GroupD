@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Project.Serializer;
 using Project.Observer;
+using System.IO;
 
 namespace Project.Repository
 {
@@ -86,6 +87,34 @@ namespace Project.Repository
         {
             Location location = GetLocationById(id);
             return location.City;
+        }
+
+        public string[] GetAllCountries()
+        {
+            StreamReader countrySource = new StreamReader(@"../../../Resources/Data/country.csv");
+            string content = countrySource.ReadToEnd();
+            string[] country = content.Split('|');
+
+            return country;
+        }
+
+        public string[] GetAppropriateCities(string country)
+        {
+            string[] cities = { };
+            StreamReader citySource = new StreamReader(@"../../../Resources/Data/city.csv");
+            string line;
+
+            while ((line = citySource.ReadLine()) != null)
+            {
+
+                string[] couple = line.Split('|');
+                if (couple[0] == country)
+                {
+                    cities = couple[1].Split(';');
+                }
+            }
+
+            return cities;
         }
 
         public List<Location> GetAllLocations()

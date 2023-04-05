@@ -70,12 +70,12 @@
                         <RowDefinition Height="30"></RowDefinition>
                     </Grid.RowDefinitions>
                     <ListBox x:Name="apointmentsList" Grid.Row="0" ItemsSource="{Binding Appointments, UpdateSourceTrigger=PropertyChanged}" 
-                             SelectedItem="{Binding SelectedAppointment}"
+                             SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
                              SelectionMode="Single" SelectionChanged="apointmentsList_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding}" />
+                                    <TextBlock Text="{Binding DateAndTimeOfAppointment}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -91,7 +91,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding}"/>
+                                <TextBlock Text="{Binding Username}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

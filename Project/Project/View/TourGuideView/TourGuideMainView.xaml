@@ -26,7 +26,7 @@
 
 
                             <Label Grid.Row="0" FontSize="25" FontStyle="Italic" Margin="0,0,0,10">GUIDE</Label>
-                            <Image Grid.Row="1" Source="C:\Users\lukar\Documents\git\Sims\SIMS_GroupD\Project\Project\Resources\Images\avatar.png"/>
+                            <Image Grid.Row="1" Source="../../Resources/Images/avatar.png"/>
                             <Label x:Name="usernameLabel" Grid.Row="2" HorizontalAlignment="Center" FontSize="16"></Label>
                             <Button Grid.Row="3" x:Name="addTourButton" Content="Add new tour" VerticalAlignment="Bottom" Margin="5" Height="100" Click="addTourButton_Click"/>
 
@@ -44,9 +44,9 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*"></DataGridTextColumn>
                                 <DataGridTextColumn Header="Country" Binding="{Binding Location.Country}" Width="1.5*"></DataGridTextColumn>
-                                <!--<DataGridTextColumn Header="Country" Binding="{Binding Country}" Width="1.5*"></DataGridTextColumn>-->
+
                                 <DataGridTextColumn Header="City" Binding="{Binding Location.City}" Width="1.5*"></DataGridTextColumn>
-                                <!--<DataGridTextColumn Header="City" Binding="{Binding City}" Width="1.5*"></DataGridTextColumn>-->
+                                
                                 <DataGridTextColumn Header="Language" Binding="{Binding Language}"></DataGridTextColumn>
                                 <DataGridTextColumn Header="Max guests num." Binding="{Binding MaxGuests}"></DataGridTextColumn>
 

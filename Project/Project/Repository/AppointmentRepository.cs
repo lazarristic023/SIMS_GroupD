@@ -62,6 +62,19 @@ namespace Project.Repository
             return appointments.Find(v => v.Id == id);
         }
 
+        public int GetTourIdById(int id) 
+        {
+            int tourId = -1;
+            foreach (Appointment appointment in GetAll()){
+                if(appointment.Id == id)
+                {
+                    tourId = appointment.TourId;
+                }
+            }
+
+            return tourId;
+        }
+
 
         public Appointment GetByDateAndTour(DateTime date,int id)
         {

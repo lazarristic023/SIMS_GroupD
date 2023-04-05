@@ -63,7 +63,7 @@ namespace Project.Controller
             {
                 if(appointment.TourId == id)
                 {
-                    if (appointment.DateAndTimeOfAppointment == DateTime.Today)
+                    if (appointment.DateAndTimeOfAppointment.ToShortDateString() == DateTime.Today.ToShortDateString())
                     {
                         dates.Add(appointment.DateAndTimeOfAppointment);
                     }

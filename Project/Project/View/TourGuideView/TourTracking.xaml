@@ -42,16 +42,33 @@
             </Grid>
 
             <GroupBox DockPanel.Dock="Right" Margin="10">
+
+                
                 <GroupBox.Header>
                     <Label>Guests</Label>
                 </GroupBox.Header>
-                <ListBox ItemsSource="{Binding Rezervacije}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Guest}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <ListBox Grid.Row="0" ItemsSource="{Binding Presents}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Username}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Button x:Name="AddGuests" Margin="5" Grid.Row="1" Content="Add guests to current point" Click="AddGuests_Click"/>
+
+
+                </Grid>
+                
+
+
             </GroupBox>
             
             

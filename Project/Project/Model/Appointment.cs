@@ -35,7 +35,7 @@ namespace Project.Model
             string[] csvValues = {
                 Id.ToString(),
                 TourId.ToString(),
-                DateAndTimeOfAppointment.ToString() 
+                DateAndTimeOfAppointment.ToString("MM/dd/yyyy hh:mm:ss tt") 
             };
             return csvValues;
         }
@@ -44,7 +44,7 @@ namespace Project.Model
         {
             Id = int.Parse(values[0]);
             TourId = int.Parse(values[1]);
-            DateAndTimeOfAppointment = Convert.ToDateTime(values[2]).Date;
+            DateAndTimeOfAppointment = DateTime.Parse(values[2]);
         }
     }
 }

@@ -1,34 +1,23 @@
 ﻿using Project.Model;
-using Project.Observer;
 using Project.Repository;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Windows.Media.Animation;
 
-namespace Project.Controller
+namespace Project.Service
 {
-    public class TourGuideController
+    public class TourService
     {
-
         TourRepository tourRepository;
-        private readonly LocationController _locationController;
 
-
-        public TourGuideController()
+        public TourService()
         {
             tourRepository = new TourRepository();
+
         }
-
-
-        public void Subscribe(IObserver observer)
-        {
-            tourRepository.Subscribe(observer);
-        }
-
 
         public int Create(Location location, string name, string description, string language, int maxGuests, int duration)
         {
@@ -40,19 +29,15 @@ namespace Project.Controller
 
             return tourId;
 
-
         }
 
-
-
-        public List<Tour> GetAllTours()
+        public DateTime BuildDate(DateTime date, string time)
         {
-            return tourRepository.GetAll();
+            string[] splitedTime = time.Split(':');
+            DateTime newDate = new DateTime(date.Year, date.Month, date.Day, int.Parse(splitedTime[0]), int.Parse(splitedTime[1]), 0);
+            return newDate;
         }
 
-        public Tour GetById(int id)
-        {
-            return tourRepository.GetById(id);
-        }
+
     }
 }
