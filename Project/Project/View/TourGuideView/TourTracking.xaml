@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
-        Title="TourTracking" Height="450" Width="800"
+        Title="TourTracking" Height="450" Width="500"
         Loaded="Window_Loaded">
     <Grid>
         <DockPanel>
@@ -18,27 +18,12 @@
                 <Button x:Name="endTour" Grid.Column="1" Content="Finish the tour" Margin="10" Click="endTour_Click"/>
             </Grid>
 
-            <Label Background="DarkGray" x:Name="tourName" DockPanel.Dock="Top" HorizontalAlignment="Center"></Label>
+            <TextBlock x:Name="tourName" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="24" FontFamily="Century Gothic" ></TextBlock>
 
-            <Grid DockPanel.Dock="Left" Width="300" Margin="10">
-
-
-                    <ListBox x:Name="pointsListBox" ItemsSource="{Binding tourPoints, UpdateSourceTrigger=PropertyChanged}">
-
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding PointName}"></TextBlock>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-
-
-                
-    
-                
-                
-                
+            <Grid DockPanel.Dock="Left" Width="200" Margin="10">
+                <Border BorderBrush="Black" BorderThickness="2">
+                <StackPanel x:Name="RadioStackPanel" Grid.Row="1" Background="LightGray"></StackPanel>
+                </Border>
             </Grid>
 
             <GroupBox DockPanel.Dock="Right" Margin="10">

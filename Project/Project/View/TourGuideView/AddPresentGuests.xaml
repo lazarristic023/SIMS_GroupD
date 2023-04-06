@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
-        Title="AddPresentGuests" Height="450" Width="800">
+        Title="AddPresentGuests" Height="450" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
@@ -18,7 +18,7 @@
             <ColumnDefinition Width="323*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.ColumnSpan="3" Content="Guests with reservation:" FontSize="24"/>
+        <Label Grid.Row="0" Grid.ColumnSpan="3" Content="Guests with reservation:" FontSize="18"/>
 
         <ListBox Grid.Row="1" Grid.ColumnSpan="2" Margin="10" ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}"
                  SelectedItem="{Binding SelectedUser, UpdateSourceTrigger=PropertyChanged}">
