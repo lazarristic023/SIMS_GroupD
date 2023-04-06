@@ -13,7 +13,7 @@ namespace Project.Model
 {
     public class Tour: ISerializable
     {
-        public enum STATUS { NOTSTARTED,STARTED,CANCELLED,ACTIVE}
+        public enum STATUS { NOTSTARTED,ACTIVE,COMPLETED}
         public int Id { get; set; }
         public string Country { get; set; }
         public string City { get; set; }  
@@ -25,6 +25,7 @@ namespace Project.Model
         public int MaxGuests { get; set; }
         public int Duration { get; set; }
         public STATUS Status { get; set; }
+        public bool IsNotCanceled { get; set; }
 
 
         private readonly LocationController locationController;
@@ -43,6 +44,7 @@ namespace Project.Model
             City = location.City;
             locationController = new LocationController();
             Status = STATUS.NOTSTARTED;
+            IsNotCanceled = true;
 
         }
 
@@ -60,6 +62,7 @@ namespace Project.Model
             Country = "";
             locationController = new LocationController();
             Status = STATUS.NOTSTARTED;
+            IsNotCanceled = true;
         }
 
 
@@ -73,6 +76,7 @@ namespace Project.Model
                 MaxGuests.ToString(),
                 Duration.ToString(),
                 Status.ToString(),
+                IsNotCanceled.ToString(),
 
             };
             return csvValues;
@@ -91,19 +95,17 @@ namespace Project.Model
             string status = values[7];
             switch (status)
             {
-                case "STARTED":
-                    Status = STATUS.STARTED;
-                    break;
-                case "CANCELLED":
-                    Status = STATUS.CANCELLED;
-                    break;
                 case "ACTIVE":
                     Status = STATUS.ACTIVE;
+                    break;
+                case "COMPLETED":
+                    Status = STATUS.COMPLETED;
                     break;
                 default:
                     Status = STATUS.NOTSTARTED;
                     break;
             }
+            IsNotCanceled = bool.Parse(values[8]);
         }
     }
 }

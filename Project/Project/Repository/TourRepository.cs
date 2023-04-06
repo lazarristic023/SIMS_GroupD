@@ -70,6 +70,15 @@ namespace Project.Repository
             return tours;
         }
 
+        public void Cancel(int id)
+        {
+            Tour tour = GetById(id);
+
+            tour.IsNotCanceled = false;
+            SaveInFile();
+            NotifyObservers();
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

@@ -20,6 +20,7 @@ using System.Reflection.Metadata;
 using Project.Model;
 using System.Collections.ObjectModel;
 using Project.Observer;
+using Project.Service;
 
 namespace Project.View.TourGuideView
 {
@@ -37,6 +38,8 @@ namespace Project.View.TourGuideView
         private readonly TourPointsListController _tourPointsListController;
         private readonly LocationController _locationController;
         private readonly AppointmentController _appointmentController;
+
+        private readonly TourService _tourService;
 
         public Tour SelectedTour { get; set; }
 
@@ -92,6 +95,9 @@ namespace Project.View.TourGuideView
             _appointmentController = new AppointmentController();
             _appointmentController.Subscribe(this);
 
+            _tourService = new TourService();
+            _tourService.Subscribe(this);
+
             ImageSource = "../../Resources/Data/images.csv";
 
 
@@ -103,6 +109,7 @@ namespace Project.View.TourGuideView
         public void Update()
         {
             UpdateTours();
+            UpdateToursServiceChanged();
         }
 
         public void UpdateTours()
@@ -110,6 +117,16 @@ namespace Project.View.TourGuideView
             Tours.Clear();
 
             foreach (var tour in _tourGuideController.GetAllTours())
+            {
+                Tours.Add(tour);
+            }
+        }
+
+        public void UpdateToursServiceChanged()
+        {
+            Tours.Clear();
+
+            foreach (var tour in _tourService.GetAll())
             {
                 Tours.Add(tour);
             }
@@ -123,6 +140,7 @@ namespace Project.View.TourGuideView
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             usernameLabel.Content = User.Username;
+            cancelTour.IsEnabled = false;
 
         }
 
@@ -140,6 +158,38 @@ namespace Project.View.TourGuideView
             {
                 SingleTourOverview singleTour = new SingleTourOverview(SelectedTour);
                 singleTour.Show();
+            }
+            
+        }
+
+        private void cancelTour_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTour != null)
+            {
+                if (MessageBox.Show("Are you sure you want to cancel the tour?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                    //no
+                }
+                else
+                {
+                    //yes
+                    _tourService.Cancel(SelectedTour.Id);
+                }
+            }
+            
+            
+            
+        }
+
+        private void myTourDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(SelectedTour == null)
+            {
+                cancelTour.IsEnabled = false;
+            }
+            else
+            {
+                cancelTour.IsEnabled = true;
             }
             
         }

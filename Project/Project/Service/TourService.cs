@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.Observer;
 using Project.Repository;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,21 @@ namespace Project.Service
             string[] splitedTime = time.Split(':');
             DateTime newDate = new DateTime(date.Year, date.Month, date.Day, int.Parse(splitedTime[0]), int.Parse(splitedTime[1]), 0);
             return newDate;
+        }
+
+        public void Cancel(int id)
+        {
+            tourRepository.Cancel(id);    
+        }
+
+
+        public List<Tour> GetAll()
+        {
+            return tourRepository.GetAll();
+        }
+        public void Subscribe(IObserver observer)
+        {
+            tourRepository.Subscribe(observer);
         }
 
 
