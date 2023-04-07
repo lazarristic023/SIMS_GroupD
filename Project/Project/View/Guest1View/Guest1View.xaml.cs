@@ -26,10 +26,8 @@ namespace Project.View
     {
         private Guest1Controller _controller;
 
-        public ObservableCollection<AccommodationReservation> MyReservations { get; set; }
+        public ObservableCollection<AccommodationReservation> GuestReservations { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
-
-        public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
 
         public ObservableCollection<string> Countries { get; set; }
         public ObservableCollection<string> CountryCities { get; set; }
@@ -44,9 +42,8 @@ namespace Project.View
             DataContext = this;
 
             _controller = new Guest1Controller(u);
-            MyReservations = new ObservableCollection<AccommodationReservation>(_controller.GetGuestReservations());
+            GuestReservations = new ObservableCollection<AccommodationReservation>(_controller.GetGuestReservations());
             Accommodations = new ObservableCollection<Accommodation>(_controller.GetAllAccommodations());
-            FilteredAccommodations = new ObservableCollection<Accommodation>(Accommodations);
             _controller.SubscribeToReservationRepository(this);
 
             Countries = new ObservableCollection<string>();
@@ -55,7 +52,7 @@ namespace Project.View
             
         }
 
-        private void btSignOut_Click(object sender, RoutedEventArgs e)
+        private void btnSignOut_Click(object sender, RoutedEventArgs e)
         {
             SignInView signInView = new SignInView();
             Close();
@@ -85,184 +82,61 @@ namespace Project.View
             }
         }
 
-        private void btSearch_Click(object sender, RoutedEventArgs e)
+        private void FilterAccommodations(object sender, RoutedEventArgs e)
         {
-            List<Accommodation> temp = new List<Accommodation>();
-            List<Accommodation> tempFiltered = new List<Accommodation>();
-            bool hasEntered = false;
 
-            temp.AddRange(Accommodations);
+            ReInitializeAccommodations();
 
-            // Name textbox
-            if (!string.IsNullOrWhiteSpace(tbName.Text))
-            {
-                hasEntered = true;
-
-                foreach (Accommodation accommodation in temp)
-                {
-                    if (accommodation.Name.Contains(tbName.Text))
-                    {
-                        tempFiltered.Add(accommodation);
-                    }
-                }
+            if (!IsFieldEmpty(tbName.Text)) 
+            { 
+                FilterAccommodationsByName();           
             }
 
-            if (hasEntered)
+            if (!IsFieldEmpty(SelectedCountry))
             {
-                hasEntered = false;
-                temp.Clear();
-                temp.AddRange(tempFiltered);
-                tempFiltered.Clear();
+                FilterAccommodationsByLocation();
             }
 
-            // Location comboboxes
 
-            if (!string.IsNullOrEmpty(SelectedCountry))
-            {
-                bool isCityChosen = false;
-                hasEntered = true;
-                if (!string.IsNullOrEmpty(SelectedCity))
-                {
-                    isCityChosen = true;
-                }
-
-                foreach (Accommodation accommodation in temp)
-                {
-                    if (accommodation.Location.Country == SelectedCountry)
-                    {
-                        if (isCityChosen)
-                        {
-                            if (accommodation.Location.City == SelectedCity)
-                            {
-                                tempFiltered.Add(accommodation);
-                                
-                            }
-                                                         
-                            continue;
-                        }
-                        tempFiltered.Add(accommodation);
-                    }
-                }
-
-            }
-
-            if (hasEntered)
-            {
-                hasEntered = false;
-                temp.Clear();
-                temp.AddRange(tempFiltered);
-                tempFiltered.Clear();
-            }
-
-            // Number of guests
-
-            if (!string.IsNullOrWhiteSpace(tbGuestNum.Text))
+            if (!IsFieldEmpty(tbGuestNum.Text))
             {
                 if (!IsDigitsOnly(tbGuestNum.Text))
                 {
-                    string sMessageBoxText = $"Number of guests field must contain only digits!";
-                    string sCaption = "Input error: Number of guests";
-
-                    MessageBoxButton btnMessageBox = MessageBoxButton.OK;
-                    MessageBoxImage icnMessageBox = MessageBoxImage.Error;
-
-                    MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                    InputErrorMessageBox("Number of guests");
                     return;
                 }
 
-                hasEntered = true;
-                int guestNum = Convert.ToInt32(tbGuestNum.Text);
-
-                foreach (Accommodation accommodation in temp)
-                {
-                    if (guestNum <= accommodation.MaxGuests)
-                    {
-                        tempFiltered.Add(accommodation);
-                    }
-                }
-
+                FilterAccommodationsByGuests();
             }
 
-            if (hasEntered)
-            {
-                hasEntered = false;
-                temp.Clear();
-                temp.AddRange(tempFiltered);
-                tempFiltered.Clear();
-            }
-
-
-            // Number of days
-
-            if (!string.IsNullOrWhiteSpace(tbDaysNum.Text))
+            if (!IsFieldEmpty(tbDaysNum.Text))
             {
                 if (!IsDigitsOnly(tbDaysNum.Text))
                 {
-                    string sMessageBoxText = $"Number of days field must contain only digits!";
-                    string sCaption = "Input error: Number of days";
-
-                    MessageBoxButton btnMessageBox = MessageBoxButton.OK;
-                    MessageBoxImage icnMessageBox = MessageBoxImage.Error;
-
-                    MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                    InputErrorMessageBox("Number of days");
                     return;
                 }
 
-                hasEntered = true;
-                int daysNum = Convert.ToInt32(tbDaysNum.Text);
-
-                foreach (Accommodation accommodation in temp)
-                {
-                    if (daysNum >= accommodation.MinReservationDays)
-                    {
-                        tempFiltered.Add(accommodation);
-                    }
-                }
-
+                FilterAccommodationsByDays();
             }
 
-            if (hasEntered)
+            if (!(bool)chbHouse.IsChecked && !(bool)chbAppartment.IsChecked && !(bool)chbCottage.IsChecked)
             {
-                hasEntered = false;
-                temp.Clear();
-                temp.AddRange(tempFiltered);
-                tempFiltered.Clear();
-            }
-
-            // Accommodation type checkboxes
-
-            if ((chbHouse.IsChecked == false) && (chbAppartment.IsChecked == false) && (chbCottage.IsChecked == false))
-            {
-                FilteredAccommodations.Clear();
-                foreach (Accommodation a in temp)
-                {
-                    FilteredAccommodations.Add(a);
-                }
                 return;
             }
 
-            foreach (Accommodation accommodation in temp)
-            {
-                if((accommodation.AccommodationType == AccommodationType.HOUSE && (bool)chbHouse.IsChecked) ||
-                    (accommodation.AccommodationType == AccommodationType.APPARTMENT && (bool)chbAppartment.IsChecked) ||
-                    (accommodation.AccommodationType == AccommodationType.COTTAGE && (bool)chbCottage.IsChecked))
-                {
-                    tempFiltered.Add(accommodation);
-                }
-            }
-
-            FilteredAccommodations.Clear();
-            foreach (Accommodation a in tempFiltered)
-            {
-                FilteredAccommodations.Add(a);
-            }
-            
+            FilterAccommodationsByType();
 
         }
 
         private bool IsDigitsOnly(string str)
         {
             return str.All(c => c >= '0' && c <= '9');
+        }
+
+        private bool IsFieldEmpty(string fieldInput)
+        {
+            return string.IsNullOrWhiteSpace(fieldInput);
         }
 
 
@@ -272,37 +146,164 @@ namespace Project.View
             accommodationInfoView.Show();
         }
 
-        private void UpdateMyReservationsList()
+        private void UpdateGuestReservationsList()
         {
-            MyReservations.Clear();
+            GuestReservations.Clear();
             foreach (var reservation in _controller.GetGuestReservations())
             {
-                MyReservations.Add(reservation);
+                GuestReservations.Add(reservation);
             }
         }
 
         public void Update()
         {
-            UpdateMyReservationsList();
+            UpdateGuestReservationsList();
         }
 
-        private void btMakeReservation_Click(object sender, RoutedEventArgs e)
+        private void btnMakeReservation_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedAccommodation == null)
             {
-                string sMessageBoxText = $"Choose an accommodation first!";
-                string sCaption = "Reservation not chosen";
-
-                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
-                MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
-
-
-                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                ItemNotSelectedMessageBox("Accommodation");
                 return;
             }
 
             ReserveView reserveView = new ReserveView(_controller, SelectedAccommodation);
             reserveView.Show();
+        }
+
+
+        private void InputErrorMessageBox(string fieldName)
+        {
+            string sMessageBoxText = $"{fieldName} field must contain only digits!";
+            string sCaption = $"Input error: {fieldName}";
+
+            MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+            MessageBoxImage icnMessageBox = MessageBoxImage.Error;
+
+            MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+        }
+
+        private void ItemNotSelectedMessageBox(string item)
+        {
+            string sMessageBoxText = $"Choose an {item.ToLower()} first!";
+            string sCaption = $"{item} not chosen";
+
+            MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+
+            MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+        }
+
+        private void FilterAccommodationsByName()
+        {
+            
+            List<Accommodation> tempAccommodations = new List<Accommodation>(Accommodations);
+
+            foreach (Accommodation accommodation in tempAccommodations)
+            {
+                if (!accommodation.Name.Contains(tbName.Text))
+                {
+                    Accommodations.Remove(accommodation);
+                }
+            }
+            
+        }
+
+        private void FilterAccommodationsByLocation()
+        {
+            bool isCityChosen = false;
+            if (!IsFieldEmpty(SelectedCity))
+            {
+                isCityChosen = true;
+            }
+
+            List<Accommodation> tempAccommodations = new List<Accommodation>(Accommodations);
+
+            foreach (Accommodation accommodation in tempAccommodations)
+            {
+                if (accommodation.Location.Country != SelectedCountry)
+                {
+                    Accommodations.Remove(accommodation);
+                }
+                else if (isCityChosen && accommodation.Location.City != SelectedCity)
+                {
+                    Accommodations.Remove(accommodation);
+                }
+                else
+                    continue;
+
+            }
+        }
+
+        private void ReInitializeAccommodations()
+        {
+            Accommodations.Clear();
+            foreach (Accommodation accommodation in _controller.GetAllAccommodations())
+            {
+                Accommodations.Add(accommodation);
+            }
+        }
+
+        private void FilterAccommodationsByGuests()
+        {
+            List<Accommodation> tempAccommodations = new List<Accommodation>(Accommodations);
+
+            int guests = Convert.ToInt32(tbGuestNum.Text);
+
+            foreach (Accommodation accommodation in tempAccommodations)
+            {
+                if (guests > accommodation.MaxGuests)
+                {
+                    Accommodations.Remove(accommodation);
+                }
+            }
+        }
+
+        private void FilterAccommodationsByDays()
+        {
+            List<Accommodation> tempAccommodations = new List<Accommodation>(Accommodations);
+
+            int days = Convert.ToInt32(tbDaysNum.Text);
+
+            foreach (Accommodation accommodation in tempAccommodations)
+            {
+                if (days < accommodation.MinReservationDays)
+                {
+                    Accommodations.Remove(accommodation);
+                }
+            }
+        }
+
+        private void FilterAccommodationsByType()
+        {
+            List<Accommodation> temp = new List<Accommodation>(Accommodations);
+
+            foreach (Accommodation accommodation in temp)
+            {
+                if (accommodation.AccommodationType == AccommodationType.HOUSE)
+                {
+                    if (!(bool)chbHouse.IsChecked)
+                    {
+                        Accommodations.Remove(accommodation);
+                    }
+                }
+                else if (accommodation.AccommodationType == AccommodationType.APPARTMENT)
+                {
+                    if (!(bool)chbAppartment.IsChecked)
+                    {
+                        Accommodations.Remove(accommodation);
+                    }
+                }
+                else
+                {
+                    if (!(bool)chbCottage.IsChecked)
+                    {
+                        Accommodations.Remove(accommodation);
+                    }
+                }
+            }
         }
     }
 }

@@ -8,14 +8,14 @@
         Title="Guest1View" Height="530" Width="880">
     <StackPanel >
         <ToolBar >
-            <Button x:Name="btSignOut" Content="Sign out" Margin="2" BorderBrush="Black" HorizontalAlignment="Right"
-                    Click="btSignOut_Click"/>
+            <Button x:Name="btnSignOut" Content="Sign out" Margin="2" BorderBrush="Black" HorizontalAlignment="Right"
+                    Click="btnSignOut_Click"/>
         </ToolBar>
 
         <TabControl Margin="8,10">
 
             <TabItem Header="Your reservations">
-                <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=MyReservations}">
+                <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=GuestReservations}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Start Date" Binding="{Binding Path=StartDate}" Width="2*"/>
                         <DataGridTextColumn Header="End Date" Binding="{Binding Path=EndDate}" Width="2*"/>
@@ -34,7 +34,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid MouseDoubleClick="tbViewDetails_MouseLeftButtonUp" SelectedItem="{Binding Path=SelectedAccommodation}" Grid.Row="1" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FilteredAccommodations}" Margin="0,0,0,10">
+                    <DataGrid MouseDoubleClick="tbViewDetails_MouseLeftButtonUp" SelectedItem="{Binding Path=SelectedAccommodation}" Grid.Row="1" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=Accommodations}" Margin="0,0,0,10">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
                             <DataGridTextColumn Header="Country" Binding="{Binding Path=Location.Country}"/>
@@ -77,8 +77,8 @@
                     <CheckBox Name="chbAppartment" IsChecked="False" Content="Appartment" HorizontalAlignment="Left" Margin="559,80,0,0" VerticalAlignment="Top"/>
                     <CheckBox Name="chbCottage" IsChecked="False" Content="Cottage" HorizontalAlignment="Left" Margin="559,105,0,0" VerticalAlignment="Top"/>
 
-                    <Button Name="btSearch" Click="btSearch_Click" Content="Search" HorizontalAlignment="Left" Margin="730,45,0,0" VerticalAlignment="Top" Height="40" Width="57"/>
-                    <Button x:Name="btMakeReservation" Click="btMakeReservation_Click" FontWeight="DemiBold" Content="Make reservation" Margin="371,21,371,77" Grid.Row="2"/>
+                    <Button Name="btnSearch" Click="FilterAccommodations" Content="Search" HorizontalAlignment="Left" Margin="730,45,0,0" VerticalAlignment="Top" Height="40" Width="57"/>
+                    <Button x:Name="btnMakeReservation" Click="btnMakeReservation_Click" FontWeight="DemiBold" Content="Make reservation" Margin="371,21,371,77" Grid.Row="2"/>
                     <Label Height="25" Foreground="LightCoral" Content="NOTE: Select accommodation first" Margin="340,53,312,47" Grid.Row="2"/>
 
 
