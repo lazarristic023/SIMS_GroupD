@@ -293,7 +293,6 @@ namespace Project.View.TourGuideView
 
         private void apointmentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selind = apointmentsList.SelectedIndex;
             if (SelectedAppointment != null)
             {
                 startTour.IsEnabled = true;
