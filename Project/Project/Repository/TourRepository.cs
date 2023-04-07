@@ -74,7 +74,7 @@ namespace Project.Repository
         {
             Tour tour = GetById(id);
 
-            tour.IsNotCanceled = false;
+            //tour.IsNotCanceled = false;
             SaveInFile();
             NotifyObservers();
         }

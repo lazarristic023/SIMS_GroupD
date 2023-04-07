@@ -234,7 +234,12 @@ namespace Project.View.TourGuideView
             Duration = Tour.Duration;
             Appointments = _appointmentController.GetByTourId(Tour.Id);
             Reservations = new ObservableCollection<User>(GetApproprietReservations());
-            
+
+            if (Tour.TourAppointment.DateAndTimeOfAppointment.ToShortDateString() != DateTime.Today.ToShortDateString())
+            {
+                startTour.IsEnabled = false;
+            }
+
 
         }
 
@@ -264,14 +269,6 @@ namespace Project.View.TourGuideView
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void SingleTourOverview_Loaded(object sender, RoutedEventArgs e)
-        {
-            if(SelectedAppointment == null)
-            {
-                startTour.IsEnabled = false;
-            }
-        }
-
         private Image CreateImage(string imageUrl)
         {
 
@@ -285,11 +282,7 @@ namespace Project.View.TourGuideView
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-                startTour.IsEnabled = false;
-
-            
-
-            foreach(string url in _imageController.GetImageUrlByTourId(Id))
+            foreach (string url in _imageController.GetImageUrlByTourId(Id))
             {
                 var image = CreateImage(url);
                 imagesWrap.Children.Add(image);
@@ -309,7 +302,7 @@ namespace Project.View.TourGuideView
 
         private void startTour_Click(object sender, RoutedEventArgs e)
         {
-            TourTracking tourTracking = new TourTracking(Id,SelectedAppointment.Id);
+            TourTracking tourTracking = new TourTracking(Id,Tour.TourAppointment.Id);
             tourTracking.Show();
         }
     }

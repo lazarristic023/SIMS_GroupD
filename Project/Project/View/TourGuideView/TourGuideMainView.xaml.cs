@@ -40,6 +40,7 @@ namespace Project.View.TourGuideView
         private readonly AppointmentController _appointmentController;
 
         private readonly TourService _tourService;
+        private readonly AppointmentService _appointmentService;
 
         public Tour SelectedTour { get; set; }
 
@@ -47,6 +48,7 @@ namespace Project.View.TourGuideView
 
 
         public ObservableCollection<Tour> Tours { get; set; }
+        //public ObservableCollection<Tour> TourAppointments { get; set; }
         public ObservableCollection<TourPointsList> Points { get; set; }
 
         User User { get; set; }
@@ -98,10 +100,16 @@ namespace Project.View.TourGuideView
             _tourService = new TourService();
             _tourService.Subscribe(this);
 
+            _appointmentService = new AppointmentService();
+            _appointmentService.Subscribe(this);
+
             ImageSource = "../../Resources/Data/images.csv";
 
 
-            Tours = new ObservableCollection<Tour>(_tourGuideController.GetAllTours());
+            //Tours = new ObservableCollection<Tour>(_tourGuideController.GetAllTours());
+
+            Tours = new ObservableCollection<Tour>(_tourService.GetAllTourAppointments());
+            var t = Tours[1].TourAppointment.DateAndTimeOfAppointment.ToString();
 
         }
 
@@ -109,24 +117,35 @@ namespace Project.View.TourGuideView
         public void Update()
         {
             UpdateTours();
-            UpdateToursServiceChanged();
+            //UpdateToursServiceChanged();
+            //Update2();
         }
 
-        public void UpdateTours()
-        {
-            Tours.Clear();
+        //public void UpdateTours()
+        //{
+        //    Tours.Clear();
 
-            foreach (var tour in _tourGuideController.GetAllTours())
-            {
-                Tours.Add(tour);
-            }
-        }
+        //    foreach (var tour in _tourGuideController.GetAllTours())
+        //    {
+        //        Tours.Add(tour);
+        //    }
+        //}
 
         public void UpdateToursServiceChanged()
         {
             Tours.Clear();
 
             foreach (var tour in _tourService.GetAll())
+            {
+                Tours.Add(tour);
+            }
+        }
+
+        public void UpdateTours()
+        {
+            Tours.Clear();
+
+            foreach(var tour in _tourService.GetAllTourAppointments())
             {
                 Tours.Add(tour);
             }
@@ -147,7 +166,7 @@ namespace Project.View.TourGuideView
 
         private void addTourButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNewTour addNewTour = new AddNewTour(_tourGuideController, _imageController,_tourPointController,_tourPointsListController,_locationController, _appointmentController);
+            AddNewTour addNewTour = new AddNewTour(_tourGuideController,_tourService, _imageController,_tourPointController,_tourPointsListController,_locationController, _appointmentController,_appointmentService);
             addNewTour.Show();
         }
 

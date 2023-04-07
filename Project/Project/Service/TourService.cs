@@ -13,10 +13,12 @@ namespace Project.Service
     public class TourService
     {
         TourRepository tourRepository;
+        AppointmentService appointmentService;
 
         public TourService()
         {
             tourRepository = new TourRepository();
+            appointmentService = new AppointmentService();
 
         }
 
@@ -49,9 +51,30 @@ namespace Project.Service
         {
             return tourRepository.GetAll();
         }
+
         public void Subscribe(IObserver observer)
         {
             tourRepository.Subscribe(observer);
+        }
+
+        public List<Tour> GetAllTourAppointments()
+        {
+            List<Tour> tourAppointments = new List<Tour>();
+            List<Tour> tours = GetAll();
+            appointmentService.RefreshAppointments();
+
+            foreach(Tour tour in tours)
+            {
+                List<Appointment> appointments = appointmentService.GetByTourId(tour.Id);
+                foreach(Appointment appointment in appointments)
+                {
+                    Tour newTour = new Tour(tour,appointment);
+                    tourAppointments.Add(newTour);
+                }
+            }
+
+
+            return tourAppointments;
         }
 
 

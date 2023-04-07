@@ -43,33 +43,33 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _country;
-        public string Country
-        {
-            get => _country;
-            set
-            {
-                if (value != _country)
-                {
-                    _country = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        //private string _country;
+        //public string Country
+        //{
+        //    get => _country;
+        //    set
+        //    {
+        //        if (value != _country)
+        //        {
+        //            _country = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
 
-        private string _city;
-        public string City
-        {
-            get => _city;
-            set
-            {
-                if (value != _city)
-                {
-                    _city = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        //private string _city;
+        //public string City
+        //{
+        //    get => _city;
+        //    set
+        //    {
+        //        if (value != _city)
+        //        {
+        //            _city = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
 
         private string _name;
         public string NameOfTour
@@ -215,41 +215,42 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private readonly TourGuideController _tourGuideController;
+        //private readonly TourGuideController _tourGuideController;
         private readonly ImageController _imageController;
         private readonly TourPointController _tourPointController;
         private readonly TourPointsListController _tourPointsListController;
         private readonly LocationController _locationController;
-        private readonly AppointmentController _appointmentController;
+        //private readonly AppointmentController _appointmentController;
 
-        TourService tourService;
+        private readonly TourService _tourService;
+        private readonly AppointmentService _appointmentService;
 
         List<DateTime> dates = new List<DateTime>();
         List<string> images = new List<string>();
         List<int> pointsIds = new List<int>();
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public AddNewTour(TourGuideController tourGuideController,ImageController imageController,
+        public AddNewTour(TourGuideController tourGuideController,TourService tourService,ImageController imageController,
                             TourPointController tourPointController,TourPointsListController tourPointsListController, LocationController locationController,
-                            AppointmentController appointmentController)
+                            AppointmentController appointmentController, AppointmentService appointmentService)
         {
             InitializeComponent();
             DataContext = this;
 
-            _tourGuideController = tourGuideController;
+            //_tourGuideController = tourGuideController;
             _imageController = imageController;
             _tourPointController = tourPointController;
             _tourPointsListController = tourPointsListController;
             _locationController = locationController;
-            _appointmentController = appointmentController;
+            //_appointmentController = appointmentController;
 
-            tourService = new TourService();
+            _tourService = tourService;
+            _appointmentService = appointmentService;
 
             LocationOfTour = new Location();
 
-            StartDate = DateTime.Now;
-
             TodayDate = DateTime.Now;
+            StartDate = DateTime.Now;
 
 
         }
@@ -315,13 +316,13 @@ namespace Project.View.TourGuideView
 
             //KREIRANJE TOUR-a
 
-            int tourId = _tourGuideController.Create(_location, NameOfTour, Description, LanguageOfTour, MaxGuests, Duration);
+            int tourId  = _tourService.Create(_location, NameOfTour, Description, LanguageOfTour, MaxGuests, Duration);
 
             //KREIRANJE APPOINTMENT-a
 
             foreach(DateTime date in dates)
             {
-                _appointmentController.Create(tourId,date);
+                _appointmentService.Create(tourId,date);
             }
 
             dates.Clear();
@@ -352,7 +353,7 @@ namespace Project.View.TourGuideView
 
         private void AddDate_Click(object sender, RoutedEventArgs e)
         {
-            DateTime dateAndTime = tourService.BuildDate(StartDate, time.Text);
+            DateTime dateAndTime = _tourService.BuildDate(StartDate, time.Text);
 
             dates.Add(dateAndTime);
             time.Clear();

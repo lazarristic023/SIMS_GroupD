@@ -61,6 +61,7 @@
 
 
                                     <DataGridTextColumn Header="Duration" Binding="{Binding Duration}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Appointment" Binding="{Binding TourAppointment.DateAndTimeOfAppointment, StringFormat=D}"></DataGridTextColumn>
 
                                 </DataGrid.Columns>
 

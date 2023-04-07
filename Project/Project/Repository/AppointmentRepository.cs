@@ -87,6 +87,11 @@ namespace Project.Repository
             return appointments;
         }
 
+        public void RefreshAppointments()
+        {
+            appointments = serializer.FromCSV(FilePath);
+        }
+
         public void NotifyObservers()
         {
             foreach (var observer in _observers)

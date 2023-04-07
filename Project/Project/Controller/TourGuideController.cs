@@ -55,9 +55,5 @@ namespace Project.Controller
             return tourRepository.GetById(id);
         }
 
-        public void Cancel(int id)
-        {
-            tourRepository.Cancel(id);
-        }
     }
 }
