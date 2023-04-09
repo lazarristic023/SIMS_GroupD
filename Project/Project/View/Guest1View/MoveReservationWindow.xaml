@@ -1,4 +1,4 @@
-﻿<Window x:Class="Project.View.Guest1View.MoveReservationView"
+﻿<Window x:Class="Project.View.Guest1View.MoveReservationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -75,7 +75,7 @@
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextDecorations="Underline" FontWeight="DemiBold" FontSize="37" Grid.Row="0" Text="Move Reservation"/>
 
         </Grid>
-        
-        
+
+
     </Grid>
 </Window>

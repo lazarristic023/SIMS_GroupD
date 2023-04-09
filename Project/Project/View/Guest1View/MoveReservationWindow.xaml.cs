@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Project.View.Guest1View
 {
     /// <summary>
-    /// Interaction logic for MoveReservationView.xaml
+    /// Interaction logic for MoveReservationWindow.xaml
     /// </summary>
-    public partial class MoveReservationView : Window
+    public partial class MoveReservationWindow : Window
     {
-        public MoveReservationView()
+        public MoveReservationWindow()
         {
             InitializeComponent();
         }

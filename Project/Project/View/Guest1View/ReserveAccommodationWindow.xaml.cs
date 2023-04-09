@@ -14,14 +14,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Xml.Linq;
 
-namespace Project.View
+namespace Project.View.Guest1View
 {
     /// <summary>
-    /// Interaction logic for ReserveView.xaml
+    /// Interaction logic for ReserveAccommodationWindow.xaml
     /// </summary>
-    public partial class ReserveView : Window
+    public partial class ReserveAccommodationWindow : Window
     {
         public Guest1Controller Controller { get; set; }
         public Accommodation Accommodation { get; set; }
@@ -35,14 +34,14 @@ namespace Project.View
 
         public DateTime EndDate { get; set; } = DateTime.Now.Date;
 
-        public ReserveView(Guest1Controller controller, Accommodation accommodation)
+        public ReserveAccommodationWindow(Guest1Controller controller, Accommodation accommodation)
         {
             InitializeComponent();
             DataContext = this;
             Controller = controller;
             Accommodation = accommodation;
             FreeReservations = new ObservableCollection<AccommodationReservation>();
-            
+
         }
 
 
@@ -55,7 +54,7 @@ namespace Project.View
 
                 MessageBoxButton btnMessageBox = MessageBoxButton.OK;
                 MessageBoxImage icnMessageBox = MessageBoxImage.Error;
-                
+
 
                 MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
                 dpEnd.SelectedDate = DateTime.Now.Date;
@@ -84,13 +83,13 @@ namespace Project.View
         {
 
             FindFreeDates(StartDate, EndDate);
-            
+
         }
 
         private void FindFreeDates(DateTime startDate, DateTime endDate)
         {
 
-            if(repetition == 0)
+            if (repetition == 0)
                 if (!CheckConditions()) return;
 
             double days = Convert.ToDouble(tbDays.Text);
@@ -107,7 +106,7 @@ namespace Project.View
             {
 
                 repetition++;
-                FindFreeDates(endDate.AddDays(1), endDate.AddDays(daysBetween+1));
+                FindFreeDates(endDate.AddDays(1), endDate.AddDays(daysBetween + 1));
 
             }
             else if (FreeReservations.Count > 0 && repetition > 0)
@@ -309,7 +308,7 @@ namespace Project.View
                     reservations.Add(reservation);
                 }
 
-                
+
             }
 
             return reservations;
@@ -354,11 +353,12 @@ namespace Project.View
                 SelectedReservation.Guest = Controller.Guest;
                 SelectedReservation.Accommodation = Accommodation;
                 Controller.AddReservation(SelectedReservation);
-                
+                this.Close();
+
             }
 
         }
- 
+
         private List<DateTime> GetDatesInRange(DateTime startDate, DateTime endDate)
         {
             List<DateTime> dates = new List<DateTime>();
@@ -379,9 +379,9 @@ namespace Project.View
             foreach (var reservation in temp)
             {
 
-                List<AccommodationReservation> takenReservation = reservations.FindAll(r => reservation.StartDate > r.EndDate || reservation.EndDate < r.StartDate );
+                List<AccommodationReservation> takenReservation = reservations.FindAll(r => reservation.StartDate > r.EndDate || reservation.EndDate < r.StartDate);
 
-                if(takenReservation.Count() != reservations.Count())
+                if (takenReservation.Count() != reservations.Count())
                 {
                     FreeReservations.Remove(reservation);
                 }
@@ -409,6 +409,5 @@ namespace Project.View
 
             }
         }
-
     }
 }

@@ -1,12 +1,14 @@
 ﻿using Project.Controller;
 using Project.Model;
 using Project.Observer;
+using Project.Service;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Position;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.Linq;
-using Project.Service;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,19 +19,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Xml.Serialization;
+using ToastNotifications.Messages;
 
-
-
-namespace Project.View
+namespace Project.View.Guest1View
 {
     /// <summary>
-    /// Interaction logic for Guest1View.xaml
+    /// Interaction logic for Guest1MainView.xaml
     /// </summary>
-    public partial class Guest1View : Window, IObserver
+    public partial class Guest1MainView : Window , IObserver
     {
         private Guest1Controller _controller;
+        private Guest1NotificationService _notificationService;
 
+        private Notifier notifier;
         private AccommodationReservationService _reservationService;
         private AccommodationService _accommodationService;
 
@@ -45,7 +47,7 @@ namespace Project.View
         public Accommodation SelectedAccommodation { get; set; }
 
         public AccommodationReservation SelectedReservation { get; set; }
-        public Guest1View(User u)
+        public Guest1MainView(User u)
         {
             InitializeComponent();
             DataContext = this;
@@ -53,6 +55,7 @@ namespace Project.View
             _controller = new Guest1Controller(u);
             _reservationService = new AccommodationReservationService();
             _accommodationService = new AccommodationService();
+            _notificationService = new Guest1NotificationService();
             GuestReservations = new ObservableCollection<AccommodationReservation>(_controller.GetGuestReservations());
             Accommodations = new ObservableCollection<Accommodation>(_controller.GetAllAccommodations());
             _controller.SubscribeToReservationRepository(this);
@@ -60,7 +63,22 @@ namespace Project.View
             Countries = new ObservableCollection<string>();
             CountryCities = new ObservableCollection<string>();
             FillCountriesList();
-            
+
+            notifier = new Notifier(cfg =>
+            {
+                cfg.PositionProvider = new WindowPositionProvider(
+                    parentWindow: Guest1MainView.GetWindow(this),
+                    corner: Corner.TopRight,
+                    offsetX: 10,
+                    offsetY: 10);
+
+                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                    notificationLifetime: TimeSpan.FromSeconds(3),
+                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+                cfg.Dispatcher = Application.Current.Dispatcher;
+            });
+
         }
 
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
@@ -98,9 +116,9 @@ namespace Project.View
 
             ReInitializeAccommodations();
 
-            if (!IsFieldEmpty(tbName.Text)) 
-            { 
-                FilterAccommodationsByName();           
+            if (!IsFieldEmpty(tbName.Text))
+            {
+                FilterAccommodationsByName();
             }
 
             if (!IsFieldEmpty(SelectedCountry))
@@ -153,8 +171,8 @@ namespace Project.View
 
         private void tbViewDetails_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            AccommodationInfoView accommodationInfoView = new AccommodationInfoView(_controller, SelectedAccommodation);
-            accommodationInfoView.Show();
+            AccommodationInfoWindow accommodationInfoWindow = new AccommodationInfoWindow(_controller, SelectedAccommodation);
+            accommodationInfoWindow.Show();
         }
 
         private void UpdateGuestReservationsList()
@@ -179,8 +197,8 @@ namespace Project.View
                 return;
             }
 
-            ReserveView reserveView = new ReserveView(_controller, SelectedAccommodation);
-            reserveView.Show();
+            ReserveAccommodationWindow reserveWindow = new ReserveAccommodationWindow(_controller, SelectedAccommodation);
+            reserveWindow.Show();
         }
 
 
@@ -209,7 +227,7 @@ namespace Project.View
 
         private void FilterAccommodationsByName()
         {
-            
+
             List<Accommodation> tempAccommodations = new List<Accommodation>(Accommodations);
 
             foreach (Accommodation accommodation in tempAccommodations)
@@ -219,7 +237,7 @@ namespace Project.View
                     Accommodations.Remove(accommodation);
                 }
             }
-            
+
         }
 
         private void FilterAccommodationsByLocation()
@@ -345,5 +363,13 @@ namespace Project.View
 
             return true;
         }
+        public void ShowNotifications(int id)
+        {
+            _notificationService.NotifyGuest(notifier, id);
+        }
+
+
+
+
     }
 }

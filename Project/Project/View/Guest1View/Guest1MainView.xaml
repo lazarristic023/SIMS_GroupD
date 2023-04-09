@@ -1,11 +1,11 @@
-﻿<Window x:Class="Project.View.Guest1View"
+﻿<Window x:Class="Project.View.Guest1View.Guest1MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Project.View"
+        xmlns:local="clr-namespace:Project.View.Guest1View"
         mc:Ignorable="d"
-        Title="Guest1View" Height="530" Width="880">
+        Title="Guest1MainView" Height="530" Width="880">
     <StackPanel >
         <ToolBar >
             <Button x:Name="btnSignOut" Content="Sign out" Margin="2" BorderBrush="Black" HorizontalAlignment="Right"
@@ -16,7 +16,7 @@
 
             <TabItem Header="Your reservations">
                 <Grid>
-                    
+
                     <DataGrid SelectedItem="{Binding Path=SelectedReservation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Margin="0,30" HorizontalAlignment="Left" Width="620" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=GuestReservations}" Height="85">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Start Date" Binding="{Binding Path=StartDate}" Width="2*"/>
@@ -88,7 +88,7 @@
 
                 </Grid>
             </TabItem>
-            
+
 
 
         </TabControl>
