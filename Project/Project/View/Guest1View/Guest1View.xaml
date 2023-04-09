@@ -12,18 +12,22 @@
                     Click="btnSignOut_Click"/>
         </ToolBar>
 
-        <TabControl Margin="8,10">
+        <TabControl Margin="8,10" Height="471">
 
             <TabItem Header="Your reservations">
-                <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=GuestReservations}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Start Date" Binding="{Binding Path=StartDate}" Width="2*"/>
-                        <DataGridTextColumn Header="End Date" Binding="{Binding Path=EndDate}" Width="2*"/>
-                        <DataGridTextColumn Header="Accommodation Name" Binding="{Binding Path=Accommodation.Name}" Width="2*"/>
-                        <DataGridTextColumn Header="Country" Binding="{Binding Path=Accommodation.Location.Country}" Width="*"/>
-                        <DataGridTextColumn Header="City" Binding="{Binding Path=Accommodation.Location.City}" Width="*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <Grid>
+                    
+                    <DataGrid SelectedItem="{Binding Path=SelectedReservation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Margin="0,30" HorizontalAlignment="Left" Width="620" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=GuestReservations}" Height="85">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Start Date" Binding="{Binding Path=StartDate}" Width="2*"/>
+                            <DataGridTextColumn Header="End Date" Binding="{Binding Path=EndDate}" Width="2*"/>
+                            <DataGridTextColumn Header="Accommodation Name" Binding="{Binding Path=Accommodation.Name}" Width="2*"/>
+                            <DataGridTextColumn Header="Country" Binding="{Binding Path=Accommodation.Location.Country}" Width="*"/>
+                            <DataGridTextColumn Header="City" Binding="{Binding Path=Accommodation.Location.City}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="btnCancel" Click="CancelReservation" FontSize="16"  Content="Cancel" HorizontalAlignment="Left" Margin="727,51,0,0" VerticalAlignment="Top" Height="43" Width="68"/>
+                </Grid>
             </TabItem>
 
             <TabItem Header="Accommodations">
@@ -84,6 +88,7 @@
 
                 </Grid>
             </TabItem>
+            
 
 
         </TabControl>

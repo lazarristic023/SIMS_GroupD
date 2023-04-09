@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using Project.Service;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
+
+
 
 namespace Project.View
 {
@@ -25,6 +29,9 @@ namespace Project.View
     public partial class Guest1View : Window, IObserver
     {
         private Guest1Controller _controller;
+
+        private AccommodationReservationService _reservationService;
+        private AccommodationService _accommodationService;
 
         public ObservableCollection<AccommodationReservation> GuestReservations { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
@@ -36,12 +43,16 @@ namespace Project.View
         public string SelectedCity { get; set; }
 
         public Accommodation SelectedAccommodation { get; set; }
+
+        public AccommodationReservation SelectedReservation { get; set; }
         public Guest1View(User u)
         {
             InitializeComponent();
             DataContext = this;
 
             _controller = new Guest1Controller(u);
+            _reservationService = new AccommodationReservationService();
+            _accommodationService = new AccommodationService();
             GuestReservations = new ObservableCollection<AccommodationReservation>(_controller.GetGuestReservations());
             Accommodations = new ObservableCollection<Accommodation>(_controller.GetAllAccommodations());
             _controller.SubscribeToReservationRepository(this);
@@ -304,6 +315,35 @@ namespace Project.View
                     }
                 }
             }
+        }
+
+        private void CancelReservation(object sender, RoutedEventArgs e)
+        {
+            if (!CheckCancellationPeriod())
+            {
+                return;
+            }
+            _reservationService.Remove(SelectedReservation);
+            GuestReservations.Remove(SelectedReservation);
+        }
+
+        private bool CheckCancellationPeriod()
+        {
+            if (SelectedReservation == null)
+            {
+                ItemNotSelectedMessageBox("Reservation");
+                return false;
+            }
+
+            Accommodation accommodation = _accommodationService.GetAccommodationById(SelectedReservation.AccommodationId);
+
+            if (DateTime.Now.AddDays((double)accommodation.CancellationPeriod) > SelectedReservation.StartDate)
+            {
+                MessageBox.Show("You can not cancel this reservation, cancellation period has passed!");
+                return false;
+            }
+
+            return true;
         }
     }
 }
