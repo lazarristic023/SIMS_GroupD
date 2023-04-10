@@ -57,6 +57,7 @@ namespace Project.Repository
             oldReservation.EndDate = accReservation.EndDate;
             oldReservation.GuestId = accReservation.GuestId;
             oldReservation.AccommodationId = accReservation.AccommodationId;
+            oldReservation.Guests = accReservation.Guests;
 
 
             SaveInFile();

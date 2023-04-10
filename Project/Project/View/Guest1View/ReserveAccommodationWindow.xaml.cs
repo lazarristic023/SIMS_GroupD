@@ -392,6 +392,7 @@ namespace Project.View.Guest1View
         private void FillFreeReservationsList(DateTime startDate, DateTime endDate, double numOfDays)
         {
             List<DateTime> dates = new(GetDatesInRange(startDate, endDate));
+            int guests = Convert.ToInt32(tbGuests.Text);
 
             foreach (var date in dates)
             {
@@ -403,7 +404,7 @@ namespace Project.View.Guest1View
                 }
 
                 AccommodationReservation reservation =
-                    new(0, date, date.AddDays(numOfDays), Controller.Guest.User.Id, Accommodation.Id);
+                    new(0, date, date.AddDays(numOfDays), Controller.Guest.User.Id, Accommodation.Id, guests);
 
                 FreeReservations.Add(reservation);
 

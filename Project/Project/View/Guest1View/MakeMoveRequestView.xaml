@@ -42,22 +42,22 @@
 
             <WrapPanel Margin="25,0" VerticalAlignment="Center" Grid.Row="2">
                 <TextBlock Text="Old start date:"/>
-                <TextBlock Margin="10,0" Text="{Binding Path=SelectedReservation.StartDate.Date}"/>
+                <TextBlock Margin="10,0" Text="{Binding Path=SelectedReservation.StartDate,StringFormat=d}"/>
             </WrapPanel>
             
             <WrapPanel Margin="25,0,0,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0">
                 <TextBlock Text="Number of guests:"/>
-                <TextBlock Margin="10,0" Text="4"/>
+                <TextBlock Margin="10,0" Text="{Binding Path=SelectedReservation.Guests}"/>
             </WrapPanel>
 
             <WrapPanel Margin="25,0,0,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
                 <TextBlock Text="Number of days:"/>
-                <TextBlock Margin="10,0" Text="4"/>
+                <TextBlock Margin="10,0" Text="{Binding Path=Days}"/>
             </WrapPanel>
 
             <WrapPanel Margin="25,0,0,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
                 <TextBlock Text="Old end date:"/>
-                <TextBlock Margin="10,0" Text="{Binding Path=SelectedReservation.EndDate.Date}"/>
+                <TextBlock Margin="10,0" Text="{Binding Path=SelectedReservation.EndDate, StringFormat=d}"/>
             </WrapPanel>
 
         </Grid>

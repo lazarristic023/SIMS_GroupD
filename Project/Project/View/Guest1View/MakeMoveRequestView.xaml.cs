@@ -24,6 +24,7 @@ namespace Project.View.Guest1View
         private MoveRequestService _requestService;
 
         private User user;
+        public int Days { get; set; }
 
         private OwnerNotificationService _ownerNotificationService;
         public AccommodationReservation SelectedReservation { get; set; }
@@ -40,6 +41,8 @@ namespace Project.View.Guest1View
             _requestService = new MoveRequestService();
             _ownerNotificationService = new OwnerNotificationService();
             SelectedReservation = reservation;
+            Days = (int)(SelectedReservation.EndDate - SelectedReservation.StartDate).TotalDays;
+            
             this.user = user;
         }
 
