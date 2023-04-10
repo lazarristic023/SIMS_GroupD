@@ -30,6 +30,7 @@ namespace Project.View.Guest1View
     {
         private Guest1Controller _controller;
         private Guest1NotificationService _notificationService;
+        private User user;
 
         private Notifier notifier;
         private AccommodationReservationService _reservationService;
@@ -51,6 +52,7 @@ namespace Project.View.Guest1View
         {
             InitializeComponent();
             DataContext = this;
+            user = u;
 
             _controller = new Guest1Controller(u);
             _reservationService = new AccommodationReservationService();
@@ -368,8 +370,10 @@ namespace Project.View.Guest1View
             _notificationService.NotifyGuest(notifier, id);
         }
 
-
-
-
+        private void tbMoveReservation_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            MoveReservationWindow moveReservationWindow = new MoveReservationWindow(user);
+            moveReservationWindow.Show();
+        }
     }
 }

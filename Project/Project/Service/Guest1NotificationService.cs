@@ -31,30 +31,13 @@ namespace Project.Service
 
             foreach (var notification in notifications)
             {
-                if (notification.Type == NotificationType.INFO)
+                notifier.ShowInformation(notification.Message);
+                if (notification.Date.AddDays(5) >= DateTime.Now)
                 {
-                    notifier.ShowInformation(notification.Message);
-                    _repository.Remove(notification.Id);
                     continue;
                 }
-                else if (notification.Type == NotificationType.ERROR)
-                {
-                    notifier.ShowError(notification.Message);
-                    _repository.Remove(notification.Id);
-                    continue;
-                }
-                else if (notification.Type == NotificationType.WARNING)
-                {
-                    notifier.ShowWarning(notification.Message);
-                    _repository.Remove(notification.Id);
-                    continue;
-                }
-                else
-                {
-                    notifier.ShowSuccess(notification.Message);
-                    _repository.Remove(notification.Id);
-                }
-                    
+
+                _repository.Remove(notification.Id);
             }
 
         }
@@ -82,3 +65,29 @@ namespace Project.Service
 
     }
 }
+
+
+
+/*if (notification.Type == NotificationType.INFO)
+{
+    notifier.ShowInformation(notification.Message);
+    _repository.Remove(notification.Id);
+    continue;
+}
+else if (notification.Type == NotificationType.ERROR)
+{
+    notifier.ShowError(notification.Message);
+    _repository.Remove(notification.Id);
+    continue;
+}
+else if (notification.Type == NotificationType.WARNING)
+{
+    notifier.ShowWarning(notification.Message);
+    _repository.Remove(notification.Id);
+    continue;
+}
+else
+{
+    notifier.ShowSuccess(notification.Message);
+    _repository.Remove(notification.Id);
+}*/

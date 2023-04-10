@@ -8,29 +8,33 @@ using System.Threading.Tasks;
 
 namespace Project.Model
 {
-    public enum NotificationType { INFO, WARNING, ERROR, SUCCESS}
+    //public enum NotificationType { INFO, WARNING, ERROR, SUCCESS}
     public class Guest1Notification : ISerializable
     {
         public int Id { get; set; }
         public int GuestId { get; set; }
         public int OwnerId { get; set; }
-        public NotificationType Type { get; set; }
+        //public NotificationType Type { get; set; }
         public string Message { get; set; }
+
+        public DateTime Date { get; set; }
+
 
 
         public Guest1Notification() { }
 
-        public Guest1Notification(int guestId, int ownerId, NotificationType type, string message)
+        public Guest1Notification(int guestId, int ownerId, /*NotificationType type,*/ string message, DateTime date = default(DateTime))
         {
             GuestId = guestId;
             OwnerId = ownerId;
-            Type = type;
+            //Type = type;
             Message = message;
+            Date = date;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), GuestId.ToString(), OwnerId.ToString(), NotificationTypeToString(), Message };
+            string[] csvValues = { Id.ToString(), GuestId.ToString(), OwnerId.ToString(), /*NotificationTypeToString(),*/ Message, Date.ToString() };
             return csvValues;
         }
 
@@ -39,11 +43,12 @@ namespace Project.Model
             Id = Convert.ToInt32(values[0]);
             GuestId = Convert.ToInt32(values[1]);
             OwnerId = Convert.ToInt32(values[2]);
-            Type = StringToNotificationType(values[3]);
-            Message = values[4];
+            /*Type = StringToNotificationType(values[3]);*/
+            Message = values[3];
+            Date = Convert.ToDateTime(values[4]);
         }
 
-        private string NotificationTypeToString()
+        /*private string NotificationTypeToString()
         {
             if (Type == NotificationType.ERROR)
             {
@@ -80,7 +85,7 @@ namespace Project.Model
             else
                 return NotificationType.SUCCESS;
 
-        }
+        }*/
 
 
     }

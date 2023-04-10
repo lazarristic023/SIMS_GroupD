@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.Guest1View"
         mc:Ignorable="d"
-        Title="MoveReservationView" Height="683" Width="1102">
+        Title="MoveReservationView" Height="650" Width="1102" BorderThickness="1" BorderBrush="DarkBlue">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="285"/>
+            <ColumnDefinition Width="260"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="180"/>
+                <RowDefinition Height="170"/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -26,18 +26,18 @@
             </Grid.RowDefinitions>
 
             <StackPanel>
-                <Image Margin="10,10" Height="120"  Source="../../Resources/Images/avatar.png"/>
-                <Label FontSize="17" HorizontalContentAlignment="Center" FontWeight="Bold" Content="Pera"/>
+                <Image Margin="10,10" Height="110"  Source="../../Resources/Images/avatar.png"/>
+                <Label Margin="0,5,0,0" FontSize="20" HorizontalContentAlignment="Center" FontWeight="Bold" Content="{Binding Path=User.Username}"/>
             </StackPanel>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
                 <Image Height="25" Source="../../Resources/Images/userIcon.png"/>
-                <Label Margin="5,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="Profile"/>
+                <TextBlock Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Text="Profile"/>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2">
                 <Image Height="25" Source="../../Resources/Images/view.png"/>
-                <Label Margin="5,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="Your reservations"/>
+                <TextBlock Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Text="Your reservations"/>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3">
@@ -63,16 +63,64 @@
             <Image Height="130" Grid.Row="8" Source="../../Resources/Images/logo.jpg"/>
         </Grid>
 
-        <Separator Grid.Column="1" Foreground="Black" Width="1"/>
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <Rectangle VerticalAlignment="Stretch" Fill="DarkBlue" Width="1"/>
+        </StackPanel>
 
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
 
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextDecorations="Underline" FontWeight="DemiBold" FontSize="37" Grid.Row="0" Text="Move Reservation"/>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="260"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Margin="20,15" VerticalAlignment="top">
+                    <TextBlock FontSize="23" Text="Current reservations:"/>
+                    <DataGrid SelectedItem="{Binding Path=SelectedReservation,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Margin="0,10" Height="165" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=CurrentReservations, UpdateSourceTrigger=PropertyChanged}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Start Date" Binding="{Binding Path=StartDate.Date}" Width="1.5*"/>
+                            <DataGridTextColumn Header="End Date" Binding="{Binding Path=EndDate.Date}" Width="1.5*"/>
+                            <DataGridTextColumn Header="Accommodation Name" Binding="{Binding Path=Accommodation.Name}" Width="2*"/>
+                            <DataGridTextColumn Header="Country" Binding="{Binding Path=Accommodation.Location.Country}" Width="*"/>
+                            <DataGridTextColumn Header="City" Binding="{Binding Path=Accommodation.Location.City}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <Button x:Name="btnMove" Click="btnMove_Click" Margin="0,18" FontSize="17" Content="Move" Width="55" Height="25"/>
+                    <TextBlock HorizontalAlignment="Center" Foreground="LightCoral" FontSize="16" Text="NOTE: Select a reservaton first"/>
+                </StackPanel>
+
+            </Grid>
+
+
+            <StackPanel Grid.Row="2" Margin="20,0">
+                <TextBlock Margin="0,10" FontSize="23" Text="Move requests:"/>
+                <TabControl FontSize="15" Height="250">
+                    <TabItem Header="Pending">
+                        <DataGrid></DataGrid>
+                    </TabItem>
+
+                    <TabItem Header="Accepted">
+                        <DataGrid></DataGrid>
+                    </TabItem>
+
+                    <TabItem Header="Declined">
+                        <DataGrid></DataGrid>
+                    </TabItem>
+                </TabControl>
+            </StackPanel>
+
+
 
         </Grid>
 
