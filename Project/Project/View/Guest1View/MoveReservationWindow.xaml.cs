@@ -41,6 +41,14 @@ namespace Project.View.Guest1View
 
         private void btnMove_Click(object sender, RoutedEventArgs e)
         {
+            if (SelectedReservation == null)
+            {
+                MessageBox.Show("Choose a reservation first!", "Reservation not chosen", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            MakeMoveRequestView makeMoveRequestView = new(SelectedReservation, User);
+            makeMoveRequestView.Show();
 
         }
     }

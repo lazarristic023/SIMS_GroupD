@@ -59,7 +59,7 @@ namespace Project.Service
 
             foreach (var reservation in allReservations)
             {
-                if (reservation.EndDate < DateTime.Now.Date)
+                if (reservation.StartDate <= DateTime.Now.Date)
                 {
                     allReservations.Remove(reservation);
                 }
@@ -75,7 +75,7 @@ namespace Project.Service
 
             foreach (var reservation in allReservations)
             {
-                if (!(reservation.EndDate < DateTime.Now.Date))
+                if (reservation.StartDate > DateTime.Now.Date)
                 {
                     allReservations.Remove(reservation);
                 }
@@ -85,8 +85,29 @@ namespace Project.Service
 
         }
 
+        public bool IsAccommodationFree(DateTime start, DateTime end, int id)
+        {
+            AccommodationReservation reservation = 
+                GetAccommodationReservations(id).Find(r => !(r.EndDate < start) && !(r.StartDate > end));
 
+            return reservation == null;
+        }
 
+        public List<AccommodationReservation> GetAccommodationReservations(int id)
+        {
+            List<AccommodationReservation> reservations = new();
+
+            foreach (var reservation in _reservationRepository.GetAllReservations())
+            {
+                if (reservation.AccommodationId == id)
+                {
+                    reservations.Add(reservation);
+                }
+            }
+
+            return reservations;
+
+        }
 
 
         public void Remove(AccommodationReservation reservation)

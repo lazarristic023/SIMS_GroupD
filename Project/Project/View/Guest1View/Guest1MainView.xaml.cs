@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ToastNotifications.Messages;
+using System.Windows.Interop;
 
 namespace Project.View.Guest1View
 {
@@ -30,6 +31,7 @@ namespace Project.View.Guest1View
     {
         private Guest1Controller _controller;
         private Guest1NotificationService _notificationService;
+        private OwnerNotificationService _ownerNotificationService;
         private User user;
 
         private Notifier notifier;
@@ -58,6 +60,7 @@ namespace Project.View.Guest1View
             _reservationService = new AccommodationReservationService();
             _accommodationService = new AccommodationService();
             _notificationService = new Guest1NotificationService();
+            _ownerNotificationService = new OwnerNotificationService();
             GuestReservations = new ObservableCollection<AccommodationReservation>(_controller.GetGuestReservations());
             Accommodations = new ObservableCollection<Accommodation>(_controller.GetAllAccommodations());
             _controller.SubscribeToReservationRepository(this);
@@ -345,6 +348,10 @@ namespace Project.View.Guest1View
             }
             _reservationService.Remove(SelectedReservation);
             GuestReservations.Remove(SelectedReservation);
+
+            string msg = $"Guest {user.Username} has cancelled reservation:\nAccommodation name: {SelectedReservation.Accommodation.Name}\nStart date: {SelectedReservation.StartDate}\nEnd date: {SelectedReservation.EndDate} ";
+            NotifyOwner(msg);
+            MessageBox.Show("Reservation successfully cancelled!");
         }
 
         private bool CheckCancellationPeriod()
@@ -368,6 +375,11 @@ namespace Project.View.Guest1View
         public void ShowNotifications(int id)
         {
             _notificationService.NotifyGuest(notifier, id);
+        }
+
+        public void NotifyOwner(string msg)
+        {
+            _ownerNotificationService.Create(user.Id, SelectedReservation.Accommodation.OwnerId, msg);
         }
 
         private void tbMoveReservation_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

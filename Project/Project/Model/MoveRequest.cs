@@ -30,12 +30,11 @@ namespace Project.Model
             NewEndDate = DateTime.MinValue;
         }
 
-        public MoveRequest(int ownerId, int guestId, int reservationId, AccommodationReservation reservation, MoveRequestStatus status, string ownerMessage = "", string guestMessage = "", DateTime newStartDate = default, DateTime newEndDate = default)
+        public MoveRequest(int ownerId, int guestId, int reservationId, MoveRequestStatus status, string ownerMessage = "", string guestMessage = "", DateTime newStartDate = default, DateTime newEndDate = default)
         {
             OwnerId = ownerId;
             GuestId = guestId;
             ReservationId = reservationId;
-            Reservation = reservation;
             OwnerMessage = ownerMessage;
             GuestMessage = guestMessage;
             Status = status;

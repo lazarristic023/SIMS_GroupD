@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.Guest1View"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MakeMoveRequestView" Height="450" Width="500">
     <Grid>
@@ -29,19 +30,19 @@
 
             <WrapPanel Margin="25,0" VerticalAlignment="Center">
                 <TextBlock  Text="Accommodation Name:"/>
-                <TextBlock Margin="10,0" Text="Vila Marija"/>
+                <TextBlock Margin="10,0" Text="{Binding Path=SelectedReservation.Accommodation.Name}"/>
             </WrapPanel>
 
             <WrapPanel Grid.Row="1" Margin="25,0" VerticalAlignment="Center">
                 <TextBlock Text="Location: "/>
-                <TextBlock Margin="10,0,0,0" Text="Novi Sad"/>
+                <TextBlock Margin="10,0,0,0" Text="{Binding Path=SelectedReservation.Accommodation.Location.City}"/>
                 <TextBlock Text=", "/>
-                <TextBlock Text="Serbia"/>
+                <TextBlock Text="{Binding Path=SelectedReservation.Accommodation.Location.Country}"/>
             </WrapPanel>
 
             <WrapPanel Margin="25,0" VerticalAlignment="Center" Grid.Row="2">
                 <TextBlock Text="Old start date:"/>
-                <TextBlock Margin="10,0" Text="Vila Marija"/>
+                <TextBlock Margin="10,0" Text="{Binding Path=SelectedReservation.StartDate.Date}"/>
             </WrapPanel>
             
             <WrapPanel Margin="25,0,0,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0">
@@ -56,7 +57,7 @@
 
             <WrapPanel Margin="25,0,0,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
                 <TextBlock Text="Old end date:"/>
-                <TextBlock Margin="10,0" Text="Vila Marija"/>
+                <TextBlock Margin="10,0" Text="{Binding Path=SelectedReservation.EndDate.Date}"/>
             </WrapPanel>
 
         </Grid>
@@ -80,12 +81,12 @@
 
                 <WrapPanel Margin="28,0,0,0" VerticalAlignment="Center">
                     <TextBlock VerticalAlignment="Center" Text="New start date:"/>
-                    <DatePicker Margin="10,0"/>
+                    <DatePicker SelectedDate="{Binding Path=NewStartDate,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayDateStart="{x:Static sys:DateTime.Today}" Margin="10,0"/>
                 </WrapPanel>
 
                 <WrapPanel Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                     <TextBlock VerticalAlignment="Center" Text="New end date:"/>
-                    <DatePicker Margin="10,0"/>
+                    <DatePicker SelectedDate="{Binding Path=NewEndDate,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayDateStart="{x:Static sys:DateTime.Today}" Margin="10,0"/>
                 </WrapPanel>
                 
 
@@ -93,11 +94,11 @@
 
             <StackPanel Margin="25,0" Grid.Row="1">
                 <TextBlock Margin="0,0,0,5" FontSize="11" Text="Why do you want to move this reservation? Please write a comment:"/>
-                <TextBox Height="69" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" TextWrapping="Wrap" Text="TextBox"/>
+                <TextBox Text="{Binding Path=Comment, Mode=OneWayToSource,UpdateSourceTrigger=LostFocus}" Height="69" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" TextWrapping="Wrap"/>
 
             </StackPanel>
 
-            <Button Margin="0,0,0,13" FontSize="13" Content="Send request" Height="20" Width="90" Grid.Row="2"/>
+            <Button x:Name="btnSendRequest" Click="btnSendRequest_Click" Margin="0,0,0,13" FontSize="13" Content="Send request" Height="20" Width="90" Grid.Row="2"/>
 
         </Grid>
         

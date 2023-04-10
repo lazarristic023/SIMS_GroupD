@@ -58,6 +58,12 @@ namespace Project.Service
             return notifications;
         }
 
+        public void Create(int guestId, int ownerId, string message, DateTime date = default)
+        {
+            Guest1Notification notification = new(guestId, ownerId, message, date);
+            _repository.Add(notification);
+        }
+
         public void Remove(int id)
         {
             _repository.Remove(id);
