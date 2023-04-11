@@ -289,5 +289,12 @@ namespace Project.View
             UpdateMyTourReservationsList();
             UpdateMyCouponList();
         }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            cbCountry.SelectedValue = string.Empty;
+            cbLanguage.SelectedValue = string.Empty;
+            btnSearch_Click(this, e);
+        }
     }
 }

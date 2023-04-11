@@ -60,6 +60,8 @@
                     <ComboBox x:Name="cbLanguage" SelectionChanged="cbLanguage_SelectionChanged" ItemsSource="{Binding Path=Languages, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding Path=SelectedLanguage, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="99,81,0,0" VerticalAlignment="Top" Width="100"/>
 
+                    <Button Name="btnReset" Click="btnReset_Click" Content="Reset" HorizontalAlignment="Left" Margin="237,83,0,0" VerticalAlignment="Top" Width="57"/>
+
                     <Button Name="btnSearch" Click="btnSearch_Click" Content="Search" HorizontalAlignment="Left" Margin="632,45,0,0" VerticalAlignment="Top" Height="40" Width="57"/>
                 </Grid>
             </TabItem>
