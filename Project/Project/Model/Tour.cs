@@ -3,6 +3,7 @@ using Project.Serializer;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
@@ -12,41 +13,23 @@ namespace Project.Model
 {
     public class Tour: ISerializable
     {
-        public int Id { get; set; }
 
+        public int Id { get; set; }
         public string Country { get; set; }
         public string City { get; set; }  
         public int LocationId { get; set; }
-
         public Location Location { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Language { get; set; }
         public int MaxGuests { get; set; }
-        //public DateTime StartTime { get; set; }
         public int Duration { get; set; }
-        //public string CoverImageUrl { get; set; }
-        //public List<int> TourPoints { get; set; }
+
+        public Appointment TourAppointment { get; set; }
+
+
 
         private readonly LocationController locationController;
-
-
-
-        public Tour(int locationId, string name, string description, string language, int maxGuests, int duration)
-        {
-            Id = -1;
-            LocationId = locationId;
-            Name = name;
-            Description = description;
-            Language = language;
-            MaxGuests = maxGuests;
-            Duration = duration;
-            Location = new Location();
-            Country = "";
-            City = "";
-            locationController = new LocationController();
-            
-        }
 
         public Tour(Location location, string name, string description, string language, int maxGuests, int duration)
         {
@@ -61,11 +44,9 @@ namespace Project.Model
             Country = location.Country;
             City = location.City;
             locationController = new LocationController();
+            TourAppointment = new Appointment();
 
         }
-
-
-
 
         public Tour()
         {
@@ -80,18 +61,25 @@ namespace Project.Model
             City = "";
             Country = "";
             locationController = new LocationController();
+            TourAppointment = new Appointment();
         }
 
-
-        
-
-        public string GetCountry(int id)
+        public Tour(Tour tour, Appointment appointment)
         {
-            string country = "";
-            LocationController locationController = new LocationController();
-            country = locationController.GetCountryById(id);
-            return country;
+            Id = tour.Id;
+            LocationId = tour.LocationId;
+            Name = tour.Name;
+            Description = tour.Description;
+            Language = tour.Language;
+            MaxGuests = tour.MaxGuests;
+            Duration = tour.Duration;
+            Location = tour.Location;
+            City = tour.City;
+            Country = tour.Country;
+            locationController = tour.locationController;
+            TourAppointment = appointment;
         }
+
 
         public string[] ToCSV() {
             string[] csvValues = { 
@@ -109,7 +97,6 @@ namespace Project.Model
 
         public void FromCSV(string[] values)
         {
-
             Id = int.Parse(values[0]);
             LocationId = int.Parse(values[1]);
             Name = values[2];
@@ -118,11 +105,7 @@ namespace Project.Model
             MaxGuests = int.Parse(values[5]);
             Duration = int.Parse(values[6]);
             Location = locationController.GetById(Id);
-            //City = locationController.GetCityById(LocationId);
-            //Country = locationController.GetCountryById(LocationId);
-
-
-
+            
         }
     }
 }

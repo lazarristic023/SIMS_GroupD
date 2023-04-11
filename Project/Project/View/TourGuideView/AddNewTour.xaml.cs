@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32;
 using Project.Controller;
 using Project.Model;
+using Project.Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -41,33 +43,33 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _country;
-        public string Country
-        {
-            get => _country;
-            set
-            {
-                if (value != _country)
-                {
-                    _country = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        //private string _country;
+        //public string Country
+        //{
+        //    get => _country;
+        //    set
+        //    {
+        //        if (value != _country)
+        //        {
+        //            _country = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
 
-        private string _city;
-        public string City
-        {
-            get => _city;
-            set
-            {
-                if (value != _city)
-                {
-                    _city = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        //private string _city;
+        //public string City
+        //{
+        //    get => _city;
+        //    set
+        //    {
+        //        if (value != _city)
+        //        {
+        //            _city = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
 
         private string _name;
         public string NameOfTour
@@ -199,35 +201,56 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private readonly TourGuideController _tourGuideController;
-        //private readonly TourAppointmentsController _tourAppointmentsController;
+        private DateTime _todayDate;
+        public DateTime TodayDate
+        {
+            get => _todayDate;
+            set
+            {
+                if (value != _todayDate)
+                {
+                    _todayDate = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        //private readonly TourGuideController _tourGuideController;
         private readonly ImageController _imageController;
         private readonly TourPointController _tourPointController;
         private readonly TourPointsListController _tourPointsListController;
         private readonly LocationController _locationController;
-        private readonly AppointmentController _appointmentController;
+        //private readonly AppointmentController _appointmentController;
+
+        private readonly TourService _tourService;
+        private readonly AppointmentService _appointmentService;
 
         List<DateTime> dates = new List<DateTime>();
         List<string> images = new List<string>();
         List<int> pointsIds = new List<int>();
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public AddNewTour(TourGuideController tourGuideController,/*TourAppointmentsController tourAppointmentsController,*/ImageController imageController,
+        public AddNewTour(TourGuideController tourGuideController,TourService tourService,ImageController imageController,
                             TourPointController tourPointController,TourPointsListController tourPointsListController, LocationController locationController,
-                            AppointmentController appointmentController)
+                            AppointmentController appointmentController, AppointmentService appointmentService)
         {
             InitializeComponent();
             DataContext = this;
 
-            _tourGuideController = tourGuideController;
-            //_tourAppointmentsController = tourAppointmentsController;
+            //_tourGuideController = tourGuideController;
             _imageController = imageController;
             _tourPointController = tourPointController;
             _tourPointsListController = tourPointsListController;
             _locationController = locationController;
-            _appointmentController = appointmentController;
+            //_appointmentController = appointmentController;
+
+            _tourService = tourService;
+            _appointmentService = appointmentService;
 
             LocationOfTour = new Location();
+
+            TodayDate = DateTime.Now;
+            StartDate = DateTime.Now;
 
 
         }
@@ -260,14 +283,11 @@ namespace Project.View.TourGuideView
         {
             string anotherPoint = pointInput.Text;
 
-
-
             if (anotherPoint != "")
             {
                 int anotherTourPointId = _tourPointController.Create(anotherPoint, false);
                 pointsIds.Add(anotherTourPointId);
             }
-
 
             pointInput.Clear();
             pointsList.Items.Add(anotherPoint);
@@ -286,6 +306,7 @@ namespace Project.View.TourGuideView
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
+            //PRAVLJENJE LOCATION-a
 
             if (cityComboBox.SelectedItem != null && countryComboBox.SelectedItem != null)
             {
@@ -293,18 +314,20 @@ namespace Project.View.TourGuideView
                 _location = _locationController.Create(cityComboBox.SelectedItem.ToString(), countryComboBox.SelectedItem.ToString());
             }
 
-            //int tourId = _tourGuideController.Create(16, "asdasdasd", "asdadssd", "asdada", 5, 1);
-            int tourId = _tourGuideController.Create(_location, NameOfTour, Description, LanguageOfTour, MaxGuests, Duration);
+            //KREIRANJE TOUR-a
 
+            int tourId  = _tourService.Create(_location, NameOfTour, Description, LanguageOfTour, MaxGuests, Duration);
 
-            //_tourAppointmentsController.Create(tourId, dates);
+            //KREIRANJE APPOINTMENT-a
 
             foreach(DateTime date in dates)
             {
-                _appointmentController.Create(tourId,date);
+                _appointmentService.Create(tourId,date);
             }
 
             dates.Clear();
+
+            //KREIRANJE POINTS-a 
 
             if (startPointTextBox.Text != "" && endPointTextBox.Text != "")
             {
@@ -315,6 +338,8 @@ namespace Project.View.TourGuideView
             }
 
             _tourPointsListController.Create(tourId, pointsIds);
+
+            //SKLADISTENJE SLIKA
 
             foreach (string image in images)
             {
@@ -328,38 +353,24 @@ namespace Project.View.TourGuideView
 
         private void AddDate_Click(object sender, RoutedEventArgs e)
         {
+            DateTime dateAndTime = _tourService.BuildDate(StartDate, time.Text);
 
-            string[] timeSplit = time.Text.Split(':');
-            //if(date.SelectedDate == null)
-            //{
-            //    throw new ArgumentException("No date has been selected");
-            //}
-
-            DateTime datetime = new DateTime(date.SelectedDate.Value.Year, date.SelectedDate.Value.Month, date.SelectedDate.Value.Day, int.Parse(timeSplit[0]), int.Parse(timeSplit[1]), 0);
-
+            dates.Add(dateAndTime);
             time.Clear();
-
-            dates.Add(datetime);
-
-            string dateAndTime = datetime.ToString();
-            dateTimeList.Items.Add(dateAndTime);
-
-
+            dateTimeList.Items.Add(dateAndTime.ToString("dd/MM/yyyy HH:mm:ss"));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            StreamReader countrySource = new StreamReader(@"../../../Resources/Data/country.csv");
-            string content = countrySource.ReadToEnd();
-            string[] country = content.Split('|');
+            string[] country = _locationController.GetAllCountries();
             foreach (string element in country)
             {
                 countryComboBox.Items.Add(element);
             }
 
             StreamReader languageSource = new StreamReader(@"../../../Resources/Data/languages.csv");
-            content = languageSource.ReadToEnd();
+            string content = languageSource.ReadToEnd();
             string[] language = content.Split('|');
             foreach(string element in language)
             {
@@ -373,25 +384,12 @@ namespace Project.View.TourGuideView
 
         private void countryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            StreamReader citySource = new StreamReader(@"../../../Resources/Data/city.csv");
-
             cityComboBox.Items.Clear();
+            string [] cities = _locationController.GetAppropriateCities(countryComboBox.SelectedItem.ToString());
 
-            string line;
-
-
-            while ((line = citySource.ReadLine()) != null)
+            foreach (string city in cities)
             {
-
-                string[] couple = line.Split('|');
-                if (couple[0] == countryComboBox.SelectedItem.ToString())
-                {
-                    string[] city = couple[1].Split(';');
-                    foreach (string word in city)
-                    {
-                        cityComboBox.Items.Add(word);
-                    }
-                }
+                cityComboBox.Items.Add(city);
             }
         }
 

@@ -67,12 +67,16 @@ namespace Project.Repository
 
         public List<Tour> GetAll()
         {
-            //foreach(Tour tour in tours)
-            //{
-
-            //    tour.Location = _locationController.GetById(tour.LocationId);
-            //}
             return tours;
+        }
+
+        public void Cancel(int id)
+        {
+            Tour tour = GetById(id);
+
+            //tour.IsNotCanceled = false;
+            SaveInFile();
+            NotifyObservers();
         }
 
         public void Subscribe(IObserver observer)

@@ -3,6 +3,7 @@ using Project.Model;
 using Project.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -182,8 +183,8 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private List<DateTime> _appointments;
-        public List<DateTime> Appointments
+        private List<Appointment> _appointments;
+        public List<Appointment> Appointments
         {
             get => _appointments;
             set
@@ -196,29 +197,18 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private List<string> _reservations;
-        public List<string> Reservations
-        {
-            get => _reservations;
-            set
-            {
-                if(value != _reservations)
-                {
-                    _reservations = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
-        //private readonly TourAppointmentsController _tourAppointmentsController;
         private readonly ImageController _imageController;
         private readonly AppointmentController _appointmentController;
 
         private readonly TourReservationRepository tourReservationRepository;
+        private readonly UserRepository userRepository;
 
         Tour Tour { get; set; }
-        DateTime SelectedAppointment { get; set; }
+        public Appointment SelectedAppointment { get; set; }
+        
 
+        public ObservableCollection<User> Reservations { get; set; }
 
         public SingleTourOverview(Tour sendedTour)
         {
@@ -228,10 +218,10 @@ namespace Project.View.TourGuideView
             Tour = new Tour();
 
             Tour = sendedTour;
-            //_tourAppointmentsController = new TourAppointmentsController();
             _appointmentController = new AppointmentController();
             _imageController = new ImageController();
             tourReservationRepository = new TourReservationRepository();
+            userRepository = new UserRepository();
 
 
             Id = Tour.Id;
@@ -242,22 +232,28 @@ namespace Project.View.TourGuideView
             LanguageOfTour = Tour.Language;
             MaxGuests = Tour.MaxGuests;
             Duration = Tour.Duration;
-            Appointments = _appointmentController.GetAppointmentsDatesByTourId(Tour.Id);
-            Reservations = GetApproprietReservations(); // U buducnosti napraviti preko kontrolera ili repository-a
+            Appointments = _appointmentController.GetByTourId(Tour.Id);
+            Reservations = new ObservableCollection<User>(GetApproprietReservations());
+
+            if (Tour.TourAppointment.DateAndTimeOfAppointment.ToShortDateString() != DateTime.Today.ToShortDateString())
+            {
+                startTour.IsEnabled = false;
+            }
+
 
         }
 
 
-        public List<string> GetApproprietReservations()
+        public List<User> GetApproprietReservations()
         {
             List<TourReservation> tourReservations = tourReservationRepository.GetAllTourReservations();
-            List<string> approprietReservations = new List<string>();
+            List<User> approprietReservations = new List<User>();
 
             foreach(TourReservation reservation in tourReservations)
             {
                 if(reservation.TourId == Id)
                 {
-                    approprietReservations.Add(reservation.GuestId.ToString());
+                    approprietReservations.Add(userRepository.GetById(reservation.GuestId));
                 }
             }
 
@@ -273,17 +269,8 @@ namespace Project.View.TourGuideView
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void SingleTourOverview_Loaded(object sender, RoutedEventArgs e)
-        {
-            if(SelectedAppointment == null)
-            {
-                startTour.IsEnabled = false;
-            }
-        }
-
         private Image CreateImage(string imageUrl)
         {
-            //treba foreach itd
 
                 Image image = new Image();
                 image.Width = 100;
@@ -295,11 +282,7 @@ namespace Project.View.TourGuideView
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-                startTour.IsEnabled = false;
-
-            
-
-            foreach(string url in _imageController.GetImageUrlByTourId(Id))
+            foreach (string url in _imageController.GetImageUrlByTourId(Id))
             {
                 var image = CreateImage(url);
                 imagesWrap.Children.Add(image);
@@ -318,7 +301,7 @@ namespace Project.View.TourGuideView
 
         private void startTour_Click(object sender, RoutedEventArgs e)
         {
-            TourTracking tourTracking = new TourTracking(Id);
+            TourTracking tourTracking = new TourTracking(Id,Tour.TourAppointment.Id);
             tourTracking.Show();
         }
     }

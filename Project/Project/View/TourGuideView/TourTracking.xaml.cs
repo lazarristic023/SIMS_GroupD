@@ -1,6 +1,8 @@
-﻿using Project.Controller;
+﻿using Microsoft.VisualBasic;
+using Project.Controller;
 using Project.Model;
 using Project.Observer;
+using Project.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,85 +32,91 @@ namespace Project.View.TourGuideView
         private readonly TourPointsListController _tourPointsListController;
         private readonly AppointmentController _appointmentController;
 
+        private readonly TourReservationRepository reservationRepository;
+        private readonly UserRepository userRepository;
+        private readonly PresentGuestsRepository presentGuestsRepository;
+
         public int tourId { get; set; }
+        public int appointmentId { get; set; }
         public DateTime date { get; set; }
 
         public ObservableCollection<TourPoint> tourPoints { get; set; }
 
-
-        private int numberOfNextClicks = 0;
-
-        public TourPoint selectedPoint { get; set; }
-
-
-
-        private List<Rezervacija> _rezervacije;
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public List<Rezervacija> Rezervacije
-        {
-            get => _rezervacije;
-            set
-            {
-                if (value != _rezervacije)
-                {
-                    _rezervacije = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public ObservableCollection<User> Presents { get; set; }
 
+        int order;
+        private int numberOfNextClicks = 0;
 
-
-
-
-
-        public TourTracking(int sendedId)
+        public TourTracking(int sendedId, int appointmentid)
         {
             InitializeComponent();
             DataContext = this;
 
             _tourGuideController = new TourGuideController();
             _tourPointController = new TourPointController();
+            _tourPointController.Subscribe(this);
             _tourPointsListController = new TourPointsListController();
             _appointmentController = new AppointmentController();
 
+            reservationRepository = new TourReservationRepository();
+            userRepository = new UserRepository();
+            presentGuestsRepository = new PresentGuestsRepository();
+            presentGuestsRepository.Subscribe(this);
+
             tourId = sendedId;
+            appointmentId = appointmentid;
 
-
-
+            Presents = new ObservableCollection<User>(presentGuestsRepository.GetUserByAppointmentId(appointmentId));
 
             tourPoints = new ObservableCollection<TourPoint>(_tourPointsListController.GetPointsByTourId(tourId));
 
-            pointsListBox.SelectedIndex = 0;
+            order = 0;
 
+            CreateRadioButtons();
 
-            Rezervacija rezervacija1 = new Rezervacija(0, "Pera", false, 0);
-            Rezervacija rezervacija2 = new Rezervacija(1, "Zika", true, 0);
-            Rezervacija rezervacija3 = new Rezervacija(2, "Mika", false, 0);
-            Rezervacija rezervacija4 = new Rezervacija(3, "Marko", true, 0);
-            List<Rezervacija> rez = new List<Rezervacija>();
-            rez.Add(rezervacija1);
-            rez.Add(rezervacija2);
-            rez.Add(rezervacija3);
-            rez.Add(rezervacija4);
-            Rezervacije = new List<Rezervacija>(rez);
-
-
-            //tourPoints[0].Action = true;
-
-            //AddRadioButtons();
-
-
-
-
-
-
+            
         }
 
+        public List<User> GetApproprietReservations()
+        {
+            List<TourReservation> tourReservations = reservationRepository.GetAllTourReservations();
+            List<User> approprietReservations = new List<User>();
 
+            foreach (TourReservation reservation in tourReservations)
+            {
+                if (reservation.TourId == tourId)
+                {
+                    approprietReservations.Add(userRepository.GetById(reservation.GuestId));
+                }
+            }
 
+            return approprietReservations;
+        }
+
+        public void CreateRadioButtons()
+        {
+            for (int i = 0; i < tourPoints.Count; i++)
+            {
+                RadioButton RadBtn = new RadioButton();
+
+                RadBtn.Name = "rad" + i;
+                RadBtn.Content = tourPoints[i].PointName;
+                RadBtn.IsEnabled = false;
+                RadBtn.Tag = i;
+                RadBtn.FontSize = 14;
+                
+                
+
+                if (i == 0)
+                {
+                    RadBtn.IsChecked = true;
+                }
+
+                RadioStackPanel.Children.Add(RadBtn);
+            }
+        }
 
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -118,88 +126,54 @@ namespace Project.View.TourGuideView
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            tourName.Content = _tourGuideController.GetById(tourId).Name;
-            selectedPoint = (TourPoint)pointsListBox.SelectedItem;
-            ChangeActivity(selectedPoint);
-
-
+            tourName.Text = _tourGuideController.GetById(tourId).Name;
+            ChangeActivity(tourPoints[order]);
             
         }
 
-        //public void AddRadioButtons()
-        //{
-        //    int counter = 0;
-        //    int radioButtonId = 1;
-
-        //    foreach (TourPoint point in tourPoints)
-        //    {
-        //        var radioButton = CreateRadioButton(point, radioButtonId);
-        //        radioButtonsStackPanel.Children.Add(radioButton);
-        //        radioButtonId++;
-        //        counter++;
-        //    }
-
-        //    numberOfRadioButtons = radioButtonId;
-        //}
-
-        //private RadioButton CreateRadioButton(TourPoint tourPoint, int id)
-        //{
-        //    RadioButton radioButton = new RadioButton();
-        //    radioButton.Content = tourPoint.PointName;
-        //    radioButton.IsChecked = tourPoint.Action;
-        //    radioButton.Name = "rb" + id;
-        //    radioButton.GroupName = "activeTour";
-
-        //    return radioButton;
-
-        //}
-
-        //public List<TourPoint> GetTourPoints(int id)
-        //{
-        //    List<TourPoint> points = new List<TourPoint>();
-
-        //    TourPointsList tourPointsList = _tourPointsListController.GetByTourId(id);
-
-        //    foreach(int tourPointId in tourPointsList.PointsId)
-        //    {
-        //        points.Add(_tourPointController.GetById(tourPointId));
-        //    }
-
-        //    return points;
-        //}
 
         private void endTour_Click(object sender, RoutedEventArgs e)
         {
-            selectedPoint.Action = false;
+            ChangeActivity(tourPoints[order]);
             EndTheAppointment();
         }
 
         private void EndTheAppointment()
         {
+           
+            presentGuestsRepository.ClearPresents();
             MessageBox.Show("The tour is over");
             Close();
         }
 
         private void nextPoint_Click(object sender, RoutedEventArgs e)
         {
-            ChangeActivity(selectedPoint);
+            ChangeActivity(tourPoints[order]);
 
-            pointsListBox.SelectedIndex++;
             numberOfNextClicks++;
-            int lastIndex = pointsListBox.Items.Count - 1;
+
+            int lastIndex = (tourPoints.Count - 1);
 
             if(numberOfNextClicks > lastIndex)
             {
                 EndTheAppointment();
             }
+
             else
             {
-                selectedPoint = (TourPoint)pointsListBox.SelectedItem;
-                ChangeActivity(selectedPoint);
+                order++;
+                foreach (RadioButton element in RadioStackPanel.Children)
+                {
+                    if ((int)(element).Tag == order)
+                    {
+                        element.IsChecked = true;
+                    }
+                }
+                ChangeActivity(tourPoints[order]);
             }
 
+            
 
-       
         }
 
         public void ChangeActivity(TourPoint point)
@@ -214,15 +188,12 @@ namespace Project.View.TourGuideView
             {
                 _tourPointController.UpdateAction(point.Id, true);
             }
-
-
         }
         
-
-
         public void Update()
         {
             UpdatePoints();
+            UpdatePresents();
         }
 
         public void UpdatePoints()
@@ -235,6 +206,21 @@ namespace Project.View.TourGuideView
             }
         }
 
-        
+        public void UpdatePresents()
+        {
+
+            Presents.Clear();
+
+            foreach (var present in presentGuestsRepository.GetUserByAppointmentId(appointmentId))
+            {
+                Presents.Add(present);
+            }
+        }
+
+        private void AddGuests_Click(object sender, RoutedEventArgs e)
+        {
+            AddPresentGuests addPresentGuests = new AddPresentGuests(tourId, tourPoints[order].Id, appointmentId, presentGuestsRepository);
+            addPresentGuests.Show();
+        }
     }
 }

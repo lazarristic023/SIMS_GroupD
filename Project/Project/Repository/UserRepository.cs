@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Project.Model;
 using Project.Serializer;
 
@@ -30,13 +31,10 @@ namespace Project.Repository
             return users.FirstOrDefault(u => u.Username == username);
         }
 
-        public static User GetById(int id)
-        { 
-
-            Serializer<User>  serializer = new Serializer<User>();
-            List<User> users = new List<User>();
+        public User GetById(int id)
+        {
             users = serializer.FromCSV(FilePath);
-            return users.FirstOrDefault(u => u.Id == id);
+            return users.Find(v => v.Id == id);
         }
 
     }

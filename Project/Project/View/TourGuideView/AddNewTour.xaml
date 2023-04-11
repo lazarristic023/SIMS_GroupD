@@ -116,7 +116,7 @@
 
                             <WrapPanel Grid.Row="0" Grid.Column="0">
                                 <Label >Date:</Label>
-                                <DatePicker x:Name="date" Width="130" Height="25"></DatePicker>
+                                <DatePicker x:Name="date" Width="130" Height="25" SelectedDate="{Binding Path=StartDate, UpdateSourceTrigger=PropertyChanged}"  ></DatePicker>
                             </WrapPanel>
                             <WrapPanel Grid.Row="1" Grid.Column="0">
                                 <Label Content="Time:"/>
