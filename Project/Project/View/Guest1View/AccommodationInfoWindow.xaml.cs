@@ -14,12 +14,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Project.View
+namespace Project.View.Guest1View
 {
     /// <summary>
-    /// Interaction logic for AccommodationInfoView.xaml
+    /// Interaction logic for AccommodationInfoWindow.xaml
     /// </summary>
-    public partial class AccommodationInfoView : Window
+    public partial class AccommodationInfoWindow : Window
     {
         public Guest1Controller Controller { get; set; }
         public Accommodation ChosenAccommodation { get; set; }
@@ -28,7 +28,7 @@ namespace Project.View
 
         int i = 0;
 
-        public AccommodationInfoView(Guest1Controller guest1Controller, Accommodation accommodation)
+        public AccommodationInfoWindow(Guest1Controller guest1Controller, Accommodation accommodation)
         {
             InitializeComponent();
             DataContext = this;
@@ -43,7 +43,7 @@ namespace Project.View
 
             if (i < 0)
             {
-                i = Images.Count -1;
+                i = Images.Count - 1;
             }
 
             picHolder.Source = new BitmapImage(new Uri(Images[i].Url, UriKind.RelativeOrAbsolute));
@@ -53,7 +53,7 @@ namespace Project.View
         {
             i++;
 
-            if (i > Images.Count-1)
+            if (i > Images.Count - 1)
             {
                 i = 0;
             }
@@ -63,9 +63,8 @@ namespace Project.View
 
         private void btMakeReserv_Click(object sender, RoutedEventArgs e)
         {
-            ReserveView reserveView = new ReserveView(Controller, ChosenAccommodation);
-            reserveView.Show();
+            ReserveAccommodationWindow reserveWindow = new ReserveAccommodationWindow(Controller, ChosenAccommodation);
+            reserveWindow.Show();
         }
-
     }
 }

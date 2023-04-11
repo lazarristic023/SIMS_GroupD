@@ -33,6 +33,7 @@ namespace Project.Service
             userRepository = new UserRepository();
         }
 
+
         public int Create(int appointmentId, int guestId, int knowledge, int language, int interesting,string text )
         {
             TourReview tourReview = new TourReview(appointmentId,guestId,knowledge,language,interesting,text);
@@ -53,14 +54,15 @@ namespace Project.Service
             return tourReviewRepository.GetAll();
         }
 
+
         public List<ReviewDisplay> GetReviewForDisplay()
         {
             List<ReviewDisplay> list = new List<ReviewDisplay>();
-            
+
 
             List<TourReview> tourReviews = GetAll();
 
-            foreach(TourReview review in tourReviews)
+            foreach (TourReview review in tourReviews)
             {
                 ReviewDisplay sm = new ReviewDisplay();
                 int tourId = appointmentService.GetTourId(review.AppointmentId);
@@ -82,6 +84,12 @@ namespace Project.Service
 
 
             return list;
+        }
+
+        public List<TourReview> GetGuestsReviews(int id)
+        {
+            return tourReviewRepository.GetGuestsReview(id);
+
         }
 
         public void MarkAsInvalid(int id)

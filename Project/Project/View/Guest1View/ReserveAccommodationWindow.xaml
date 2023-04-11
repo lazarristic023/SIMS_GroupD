@@ -1,9 +1,9 @@
-﻿<Window x:Class="Project.View.ReserveView"
+﻿<Window x:Class="Project.View.Guest1View.ReserveAccommodationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Project.View"
+        xmlns:local="clr-namespace:Project.View.Guest1View"
         mc:Ignorable="d"
         Title="ReserveView" Height="560" Width="500">
     <Grid>
@@ -18,7 +18,7 @@
                     HorizontalAlignment="Left" Margin="180,205,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btSearchFreeDates" Click="btSearchFreeDates_Click" Content="Search" HorizontalAlignment="Left" Margin="389,117,0,0" VerticalAlignment="Top" Height="33" Width="65"/>
         <TextBlock Foreground="Red" Name="tbNotFound" Width="auto" HorizontalAlignment="Left" Margin="37,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <DataGrid SelectedItem="{Binding Path=SelectedReservation}" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=ReservationDates}" Margin="52,304,52,91">
+        <DataGrid SelectedItem="{Binding Path=SelectedReservation}" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FreeReservations}" Margin="52,304,52,91">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Start Date" Binding="{Binding Path=StartDate}" Width="1*"/>
                 <DataGridTextColumn Header="End Date" Binding="{Binding Path=EndDate}" Width="1*"/>

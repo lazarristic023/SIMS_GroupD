@@ -58,6 +58,20 @@ namespace Project.Repository
             return tourReviews;
         }
 
+        public List<TourReview> GetGuestsReview(int id)
+        {
+            List<TourReview> guestReviews = new List<TourReview>();
+            List<TourReview> tourReviews = GetAll();
+            foreach(var review in tourReviews)
+            {
+                if(review.GuestId == id)
+                {
+                    guestReviews.Add(review);
+                }
+            }
+            return guestReviews;
+        }
+
         public void Remove(int id)
         {
             TourReview tourReview = GetById(id);
