@@ -181,17 +181,23 @@ namespace Project.View
         private void btAddAccommodation_click(object sender, RoutedEventArgs e)
         {
             string name = tbName.Text;
+
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(tbMaximumGuests.Text) || string.IsNullOrWhiteSpace(tbCancellationPeriod.Text) || string.IsNullOrWhiteSpace(tbAdvanceReservation.Text))
+            {
+                MessageBox.Show("Not all fields are entered.");
+                return;
+            }
+
             int guestNumber = Convert.ToInt32(tbMaximumGuests.Text);
             int cancellationPeriod = Convert.ToInt32(tbCancellationPeriod.Text);
             int advanceReservation = Convert.ToInt32(tbAdvanceReservation.Text);
             AccommodationType type = GetAccommodationType();
 
-            if (string.IsNullOrWhiteSpace(name))
+            if (SelectedCity == null || SelectedCountry == null)
             {
-                MessageBox.Show("Name is not entered properly");
+                MessageBox.Show("Please select location!");
                 return;
             }
-
             Location location = new Location(SelectedCity, SelectedCountry);
             Accommodation accommodation = new Accommodation(name, controller.Owner.User.Id, type, location, guestNumber, advanceReservation, cancellationPeriod);
             foreach(var image in tempImages)
