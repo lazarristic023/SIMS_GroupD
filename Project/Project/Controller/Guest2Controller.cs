@@ -13,7 +13,7 @@ namespace Project.Controller
     {
         public Guest2 Guest { get; set; }
         public TourRepository TourRepository { get; set; } 
-        public TourReservationRepository TourReservationRepository { get; set; }
+        public TourReservationRepository TourReservationRepository { get; set; } 
         public List<Location> TourLocations { get; set; }
         public ImageRepository ImageRepository { get; set; }
         public List<string> Languages { get; set; }
@@ -29,6 +29,7 @@ namespace Project.Controller
             LinkGuest2TourReservations();
             FillTourLocationsList();
             FillTourLanguagesList();
+            
         }
 
         public Guest2Controller(User u)
@@ -55,12 +56,27 @@ namespace Project.Controller
             }
         }
 
+
+
         public List<TourReservation> GetTourReservations()
         {
             return Guest.Reservations;
         }
 
+        public List<Tour> GetAllTourAppointments()
+        {
+            return TourRepository.GetAll();
+        }
 
+        public List<Tour> FindAllAlternatives(Tour tour, int numberOfGuests)
+        {
+            return TourRepository.FindAllAlternatives(tour, numberOfGuests);
+        }
+
+        public List<Coupon> GetGuestsCoupons()
+        {
+            return Guest.Coupons;
+        }
 
         public List<Tour> GetTours()
         {

@@ -23,12 +23,12 @@
                         <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid SelectedItem="{Binding Path=SelectedTour}" Grid.Row="1" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FilteredTours}">
+                    <DataGrid x:Name="availableToursDataGrid" SelectedItem="{Binding Path=SelectedTour}" Grid.Row="1" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FilteredTours}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
                             <DataGridTextColumn Header="Country" Binding="{Binding Path=Location.Country}"/>
                             <DataGridTextColumn Header="City" Binding="{Binding Path=Location.City}"/>
-                            <DataGridTextColumn Header="Start Time" Binding="{Binding Path=StartTime}"/>
+                            <DataGridTextColumn Header="Date and Time" Binding="{Binding TourAppointment.DateAndTimeOfAppointment, StringFormat=f}"/>
                             <DataGridTextColumn Header="Tour duration" Binding="{Binding Path=Duration}"/>
                             <DataGridTextColumn Header="Language" Binding="{Binding Path=Language}"/>
                             <DataGridTextColumn Header="Maximum guests on tour" Binding="{Binding Path=MaxGuests}"/>
@@ -60,8 +60,19 @@
                     <ComboBox x:Name="cbLanguage" SelectionChanged="cbLanguage_SelectionChanged" ItemsSource="{Binding Path=Languages, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding Path=SelectedLanguage, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="99,81,0,0" VerticalAlignment="Top" Width="100"/>
 
+                    <Button Name="btnReset" Click="btnReset_Click" Content="Reset" HorizontalAlignment="Left" Margin="237,83,0,0" VerticalAlignment="Top" Width="57"/>
+
                     <Button Name="btnSearch" Click="btnSearch_Click" Content="Search" HorizontalAlignment="Left" Margin="632,45,0,0" VerticalAlignment="Top" Height="40" Width="57"/>
                 </Grid>
+            </TabItem>
+
+            <TabItem Header="My coupons">
+                <DataGrid ItemsSource="{Binding Path=Coupons}" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=Id}"/>
+                        <DataGridTextColumn Header="Expiration Date" Binding="{Binding Path=ExpiryDate}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
 
         </TabControl>

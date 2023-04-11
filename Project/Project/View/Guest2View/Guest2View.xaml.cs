@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using Project.Service;
 
 namespace Project.View
 {
@@ -26,6 +27,7 @@ namespace Project.View
     {
         private Guest2Controller controller;
         private User user;
+        public ObservableCollection<Coupon> Coupons {  get; set; }
         public ObservableCollection<TourReservation> TourReservations { get; set; }
         public ObservableCollection<Tour> Tours { get; set; }
         public ObservableCollection<Tour> FilteredTours { get; set; }
@@ -36,6 +38,9 @@ namespace Project.View
         public string SelectedCity { get; set; }
         public string SelectedLanguage { get; set; }
         public Tour SelectedTour { get; set; }
+        private readonly CouponService couponService;
+        private readonly TourService tourService;
+        private readonly AppointmentService appointmentService;
 
 
         public Guest2View(User u)
@@ -43,13 +48,23 @@ namespace Project.View
             InitializeComponent();
             DataContext = this;
             controller = new Guest2Controller(u);
+            couponService = new CouponService(u);
             TourReservations = new ObservableCollection<TourReservation>(controller.GetTourReservations());
             Tours = new ObservableCollection<Tour>(controller.GetTours());
+            Coupons = new ObservableCollection<Coupon>(couponService.GetGuest2Coupons());
             FilteredTours = new ObservableCollection<Tour>(Tours);
             controller.SubscribeToReservationRepo(this);
             Countries = new ObservableCollection<string>();
             CountryCities = new ObservableCollection<string>();
             Languages = new ObservableCollection<string>();
+            tourService = new TourService();
+            tourService.Subscribe(this);
+
+            appointmentService = new AppointmentService();
+            appointmentService.Subscribe(this);
+
+            FilteredTours = new ObservableCollection<Tour>(tourService.GetAllTourAppointments());
+            Tours = new ObservableCollection<Tour>(tourService.GetAllTourAppointments());
             FillCountriesList();
             FillLanguagesList();
         }
@@ -260,9 +275,26 @@ namespace Project.View
             }
         }
 
+        private void UpdateMyCouponList()
+        {
+            Coupons.Clear();
+            foreach(var coupon in couponService.GetGuest2Coupons())
+            {
+                Coupons.Add(coupon);
+            }
+        }
+
         public void Update()
         {
             UpdateMyTourReservationsList();
+            UpdateMyCouponList();
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            cbCountry.SelectedValue = string.Empty;
+            cbLanguage.SelectedValue = string.Empty;
+            btnSearch_Click(this, e);
         }
     }
 }

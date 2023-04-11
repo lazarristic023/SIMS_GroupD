@@ -52,6 +52,11 @@ namespace Project.Repository
 
         }
 
+        public void ChangeToUsed(int id) {
+            coupons.Find(c => c.Id == id).Status = Coupon.STATUS.USED;
+            SaveInFile();
+            NotifyObservers();
+        }
 
         public List<Coupon> GetAll()
         {
