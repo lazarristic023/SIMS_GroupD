@@ -80,6 +80,21 @@ namespace Project.Repository
             return _accReservations.Find(v => v.Id == id);
         }
 
+        public List<AccommodationReservation> GetByAccommodation(int accId)
+        {
+            List<AccommodationReservation> temp = new List<AccommodationReservation>();
+
+            foreach(var i in _accReservations)
+            {
+                if(i.AccommodationId == accId)
+                {
+                    temp.Add(i);
+                }
+            }
+
+            return temp;
+        }
+
         public List<AccommodationReservation> GetAllReservations()
         {
             return _accReservations;
