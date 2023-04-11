@@ -119,6 +119,99 @@ namespace Project.View
 
             // Location comboboxes
 
+            hasEntered = LocationComboboxes(temp, tempFiltered, hasEntered);
+
+            // Number of guests
+
+            if (!string.IsNullOrWhiteSpace(tbGuestNumber.Text))
+            {
+                if (!IsDigitsOnly(tbGuestNumber.Text))
+                {
+                    NumberOfGuestMessageBOx();
+                    return;
+                }
+                hasEntered = true;
+                int guestNum = Convert.ToInt32(tbGuestNumber.Text);
+                GuestNumberFilter(temp, tempFiltered, guestNum);
+            }
+
+            ResetTempLists(ref hasEntered, temp, tempFiltered);
+
+            // Duration of tour
+
+            if (!string.IsNullOrWhiteSpace(tbHours.Text))
+            {
+                if (!IsDigitsOnly(tbHours.Text))
+                {
+                    DurationMessageBOx();
+                    return;
+                }
+                hasEntered = true;
+                int durationInHours = Convert.ToInt32(tbHours.Text);
+                HoursFilter(temp, tempFiltered, durationInHours);
+            }
+
+            ResetTempLists(ref hasEntered, temp, tempFiltered);
+            FilteredToursMethod(temp);
+        }
+
+        private void FilteredToursMethod(List<Tour> temp)
+        {
+            FilteredTours.Clear();
+            foreach (Tour t in temp)
+            {
+                FilteredTours.Add(t);
+            }
+        }
+
+        private static void DurationMessageBOx()
+        {
+            string sMessageBoxText = $"Duration of tour field must contain only digits!";
+            string sCaption = "Input error - Number of days";
+
+            MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+            MessageBoxImage icnMessageBox = MessageBoxImage.Error;
+
+            MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+            return;
+        }
+
+        private static void NumberOfGuestMessageBOx()
+        {
+            string sMessageBoxText = $"Number of guests field must contain only digits!";
+            string sCaption = "Input error - Number of guests";
+
+            MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+            MessageBoxImage icnMessageBox = MessageBoxImage.Error;
+
+            MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+            return;
+        }
+
+        private static void HoursFilter(List<Tour> temp, List<Tour> tempFiltered, int durationInHours)
+        {
+            foreach (Tour tour in temp)
+            {
+                if (durationInHours >= tour.Duration)
+                {
+                    tempFiltered.Add(tour);
+                }
+            }
+        }
+
+        private static void GuestNumberFilter(List<Tour> temp, List<Tour> tempFiltered, int guestNum)
+        {
+            foreach (Tour tour in temp)
+            {
+                if (guestNum >= tour.MaxGuests)
+                {
+                    tempFiltered.Add(tour);
+                }
+            }
+        }
+
+        private bool LocationComboboxes(List<Tour> temp, List<Tour> tempFiltered, bool hasEntered)
+        {
             if (!string.IsNullOrEmpty(SelectedCountry))
             {
                 bool isCityChosen = false;
@@ -128,26 +221,37 @@ namespace Project.View
                     isCityChosen = true;
                 }
 
-                foreach (Tour tour in temp)
+                CityFilter(temp, tempFiltered, isCityChosen);
+
+            }
+
+            ResetTempLists(ref hasEntered, temp, tempFiltered);
+            return hasEntered;
+        }
+
+        private void CityFilter(List<Tour> temp, List<Tour> tempFiltered, bool isCityChosen)
+        {
+            foreach (Tour tour in temp)
+            {
+                if (tour.Location.Country == SelectedCountry)
                 {
-                    if (tour.Location.Country == SelectedCountry)
+                    if (isCityChosen)
                     {
-                        if (isCityChosen)
+                        if (tour.Location.City == SelectedCity)
                         {
-                            if (tour.Location.City == SelectedCity)
-                            {
-                                tempFiltered.Add(tour);
+                            tempFiltered.Add(tour);
 
-                            }
-
-                            continue;
                         }
-                        tempFiltered.Add(tour);
+
+                        continue;
                     }
+                    tempFiltered.Add(tour);
                 }
-
             }
+        }
 
+        void ResetTempLists(ref bool hasEntered, List<Tour> temp, List<Tour> tempFiltered)
+        {
             if (hasEntered)
             {
                 hasEntered = false;
@@ -155,89 +259,6 @@ namespace Project.View
                 temp.AddRange(tempFiltered);
                 tempFiltered.Clear();
             }
-
-            // Number of guests
-
-            if (!string.IsNullOrWhiteSpace(tbGuestNumber.Text))
-            {
-                if (!IsDigitsOnly(tbGuestNumber.Text))
-                {
-                    string sMessageBoxText = $"Number of guests field must contain only digits!";
-                    string sCaption = "Input error - Number of guests";
-
-                    MessageBoxButton btnMessageBox = MessageBoxButton.OK;
-                    MessageBoxImage icnMessageBox = MessageBoxImage.Error;
-
-                    MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-                    return;
-                }
-
-                hasEntered = true;
-                int guestNum = Convert.ToInt32(tbGuestNumber.Text);
-
-                foreach (Tour tour in temp)
-                {
-                    if (guestNum >= tour.MaxGuests)
-                    {
-                        tempFiltered.Add(tour);
-                    }
-                }
-
-            }
-
-            if (hasEntered)
-            {
-                hasEntered = false;
-                temp.Clear();
-                temp.AddRange(tempFiltered);
-                tempFiltered.Clear();
-            }
-
-
-            // Duration of tour
-
-            if (!string.IsNullOrWhiteSpace(tbHours.Text))
-            {
-                if (!IsDigitsOnly(tbHours.Text))
-                {
-                    string sMessageBoxText = $"Duration of tour field must contain only digits!";
-                    string sCaption = "Input error - Number of days";
-
-                    MessageBoxButton btnMessageBox = MessageBoxButton.OK;
-                    MessageBoxImage icnMessageBox = MessageBoxImage.Error;
-
-                    MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-                    return;
-                }
-
-                hasEntered = true;
-                int durationInHours = Convert.ToInt32(tbHours.Text);
-
-                foreach (Tour tour in temp)
-                {
-                    if (durationInHours >= tour.Duration)
-                    {
-                        tempFiltered.Add(tour);
-                    }
-                }
-
-            }
-
-            if (hasEntered)
-            {
-                hasEntered = false;
-                temp.Clear();
-                temp.AddRange(tempFiltered);
-                tempFiltered.Clear();
-            }
-
-            FilteredTours.Clear();
-            foreach(Tour t in temp)
-            {
-                FilteredTours.Add(t);
-            }
-
-            
         }
 
         private void FillCountriesList()
