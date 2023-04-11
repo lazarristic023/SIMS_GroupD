@@ -48,7 +48,6 @@ namespace Project.View.TourGuideView
 
 
         public ObservableCollection<Tour> Tours { get; set; }
-        //public ObservableCollection<Tour> TourAppointments { get; set; }
         public ObservableCollection<TourPointsList> Points { get; set; }
 
         User User { get; set; }
@@ -105,11 +104,8 @@ namespace Project.View.TourGuideView
 
             ImageSource = "../../Resources/Data/images.csv";
 
-
-            //Tours = new ObservableCollection<Tour>(_tourGuideController.GetAllTours());
-
             Tours = new ObservableCollection<Tour>(_tourService.GetAllTourAppointments());
-            var t = Tours[1].TourAppointment.DateAndTimeOfAppointment.ToString();
+
 
         }
 
@@ -117,19 +113,8 @@ namespace Project.View.TourGuideView
         public void Update()
         {
             UpdateTours();
-            //UpdateToursServiceChanged();
-            //Update2();
         }
 
-        //public void UpdateTours()
-        //{
-        //    Tours.Clear();
-
-        //    foreach (var tour in _tourGuideController.GetAllTours())
-        //    {
-        //        Tours.Add(tour);
-        //    }
-        //}
 
         public void UpdateToursServiceChanged()
         {
@@ -167,6 +152,7 @@ namespace Project.View.TourGuideView
         private void addTourButton_Click(object sender, RoutedEventArgs e)
         {
             AddNewTour addNewTour = new AddNewTour(_tourGuideController,_tourService, _imageController,_tourPointController,_tourPointsListController,_locationController, _appointmentController,_appointmentService);
+            addNewTour.Owner = this;
             addNewTour.Show();
         }
 
@@ -176,6 +162,7 @@ namespace Project.View.TourGuideView
             if(SelectedTour != null)
             {
                 SingleTourOverview singleTour = new SingleTourOverview(SelectedTour);
+                singleTour.Owner = this;
                 singleTour.Show();
             }
             
@@ -185,15 +172,28 @@ namespace Project.View.TourGuideView
         {
             if (SelectedTour != null)
             {
-                if (MessageBox.Show("Are you sure you want to cancel the tour?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+
+                var timespan = SelectedTour.TourAppointment.DateAndTimeOfAppointment - DateTime.Now;
+                
+                if(timespan.TotalHours < 48)
                 {
-                    //no
+                    MessageBox.Show(this,"You cannot cancel this tour.\nThe tour can be canceled no later than 48 hours before the scheduled start.");
                 }
                 else
                 {
-                    //yes
-                    _tourService.Cancel(SelectedTour.Id);
+                    if (MessageBox.Show("Are you sure you want to cancel the tour?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    {
+                        //no
+                    }
+                    else
+                    {
+                        //yes
+                        _appointmentService.Cancel(SelectedTour.TourAppointment);
+                    }
+
                 }
+
+                
             }
             
             
@@ -211,6 +211,13 @@ namespace Project.View.TourGuideView
                 cancelTour.IsEnabled = true;
             }
             
+        }
+
+        private void StatisticBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Statistic statistic = new Statistic();
+            statistic.Owner = this;
+            statistic.Show();
         }
     }
 }

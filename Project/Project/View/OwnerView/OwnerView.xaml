@@ -14,17 +14,21 @@
         <TabControl Margin="8,10">
 
             <TabItem Header="My accommodations">
-                <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=Accommodations}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
-                        <DataGridTextColumn Header="Country" Binding="{Binding Path=Location.Country}"/>
-                        <DataGridTextColumn Header="City" Binding="{Binding Path=Location.City}"/>
-                        <DataGridTextColumn Header="Accommodation type" Binding="{Binding Path=AccommodationType}"/>
-                        <DataGridTextColumn Header="Maximum guest number" Binding="{Binding Path=MaxGuests}"/>
-                        <DataGridTextColumn Header="Minimum reservation days" Binding="{Binding Path=MinReservationDays}"/>
-                        <DataGridTextColumn Width="*" Header="Minimum cancellation period" Binding="{Binding Path=CancellationPeriod}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <StackPanel>
+                    <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=Accommodations, UpdateSourceTrigger=PropertyChanged}"
+                                                                            SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                            <DataGridTextColumn Header="Country" Binding="{Binding Path=Location.Country}"/>
+                            <DataGridTextColumn Header="City" Binding="{Binding Path=Location.City}"/>
+                            <DataGridTextColumn Header="Accommodation type" Binding="{Binding Path=AccommodationType}"/>
+                            <DataGridTextColumn Header="Maximum guest number" Binding="{Binding Path=MaxGuests}"/>
+                            <DataGridTextColumn Header="Minimum reservation days" Binding="{Binding Path=MinReservationDays}"/>
+                            <DataGridTextColumn Width="*" Header="Minimum cancellation period" Binding="{Binding Path=CancellationPeriod}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content="Rate" Click="btRate_Click" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,10,10,0" Width="50"/>
+                </StackPanel>
             </TabItem>
 
             <TabItem Header="Add accommodation">
@@ -40,7 +44,7 @@
                             <TextBlock Text="Name" FontWeight="DemiBold" Margin="10,10"/>
                             <TextBox x:Name="tbName"  Width="100" HorizontalAlignment="Left" Margin="10,0"/>
                             <TextBlock Text="Accommodation type" FontWeight="DemiBold" Margin="10,10"/>
-                            <RadioButton x:Name="rbApartment" Margin="30,0,0,5" Content="APPARTMENT"/>
+                            <RadioButton x:Name="rbApartment" Margin="30,0,0,5" Content="APPARTMENT" IsChecked="True"/>
                             <RadioButton x:Name="rbHouse" Margin="30,0,0,5" Content="HOUSE"/>
                             <RadioButton x:Name="rbCottage" Margin="30,0,0,0" Content="COTTAGE"/>
                         </StackPanel>
@@ -57,7 +61,7 @@
                                     <ColumnDefinition Width="7*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Maximum number of guests" FontWeight="DemiBold" Margin="10,20,0,0" Grid.Column="0"/>
-                                <TextBox x:Name="tbMaximumGuests" Margin="5,15,0,0" Grid.Column="1" Width="25" HorizontalAlignment="left"/>
+                                <TextBox x:Name="tbMaximumGuests" PreviewTextInput="tbMaximumGuests_PreviewTextInput" Margin="5,15,0,0" Grid.Column="1" Width="25" HorizontalAlignment="left"/>
                             </Grid>
 
                         </StackPanel>
@@ -69,7 +73,7 @@
                                     <ColumnDefinition Width="4*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Minimum advance reservation days" FontWeight="DemiBold" Margin="9,20,0,0" Grid.Column="0"/>
-                                <TextBox x:Name="tbAdvanceReservation" Margin="5,15,0,0" Grid.Column="1" Width="25" HorizontalAlignment="left"/>
+                                <TextBox x:Name="tbAdvanceReservation" PreviewTextInput="tbAdvanceReservation_PreviewTextInput" Margin="5,15,0,0" Grid.Column="1" Width="25" HorizontalAlignment="left"/>
                             </Grid>
                             <Grid Margin="0,20,0,0">
                                 <Grid.ColumnDefinitions>
@@ -78,7 +82,7 @@
                                     <ColumnDefinition Width="24*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Cancel reservation-minimum days before" FontWeight="DemiBold" Margin="9,20,0,0" Grid.Column="0" Grid.ColumnSpan="2"/>
-                                <TextBox x:Name="tbCancellationPeriod" Margin="5,15,0,0" Grid.Column="2" Width="25" Text="1" HorizontalAlignment="Left"/>
+                                <TextBox x:Name="tbCancellationPeriod" PreviewTextInput="tbCancellationPeriod_PreviewTextInput" Margin="5,15,0,0" Grid.Column="2" Width="25" Text="1" HorizontalAlignment="Left"/>
                             </Grid>
                         </StackPanel>
 

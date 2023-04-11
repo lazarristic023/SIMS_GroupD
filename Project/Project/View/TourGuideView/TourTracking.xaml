@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
         Title="TourTracking" Height="450" Width="500"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        WindowStartupLocation="CenterOwner">
     <Grid>
         <DockPanel>
             <Grid DockPanel.Dock="Bottom">

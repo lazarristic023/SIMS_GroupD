@@ -57,7 +57,7 @@ namespace Project.Service
         {
             List<AccommodationReservation> allReservations = new(GetUserReservations(userId));
 
-            foreach (var reservation in allReservations)
+            foreach (var reservation in GetUserReservations(userId))
             {
                 if (reservation.StartDate <= DateTime.Now.Date)
                 {
@@ -73,7 +73,7 @@ namespace Project.Service
         {
             List<AccommodationReservation> allReservations = new(GetUserReservations(userId));
 
-            foreach (var reservation in allReservations)
+            foreach (var reservation in GetUserReservations(userId))
             {
                 if (reservation.StartDate > DateTime.Now.Date)
                 {

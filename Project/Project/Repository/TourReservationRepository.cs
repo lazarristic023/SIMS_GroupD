@@ -77,6 +77,21 @@ namespace Project.Repository
             return tourReservations.Find(v => v.Id == id);
         }
 
+        public List<TourReservation> GetReservationByTourId(int id)
+        {
+            List<TourReservation> reservationList = new List<TourReservation>();
+
+            foreach(TourReservation reservation in GetAllTourReservations())
+            {
+                if(reservation.TourId == id)
+                {
+                    reservationList.Add(reservation);
+                }
+            }
+
+            return reservationList;
+        }
+
         public List<TourReservation> GetAllTourReservations()
         {
             return tourReservations;

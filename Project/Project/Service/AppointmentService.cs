@@ -12,9 +12,15 @@ namespace Project.Service
     public class AppointmentService
     {
         AppointmentRepository appointmentRepository { get; set; }
+        
+        private readonly CouponService couponService;
+        private readonly TourReservationService tourReservationService;
         public AppointmentService()
         {
             appointmentRepository = new AppointmentRepository();
+
+            couponService = new CouponService();
+            tourReservationService = new TourReservationService();
         }
 
 
@@ -51,6 +57,23 @@ namespace Project.Service
 
             return appointments;
 
+        }
+
+        public void Cancel(Appointment appointment)
+        {
+            appointmentRepository.Cancel(appointment.Id);
+            List<User> guests =  tourReservationService.GetGuestsWithReservation(appointment.Id);
+
+            foreach(User guest in guests)
+            {
+                couponService.Create(guest.Id, appointment.DateAndTimeOfAppointment.AddMonths(6));
+            }
+
+        }
+
+        public void CompleteTour(int id)
+        {
+            appointmentRepository.CompleteTour(id);
         }
 
 
