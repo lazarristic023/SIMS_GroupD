@@ -78,7 +78,7 @@ namespace Project.View.Guest1View
                     offsetY: 10);
 
                 cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(3),
+                    notificationLifetime: TimeSpan.FromSeconds(10),
                     maximumNotificationCount: MaximumNotificationCount.FromCount(5));
 
                 cfg.Dispatcher = Application.Current.Dispatcher;
