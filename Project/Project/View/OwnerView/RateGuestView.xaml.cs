@@ -27,6 +27,8 @@ namespace Project.View
     {
         private OwnerController controller;
 
+        private readonly UserRepository _repository;
+
         public String Names { get; set; }
 
         public User Owner { get; set; }
@@ -43,6 +45,7 @@ namespace Project.View
             Owner = user;
             DataContext = this;
             Guests = new ObservableCollection<User>();
+            _repository = new UserRepository();
             controller = new OwnerController(user);
             Reservations = new List<AccommodationReservation>();
             CreateReservations(selectedAccommodation);
@@ -58,7 +61,7 @@ namespace Project.View
         {
             foreach(var res in Reservations)
             {
-                Guests.Add(UserRepository.GetById(res.GuestId));
+                Guests.Add(_repository.GetById(res.GuestId));                //Guests.Add(UserRepository.GetById(res.GuestId));
             }
         }
 
