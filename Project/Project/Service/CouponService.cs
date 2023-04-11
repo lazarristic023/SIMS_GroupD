@@ -11,10 +11,36 @@ namespace Project.Service
     public class CouponService
     {
         CouponRepository couponRepository;
+        public Guest2 Guest { get; set; }
 
         public CouponService()
         {
             couponRepository = new CouponRepository();
+            Guest = new Guest2();
+            LinkGuest2Coupons();
+        }
+
+        public CouponService(User u)
+        {
+            couponRepository = new CouponRepository();
+            Guest = new Guest2(u);
+            LinkGuest2Coupons();
+        }
+
+        private void LinkGuest2Coupons()
+        {
+            foreach(var coupon in couponRepository.GetAll())
+            {
+                if(coupon.GuestId == Guest.User.Id)
+                {
+                    Guest.Coupons.Add(coupon);
+                }
+            }
+        }
+
+        public List<Coupon> GetGuest2Coupons()
+        {
+            return Guest.Coupons;
         }
 
 

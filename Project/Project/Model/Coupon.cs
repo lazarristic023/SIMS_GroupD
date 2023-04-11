@@ -12,15 +12,18 @@ namespace Project.Model
 {
     public class Coupon: ISerializable
     {
+        public enum STATUS { USED, NOTUSED}
         public int Id { get; set; }
         public int GuestId { get; set; }
         public DateTime ExpiryDate { get; set; }
+        public STATUS Status { get; set; }
 
         public Coupon()
         {
             Id = -1;
             GuestId = -1;
             ExpiryDate = DateTime.Now;
+            Status = STATUS.NOTUSED;
         }
 
         public Coupon(int guestId, DateTime dateOfExpire)
@@ -28,6 +31,7 @@ namespace Project.Model
             Id = -1;
             GuestId = guestId;
             ExpiryDate = dateOfExpire;
+            Status = STATUS.NOTUSED;
         }
 
         public string[] ToCSV()
@@ -36,6 +40,7 @@ namespace Project.Model
                 Id.ToString(),
                 GuestId.ToString(),
                 ExpiryDate.ToString(),
+                Status.ToString(),
             };
             return csvValues;
         }
@@ -45,6 +50,19 @@ namespace Project.Model
             Id = int.Parse(values[0]);
             GuestId = int.Parse(values[1]);
             ExpiryDate = DateTime.Parse(values[2]);
+            string status = values[3];
+            switch(status)
+            {
+                case "USED":
+                    Status = STATUS.USED;
+                    break;
+                case "NOTUSED":
+                    Status = STATUS.NOTUSED; 
+                    break;
+                default:
+                    Status = STATUS.NOTUSED;
+                    break;
+            }
         }
     }
 }

@@ -11,17 +11,20 @@ namespace Project.Model
         public User User { get; set; }
 
         public List<TourReservation> Reservations { get; set; } 
+        public List<Coupon> Coupons { get; set; }
 
         public Guest2()
         {
             Reservations = new List<TourReservation>();
             User = new User();
+            Coupons = new List<Coupon>();
         }
 
         public Guest2(User user)
         {
             User = user;
             Reservations = new List<TourReservation>();
+            Coupons = new List<Coupon>();
         }
     }
 }

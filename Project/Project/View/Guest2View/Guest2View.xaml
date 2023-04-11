@@ -64,6 +64,15 @@
                 </Grid>
             </TabItem>
 
+            <TabItem Header="My coupons">
+                <DataGrid ItemsSource="{Binding Path=Coupons}" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=Id}"/>
+                        <DataGridTextColumn Header="Expiration Date" Binding="{Binding Path=ExpiryDate}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
         </TabControl>
     </StackPanel>
 </Window>
