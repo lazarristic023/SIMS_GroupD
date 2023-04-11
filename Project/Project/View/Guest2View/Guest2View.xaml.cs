@@ -39,6 +39,8 @@ namespace Project.View
         public string SelectedLanguage { get; set; }
         public Tour SelectedTour { get; set; }
         private readonly CouponService couponService;
+        private readonly TourService tourService;
+        private readonly AppointmentService appointmentService;
 
 
         public Guest2View(User u)
@@ -55,6 +57,14 @@ namespace Project.View
             Countries = new ObservableCollection<string>();
             CountryCities = new ObservableCollection<string>();
             Languages = new ObservableCollection<string>();
+            tourService = new TourService();
+            tourService.Subscribe(this);
+
+            appointmentService = new AppointmentService();
+            appointmentService.Subscribe(this);
+
+            FilteredTours = new ObservableCollection<Tour>(tourService.GetAllTourAppointments());
+            Tours = new ObservableCollection<Tour>(tourService.GetAllTourAppointments());
             FillCountriesList();
             FillLanguagesList();
         }

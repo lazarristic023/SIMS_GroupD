@@ -63,6 +63,16 @@ namespace Project.Controller
             return Guest.Reservations;
         }
 
+        public List<Tour> GetAllTourAppointments()
+        {
+            return TourRepository.GetAll();
+        }
+
+        public List<Tour> FindAllAlternatives(Tour tour, int numberOfGuests)
+        {
+            return TourRepository.FindAllAlternatives(tour, numberOfGuests);
+        }
+
         public List<Coupon> GetGuestsCoupons()
         {
             return Guest.Coupons;

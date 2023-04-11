@@ -13,11 +13,10 @@
 
         <Button x:Name="btSearchAvailableTours" Click="btSearchAvailableTours_Click" Content="Search" HorizontalAlignment="Left" Margin="383,100,0,0" VerticalAlignment="Top" Width="50" Height="30"/>
 
-        <DataGrid SelectedItem="{Binding Path=SelectedTour}" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=TourSpots}" Margin="52,180,52,180">
+        <DataGrid x:Name="alternativesDataGrid" SelectedItem="{Binding Path=SelectedTour}" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=TourSpots}" Margin="52,180,52,180">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="1*"/>
-                <DataGridTextColumn Header="Country" Binding="{Binding Path=Country}" Width="1*"/>
-                <DataGridTextColumn Header="City" Binding="{Binding Path=City}" Width="1*"/>
+                <DataGridTextColumn Header="Date and time" Binding="{Binding TourSpots.DateAndTimeOfAppointment}" Width="1*"/>
                 <DataGridTextColumn Header="Max guests" Binding="{Binding Path=MaxGuests}" Width="1*"/>
             </DataGrid.Columns>
         </DataGrid>

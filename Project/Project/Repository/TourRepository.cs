@@ -70,6 +70,21 @@ namespace Project.Repository
             return tours;
         }
 
+        public List<Tour> FindAllAlternatives(Tour tour, int numberOfGuests)
+        {
+            List<Tour> alternative = new List<Tour>();
+            List<Tour> tours = GetAll();
+            
+            foreach(Tour t in tours)
+            {
+                if (t.City.Equals(tour.City) && t.MaxGuests >= numberOfGuests)
+                {
+                    alternative.Add(t);
+                }
+            }
+            return alternative;
+        }
+
 
 
         public void Subscribe(IObserver observer)
