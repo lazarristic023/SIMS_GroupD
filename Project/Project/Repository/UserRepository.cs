@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,15 @@ namespace Project.Repository
         {
             users = serializer.FromCSV(FilePath);
             return users.FirstOrDefault(u => u.Username == username);
+        }
+
+        public static User GetById(int id)
+        { 
+
+            Serializer<User>  serializer = new Serializer<User>();
+            List<User> users = new List<User>();
+            users = serializer.FromCSV(FilePath);
+            return users.FirstOrDefault(u => u.Id == id);
         }
 
     }
