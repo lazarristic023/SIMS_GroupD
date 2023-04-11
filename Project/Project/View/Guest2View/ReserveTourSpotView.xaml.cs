@@ -1,5 +1,6 @@
 ﻿using Project.Controller;
 using Project.Model;
+using Project.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,16 +27,27 @@ namespace Project.View
         public Tour Tour { get; set; }
 
         public ObservableCollection<TourAppointments> TourSpots { get; set; }
-
+        public ObservableCollection<string> GuestCoupons { get; set; }
+        public ObservableCollection<Coupon> Coupons { get; set; }
         public Tour SelectedTour { get; set; }
+
+        public string SelectedCoupon { get; set; }
+
+        private readonly CouponService couponService;
+        
+
 
         public ReserveTourSpotView(Guest2Controller controller, Tour tour)
         {
             InitializeComponent();
             DataContext = this;
             Controller = controller;
+            couponService = new CouponService(controller.Guest.User);
+            Coupons = new ObservableCollection<Coupon>(couponService.GetGuest2Coupons());
             Tour = tour;
             TourSpots = new ObservableCollection<TourAppointments>();
+            GuestCoupons = new ObservableCollection<string>();
+            FillCouponsList();
         }
 
         private void btSearchAvailableTours_Click(object sender, RoutedEventArgs e)
@@ -170,9 +182,32 @@ namespace Project.View
 
             if(result == MessageBoxResult.Yes)
             {
+                if (SelectedCoupon != null)
+                {
+                    couponService.ChangeCouponToUsed(4);
+                }
                 TourReservation tourReservation = new TourReservation(SelectedTour.TourAppointment.TourId, new DateTime(), new DateTime(), 4, SelectedTour.Id);
                 Controller.AddReservation(tourReservation);
+                this.Close();
             }
+
+        }
+
+        private void cbCoupons_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void FillCouponsList()
+        {
+            foreach (var coupon in Controller.GetGuestsCoupons())
+            {
+                if (coupon.GuestId == Controller.Guest.User.Id)
+                {
+                    GuestCoupons.Add(coupon.Id.ToString() );
+                }
+            }
+
 
         }
     }

@@ -31,7 +31,7 @@ namespace Project.Service
         {
             foreach(var coupon in couponRepository.GetAll())
             {
-                if(coupon.GuestId == Guest.User.Id)
+                if((coupon.GuestId == Guest.User.Id) && (coupon.Status == Coupon.STATUS.NOTUSED))
                 {
                     Guest.Coupons.Add(coupon);
                 }
@@ -69,7 +69,10 @@ namespace Project.Service
             couponRepository.Remove(id);
         }
 
-        
+        public void ChangeCouponToUsed(int id)
+        {
+            couponRepository.ChangeToUsed(id);
+        }
 
     }
 }
