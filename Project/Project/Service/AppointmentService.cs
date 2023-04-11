@@ -59,6 +59,16 @@ namespace Project.Service
 
         }
 
+        public int GetTourId(int id)
+        {
+            return appointmentRepository.GetById(id).TourId;
+        }
+
+        public Appointment GetById(int id)
+        {
+            return appointmentRepository.GetById(id);
+        }
+
         public void Cancel(Appointment appointment)
         {
             appointmentRepository.Cancel(appointment.Id);
@@ -75,8 +85,6 @@ namespace Project.Service
         {
             appointmentRepository.CompleteTour(id);
         }
-
-
 
     }
 }

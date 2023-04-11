@@ -40,7 +40,7 @@
                                 </Grid.RowDefinitions>
 
                                 
-                                <Button Grid.Row="1" Content="Reviews" Margin="5,0,5,10"/>
+                                <Button x:Name="ReviewsBtn" Grid.Row="1" Content="Reviews" Margin="5,0,5,10" Click="ReviewsBtn_Click"/>
                                 <Button x:Name="StatisticBtn" Grid.Row="2" Content="Statistic" Margin="5,0,5,10" Click="StatisticBtn_Click"/>
                                 <Button Grid.Row="3" Content="Tour requests" Margin="5,0,5,10"/>
                                 <Button Grid.Row="4" Content="Generate a PDF report" Margin="5,0,5,10"/>

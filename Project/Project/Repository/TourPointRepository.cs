@@ -72,6 +72,8 @@ namespace Project.Repository
             return tourPoints.Find(v => v.Id == id);
         }
 
+        
+
         public List<TourPoint> GetAll()
         {
             return tourPoints;

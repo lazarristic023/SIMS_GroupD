@@ -43,34 +43,6 @@ namespace Project.View.TourGuideView
             }
         }
 
-        //private string _country;
-        //public string Country
-        //{
-        //    get => _country;
-        //    set
-        //    {
-        //        if (value != _country)
-        //        {
-        //            _country = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
-        //private string _city;
-        //public string City
-        //{
-        //    get => _city;
-        //    set
-        //    {
-        //        if (value != _city)
-        //        {
-        //            _city = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
         private string _name;
         public string NameOfTour
         {
@@ -215,12 +187,11 @@ namespace Project.View.TourGuideView
             }
         }
 
-        //private readonly TourGuideController _tourGuideController;
         private readonly ImageController _imageController;
         private readonly TourPointController _tourPointController;
         private readonly TourPointsListController _tourPointsListController;
         private readonly LocationController _locationController;
-        //private readonly AppointmentController _appointmentController;
+
 
         private readonly TourService _tourService;
         private readonly AppointmentService _appointmentService;
@@ -237,12 +208,10 @@ namespace Project.View.TourGuideView
             InitializeComponent();
             DataContext = this;
 
-            //_tourGuideController = tourGuideController;
             _imageController = imageController;
             _tourPointController = tourPointController;
             _tourPointsListController = tourPointsListController;
             _locationController = locationController;
-            //_appointmentController = appointmentController;
 
             _tourService = tourService;
             _appointmentService = appointmentService;
