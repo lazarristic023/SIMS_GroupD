@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Project.View.TourGuideView;
 using Project.Controller;
+using Project.View.Guest1View;
 
 namespace Project.View
 {
@@ -82,9 +83,10 @@ namespace Project.View
                             break;
 
                         case Role.GUEST1:
-                            Guest1View guest1View = new Guest1View(user);
+                            Guest1MainView guest1View = new Guest1MainView(user);
                             guest1View.Show();
                             Close();
+                            guest1View.ShowNotifications(user.Id);
                             break;
 
                         default:
