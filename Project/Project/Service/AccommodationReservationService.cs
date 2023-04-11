@@ -25,7 +25,7 @@ namespace Project.Service
         public List<AccommodationReservation> GetUserReservations(int userId)
         {
             List<AccommodationReservation> reservations = new List<AccommodationReservation>();
-            foreach (var reservation in _reservationRepository.GetAllReservations())
+            foreach (var reservation in GetAllReservations())
             {
                 if (reservation.GuestId == userId)
                 {
@@ -38,7 +38,7 @@ namespace Project.Service
 
         private void LinkAccommodationsAndReservations()
         {
-            List<AccommodationReservation> reservations = new(_reservationRepository.GetAllReservations());
+            List<AccommodationReservation> reservations = new(GetAllReservations());
 
             foreach (var reservation in reservations)
             {
@@ -97,7 +97,7 @@ namespace Project.Service
         {
             List<AccommodationReservation> reservations = new();
 
-            foreach (var reservation in _reservationRepository.GetAllReservations())
+            foreach (var reservation in GetAllReservations())
             {
                 if (reservation.AccommodationId == id)
                 {
@@ -107,6 +107,11 @@ namespace Project.Service
 
             return reservations;
 
+        }
+
+        public List<AccommodationReservation> GetAllReservations()
+        {
+            return _reservationRepository.GetAllReservations();
         }
 
 

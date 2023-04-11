@@ -1,5 +1,6 @@
 ﻿using Project.Model;
 using Project.Serializer;
+using Project.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,37 +9,41 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class MoveRequestRepository
+    public class MoveRequestRepository : ISubject
     {
         private const string FilePath = "../../../Resources/Data/moveRequests.csv";
 
-        private readonly Serializer<MoveRequest> serializer;
+        private readonly Serializer<MoveRequest> _serializer;
 
-        private List<MoveRequest> requests;
+        private List<MoveRequest> _requests;
+
+        private List<IObserver> _observers;
 
         public MoveRequestRepository()
         {
-            serializer = new Serializer<MoveRequest>();
-            requests = serializer.FromCSV(FilePath);
+            _serializer = new Serializer<MoveRequest>();
+            _requests = _serializer.FromCSV(FilePath);
+            _observers = new List<IObserver>();
         }
 
 
         private void SaveInFile()
         {
-            serializer.ToCSV(FilePath, requests);
+            _serializer.ToCSV(FilePath, _requests);
         }
 
         private int GenerateId()
         {
-            if (requests.Count == 0) return 0;
-            return requests[requests.Count - 1].Id + 1;
+            if (_requests.Count == 0) return 0;
+            return _requests[_requests.Count - 1].Id + 1;
         }
 
         public MoveRequest Add(MoveRequest request)
         {
             request.Id = GenerateId();
-            requests.Add(request);
+            _requests.Add(request);
             SaveInFile();
+            NotifyObservers();
             return request;
         }
 
@@ -58,6 +63,7 @@ namespace Project.Repository
 
 
             SaveInFile();
+            NotifyObservers();
             return oldRequest;
         }
 
@@ -66,19 +72,38 @@ namespace Project.Repository
             MoveRequest request = GetRequestById(id);
             if (request == null) return null;
 
-            requests.Remove(request);
+            _requests.Remove(request);
             SaveInFile();
+            NotifyObservers();
             return request;
         }
 
         public MoveRequest GetRequestById(int id)
         {
-            return requests.Find(v => v.Id == id);
+            return _requests.Find(v => v.Id == id);
         }
 
         public List<MoveRequest> GetAllRequests()
         {
-            return requests;
+            return _requests;
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
         }
     }
 }

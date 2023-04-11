@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.Repository;
 using Project.Service;
 using System;
 using System.Collections.Generic;
@@ -33,12 +34,12 @@ namespace Project.View.Guest1View
         public DateTime NewEndDate { get; set; } = default;
         public string Comment { get; set; } = string.Empty;
 
-        public MakeMoveRequestView(AccommodationReservation reservation, User user)
+        public MakeMoveRequestView(AccommodationReservation reservation, User user, MoveRequestService service)
         {
             InitializeComponent();
             DataContext = this;
 
-            _requestService = new MoveRequestService();
+            _requestService = service;
             _ownerNotificationService = new OwnerNotificationService();
             SelectedReservation = reservation;
             Days = (int)(SelectedReservation.EndDate - SelectedReservation.StartDate).TotalDays;
@@ -79,7 +80,7 @@ namespace Project.View.Guest1View
 
         private void AlreadyReservedMessageBox()
         {
-            string sMessageBoxText = "The accommodation is already reserved at chosen date range!";
+            string sMessageBoxText = "The accommodation is already reserved at chosen date range or you have already sent a request (on pending)!";
             string sCaption = "Accommodtion already reserved";
             MessageBoxButton btn = MessageBoxButton.OK;
             MessageBoxImage icn = MessageBoxImage.Error;

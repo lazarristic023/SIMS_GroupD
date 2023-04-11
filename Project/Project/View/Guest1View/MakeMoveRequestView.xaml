@@ -41,8 +41,8 @@
             </WrapPanel>
 
             <WrapPanel Margin="25,0" VerticalAlignment="Center" Grid.Row="2">
-                <TextBlock Text="Old start date:"/>
-                <TextBlock Margin="10,0" Text="{Binding Path=SelectedReservation.StartDate,StringFormat=d}"/>
+                <TextBlock FontWeight="SemiBold" Text="Old start date:"/>
+                <TextBlock FontWeight="SemiBold" Margin="10,0" Text="{Binding Path=SelectedReservation.StartDate,StringFormat=d}"/>
             </WrapPanel>
             
             <WrapPanel Margin="25,0,0,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0">
@@ -56,8 +56,8 @@
             </WrapPanel>
 
             <WrapPanel Margin="25,0,0,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
-                <TextBlock Text="Old end date:"/>
-                <TextBlock Margin="10,0" Text="{Binding Path=SelectedReservation.EndDate, StringFormat=d}"/>
+                <TextBlock FontWeight="SemiBold" Text="Old end date:"/>
+                <TextBlock FontWeight="SemiBold" Margin="10,0" Text="{Binding Path=SelectedReservation.EndDate, StringFormat=d}"/>
             </WrapPanel>
 
         </Grid>
