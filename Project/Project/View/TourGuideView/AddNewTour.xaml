@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
-        Title="AddNewTour" Height="550" Width="800" Loaded="Window_Loaded">
+        Title="AddNewTour" Height="550" Width="800" Loaded="Window_Loaded"
+        WindowStartupLocation="CenterOwner">
     <Grid>
 
         <DockPanel>

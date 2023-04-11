@@ -167,6 +167,20 @@ namespace Project.View.TourGuideView
             }
         }
 
+        private Appointment _tourappointment;
+        public Appointment TourAppointment
+        {
+            get => _tourappointment;
+            set
+            {
+                if(value != _tourappointment)
+                {
+                    _tourappointment = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private string _coverImageUrl;
 
 
@@ -183,19 +197,19 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private List<Appointment> _appointments;
-        public List<Appointment> Appointments
-        {
-            get => _appointments;
-            set
-            {
-                if(value != _appointments)
-                {
-                    _appointments = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        //private List<Appointment> _appointments;
+        //public List<Appointment> Appointments
+        //{
+        //    get => _appointments;
+        //    set
+        //    {
+        //        if(value != _appointments)
+        //        {
+        //            _appointments = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
 
 
         private readonly ImageController _imageController;
@@ -232,26 +246,22 @@ namespace Project.View.TourGuideView
             LanguageOfTour = Tour.Language;
             MaxGuests = Tour.MaxGuests;
             Duration = Tour.Duration;
-            Appointments = _appointmentController.GetByTourId(Tour.Id);
+            TourAppointment = Tour.TourAppointment;
+            //Appointments = _appointmentController.GetByTourId(Tour.Id);
             Reservations = new ObservableCollection<User>(GetApproprietReservations());
 
-            if (Tour.TourAppointment.DateAndTimeOfAppointment.ToShortDateString() != DateTime.Today.ToShortDateString())
-            {
-                startTour.IsEnabled = false;
-            }
-
-
+            DisableStartTourButton();
         }
 
 
-        public List<User> GetApproprietReservations()
+        private List<User> GetApproprietReservations()
         {
             List<TourReservation> tourReservations = tourReservationRepository.GetAllTourReservations();
             List<User> approprietReservations = new List<User>();
 
             foreach(TourReservation reservation in tourReservations)
             {
-                if(reservation.TourId == Id)
+                if(reservation.TourId == TourAppointment.Id)
                 {
                     approprietReservations.Add(userRepository.GetById(reservation.GuestId));
                 }
@@ -260,7 +270,13 @@ namespace Project.View.TourGuideView
             return approprietReservations;
         }
 
-
+        public void DisableStartTourButton()
+        {
+            if (Tour.TourAppointment.DateAndTimeOfAppointment.ToShortDateString() != DateTime.Today.ToShortDateString() || Tour.TourAppointment.Status == Appointment.STATUS.COMPLETED)
+            {
+                startTour.IsEnabled = false;
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -291,17 +307,12 @@ namespace Project.View.TourGuideView
             
         }
 
-        private void apointmentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (SelectedAppointment != null)
-            {
-                startTour.IsEnabled = true;
-            }
-        }
+
 
         private void startTour_Click(object sender, RoutedEventArgs e)
         {
             TourTracking tourTracking = new TourTracking(Id,Tour.TourAppointment.Id);
+            tourTracking.Owner = this;
             tourTracking.Show();
         }
     }

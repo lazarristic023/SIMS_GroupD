@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
-        Title="TourGuideMainView" Height="600" Width="800" Loaded="Window_Loaded">
+        Title="TourGuideMainView" Height="600" Width="800" Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <DockPanel>
 
@@ -16,18 +17,36 @@
 
                     <DockPanel>
 
-                        <Grid DockPanel.Dock="Left" Width="150">
+                        <Grid DockPanel.Dock="Left" Width="150" Background="YellowGreen">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="50"></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
+                                <RowDefinition Height="150"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
 
 
-                            <Label Grid.Row="0" FontSize="25" FontStyle="Italic" Margin="0,0,0,10">GUIDE</Label>
+                            <Label Grid.Row="0" FontSize="25"  Margin="0,0,0,10" Foreground="White" FontFamily="Century Gothic" HorizontalAlignment="Center">GUIDE</Label>
                             <Image Grid.Row="1" Source="../../Resources/Images/avatar.png"/>
-                            <Label x:Name="usernameLabel" Grid.Row="2" HorizontalAlignment="Center" FontSize="16"></Label>
+                            <Label x:Name="usernameLabel" Content="Luka" Grid.Row="2" HorizontalAlignment="Center" FontSize="16"></Label>
+
+                            <Grid Grid.Row="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                
+                                <Button Grid.Row="1" Content="Reviews" Margin="5,0,5,10"/>
+                                <Button x:Name="StatisticBtn" Grid.Row="2" Content="Statistic" Margin="5,0,5,10" Click="StatisticBtn_Click"/>
+                                <Button Grid.Row="3" Content="Tour requests" Margin="5,0,5,10"/>
+                                <Button Grid.Row="4" Content="Generate a PDF report" Margin="5,0,5,10"/>
+                               
+                                
+                            </Grid>
                             
 
 
@@ -47,7 +66,7 @@
                                 <DataGrid.RowStyle>
                                     <Style TargetType="{x:Type DataGridRow}">
                                         <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
-                                        <Setter Property="IsEnabled" Value="{Binding IsNotCanceled}"/>
+                                        <Setter Property="IsEnabled" Value="{Binding TourAppointment.IsNotCanceled}"/>
                                     </Style>
                                 </DataGrid.RowStyle>
                                 <DataGrid.Columns>
@@ -61,7 +80,7 @@
 
 
                                     <DataGridTextColumn Header="Duration" Binding="{Binding Duration}"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Appointment" Binding="{Binding TourAppointment.DateAndTimeOfAppointment, StringFormat=D}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Appointment" Binding="{Binding TourAppointment.DateAndTimeOfAppointment, StringFormat=f}"></DataGridTextColumn>
 
                                 </DataGrid.Columns>
 
@@ -78,6 +97,8 @@
                             </Grid>
 
                         </Grid>
+
+                        
 
                         
 

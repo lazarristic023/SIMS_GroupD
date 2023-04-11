@@ -3,6 +3,7 @@ using Project.Controller;
 using Project.Model;
 using Project.Observer;
 using Project.Repository;
+using Project.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,10 +28,11 @@ namespace Project.View.TourGuideView
     /// </summary>
     public partial class TourTracking : Window, IObserver, INotifyPropertyChanged
     {
-        private readonly TourGuideController _tourGuideController;
         private readonly TourPointController _tourPointController;
         private readonly TourPointsListController _tourPointsListController;
-        private readonly AppointmentController _appointmentController;
+
+        private readonly TourService _tourService;
+        private readonly AppointmentService _appointmentService;
 
         private readonly TourReservationRepository reservationRepository;
         private readonly UserRepository userRepository;
@@ -54,11 +56,14 @@ namespace Project.View.TourGuideView
             InitializeComponent();
             DataContext = this;
 
-            _tourGuideController = new TourGuideController();
+
             _tourPointController = new TourPointController();
             _tourPointController.Subscribe(this);
             _tourPointsListController = new TourPointsListController();
-            _appointmentController = new AppointmentController();
+
+            _tourService = new TourService();
+
+            _appointmentService = new AppointmentService();
 
             reservationRepository = new TourReservationRepository();
             userRepository = new UserRepository();
@@ -126,7 +131,7 @@ namespace Project.View.TourGuideView
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            tourName.Text = _tourGuideController.GetById(tourId).Name;
+            tourName.Text = _tourService.GetById(tourId).Name;
             ChangeActivity(tourPoints[order]);
             
         }
@@ -140,8 +145,8 @@ namespace Project.View.TourGuideView
 
         private void EndTheAppointment()
         {
-           
-            presentGuestsRepository.ClearPresents();
+            _appointmentService.CompleteTour(appointmentId);
+            //presentGuestsRepository.ClearPresents();
             MessageBox.Show("The tour is over");
             Close();
         }
@@ -220,6 +225,7 @@ namespace Project.View.TourGuideView
         private void AddGuests_Click(object sender, RoutedEventArgs e)
         {
             AddPresentGuests addPresentGuests = new AddPresentGuests(tourId, tourPoints[order].Id, appointmentId, presentGuestsRepository);
+            addPresentGuests.Owner = this;
             addPresentGuests.Show();
         }
     }

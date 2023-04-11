@@ -41,15 +41,16 @@ namespace Project.Service
             return newDate;
         }
 
-        public void Cancel(int id)
-        {
-            tourRepository.Cancel(id);    
-        }
 
 
         public List<Tour> GetAll()
         {
             return tourRepository.GetAll();
+        }
+
+        public Tour GetById(int id)
+        {
+            return tourRepository.GetById(id);
         }
 
         public void Subscribe(IObserver observer)
@@ -75,6 +76,22 @@ namespace Project.Service
 
 
             return tourAppointments;
+        }
+
+        public List<Tour> GetCompletedTours()
+        {
+            List<Tour> allTours = GetAllTourAppointments();
+            List<Tour> completedTours = new List<Tour>();
+
+            foreach(Tour tour in allTours)
+            {
+                if(tour.TourAppointment.Status == Appointment.STATUS.COMPLETED)
+                {
+                    completedTours.Add(tour);
+                }
+            }
+
+            return completedTours;
         }
 
 

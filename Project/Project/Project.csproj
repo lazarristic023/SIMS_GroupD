@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="C1.Xaml.WPF.FlexChart" Version="4.6.20231.784" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Images\avatar.png" />
   </ItemGroup>
 

@@ -87,10 +87,26 @@ namespace Project.Repository
             return appointments;
         }
 
+        public void Cancel(int id)
+        {
+            appointments.Find(v => v.Id == id).IsNotCanceled = false;
+            SaveInFile();
+            NotifyObservers();
+
+        }
+
         public void RefreshAppointments()
         {
             appointments = serializer.FromCSV(FilePath);
         }
+
+        public void CompleteTour(int id)
+        {
+            appointments.Find(v => v.Id == id).Status = Appointment.STATUS.COMPLETED;
+            SaveInFile();
+            NotifyObservers();
+        }
+
 
         public void NotifyObservers()
         {

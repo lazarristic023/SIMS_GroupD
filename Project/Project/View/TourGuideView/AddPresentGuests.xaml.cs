@@ -80,7 +80,7 @@ namespace Project.View.TourGuideView
 
             foreach (TourReservation reservation in tourReservations)
             {
-                if (reservation.TourId == tourId)
+                if (reservation.TourId == appointmentId)
                 {
                     approprietReservations.Add(userRepository.GetById(reservation.GuestId));
                 }
