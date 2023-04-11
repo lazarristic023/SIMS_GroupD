@@ -16,6 +16,7 @@ namespace Project.Service
             tourReviewRepository = new TourReviewRepository();
         }
 
+
         public int Create(int appointmentId, int guestId, int knowledge, int language, int interesting,string text )
         {
             TourReview tourReview = new TourReview(appointmentId,guestId,knowledge,language,interesting,text);
@@ -34,6 +35,11 @@ namespace Project.Service
         public List<TourReview> GetAll()
         {
             return tourReviewRepository.GetAll();
+        }
+
+        public List<TourReview> GetGuestsReviews(int id)
+        {
+            return tourReviewRepository.GetGuestsReview(id);
         }
 
         public void MarkAsInvalid(int id)

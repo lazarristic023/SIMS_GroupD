@@ -28,7 +28,9 @@ namespace Project.View
         private Guest2Controller controller;
         private User user;
         public ObservableCollection<Coupon> Coupons {  get; set; }
+        public ObservableCollection<TourReview> GuestReviews { get; set; }
         public ObservableCollection<TourReservation> TourReservations { get; set; }
+        public ObservableCollection<Appointment> TourReservationsForReview { get; set; }
         public ObservableCollection<Tour> Tours { get; set; }
         public ObservableCollection<Tour> FilteredTours { get; set; }
         public ObservableCollection<string> Countries { get; set; }
@@ -38,9 +40,11 @@ namespace Project.View
         public string SelectedCity { get; set; }
         public string SelectedLanguage { get; set; }
         public Tour SelectedTour { get; set; }
+        public Appointment SelectedAppointment { get; set; }
         private readonly CouponService couponService;
         private readonly TourService tourService;
         private readonly AppointmentService appointmentService;
+        private readonly TourReviewService tourReviewService;
 
 
         public Guest2View(User u)
@@ -49,9 +53,12 @@ namespace Project.View
             DataContext = this;
             controller = new Guest2Controller(u);
             couponService = new CouponService(u);
+            tourReviewService = new TourReviewService();
             TourReservations = new ObservableCollection<TourReservation>(controller.GetTourReservations());
+            TourReservationsForReview = new ObservableCollection<Appointment>(controller.GetAppointmentsForReview());
             Tours = new ObservableCollection<Tour>(controller.GetTours());
             Coupons = new ObservableCollection<Coupon>(couponService.GetGuest2Coupons());
+            GuestReviews = new ObservableCollection<TourReview>();
             FilteredTours = new ObservableCollection<Tour>(Tours);
             controller.SubscribeToReservationRepo(this);
             Countries = new ObservableCollection<string>();
@@ -295,6 +302,12 @@ namespace Project.View
             cbCountry.SelectedValue = string.Empty;
             cbLanguage.SelectedValue = string.Empty;
             btnSearch_Click(this, e);
+        }
+
+        private void tbReview_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            TourReview tourReview= new TourReview(controller, SelectedAppointment);
+            tourReview.Show();
         }
     }
 }

@@ -75,6 +75,33 @@
                 </DataGrid>
             </TabItem>
 
+            <TabItem Header="Tour review">
+                <DataGrid SelectedItem="{Binding Path=SelectedAppointment}" ItemsSource="{Binding Path=TourReservationsForReview}" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Tour Id" Binding="{Binding Path=TourId}"/>
+                        <DataGridTextColumn Header="Date and time" Binding="{Binding Path=DateAndTimeOfAppointment}"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"/>
+                        <DataGridTemplateColumn Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="tbReview" MouseLeftButtonUp="tbReview_MouseLeftButtonUp" TextDecorations="Underline" Text="Review" Foreground="Blue"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </TabItem>
+
+            <TabItem Header="My reviews">
+                <DataGrid ItemsSource="{Binding Path=Coupons}" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=Id}"/>
+                        <DataGridTextColumn Header="Expiration Date" Binding="{Binding Path=ExpiryDate}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
         </TabControl>
     </StackPanel>
 </Window>
