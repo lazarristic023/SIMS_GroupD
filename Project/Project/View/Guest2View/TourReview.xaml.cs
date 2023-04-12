@@ -41,6 +41,7 @@ namespace Project.View
 
         private void btSubmit_Click(object sender, RoutedEventArgs e)
         {
+            if (!CheckConditions()) return;
             TourReviewService.Create(ChosenAppointment.Id, Controller.Guest.User.Id, GetGuideKnowledgeRating(), GetGuideLanguageRating(), GetInterestingRating(), tbReviewText.Text);
             this.Close();
         }
@@ -55,6 +56,121 @@ namespace Project.View
             }
             knowledge = Convert.ToInt32(tbGuideKnowledge.Text);
             return knowledge;
+        }
+
+        private bool CheckConditions()
+        {
+            if (IsGuideKnowledgeEmpty()) return false;
+            if (!IsKnowledgeDigits()) return false;
+
+            if(IsGuideLanguageEmpty()) return false;
+            if (!IsLanguageDigits()) return false;
+
+            if(IsInterestingEmpty()) return false;
+            if(!IsInterestingDigits()) return false;
+
+            return true;
+        }
+
+        private bool IsGuideKnowledgeEmpty()
+        {
+            if (string.IsNullOrWhiteSpace(tbGuideKnowledge.Text))
+            {
+                string sMessageBoxText = $"Please enter knowledge rating.";
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+                string sCaption = "Missing input";
+                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsGuideLanguageEmpty()
+        {
+            if (string.IsNullOrWhiteSpace(tbGuideLanguage.Text))
+            {
+                string sMessageBoxText = $"Please enter language rating.";
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+                string sCaption = "Missing input";
+                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsInterestingEmpty()
+        {
+            if (string.IsNullOrWhiteSpace(tbInterestingRating.Text))
+            {
+                string sMessageBoxText = $"Please enter interesting rating.";
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+                string sCaption = "Missing input";
+                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsDigitsOnly(string str)
+        {
+            return str.All(c => c >= '1' && c <= '5');
+        }
+
+        private bool IsKnowledgeDigits()
+        {
+            if (!IsDigitsOnly(tbGuideKnowledge.Text))
+            {
+                string sMessageBoxText = $"Knowledge field must contain only digits from 1-5.";
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Error;
+
+                string sCaption = "Input error - Knowledge rating";
+                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                return false;
+            }
+            return true;
+        }
+
+        private bool IsLanguageDigits()
+        {
+            if (!IsDigitsOnly(tbGuideKnowledge.Text))
+            {
+                string sMessageBoxText = $"Language field must contain only digits from 1-5.";
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Error;
+
+                string sCaption = "Input error - Language rating";
+                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                return false;
+            }
+            return true;
+        }
+
+        private bool IsInterestingDigits()
+        {
+            if (!IsDigitsOnly(tbGuideKnowledge.Text))
+            {
+                string sMessageBoxText = $"Interesting field must contain only digits from 1-5.";
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Error;
+
+                string sCaption = "Input error - Interesting rating";
+                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                return false;
+            }
+            return true;
         }
 
         private int GetGuideLanguageRating()
