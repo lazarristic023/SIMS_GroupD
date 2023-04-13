@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="AddNewTour" Height="550" Width="800" Loaded="Window_Loaded"
         WindowStartupLocation="CenterOwner">
-    <Grid>
+    <Grid Background="AliceBlue">
 
         <DockPanel>
 

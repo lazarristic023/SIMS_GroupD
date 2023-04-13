@@ -8,11 +8,11 @@
         mc:Ignorable="d"
         Title="Statistic" Height="600" Width="800"
         WindowStartupLocation="CenterOwner">
-    <Grid>
-        <TabControl>
+    <Grid >
+        <TabControl Background="LightBlue">
             <TabItem Header="Highest attended">
 
-                <StackPanel  Background="OldLace" Margin="5,0,0,5">
+                <StackPanel  Background="AliceBlue" Margin="5,0,0,5">
                     <WrapPanel>
                         <Label Content="Year: "></Label>
                         <ComboBox x:Name="yearComboBox" Width="100" Height="20" SelectedIndex="0" SelectionChanged="yearComboBox_SelectionChanged" >
@@ -82,7 +82,7 @@
 
 
 
-                    <StackPanel Grid.Column="0"  Background="OldLace" Margin="5,0,0,5">
+                    <StackPanel Grid.Column="0"  Background="AliceBlue" Margin="5,0,0,5">
 
                         <WrapPanel>
                             <Label FontSize="14" Content="Tour name:"></Label>
@@ -94,7 +94,7 @@
                             <Label x:Name="dateElement" FontSize="14" Visibility="Hidden" Content="{Binding AppointmentDate}"></Label>
                         </WrapPanel>
 
-                        <GroupBox BorderThickness="2" BorderBrush="Black" Margin="0,0,5,0">
+                        <GroupBox BorderThickness="2" BorderBrush="Black"  Margin="0,0,5,0">
                             <GroupBox.Header>Age statistic</GroupBox.Header>
                             <StackPanel>
 
@@ -137,7 +137,7 @@
 
                     </StackPanel>
 
-                    <Grid Grid.Column="2" Margin="0,0,5,5" Background="OldLace">
+                    <Grid Grid.Column="2" Margin="0,0,5,5" Background="AliceBlue">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"></RowDefinition>

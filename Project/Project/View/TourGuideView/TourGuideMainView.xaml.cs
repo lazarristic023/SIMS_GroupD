@@ -226,5 +226,7 @@ namespace Project.View.TourGuideView
             reviews.Owner = this;
             reviews.Show();
         }
+
+
     }
 }

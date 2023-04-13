@@ -292,6 +292,9 @@ namespace Project.View.TourGuideView
             }
         }
 
+
+
+
         private double _bestcoupon;
         public double bestCoupon
         {
