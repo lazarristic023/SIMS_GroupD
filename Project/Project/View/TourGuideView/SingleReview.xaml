@@ -1,0 +1,63 @@
+﻿<Window x:Class="Project.View.TourGuideView.SingleReview"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project.View.TourGuideView"
+        mc:Ignorable="d"
+        Title="SingleReview" Height="450" Width="500" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+            <Label Content="Guest: " FontFamily="Century Gothic"/>
+            <Label FontFamily="Century Gothic" Content="{Binding guestName}"/>
+        </WrapPanel>
+        <WrapPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
+            <Label Content="Tour name: " FontFamily="Century Gothic"/>
+            <Label FontFamily="Century Gothic" Content="{Binding tourName}"/>
+        </WrapPanel>
+        <WrapPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">
+            <Label Content="Boarding point: " FontFamily="Century Gothic"/>
+            <Label FontFamily="Century Gothic" Content="{Binding boardingPoint}"/>
+        </WrapPanel>
+        <WrapPanel Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">
+            <Label Content="Knowledge rating: " FontFamily="Century Gothic"/>
+            <Label FontFamily="Century Gothic" Content="{Binding knowledgeRating}"/>
+        </WrapPanel>
+        <Label Grid.Row="3" Grid.Column="1" Content="Total rating:" FontFamily="Century Gothic" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <Label Grid.Row="4" Grid.Column="1" Grid.RowSpan="2" Content="{Binding avgRating}" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Century Gothic" FontSize="40"/>
+        
+        <WrapPanel Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">
+            <Label Content="Language rating: " FontFamily="Century Gothic"/>
+            <Label FontFamily="Century Gothic" Content="{Binding languageRating}"/>
+        </WrapPanel>
+        <WrapPanel Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">
+            <Label Content="Interesting rating: " FontFamily="Century Gothic"/>
+            <Label FontFamily="Century Gothic" Content="{Binding interestingRating}"/>
+        </WrapPanel>
+        <WrapPanel Grid.Row="6" Grid.Column="0">
+            <TextBlock Text="Review: " FontFamily="Century Gothic"/>
+        </WrapPanel>
+        <TextBlock Grid.Row="7" Grid.Column="0" FontFamily="Century Gothic" Text="{Binding text}"/>
+        <Button x:Name="makeInvalidBtn" Grid.Column="1" Grid.Row="7"  Height="40" Width="100" Click="makeInvalidBtn_Click">
+            <TextBlock Text="Mark review as invalid" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+        </Button>
+        <Button x:Name="closeBtn" Grid.Row="8" Grid.Column="0" Content="Close" FontFamily="Century Gothic" Width="40" Height="20" Click="closeBtn_Click"/>
+
+    </Grid>
+</Window>

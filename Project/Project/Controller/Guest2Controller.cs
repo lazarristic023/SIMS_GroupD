@@ -13,7 +13,8 @@ namespace Project.Controller
     {
         public Guest2 Guest { get; set; }
         public TourRepository TourRepository { get; set; } 
-        public TourReservationRepository TourReservationRepository { get; set; } 
+        public TourReservationRepository TourReservationRepository { get; set; }
+        public AppointmentRepository AppointmentRepository { get; set; }
         public List<Location> TourLocations { get; set; }
         public ImageRepository ImageRepository { get; set; }
         public List<string> Languages { get; set; }
@@ -23,10 +24,12 @@ namespace Project.Controller
             Guest = new Guest2();
             TourRepository = new TourRepository();
             TourReservationRepository = new TourReservationRepository();
+            AppointmentRepository = new AppointmentRepository();
             ImageRepository = new ImageRepository();
             TourLocations = new List<Location>();
             Languages = new List<string>();
             LinkGuest2TourReservations();
+            //LinkGuest2Appointments();
             FillTourLocationsList();
             FillTourLanguagesList();
             
@@ -37,10 +40,12 @@ namespace Project.Controller
             Guest = new Guest2(u);
             TourRepository = new TourRepository();
             TourReservationRepository = new TourReservationRepository();
+            AppointmentRepository = new AppointmentRepository();
             ImageRepository = new ImageRepository();
             TourLocations = new List<Location>();
             Languages = new List<string>();
             LinkGuest2TourReservations();
+            //LinkGuest2Appointments();
             FillTourLocationsList();
             FillTourLanguagesList();
         }
@@ -57,11 +62,34 @@ namespace Project.Controller
         }
 
 
+        
+
+        public List<Appointment> GetAppointmentsForReview()
+        {
+            List<TourReservation> reservations = GetTourReservations();
+            foreach(var appointmentReview in AppointmentRepository.GetAll())
+            {
+                foreach(var reservation in reservations)
+                {
+                    if ((appointmentReview.Status == Appointment.STATUS.COMPLETED) && (appointmentReview.TourId == reservation.Id))
+                    {
+                        Guest.AppointmentsForReview.Add(appointmentReview);
+                    }
+                }
+                
+            }
+            return Guest.AppointmentsForReview;
+        }
+
 
         public List<TourReservation> GetTourReservations()
         {
             return Guest.Reservations;
         }
+
+
+
+
 
         public List<Tour> GetAllTourAppointments()
         {

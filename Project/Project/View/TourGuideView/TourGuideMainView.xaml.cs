@@ -219,5 +219,14 @@ namespace Project.View.TourGuideView
             statistic.Owner = this;
             statistic.Show();
         }
+
+        private void ReviewsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Reviews reviews = new Reviews();
+            reviews.Owner = this;
+            reviews.Show();
+        }
+
+
     }
 }

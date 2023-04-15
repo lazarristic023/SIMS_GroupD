@@ -33,6 +33,7 @@ namespace Project.View.TourGuideView
 
         private readonly TourService _tourService;
         private readonly AppointmentService _appointmentService;
+        private readonly PresentGuestsService _presentGuestsService;
 
         private readonly TourReservationRepository reservationRepository;
         private readonly UserRepository userRepository;
@@ -64,6 +65,8 @@ namespace Project.View.TourGuideView
             _tourService = new TourService();
 
             _appointmentService = new AppointmentService();
+            _presentGuestsService = new PresentGuestsService();
+            _presentGuestsService.Subscribe(this);
 
             reservationRepository = new TourReservationRepository();
             userRepository = new UserRepository();
@@ -73,7 +76,7 @@ namespace Project.View.TourGuideView
             tourId = sendedId;
             appointmentId = appointmentid;
 
-            Presents = new ObservableCollection<User>(presentGuestsRepository.GetUserByAppointmentId(appointmentId));
+            Presents = new ObservableCollection<User>(_presentGuestsService.GetUserByAppointmentId(appointmentId));
 
             tourPoints = new ObservableCollection<TourPoint>(_tourPointsListController.GetPointsByTourId(tourId));
 
@@ -84,21 +87,6 @@ namespace Project.View.TourGuideView
             
         }
 
-        public List<User> GetApproprietReservations()
-        {
-            List<TourReservation> tourReservations = reservationRepository.GetAllTourReservations();
-            List<User> approprietReservations = new List<User>();
-
-            foreach (TourReservation reservation in tourReservations)
-            {
-                if (reservation.TourId == tourId)
-                {
-                    approprietReservations.Add(userRepository.GetById(reservation.GuestId));
-                }
-            }
-
-            return approprietReservations;
-        }
 
         public void CreateRadioButtons()
         {
@@ -146,7 +134,6 @@ namespace Project.View.TourGuideView
         private void EndTheAppointment()
         {
             _appointmentService.CompleteTour(appointmentId);
-            //presentGuestsRepository.ClearPresents();
             MessageBox.Show("The tour is over");
             Close();
         }
@@ -216,7 +203,7 @@ namespace Project.View.TourGuideView
 
             Presents.Clear();
 
-            foreach (var present in presentGuestsRepository.GetUserByAppointmentId(appointmentId))
+            foreach (var present in _presentGuestsService.GetUserByAppointmentId(appointmentId))
             {
                 Presents.Add(present);
             }
@@ -224,7 +211,7 @@ namespace Project.View.TourGuideView
 
         private void AddGuests_Click(object sender, RoutedEventArgs e)
         {
-            AddPresentGuests addPresentGuests = new AddPresentGuests(tourId, tourPoints[order].Id, appointmentId, presentGuestsRepository);
+            AddPresentGuests addPresentGuests = new AddPresentGuests(tourId, tourPoints[order].Id, appointmentId, _presentGuestsService);
             addPresentGuests.Owner = this;
             addPresentGuests.Show();
         }

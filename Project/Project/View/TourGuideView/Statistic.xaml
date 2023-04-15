@@ -8,28 +8,25 @@
         mc:Ignorable="d"
         Title="Statistic" Height="600" Width="800"
         WindowStartupLocation="CenterOwner">
-    <Grid>
-        <TabControl>
-            <TabItem Header="Highest attendance">
+    <Grid >
+        <TabControl Background="LightBlue">
+            <TabItem Header="Highest attended">
 
-                <StackPanel  Background="OldLace" Margin="5,0,0,5">
+                <StackPanel  Background="AliceBlue" Margin="5,0,0,5">
                     <WrapPanel>
                         <Label Content="Year: "></Label>
-                        <ComboBox Width="100" Height="20" SelectedIndex="0">
-                            <ComboBoxItem>Overall</ComboBoxItem>
-                            <ComboBoxItem>2023</ComboBoxItem>
-                            <ComboBoxItem>2022</ComboBoxItem>
+                        <ComboBox x:Name="yearComboBox" Width="100" Height="20" SelectedIndex="0" SelectionChanged="yearComboBox_SelectionChanged" >
                         </ComboBox>
                     </WrapPanel>
 
                     <WrapPanel>
                         <Label FontSize="14" Content="Tour name:"></Label>
-                        <Label FontSize="14" Content="{Binding NameOfTour}"/>
+                        <Label FontSize="14" Content="{Binding bestNameOfTour}"/>
 
                     </WrapPanel>
                     <WrapPanel>
                         <Label FontSize="14" Content="Date and time:"></Label>
-                        <Label x:Name="dateElementHighest" FontSize="14" Visibility="Hidden" Content="{Binding AppointmentDate}"></Label>
+                        <Label x:Name="dateElementHighest" FontSize="14"  Content="{Binding bestAppointmentDate}"></Label>
                     </WrapPanel>
 
                     <GroupBox BorderThickness="2" BorderBrush="Black" Margin="0,0,5,0">
@@ -39,24 +36,24 @@
 
                             <Label FontSize="14" Content="Under 18: "/>
                             <Grid>
-                                <ProgressBar Value="{Binding Percent18}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Under18}"></TextBlock>
+                                <ProgressBar Value="{Binding bestPercent18}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding bestUnder18}"></TextBlock>
                             </Grid>
 
 
 
                             <Label FontSize="14" Content="Between 18 and 50: "/>
                             <Grid>
-                                <ProgressBar Value="{Binding Percent1850}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Between18and50}"></TextBlock>
+                                <ProgressBar Value="{Binding bestPercent1850}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding bestBetween18and50}"></TextBlock>
                             </Grid>
 
 
 
                             <Label FontSize="14" Content="Over 50: "/>
                             <Grid>
-                                <ProgressBar Value="{Binding Percent50}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Over50}"></TextBlock>
+                                <ProgressBar Value="{Binding bestPercent50}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding bestOver50}"></TextBlock>
                             </Grid>
 
 
@@ -69,8 +66,8 @@
                         <Label FontSize="14" Content="Guests with coupon: "/>
                     </WrapPanel>
                     <Grid>
-                        <ProgressBar Value="{Binding Coupon}" Height="20" Minimum="0" Maximum="100" Margin="0,0,5,0"></ProgressBar>
-                        <TextBlock HorizontalAlignment="Center" Text="{Binding CouponPercent}"></TextBlock>
+                        <ProgressBar Value="{Binding bestCoupon}" Height="20" Minimum="0" Maximum="100" Margin="0,0,5,0"></ProgressBar>
+                        <TextBlock HorizontalAlignment="Center" Text="{Binding bestCouponPercent}"></TextBlock>
                     </Grid>
 
                 </StackPanel>
@@ -85,7 +82,7 @@
 
 
 
-                    <StackPanel Grid.Column="0"  Background="OldLace" Margin="5,0,0,5">
+                    <StackPanel Grid.Column="0"  Background="AliceBlue" Margin="5,0,0,5">
 
                         <WrapPanel>
                             <Label FontSize="14" Content="Tour name:"></Label>
@@ -97,7 +94,7 @@
                             <Label x:Name="dateElement" FontSize="14" Visibility="Hidden" Content="{Binding AppointmentDate}"></Label>
                         </WrapPanel>
 
-                        <GroupBox BorderThickness="2" BorderBrush="Black" Margin="0,0,5,0">
+                        <GroupBox BorderThickness="2" BorderBrush="Black"  Margin="0,0,5,0">
                             <GroupBox.Header>Age statistic</GroupBox.Header>
                             <StackPanel>
 
@@ -140,7 +137,7 @@
 
                     </StackPanel>
 
-                    <Grid Grid.Column="2" Margin="0,0,5,5" Background="OldLace">
+                    <Grid Grid.Column="2" Margin="0,0,5,5" Background="AliceBlue">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"></RowDefinition>

@@ -1,6 +1,7 @@
 ﻿using Project.Controller;
 using Project.Model;
 using Project.Repository;
+using Project.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -197,23 +198,10 @@ namespace Project.View.TourGuideView
             }
         }
 
-        //private List<Appointment> _appointments;
-        //public List<Appointment> Appointments
-        //{
-        //    get => _appointments;
-        //    set
-        //    {
-        //        if(value != _appointments)
-        //        {
-        //            _appointments = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
-
         private readonly ImageController _imageController;
         private readonly AppointmentController _appointmentController;
+
+        private readonly TourReservationService tourReservationService;
 
         private readonly TourReservationRepository tourReservationRepository;
         private readonly UserRepository userRepository;
@@ -234,6 +222,7 @@ namespace Project.View.TourGuideView
             Tour = sendedTour;
             _appointmentController = new AppointmentController();
             _imageController = new ImageController();
+            tourReservationService = new TourReservationService(); 
             tourReservationRepository = new TourReservationRepository();
             userRepository = new UserRepository();
 
@@ -247,28 +236,11 @@ namespace Project.View.TourGuideView
             MaxGuests = Tour.MaxGuests;
             Duration = Tour.Duration;
             TourAppointment = Tour.TourAppointment;
-            //Appointments = _appointmentController.GetByTourId(Tour.Id);
-            Reservations = new ObservableCollection<User>(GetApproprietReservations());
+            Reservations = new ObservableCollection<User>(tourReservationService.GetApproprietReservations(TourAppointment.Id));
 
             DisableStartTourButton();
         }
 
-
-        private List<User> GetApproprietReservations()
-        {
-            List<TourReservation> tourReservations = tourReservationRepository.GetAllTourReservations();
-            List<User> approprietReservations = new List<User>();
-
-            foreach(TourReservation reservation in tourReservations)
-            {
-                if(reservation.TourId == TourAppointment.Id)
-                {
-                    approprietReservations.Add(userRepository.GetById(reservation.GuestId));
-                }
-            }
-
-            return approprietReservations;
-        }
 
         public void DisableStartTourButton()
         {
@@ -311,7 +283,7 @@ namespace Project.View.TourGuideView
 
         private void startTour_Click(object sender, RoutedEventArgs e)
         {
-            TourTracking tourTracking = new TourTracking(Id,Tour.TourAppointment.Id);
+            TourTracking tourTracking = new TourTracking(Id, Tour.TourAppointment.Id);
             tourTracking.Owner = this;
             tourTracking.Show();
         }

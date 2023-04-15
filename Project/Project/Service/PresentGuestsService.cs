@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.Observer;
 using Project.Repository;
 using System;
 using System.CodeDom;
@@ -15,14 +16,25 @@ namespace Project.Service
         PresentGuestsRepository presentGuestsRepository;
         UserRepository userRepository;
 
+
+        private readonly TourPointService tourTourPointService;
+        private readonly TourReservationService tourReservationService;
+
         
 
         public PresentGuestsService()
         {
             presentGuestsRepository = new PresentGuestsRepository();
             userRepository = new UserRepository();
+            tourTourPointService = new TourPointService();
+            tourReservationService = new TourReservationService();
 
             
+        }
+
+        public void Create(PresentGuests presentGuest)
+        {
+            presentGuestsRepository.Add(presentGuest);
         }
 
         public List<User> GetPresentGuestsOfTheAppointment(int id)
@@ -39,6 +51,31 @@ namespace Project.Service
             }
 
             return guestList;
+        }
+
+        public List<User> GetNotPresentGuests(int appointmentId)
+        {
+            List<User> notPresent = new List<User>();
+
+            foreach (User guest in  tourReservationService.GetApproprietReservations(appointmentId))
+            {
+                if (!presentGuestsRepository.GetAllGuestIds(appointmentId).Contains(guest.Id))
+                {
+                    notPresent.Add(guest);
+                }
+            }
+
+            return notPresent;
+        }
+
+        public List<User> GetUserByAppointmentId(int id)
+        {
+            return presentGuestsRepository.GetUserByAppointmentId(id);
+        }
+
+        public List<PresentGuests> GetByAppointmentId(int id)
+        {
+            return presentGuestsRepository.GetByAppointmentId(id);
         }
 
         public int GetUnder18(int id)
@@ -97,7 +134,26 @@ namespace Project.Service
             return guestsWithCoupon;
         }
 
-        
+        public string GetBoardingPoint(int guestId, int appointmentId)
+        {
+            int boardingPointId = presentGuestsRepository.GetBoardingPointByGuestIdAndAppointmentId(guestId, appointmentId);
+            if(boardingPointId == -1)
+            {
+                return "N/A";
+            }
+            else
+            {
+                return tourTourPointService.GetPointNameById(boardingPointId);
+            }
+            
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            presentGuestsRepository.Subscribe(observer);
+        }
+
+
 
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Project.Repository
 {
@@ -56,12 +57,16 @@ namespace Project.Repository
             return presentGuests;
         }
 
-        public List<int> GetAllGuestIds()
+        public List<int> GetAllGuestIds(int appointmentid)
         {
             List<int> guestIds = new List<int>();
             foreach(PresentGuests presentGuest in presentGuests)
             {
-                guestIds.Add(presentGuest.GuestId);
+                if(presentGuest.AppointmentId == appointmentid)
+                {
+                    guestIds.Add(presentGuest.GuestId);
+                }
+                
             }
             return guestIds;
         }
@@ -95,6 +100,20 @@ namespace Project.Repository
                 }
             }
             return filteredPresentUsers;
+        }
+
+        public int GetBoardingPointByGuestIdAndAppointmentId(int guestId,int appointmentId)
+        {
+             PresentGuests present = presentGuests.Find(v => v.GuestId == guestId && v.AppointmentId == appointmentId);
+            if (present == null) 
+            {
+                return -1;
+            }
+            else
+            {
+                return present.TourPointId;
+            }
+             
         }
 
         public void NotifyObservers()

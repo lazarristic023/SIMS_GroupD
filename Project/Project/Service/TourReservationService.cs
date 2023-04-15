@@ -29,5 +29,21 @@ namespace Project.Service
 
             return guestList;
         }
+
+        public List<User> GetApproprietReservations(int appointmentId)
+        {
+            List<TourReservation> tourReservations = tourReservationRepository.GetAllTourReservations();
+            List<User> approprietReservations = new List<User>();
+
+            foreach (TourReservation reservation in tourReservations)
+            {
+                if (reservation.TourId == appointmentId)
+                {
+                    approprietReservations.Add(userRepository.GetById(reservation.GuestId));
+                }
+            }
+
+            return approprietReservations;
+        }
     }
 }

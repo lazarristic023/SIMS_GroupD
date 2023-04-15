@@ -97,6 +97,7 @@ namespace Project.Repository
             return tourReservations;
         }
 
+
         public void Subscribe(IObserver observer)
         {
             observers.Add(observer);
