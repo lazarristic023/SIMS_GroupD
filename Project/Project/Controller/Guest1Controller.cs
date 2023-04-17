@@ -81,7 +81,7 @@ namespace Project.Controller
         {
             foreach (var image in ImageRepository.GetAllImages())
             {
-                Accommodation accommodation = AccommodationRepository.GetAllAccommodations().Find(a => a.Id == image.EntityId);
+                Accommodation accommodation = AccommodationRepository.GetAllAccommodations().Find(a => a.Id == image.AccommodationId);
                 if (accommodation == null)
                 {
                     continue;
