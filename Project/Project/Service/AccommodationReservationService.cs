@@ -22,12 +22,12 @@ namespace Project.Service
         }
 
 
-        public List<AccommodationReservation> GetUserReservations(int userId)
+        public List<AccommodationReservation> GetGuestReservations(int guestId)
         {
             List<AccommodationReservation> reservations = new List<AccommodationReservation>();
             foreach (var reservation in GetAllReservations())
             {
-                if (reservation.GuestId == userId)
+                if (reservation.GuestId == guestId)
                 {
                     reservations.Add(reservation);
                 }
@@ -53,11 +53,11 @@ namespace Project.Service
 
         }
 
-        public List<AccommodationReservation> GetUsersCurrentReservations(int userId)
+        public List<AccommodationReservation> GetGuestsCurrentReservations(int guestId)
         {
-            List<AccommodationReservation> allReservations = new(GetUserReservations(userId));
+            List<AccommodationReservation> allReservations = new(GetGuestReservations(guestId));
 
-            foreach (var reservation in GetUserReservations(userId))
+            foreach (var reservation in GetGuestReservations(guestId))
             {
                 if (reservation.StartDate <= DateTime.Now.Date)
                 {
@@ -69,11 +69,11 @@ namespace Project.Service
 
         }
 
-        public List<AccommodationReservation> GetUsersFormerReservations(int userId)
+        public List<AccommodationReservation> GetGuestsFormerReservations(int guestId)
         {
-            List<AccommodationReservation> allReservations = new(GetUserReservations(userId));
+            List<AccommodationReservation> allReservations = new(GetGuestReservations(guestId));
 
-            foreach (var reservation in GetUserReservations(userId))
+            foreach (var reservation in GetGuestReservations(guestId))
             {
                 if (reservation.StartDate > DateTime.Now.Date)
                 {
@@ -123,6 +123,8 @@ namespace Project.Service
         {
             _reservationRepository.Subscribe(observer);
         }
+
+
 
 
     }
