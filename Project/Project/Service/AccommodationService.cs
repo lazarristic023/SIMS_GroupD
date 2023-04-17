@@ -29,7 +29,7 @@ namespace Project.Service
         {
             foreach (var image in _imageRepository.GetAllImages())
             {
-                Accommodation accommodation = _accommodationRepository.GetAllAccommodations().Find(a => a.Id == image.EntityId);
+                Accommodation accommodation = _accommodationRepository.GetAllAccommodations().Find(a => a.Id == image.AccommodationId);
                 if (accommodation == null)
                 {
                     continue;
