@@ -168,6 +168,10 @@ namespace Project.View.TourGuideView
             
         }
 
+        
+
+
+
         private void cancelTour_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedTour != null)

@@ -15,7 +15,12 @@
                 <StackPanel  Background="AliceBlue" Margin="5,0,0,5">
                     <WrapPanel>
                         <Label Content="Year: "></Label>
-                        <ComboBox x:Name="yearComboBox" Width="100" Height="20" SelectedIndex="0" SelectionChanged="yearComboBox_SelectionChanged" >
+                        <ComboBox x:Name="yearComboBox" Width="100" Height="20" SelectedIndex="0" 
+                                  
+                                  SelectedItem="{Binding SelectedYear}"
+                                  ItemsSource="{Binding Years}">
+                                   
+                            
                         </ComboBox>
                     </WrapPanel>
 
@@ -149,13 +154,13 @@
                         <Label Grid.Row="0"  Content="Tour list:" FontSize="15" VerticalContentAlignment="Bottom"/>
 
                         <DataGrid x:Name="tourList"
-                      Grid.Row="2" 
-                      ItemsSource="{Binding CompletedTours, UpdateSourceTrigger=PropertyChanged}"
-                      AutoGenerateColumns="False" 
-                      IsReadOnly="True" 
-                      SelectionMode="Single" 
-                    SelectedItem="{Binding SelectedCompletedTour}"
-                    SelectionChanged="tourList_SelectionChanged">
+                            Grid.Row="2" 
+                            ItemsSource="{Binding CompletedTours, UpdateSourceTrigger=PropertyChanged}"
+                            AutoGenerateColumns="False" 
+                            IsReadOnly="True" 
+                            SelectionMode="Single" 
+                            SelectedItem="{Binding SelectedTour}"
+                            >
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
