@@ -22,6 +22,10 @@ namespace Project.Model
 
         public int Guests { get; set; }
 
+        public Guest1Review GuestReview { get; set; }
+
+        public OwnerReview OwnerReview { get; set; }
+
         public AccommodationReservation() { }
 
         public AccommodationReservation(int id, DateTime start, DateTime end, int guestId, int accId, int guests)

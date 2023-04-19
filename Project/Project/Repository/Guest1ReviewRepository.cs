@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Project.RepositoryInterfaces;
 
 namespace Project.Repository
 {
-    public class Guest1ReviewRepository
+    public class Guest1ReviewRepository : IGuest1ReviewRepository
     {
         private const string FilePath = "../../../Resources/Data/guest1Reviews.csv";
 

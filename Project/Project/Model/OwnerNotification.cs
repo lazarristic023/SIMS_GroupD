@@ -16,21 +16,18 @@ namespace Project.Model
         public int OwnerId { get; set; }
         public string Message { get; set; }
 
-        public DateTime Date { get; set; }
-
         public OwnerNotification() { }
 
-        public OwnerNotification(int guestId, int ownerId, string message, DateTime date = default)
+        public OwnerNotification(int guestId, int ownerId, string message)
         {
             GuestId = guestId;
             OwnerId = ownerId;
             Message = message;
-            Date = date;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), GuestId.ToString(), OwnerId.ToString(),  Message, Date.ToString() };
+            string[] csvValues = { Id.ToString(), GuestId.ToString(), OwnerId.ToString(),  Message };
             return csvValues;
         }
 
@@ -40,7 +37,6 @@ namespace Project.Model
             GuestId = Convert.ToInt32(values[1]);
             OwnerId = Convert.ToInt32(values[2]);
             Message = values[3];
-            Date = Convert.ToDateTime(values[4]);
         }
     }
 }

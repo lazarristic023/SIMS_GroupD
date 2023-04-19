@@ -16,9 +16,8 @@ namespace Project.Model
 
         public Guest1ReviewImage() { }
 
-        public Guest1ReviewImage(int id, string url, int entityId)
+        public Guest1ReviewImage(string url, int entityId)
         {
-            Id = id;
             Url = url;
             ReviewId = entityId;
         }

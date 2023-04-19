@@ -125,7 +125,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <Button Margin="0,18" FontSize="17" Content="Rate" Width="60" Height="25"/>
+                    <Button x:Name="btnRate" Click="btnRate_Click" Margin="0,18" FontSize="17" Content="Rate" Width="60" Height="25"/>
                     <TextBlock HorizontalAlignment="Center" Foreground="LightCoral" FontSize="16" Text="NOTE: Select a reservaton first"/>
                 </StackPanel>
 

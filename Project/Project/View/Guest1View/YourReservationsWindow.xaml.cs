@@ -56,7 +56,7 @@ namespace Project.View.Guest1View
             {
                 return;
             }
-            string msg = $"Guest {User.Username} has cancelled reservation:\nAccommodation name: {SelectedReservation.Accommodation.Name}\nStart date: {SelectedReservation.StartDate}\nEnd date: {SelectedReservation.EndDate} ";
+            string msg = $"Guest {User.Username} has cancelled reservation: Accommodation name: {SelectedReservation.Accommodation.Name}, Start date: {SelectedReservation.StartDate}, End date: {SelectedReservation.EndDate} ";
             NotifyOwner(msg);
 
             _reservationService.Remove(SelectedReservation);
@@ -85,10 +85,8 @@ namespace Project.View.Guest1View
         {
             string sMessageBoxText = $"Choose an {item.ToLower()} first!";
             string sCaption = $"{item} not chosen";
-
             MessageBoxButton btnMessageBox = MessageBoxButton.OK;
             MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
-
 
             MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
         }
@@ -105,6 +103,47 @@ namespace Project.View.Guest1View
             {
                 CurrentReservations.Add(reservation);
             }
+        }
+
+        private void btnRate_Click(object sender, RoutedEventArgs e)
+        {
+            if (!CheckRateConditions())
+            {
+                return;
+            }
+
+            RateOwnerForm rateOwnerForm = new RateOwnerForm(User, SelectedReservation);
+            rateOwnerForm.Show();
+
+        }
+
+        private bool CheckRateConditions()
+        {
+            if (SelectedReservation == null)
+            {
+                ItemNotSelectedMessageBox("Reservation");
+                return false;
+            }
+
+            if (SelectedReservation.EndDate >= DateTime.Now.Date)
+            {
+                MessageBox.Show("You will be able to rate owner and accommodation when reservation finishes.");
+                return false;
+            }
+
+            if (SelectedReservation.EndDate.AddDays(5).Date < DateTime.Now.Date)
+            {
+                MessageBox.Show($"Rate period has passed - {SelectedReservation.EndDate.AddDays(5).Date} was final date for rating!");
+                return false;
+            }
+
+            if (SelectedReservation.GuestReview != null)
+            {
+                MessageBox.Show("You have already rated this reservation!");
+                return false;
+            }
+
+            return true;
         }
     }
 }

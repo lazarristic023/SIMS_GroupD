@@ -98,5 +98,12 @@ namespace Project.View.Guest1View
             UpdateAcceptedRequests();
             UpdateDeclinedRequests();
         }
+
+        private void tbYourReservations_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            YourReservationsWindow yourReservationsWindow = new YourReservationsWindow(User);
+            yourReservationsWindow.Show();
+            Close();
+        }
     }
 }

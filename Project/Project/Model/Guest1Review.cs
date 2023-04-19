@@ -15,6 +15,7 @@ namespace Project.Model
         public string Comment { get; set; }
         public int ReservationId { get; set; }
         public AccommodationReservation Reservation { get; set; }
+        public int RenovationEmergencyLevel { get; set; }
         public List<Guest1ReviewImage> Images { get; set; }
 
         public Guest1Review()
@@ -23,20 +24,20 @@ namespace Project.Model
             Images = new List<Guest1ReviewImage>();
         }
 
-        public Guest1Review(int id, int cleanliness, int ownerBehaviour, string comment, int reservationId, AccommodationReservation reservation = null)
+        public Guest1Review(int cleanliness, int ownerBehaviour, string comment, int reservationId, AccommodationReservation reservation = null, int renovationEmergencyLevel = 0)
         {
-            Id = id;
             Cleanliness = cleanliness;
             OwnerBehaviour = ownerBehaviour;
             Comment = comment;
             ReservationId = reservationId;
             Reservation = reservation;
             Images = new List<Guest1ReviewImage>();
+            RenovationEmergencyLevel = renovationEmergencyLevel;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Cleanliness.ToString(), OwnerBehaviour.ToString(), Comment, ReservationId.ToString() };
+            string[] csvValues = { Id.ToString(), Cleanliness.ToString(), OwnerBehaviour.ToString(), Comment, ReservationId.ToString(), RenovationEmergencyLevel.ToString() };
             return csvValues;
         }
 
@@ -47,6 +48,7 @@ namespace Project.Model
             OwnerBehaviour = Convert.ToInt32(values[2]);
             Comment = values[3];
             ReservationId = Convert.ToInt32(values[4]);
+            RenovationEmergencyLevel = Convert.ToInt32(values[5]);
         }
     }
 }
