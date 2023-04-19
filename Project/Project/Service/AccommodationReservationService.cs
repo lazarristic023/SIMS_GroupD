@@ -3,6 +3,7 @@ using Project.Observer;
 using Project.Repository;
 using System;
 using System.Collections.Generic;
+using Project.RepositoryInterfaces;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,16 +12,21 @@ namespace Project.Service
 {
     public class AccommodationReservationService
     {
-        private readonly AccommodationReservationRepository _reservationRepository;
+        private readonly IAccommodationReservationRepository _reservationRepository;
 
         private readonly AccommodationService _accommodationService;
+
+        private readonly Guest1ReviewService _guest1ReviewService;
+
 
 
         public AccommodationReservationService()
         {
-            _reservationRepository = new AccommodationReservationRepository();
+            _reservationRepository = Injector.Injector.CreateInstance<IAccommodationReservationRepository>();
             _accommodationService = new AccommodationService();
+            _guest1ReviewService = new Guest1ReviewService();
             LinkAccommodationsAndReservations();
+            LinkReservationsAndReviews();
         }
 
 
@@ -53,6 +59,21 @@ namespace Project.Service
 
             }
 
+        }
+
+
+        private void LinkReservationsAndReviews()
+        {
+            foreach (var review in _guest1ReviewService.GetAllReviews())
+            {
+                var reservation = _reservationRepository.GetReservationById(review.ReservationId);
+
+                if (reservation != null)
+                {
+                    reservation.GuestReview = review;
+                    review.Reservation = reservation;
+                }
+            }
         }
 
         public List<AccommodationReservation> GetGuestsCurrentReservations(int guestId)

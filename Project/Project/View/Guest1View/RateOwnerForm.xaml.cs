@@ -30,7 +30,7 @@ namespace Project.View.Guest1View
         private Guest1ReviewService _reviewService { get; set; }
         private OwnerNotificationService _ownerNotificationService { get; set; }
 
-        private Guest1RemindNotificationService _remindService { get; set; }
+        private Guest1RemindNotificationService _remindNotificationService { get; set; }
 
         private User user;
         public int Cleanliness { get; set; }
@@ -48,7 +48,7 @@ namespace Project.View.Guest1View
 
             _reviewService = new Guest1ReviewService();
             _ownerNotificationService = new OwnerNotificationService();
-            _remindService = new Guest1RemindNotificationService();
+            _remindNotificationService = new Guest1RemindNotificationService();
             SelectedReservation = reservation;
             ImageUrls = new ObservableCollection<string>();
             user = u;
@@ -99,16 +99,18 @@ namespace Project.View.Guest1View
             AddImages(review);
 
             _reviewService.Add(review);
+            SelectedReservation.GuestReview = review;
 
             NotifyOwner();
-            _remindService.RemoveByReservation(SelectedReservation.Id);
+            _remindNotificationService.RemoveByReservation(SelectedReservation.Id);
 
             Close();
         }
 
         private MessageBoxResult ConfirmRatingMessageBox()
         {
-            MessageBoxResult result = MessageBox.Show($"Owner username: {SelectedReservation.Accommodation.Owner.Username}\nAccommodation Name: {SelectedReservation.Accommodation.Name}\nStart date: {SelectedReservation.StartDate.Date}\nEnd date: {SelectedReservation.EndDate.Date}\n\nAre you sure you want to rate this owner for this reservation?", "Confirm review",
+            //Owner username: {SelectedReservation.Accommodation.Owner.Username}
+            MessageBoxResult result = MessageBox.Show($"Accommodation Name: {SelectedReservation.Accommodation.Name}\nStart date: {SelectedReservation.StartDate.Date}\nEnd date: {SelectedReservation.EndDate.Date}\n\nAre you sure you want to rate this accommodation?", "Confirm review",
                     MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             return result;

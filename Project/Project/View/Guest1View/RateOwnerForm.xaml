@@ -35,12 +35,12 @@
             <TextBlock Grid.Row="1" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Owner behaviour:"/>
 
             <WrapPanel VerticalAlignment="Center" Grid.Column="1">
-                <Slider x:Name="sliderClean" Value="{Binding Path=Cleanliness,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}" Minimum="1" Maximum="5" VerticalAlignment="Center" Width="160"/>
+                <Slider IsSnapToTickEnabled="True" TickFrequency="1" x:Name="sliderClean" Value="{Binding Path=Cleanliness,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}" Minimum="1" Maximum="5" VerticalAlignment="Center" Width="160"/>
                 <Label x:Name="lblClean" BorderBrush="Black" BorderThickness="1" FontSize="16" Content="{Binding ElementName=sliderClean,Path=Value}" Margin="15,0,0,0"/>
             </WrapPanel>
 
             <WrapPanel VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
-                <Slider x:Name="sliderBehaviour" Value="{Binding Path=OwnerBehaviour, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Minimum="1" Maximum="5" VerticalAlignment="Center" Width="160"/>
+                <Slider IsSnapToTickEnabled="True" TickFrequency="1" x:Name="sliderBehaviour" Value="{Binding Path=OwnerBehaviour, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Minimum="1" Maximum="5" VerticalAlignment="Center" Width="160"/>
                 <Label x:Name="lblBehaviour" BorderBrush="Black" BorderThickness="1" FontSize="16" Content="{Binding ElementName=sliderBehaviour,Path=Value}" Margin="15,0,0,0"/>
             </WrapPanel>
 
@@ -54,7 +54,7 @@
         <StackPanel Margin="35,5" Grid.Row="3">
             <WrapPanel>
                 <Label Content="Add images:"/>
-                <TextBox x:Name="tbImageUrl" VerticalContentAlignment="Center" Text="Paste image link" Width="260" Margin="15,0,0,0"/>
+                <TextBox x:Name="tbImageUrl" VerticalContentAlignment="Center" Text="Paste image link" Width="240" Margin="15,0,0,0"/>
                 <Button x:Name="btnAddImage" Click="btnAddImage_Click" Content="Add" Margin="10,0,0,0" Width="60"/>
             </WrapPanel>
             <ListView ItemsSource="{Binding Path=ImageUrls, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Height="60"/>
@@ -79,7 +79,7 @@
             </WrapPanel>
 
             <WrapPanel Name="wpRenovation" IsEnabled="False" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
-                <Slider x:Name="sliderRenovation" Value="{Binding Path=RenovationEmergencyLevel, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}" Minimum="1" Maximum="5" VerticalAlignment="Center" Width="160"/>
+                <Slider IsSnapToTickEnabled="True" TickFrequency="1" x:Name="sliderRenovation" Value="{Binding Path=RenovationEmergencyLevel, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}" Minimum="1" Maximum="5" VerticalAlignment="Center" Width="160"/>
                 <Label x:Name="lblRenovation" BorderBrush="Gray" BorderThickness="1" FontSize="16" Content="{Binding ElementName=sliderRenovation,Path=Value}" Margin="15,0,0,0"/>
             </WrapPanel>
 

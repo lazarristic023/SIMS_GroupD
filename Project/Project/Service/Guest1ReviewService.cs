@@ -14,22 +14,18 @@ namespace Project.Service
         private readonly IGuest1ReviewRepository _reviewRepository;
         private readonly IGuest1ReviewImageRepository _imageRepository;
 
-        private readonly AccommodationReservationService _reservationService;
 
         public Guest1ReviewService()
         {
             _reviewRepository = Injector.Injector.CreateInstance<IGuest1ReviewRepository>();
             _imageRepository = Injector.Injector.CreateInstance<IGuest1ReviewImageRepository>();
-            _reservationService = new AccommodationReservationService();
             LinkReviewsAndImages();
-            LinkReservationsAndReviews();
         }
 
         public void Add(Guest1Review review)
         {
             _reviewRepository.Add(review);
             LinkReviewsAndImages();
-            LinkReservationsAndReviews();
         }
 
         public void AddImage(Guest1ReviewImage image)
@@ -58,20 +54,6 @@ namespace Project.Service
                 }
 
                 review.Images.Add(image);
-            }
-        }
-
-        private void LinkReservationsAndReviews()
-        {
-            foreach (var review in _reviewRepository.GetAllReviews())
-            {
-                var reservation = _reservationService.GetAllReservations().Find(r => r.Id == review.ReservationId);
-
-                if (reservation != null)
-                {
-                    reservation.GuestReview = review;
-                    review.Reservation = reservation;
-                }
             }
         }
 

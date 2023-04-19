@@ -14,6 +14,8 @@ namespace Project.Injector
         {
         { typeof(IGuest1ReviewRepository), new Guest1ReviewRepository() },
         { typeof(IGuest1ReviewImageRepository), new Guest1ReviewImageRepository() },
+        { typeof(IGuest1RemindNotificationRepository), new Guest1RemindNotificationRepository() },
+        { typeof(IAccommodationReservationRepository), new AccommodationReservationRepository() },
         // Add more implementations here
     };
 
