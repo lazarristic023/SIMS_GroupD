@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.Guest1View"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="MoveReservationView" Height="650" Width="1102" BorderThickness="1" BorderBrush="DarkBlue">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -37,7 +38,7 @@
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2">
                 <Image Height="25" Source="../../Resources/Images/view.png"/>
-                <TextBlock x:Name="tbYourReservations" MouseLeftButtonUp="tbYourReservations_MouseLeftButtonUp" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Text="Your reservations"/>
+                <TextBlock Cursor="Hand" x:Name="tbYourReservations" MouseLeftButtonUp="tbYourReservations_MouseLeftButtonUp" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Text="Your reservations"/>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3">

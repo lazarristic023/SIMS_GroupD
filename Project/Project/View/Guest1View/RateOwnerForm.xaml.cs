@@ -139,5 +139,23 @@ namespace Project.View.Guest1View
 
             }
         }
+
+        private void tbImageUrl_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbImageUrl.Text == "Paste image urls here")
+            {
+                tbImageUrl.Text = "";
+                tbImageUrl.Foreground = new SolidColorBrush(Colors.Black);
+            }
+        }
+
+        private void tbImageUrl_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbImageUrl.Text))
+            {
+                tbImageUrl.Text = "Paste image urls here";
+                tbImageUrl.Foreground = new SolidColorBrush(Colors.Gray);
+            }
+        }
     }
 }

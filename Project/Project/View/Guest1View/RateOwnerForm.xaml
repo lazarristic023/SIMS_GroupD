@@ -4,8 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.Guest1View"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="RateOwnerForm" Height="500" Width="500">
+    <Window.Resources>
+        <sys:String x:Key="renovationTooltip">
+            Level 1 - It would be nice to renovate some little things, but everything works as it should without it.            
+            Level 2 - Small complaints about accommodation that if removed would make it perfect.&#10;           
+            Level 3 - A few things that really bothered should be renovated.&#10;            
+            Level 4 - There are a lot of bad things and renovation is really necessary.&#10;            
+            Level 5 - The accommodation is in very poor condition and is not worth renting at all unless it is renovation.
+        </sys:String>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
@@ -54,7 +64,7 @@
         <StackPanel Margin="35,5" Grid.Row="3">
             <WrapPanel>
                 <Label Content="Add images:"/>
-                <TextBox x:Name="tbImageUrl" VerticalContentAlignment="Center" Text="Paste image link" Width="240" Margin="15,0,0,0"/>
+                <TextBox Foreground="Gray" GotFocus="tbImageUrl_GotFocus" LostFocus="tbImageUrl_LostFocus" Text="Paste image urls here" x:Name="tbImageUrl" VerticalContentAlignment="Center" Width="240" Margin="15,0,0,0"/>
                 <Button x:Name="btnAddImage" Click="btnAddImage_Click" Content="Add" Margin="10,0,0,0" Width="60"/>
             </WrapPanel>
             <ListView ItemsSource="{Binding Path=ImageUrls, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Height="60"/>
@@ -75,7 +85,45 @@
 
             <WrapPanel VerticalAlignment="Center" Grid.Column="1">
                 <CheckBox x:Name="chbRenovation" Unchecked="chbRenovation_Unchecked" Checked="chbRenovation_Checked" IsChecked="False" Margin="20,0" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="Yes" FontSize="14"/>
-                <Image Stretch="Uniform"  Height="22" Source="../../Resources/Images/infoIcon.png"/>
+                <StackPanel>
+                    <Popup IsOpen="{Binding ElementName=ImagePresenter, Path=IsKeyboardFocusWithin, Mode=OneWay}"
+                         PlacementTarget="{Binding ElementName=ImagePresenter}">
+                        <TextBlock Background="LightYellow" Width="250" Padding="10,10" TextWrapping="Wrap">
+                            <Bold>Level 1</Bold> - It would be nice to renovate some little things, but everything works as it should without it.
+                            <LineBreak/>
+                            <Bold>Level 2</Bold> - Small complaints about accommodation that if removed would make it perfect.
+                            <LineBreak/>
+                            <Bold>Level 3</Bold> - A few things that really bothered should be renovated.
+                            <LineBreak/>
+                            <Bold>Level 4</Bold> - There are a lot of bad things and renovation is really necessary.
+                            <LineBreak/>
+                            <Bold>Level 5</Bold> - The accommodation is in very poor condition and is not worth renting at all unless it is renovation.
+                        </TextBlock>
+                    </Popup>
+                    <ContentControl x:Name="ImagePresenter" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Image Height="22" x:Name="tabinfoIcon" Source="../../Resources/Images/infoIcon.png"
+                           Stretch="Uniform">
+                            <Image.ToolTip>
+                                <ToolTip Background="LightYellow"
+                                         Foreground="#FF5E5D5D"
+                                         Placement="MousePoint"
+                                         x:Name="tabToolTip">
+                                    <TextBlock Background="LightYellow" Width="250" Padding="10,10" TextWrapping="Wrap">
+                                        <Bold>Level 1</Bold> - It would be nice to renovate some little things, but everything works as it should without it.
+                                        <LineBreak/>
+                                        <Bold>Level 2</Bold> - Small complaints about accommodation that if removed would make it perfect.
+                                        <LineBreak/>
+                                        <Bold>Level 3</Bold> - A few things that really bothered should be renovated.
+                                        <LineBreak/>
+                                        <Bold>Level 4</Bold> - There are a lot of bad things and renovation is really necessary.
+                                        <LineBreak/>
+                                        <Bold>Level 5</Bold> - The accommodation is in very poor condition and is not worth renting at all unless it is renovation.
+                                    </TextBlock>
+                                </ToolTip>
+                            </Image.ToolTip>
+                        </Image>
+                    </ContentControl>
+                </StackPanel>
             </WrapPanel>
 
             <WrapPanel Name="wpRenovation" IsEnabled="False" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
