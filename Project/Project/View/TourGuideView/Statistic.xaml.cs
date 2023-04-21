@@ -25,17 +25,12 @@ namespace Project.View.TourGuideView
     /// Interaction logic for Statistic.xaml
     /// </summary>
     /// 
-
-
-
     public partial class Statistic : Window
     {
- 
         public Statistic()
         {
             InitializeComponent();
             DataContext = new StatisticViewModel();
         }
-
     }
 }

@@ -96,7 +96,7 @@
                         </WrapPanel>
                         <WrapPanel>
                             <Label FontSize="14" Content="Date and time:"></Label>
-                            <Label x:Name="dateElement" FontSize="14" Visibility="Hidden" Content="{Binding AppointmentDate}"></Label>
+                            <Label x:Name="dateElement" FontSize="14" Visibility="{Binding Visible}" Content="{Binding AppointmentDate}"></Label>
                         </WrapPanel>
 
                         <GroupBox BorderThickness="2" BorderBrush="Black"  Margin="0,0,5,0">

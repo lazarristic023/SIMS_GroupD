@@ -1,4 +1,5 @@
-﻿using Project.Model;
+﻿using Microsoft.Win32.SafeHandles;
+using Project.Model;
 using Project.Observer;
 using Project.Serializer;
 using System;
@@ -91,6 +92,12 @@ namespace Project.Repository
             tourReview.IsValid = false;
             SaveInFile();
             NotifyObservers();
+        }
+
+        public bool IsValid(int id)
+        {
+            TourReview tourReview = tourReviews.Find(v => v.Id == id);
+            return tourReview.IsValid;
         }
 
         public void NotifyObservers()

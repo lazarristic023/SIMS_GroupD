@@ -379,7 +379,6 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
-        //public ObservableCollection<Tour> CompletedTours { get; set; }
         private readonly TourService tourService;
         private readonly PresentGuestsService presentGuestsService;
 
@@ -389,7 +388,6 @@ namespace Project.ViewModel.TourGuideViewModel
         {
             tourService = new TourService();
             presentGuestsService = new PresentGuestsService();
-            //CompletedTours = new ObservableCollection<Tour>(tourService.GetCompletedTours());
             CompletedTours = new List<Tour>(tourService.GetCompletedTours());
 
             Years = new List<string>();
@@ -418,28 +416,15 @@ namespace Project.ViewModel.TourGuideViewModel
 
         public void SelectedTourChanged()
         {
-            NameOfTour = SelectedTour.Name;
-            AppointmentDate = SelectedTour.TourAppointment.DateAndTimeOfAppointment;
-            Under18 = presentGuestsService.GetUnder18(SelectedTour.TourAppointment.Id);
-            Over50 = presentGuestsService.GetOver50(SelectedTour.TourAppointment.Id);
-            Between18and50 = presentGuestsService.GetBetween18and50(SelectedTour.TourAppointment.Id);
-
-            Percent18 = 0;
-            Percent50 = 0;
-            Percent1850 = 0;
-            Coupon = 0;
+            RefreshView(SelectedTour, false);
 
             if (presentGuestsService.GetNumberOfGuests(SelectedTour.TourAppointment.Id) != 0)
             {
+                CalculatePercentages(SelectedTour, false);
 
-                Percent18 = presentGuestsService.GetUnder18(SelectedTour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(SelectedTour.TourAppointment.Id);
-                Percent1850 = presentGuestsService.GetBetween18and50(SelectedTour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(SelectedTour.TourAppointment.Id);
-                Percent50 = presentGuestsService.GetOver50(SelectedTour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(SelectedTour.TourAppointment.Id);
-                Coupon = presentGuestsService.GetNumberOfGuestsWithCoupon(SelectedTour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(SelectedTour.TourAppointment.Id);
             }
 
             CouponPercent = Coupon.ToString() + "%";
-
 
             Visible = Visibility.Visible;
         }
@@ -448,38 +433,66 @@ namespace Project.ViewModel.TourGuideViewModel
         {
             Tour tour = GetBestTour();
 
-            RefreshView(tour);
+            RefreshView(tour,true);
 
             if (presentGuestsService.GetNumberOfGuests(tour.TourAppointment.Id) != 0)
             {
-                CalculatePercentages(tour);
+                CalculatePercentages(tour, true);
             }
 
             bestCouponPercent = bestCoupon.ToString() + "%";
 
         }
 
-        public void RefreshView(Tour tour)
+        public void RefreshView(Tour tour, bool indicator)
         {
-            bestNameOfTour = tour.Name;
-            bestAppointmentDate = tour.TourAppointment.DateAndTimeOfAppointment;
-            bestUnder18 = presentGuestsService.GetUnder18(tour.TourAppointment.Id);
-            bestOver50 = presentGuestsService.GetOver50(tour.TourAppointment.Id);
-            bestBetween18and50 = presentGuestsService.GetBetween18and50(tour.TourAppointment.Id);
+            if (indicator)
+            {
+                bestNameOfTour = tour.Name;
+                bestAppointmentDate = tour.TourAppointment.DateAndTimeOfAppointment;
+                bestUnder18 = presentGuestsService.GetUnder18(tour.TourAppointment.Id);
+                bestOver50 = presentGuestsService.GetOver50(tour.TourAppointment.Id);
+                bestBetween18and50 = presentGuestsService.GetBetween18and50(tour.TourAppointment.Id);
 
-            bestPercent18 = 0;
-            bestPercent50 = 0;
-            bestPercent1850 = 0;
-            bestCoupon = 0;
+                bestPercent18 = 0;
+                bestPercent50 = 0;
+                bestPercent1850 = 0;
+                bestCoupon = 0;
+            }
+            else
+            {
+                NameOfTour = SelectedTour.Name;
+                AppointmentDate = SelectedTour.TourAppointment.DateAndTimeOfAppointment;
+                Under18 = presentGuestsService.GetUnder18(SelectedTour.TourAppointment.Id);
+                Over50 = presentGuestsService.GetOver50(SelectedTour.TourAppointment.Id);
+                Between18and50 = presentGuestsService.GetBetween18and50(SelectedTour.TourAppointment.Id);
+
+                Percent18 = 0;
+                Percent50 = 0;
+                Percent1850 = 0;
+                Coupon = 0;
+            }
+            
 
         }
 
-        public void CalculatePercentages(Tour tour)
+        public void CalculatePercentages(Tour tour, bool indicator)
         {
-            bestPercent18 = presentGuestsService.GetUnder18(tour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(tour.TourAppointment.Id);
-            bestPercent1850 = presentGuestsService.GetBetween18and50(tour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(tour.TourAppointment.Id);
-            bestPercent50 = presentGuestsService.GetOver50(tour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(tour.TourAppointment.Id);
-            bestCoupon = presentGuestsService.GetNumberOfGuestsWithCoupon(tour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(tour.TourAppointment.Id);
+            if (indicator)
+            {
+                bestPercent18 = presentGuestsService.GetUnder18(tour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(tour.TourAppointment.Id);
+                bestPercent1850 = presentGuestsService.GetBetween18and50(tour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(tour.TourAppointment.Id);
+                bestPercent50 = presentGuestsService.GetOver50(tour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(tour.TourAppointment.Id);
+                bestCoupon = presentGuestsService.GetNumberOfGuestsWithCoupon(tour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(tour.TourAppointment.Id);
+            }
+            else
+            {
+                Percent18 = presentGuestsService.GetUnder18(SelectedTour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(SelectedTour.TourAppointment.Id);
+                Percent1850 = presentGuestsService.GetBetween18and50(SelectedTour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(SelectedTour.TourAppointment.Id);
+                Percent50 = presentGuestsService.GetOver50(SelectedTour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(SelectedTour.TourAppointment.Id);
+                Coupon = presentGuestsService.GetNumberOfGuestsWithCoupon(SelectedTour.TourAppointment.Id) * 100 / presentGuestsService.GetNumberOfGuests(SelectedTour.TourAppointment.Id);
+            }
+
         }
 
 

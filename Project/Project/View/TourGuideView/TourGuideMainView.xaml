@@ -155,7 +155,7 @@
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="3*"></DataGridTextColumn>
                             <DataGridTextColumn Header="Country" Binding="{Binding Location.Country}" Width="1.5*"></DataGridTextColumn>
 
                             <DataGridTextColumn Header="City" Binding="{Binding Location.City}" Width="1.5*"></DataGridTextColumn>
@@ -165,7 +165,7 @@
 
 
                             <DataGridTextColumn Header="Duration" Binding="{Binding Duration}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Appointment" Binding="{Binding TourAppointment.DateAndTimeOfAppointment, StringFormat=f}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Appointment" Binding="{Binding TourAppointment.DateAndTimeOfAppointment, StringFormat=g, ConverterCulture=fr-FR}" Width="2*"></DataGridTextColumn>
 
                         </DataGrid.Columns>
 
