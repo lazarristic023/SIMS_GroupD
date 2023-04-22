@@ -93,7 +93,8 @@ namespace Project.View.Guest1View
 
         public void NotifyOwner(string msg)
         {
-            _ownerNotificationService.Create(User.Id, SelectedReservation.Accommodation.OwnerId, msg);
+            OwnerNotification notification = new OwnerNotification(User.Id, SelectedReservation.Accommodation.OwnerId, msg);
+            _ownerNotificationService.Add(notification);
         }
 
         public void Update()

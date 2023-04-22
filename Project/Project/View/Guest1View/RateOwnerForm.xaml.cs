@@ -98,8 +98,9 @@ namespace Project.View.Guest1View
 
             AddImages(review);
 
-            _reviewService.Add(review);
             SelectedReservation.GuestReview = review;
+            review.Reservation = SelectedReservation;
+            _reviewService.Add(review);
 
             NotifyOwner();
             _remindNotificationService.RemoveByReservation(SelectedReservation.Id);
@@ -121,12 +122,14 @@ namespace Project.View.Guest1View
             if (SelectedReservation.OwnerReview != null)
             {
                 string msg = $"Guest {user.Username} has rated you for reservation: Accommodation name: {SelectedReservation.Accommodation.Name}, Start date: {SelectedReservation.StartDate.Date}, End date: {SelectedReservation.EndDate.Date}";
-                _ownerNotificationService.Create(user.Id, SelectedReservation.Accommodation.OwnerId, msg);
+                OwnerNotification notifiation = new OwnerNotification(user.Id, SelectedReservation.Accommodation.OwnerId, msg);
+                _ownerNotificationService.Add(notifiation);
             }
             else
             {
                 string msg = $"Guest {user.Username} has rated you for reservation: Accommodation name: {SelectedReservation.Accommodation.Name}, Start date: {SelectedReservation.StartDate.Date}, End date: {SelectedReservation.EndDate.Date}. You will be able to see his review once you rate him or when rate period ends.";
-                _ownerNotificationService.Create(user.Id, SelectedReservation.Accommodation.OwnerId, msg);
+                OwnerNotification notifiation = new OwnerNotification(user.Id, SelectedReservation.Accommodation.OwnerId, msg);
+                _ownerNotificationService.Add(notifiation);
             }
         }
 
@@ -136,6 +139,7 @@ namespace Project.View.Guest1View
             {
                 Guest1ReviewImage image = new(imageUrl, review.Id);
                 _reviewService.AddImage(image);
+                review.Images.Add(image);
 
             }
         }
