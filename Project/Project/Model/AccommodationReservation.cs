@@ -15,7 +15,7 @@ namespace Project.Model
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int GuestId { get; set; }
-        public Guest1 Guest { get; set; }
+        public User Guest { get; set; }
 
         public int AccommodationId { get; set; }
         public Accommodation Accommodation { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Project.Model;
 using Project.Serializer;
+using Project.RepositoryInterfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class AccommodationImageRepository
+    public class AccommodationImageRepository : IAccommodationImageRepository
     {
         private const string FilePath = "../../../Resources/Data/accImages.csv";
 

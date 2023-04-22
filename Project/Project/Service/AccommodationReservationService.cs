@@ -16,12 +16,16 @@ namespace Project.Service
 
         private readonly AccommodationService _accommodationService;
 
+        private readonly IUserRepository _userRepository;
+
 
         public AccommodationReservationService()
         {
             _reservationRepository = Injector.Injector.CreateInstance<IAccommodationReservationRepository>();
+            _userRepository = Injector.Injector.CreateInstance<IUserRepository>();
             _accommodationService = new AccommodationService();
             LinkAccommodationsAndReservations();
+            LinkReservationsAndGuests();
         }
 
 
@@ -68,6 +72,19 @@ namespace Project.Service
 
             }
 
+        }
+
+        private void LinkReservationsAndGuests()
+        {
+            foreach (var reservation in _reservationRepository.GetAllReservations())
+            {
+                var guest = _userRepository.GetById(reservation.GuestId);
+
+                if (guest != null)
+                {
+                    reservation.Guest = guest;
+                }
+            }
         }
 
 

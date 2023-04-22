@@ -16,8 +16,14 @@ namespace Project.Injector
         { typeof(IGuest1ReviewRepository), new Guest1ReviewRepository() },
         { typeof(IGuest1ReviewImageRepository), new Guest1ReviewImageRepository() },
         { typeof(IGuest1RemindNotificationRepository), new Guest1RemindNotificationRepository() },
+        { typeof(IGuest1NotificationRepository), new Guest1NotificationRepository() },
         { typeof(IOwnerReviewRepository), new OwnerReviewRepository() },
         { typeof(IAccommodationReservationRepository), new AccommodationReservationRepository() },
+        { typeof(IAccommodationRepository), new AccommodationRepository() },
+        { typeof(IAccommodationImageRepository), new AccommodationImageRepository() },
+        { typeof(IMoveRequestRepository), new MoveRequestRepository() },
+        { typeof(IUserRepository), new UserRepository() },
+
         // Services 
         //{ typeof(Guest1ReviewService), new Guest1ReviewService() },
         //{ typeof(AccommodationReservationService), new AccommodationReservationService() },

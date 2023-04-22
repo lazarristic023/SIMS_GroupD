@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.RepositoryInterfaces;
 using Project.Serializer;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class Guest1NotificationRepository
+    public class Guest1NotificationRepository : IGuest1NotificationRepository
     {
         private const string FilePath = "../../../Resources/Data/guest1Notifications.csv";
 
@@ -29,12 +30,6 @@ namespace Project.Repository
         }
 
         private int GenerateId()
-        {
-            if (notifications.Count == 0) return 0;
-            return notifications[notifications.Count - 1].Id + 1;
-        }
-
-        public int GetLastId()
         {
             if (notifications.Count == 0) return 0;
             return notifications[notifications.Count - 1].Id + 1;

@@ -1,6 +1,7 @@
 ﻿using Project.Model;
 using Project.Observer;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,13 @@ namespace Project.Service
 {
     public class MoveRequestService
     {
-        private MoveRequestRepository _requestRepository;
+        private IMoveRequestRepository _requestRepository;
 
         private AccommodationReservationService _reservationService;
 
         public MoveRequestService()
         {
-            _requestRepository = new MoveRequestRepository();
+            _requestRepository = Injector.Injector.CreateInstance<IMoveRequestRepository>();
             _reservationService = new AccommodationReservationService();
             LinkRequestsAndReservations();
         }
@@ -85,7 +86,7 @@ namespace Project.Service
 
             foreach (var request in _requestRepository.GetAllRequests())
             {
-                if (request.GuestId == guestId)
+                if (request.Reservation.GuestId == guestId)
                 {
                     requests.Add(request);
                 }

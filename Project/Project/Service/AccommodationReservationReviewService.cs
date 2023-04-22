@@ -55,6 +55,11 @@ namespace Project.Service
         {
             foreach (var reservation in _reservationService.GetGuestsFormerReservations(guestId))
             {
+                if (reservation.OwnerReview == null && reservation.GuestReview == null)
+                {
+                    continue;
+                }
+
                 if (reservation.EndDate.AddDays(5).Date < DateTime.Now.Date)
                 {
                     if (reservation.OwnerReview != null)
@@ -90,6 +95,11 @@ namespace Project.Service
         {
             foreach (var reservation in _reservationService.GetOwnersFormerReservations(ownerId))
             {
+                if (reservation.OwnerReview == null && reservation.GuestReview == null)
+                {
+                    continue;
+                }
+
                 if (reservation.EndDate.AddDays(5).Date < DateTime.Now.Date)
                 {
                     if (reservation.OwnerReview != null)

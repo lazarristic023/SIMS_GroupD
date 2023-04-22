@@ -34,12 +34,12 @@ namespace Project.View.Guest1View
         public DateTime NewEndDate { get; set; } = default;
         public string Comment { get; set; } = string.Empty;
 
-        public MakeMoveRequestView(AccommodationReservation reservation, User user, MoveRequestService service)
+        public MakeMoveRequestView(AccommodationReservation reservation, User user)
         {
             InitializeComponent();
             DataContext = this;
 
-            _requestService = service;
+            _requestService = new MoveRequestService();
             _ownerNotificationService = new OwnerNotificationService();
             SelectedReservation = reservation;
             Days = (int)(SelectedReservation.EndDate - SelectedReservation.StartDate).TotalDays;
@@ -64,7 +64,7 @@ namespace Project.View.Guest1View
                 return;
             }
 
-            MoveRequest request = new(SelectedReservation.Accommodation.OwnerId, SelectedReservation.GuestId, SelectedReservation.Id, MoveRequestStatus.PENDING, "", Comment, NewStartDate, NewEndDate);
+            MoveRequest request = new(SelectedReservation.Id, MoveRequestStatus.PENDING, "", Comment, NewStartDate, NewEndDate);
             request.Reservation = SelectedReservation;
             _requestService.Add(request);
 

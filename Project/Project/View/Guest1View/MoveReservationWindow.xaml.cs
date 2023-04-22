@@ -60,7 +60,7 @@ namespace Project.View.Guest1View
                 return;
             }
 
-            MakeMoveRequestView makeMoveRequestView = new(SelectedReservation, User, _requestService);
+            MakeMoveRequestView makeMoveRequestView = new(SelectedReservation, User);
             makeMoveRequestView.Show();
 
         }
