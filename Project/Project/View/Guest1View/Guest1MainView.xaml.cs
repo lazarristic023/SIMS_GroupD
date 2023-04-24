@@ -78,7 +78,7 @@ namespace Project.View.Guest1View
                     offsetY: 10);
 
                 cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(3),
+                    notificationLifetime: TimeSpan.FromSeconds(10),
                     maximumNotificationCount: MaximumNotificationCount.FromCount(5));
 
                 cfg.Dispatcher = Application.Current.Dispatcher;
@@ -346,11 +346,12 @@ namespace Project.View.Guest1View
             {
                 return;
             }
+            string msg = $"Guest {user.Username} has cancelled reservation:\nAccommodation name: {SelectedReservation.Accommodation.Name}\nStart date: {SelectedReservation.StartDate}\nEnd date: {SelectedReservation.EndDate} ";
+            NotifyOwner(msg);
+
             _reservationService.Remove(SelectedReservation);
             GuestReservations.Remove(SelectedReservation);
 
-            string msg = $"Guest {user.Username} has cancelled reservation:\nAccommodation name: {SelectedReservation.Accommodation.Name}\nStart date: {SelectedReservation.StartDate}\nEnd date: {SelectedReservation.EndDate} ";
-            NotifyOwner(msg);
             MessageBox.Show("Reservation successfully cancelled!");
         }
 

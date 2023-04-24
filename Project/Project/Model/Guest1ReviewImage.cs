@@ -1,32 +1,31 @@
 ﻿using System;
-using Project.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Project.Serializer;
 
 namespace Project.Model
 {
-
-    public class AccommodationImage : ISerializable
+    public class Guest1ReviewImage : ISerializable
     {
         public int Id { get; set; }
         public string Url { get; set; }
-        public int AccommodationId { get; set; }
+        public int ReviewId { get; set; }
 
 
-        public AccommodationImage() { }
+        public Guest1ReviewImage() { }
 
-        public AccommodationImage(int id, string url, int entityId)
+        public Guest1ReviewImage(int id, string url, int entityId)
         {
             Id = id;
             Url = url;
-            AccommodationId = entityId;
+            ReviewId = entityId;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Url, AccommodationId.ToString() };
+            string[] csvValues = { Id.ToString(), Url, ReviewId.ToString() };
             return csvValues;
         }
 
@@ -34,9 +33,7 @@ namespace Project.Model
         {
             Id = Convert.ToInt32(values[0]);
             Url = values[1];
-            AccommodationId = Convert.ToInt32(values[2]);
+            ReviewId = Convert.ToInt32(values[2]);
         }
-
-
     }
 }

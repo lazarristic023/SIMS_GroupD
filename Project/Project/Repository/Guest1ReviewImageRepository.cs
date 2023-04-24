@@ -1,6 +1,6 @@
-﻿using System;
-using Project.Model;
+﻿using Project.Model;
 using Project.Serializer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class AccommodationImageRepository
+    public class Guest1ReviewImageRepository
     {
-        private const string FilePath = "../../../Resources/Data/accImages.csv";
+        private const string FilePath = "../../../Resources/Data/guest1ReviewImages.csv";
 
-        private readonly Serializer<AccommodationImage> serializer;
+        private readonly Serializer<Guest1ReviewImage> serializer;
 
-        private List<AccommodationImage> images;
+        private List<Guest1ReviewImage> images;
 
-        public AccommodationImageRepository()
+        public Guest1ReviewImageRepository()
         {
-            serializer = new Serializer<AccommodationImage>();
+            serializer = new Serializer<Guest1ReviewImage>();
             images = serializer.FromCSV(FilePath);
         }
 
@@ -34,7 +34,7 @@ namespace Project.Repository
             return images[images.Count - 1].Id + 1;
         }
 
-        public AccommodationImage Add(AccommodationImage image)
+        public Guest1ReviewImage Add(Guest1ReviewImage image)
         {
             image.Id = GenerateId();
             images.Add(image);
@@ -42,22 +42,22 @@ namespace Project.Repository
             return image;
         }
 
-        public AccommodationImage Update(AccommodationImage image)
+        public Guest1ReviewImage Update(Guest1ReviewImage image)
         {
-            AccommodationImage oldImage = GetImageById(image.Id);
+            Guest1ReviewImage oldImage = GetImageById(image.Id);
             if (oldImage == null) return null;
 
             oldImage.Url = image.Url;
-            oldImage.AccommodationId = image.AccommodationId;
+            oldImage.ReviewId = image.ReviewId;
 
 
             SaveInFile();
             return oldImage;
         }
 
-        public AccommodationImage Remove(int id)
+        public Guest1ReviewImage Remove(int id)
         {
-            AccommodationImage image = GetImageById(id);
+            Guest1ReviewImage image = GetImageById(id);
             if (image == null) return null;
 
             images.Remove(image);
@@ -65,15 +65,14 @@ namespace Project.Repository
             return image;
         }
 
-        public AccommodationImage GetImageById(int id)
+        public Guest1ReviewImage GetImageById(int id)
         {
             return images.Find(v => v.Id == id);
         }
 
-        public List<AccommodationImage> GetAllImages()
+        public List<Guest1ReviewImage> GetAllImages()
         {
             return images;
         }
-
     }
 }

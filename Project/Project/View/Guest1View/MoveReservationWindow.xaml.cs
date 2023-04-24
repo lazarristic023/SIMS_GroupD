@@ -46,7 +46,7 @@ namespace Project.View.Guest1View
             _reservationService = new AccommodationReservationService();
             _requestService = new MoveRequestService();
             _requestService.SubscribeToRepository(this);
-            CurrentReservations = new ObservableCollection<AccommodationReservation>(_reservationService.GetUsersCurrentReservations(User.Id));
+            CurrentReservations = new ObservableCollection<AccommodationReservation>(_reservationService.GetGuestsCurrentReservations(User.Id));
             PendingRequests = new ObservableCollection<MoveRequest>(_requestService.GetGuestsPendingRequests(User.Id));
             AcceptedRequests = new ObservableCollection<MoveRequest>(_requestService.GetGuestsAcceptedRequests(User.Id));
             DeclinedRequests = new ObservableCollection<MoveRequest>(_requestService.GetGuestsDeclinedRequests(User.Id));
