@@ -28,10 +28,12 @@ namespace Project.ViewModel.Guest1ViewModel
             Window = window;
             ProfileLinkCommand = new ProfileLinkCommand(this);
             YourReservationsLinkCommand = new YourReservationsLinkCommand(this);
+            MoveReservationLinkCommand = new MoveReservationLinkCommand(this);
             _reservationReviewService.FillGuestsGivenAndRecievedReviewsLists(GivenReviews, RecievedReviews, User.Id);
         }
 
         public ICommand ProfileLinkCommand { get; }
         public ICommand YourReservationsLinkCommand { get; }
+        public ICommand MoveReservationLinkCommand { get; }
     }
 }

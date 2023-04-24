@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Project.Observer;
+using Project.Command.Guest1Commands.WindowLinkCommands;
+using Project.ViewModel;
 
 namespace Project.View.Guest1View
 {
@@ -34,16 +36,29 @@ namespace Project.View.Guest1View
 
         public AccommodationReservation SelectedReservation { get; set; }
 
+        private ViewModelBase viewModelBase;
+
+        public ICommand ProfileLinkCommand { get; }
+        public ICommand YourReservationsLinkCommand { get; }
+        public ICommand MoveReservationLinkCommand { get; }
+
 
         public YourReservationsWindow(User user)
         {
             InitializeComponent();
             DataContext = this;
             User = user;
+            viewModelBase = new ViewModelBase();
+            viewModelBase.User = User;
+            viewModelBase.Window = this;
 
             _reservationService = new AccommodationReservationService();
             _ownerNotificationService = new OwnerNotificationService();
             _reservationService.SubscribeToReservationRepository(this);
+
+            ProfileLinkCommand = new ProfileLinkCommand(viewModelBase);
+            YourReservationsLinkCommand = new YourReservationsLinkCommand(viewModelBase);
+            MoveReservationLinkCommand = new MoveReservationLinkCommand(viewModelBase);
 
             CurrentReservations = new ObservableCollection<AccommodationReservation>(_reservationService.GetGuestsCurrentReservations(User.Id));
             FormerReservations = new ObservableCollection<AccommodationReservation>(_reservationService.GetGuestsFormerReservations(User.Id));

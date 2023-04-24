@@ -38,12 +38,12 @@
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2">
                 <Image Height="25" Source="../../Resources/Images/view.png"/>
-                <Button Command="{Binding Path=YourReservationsLinkCommand}" Background="Transparent" BorderBrush="Transparent" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="_Your reservations"/>
+                <Button Cursor="Hand" Command="{Binding Path=YourReservationsLinkCommand}" Background="Transparent" BorderBrush="Transparent" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="_Your reservations"/>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3">
                 <Image Height="25" Source="../../Resources/Images/edit.png"/>
-                <Label Cursor="Hand" MouseLeftButtonUp="Label_MouseLeftButtonUp" Margin="5,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="Move reservation"/>
+                <Button Command="{Binding Path=MoveReservationLinkCommand}" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="5,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="_Move reservation"/>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4">
@@ -75,7 +75,7 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextDecorations="Underline" FontWeight="DemiBold" FontSize="37" Grid.Row="0" Text="Your Reservations"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextDecorations="Underline" FontWeight="DemiBold" FontSize="37" Grid.Row="0" Text="Profile"/>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>

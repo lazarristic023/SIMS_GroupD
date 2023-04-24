@@ -33,17 +33,17 @@
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
                 <Image Height="25" Source="../../Resources/Images/userIcon.png"/>
-                <TextBlock Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Text="Profile"/>
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=ProfileLinkCommand}" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="_Profile"/>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2">
                 <Image Height="25" Source="../../Resources/Images/view.png"/>
-                <TextBlock Cursor="Hand" x:Name="tbYourReservations" MouseLeftButtonUp="tbYourReservations_MouseLeftButtonUp" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Text="Your reservations"/>
+                <Button Cursor="Hand" Command="{Binding Path=YourReservationsLinkCommand}" Background="Transparent" BorderBrush="Transparent" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="_Your reservations"/>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3">
                 <Image Height="25" Source="../../Resources/Images/edit.png"/>
-                <Label Margin="5,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="Move reservation"/>
+                <Button Command="{Binding Path=MoveReservationLinkCommand}" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="5,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="_Move reservation"/>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4">
