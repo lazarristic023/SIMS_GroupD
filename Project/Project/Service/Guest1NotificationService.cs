@@ -53,9 +53,8 @@ namespace Project.Service
             return notifications;
         }
 
-        public void Create(int guestId, int ownerId, string message)
+        public void Add(Guest1Notification notification)
         {
-            Guest1Notification notification = new(guestId, ownerId, message);
             _repository.Add(notification);
         }
 

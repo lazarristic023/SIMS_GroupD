@@ -34,12 +34,12 @@ namespace Project.View.Guest1View
         public DateTime NewEndDate { get; set; } = default;
         public string Comment { get; set; } = string.Empty;
 
-        public MakeMoveRequestView(AccommodationReservation reservation, User user, MoveRequestService service)
+        public MakeMoveRequestView(AccommodationReservation reservation, User user)
         {
             InitializeComponent();
             DataContext = this;
 
-            _requestService = service;
+            _requestService = new MoveRequestService();
             _ownerNotificationService = new OwnerNotificationService();
             SelectedReservation = reservation;
             Days = (int)(SelectedReservation.EndDate - SelectedReservation.StartDate).TotalDays;
@@ -52,17 +52,26 @@ namespace Project.View.Guest1View
             if (!CheckConditions())
                 return;
 
-            if(!_requestService.Create(SelectedReservation, NewStartDate, NewEndDate, Comment))
+            if(!_requestService.IsAccommodationFree(SelectedReservation, NewStartDate, NewEndDate))
             {
                 AlreadyReservedMessageBox();
+                return;
             }
-            else 
+
+            if (_requestService.DoesRequestAlreadyExist(SelectedReservation))
             {
-                RequestSentMessageBox();
-                SendNotification();
-                Close();
-            
+                MessageBox.Show("There is already move request on pending for this reservation!", "Request already exists", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
+
+            MoveRequest request = new(SelectedReservation.Id, MoveRequestStatus.PENDING, "", Comment, NewStartDate, NewEndDate);
+            request.Reservation = SelectedReservation;
+            _requestService.Add(request);
+
+            RequestSentMessageBox();
+            NotifyOwner();
+            Close();
+            
 
         }
 
@@ -80,7 +89,7 @@ namespace Project.View.Guest1View
 
         private void AlreadyReservedMessageBox()
         {
-            string sMessageBoxText = "The accommodation is already reserved at chosen date range or you have already sent a request (on pending)!";
+            string sMessageBoxText = "The accommodation is already reserved at chosen date range!";
             string sCaption = "Accommodtion already reserved";
             MessageBoxButton btn = MessageBoxButton.OK;
             MessageBoxImage icn = MessageBoxImage.Error;
@@ -119,10 +128,11 @@ namespace Project.View.Guest1View
             return false;
         }
 
-        private void SendNotification()
+        private void NotifyOwner()
         {
             string msg = $"Guest {user.Username} has made move request for your accommodation {SelectedReservation.Accommodation.Name}!";
-            _ownerNotificationService.Create(SelectedReservation.GuestId, SelectedReservation.Accommodation.OwnerId, msg);
+            OwnerNotification notification = new(SelectedReservation.GuestId, SelectedReservation.Accommodation.OwnerId, msg);
+            _ownerNotificationService.Add(notification);
         }
 
         private bool IsEndBeforeStart()

@@ -25,7 +25,6 @@ namespace Project.Service
         public void Add(Guest1Review review)
         {
             _reviewRepository.Add(review);
-            LinkReviewsAndImages();
         }
 
         public void AddImage(Guest1ReviewImage image)
@@ -36,6 +35,12 @@ namespace Project.Service
         public List<Guest1Review> GetAllReviews()
         {
             return _reviewRepository.GetAllReviews();
+        }
+
+        public Guest1Review GetReviewByReservationId(int reservationId)
+        {
+            return GetAllReviews().Find(r => r.ReservationId == reservationId);
+
         }
 
         private void LinkReviewsAndImages()

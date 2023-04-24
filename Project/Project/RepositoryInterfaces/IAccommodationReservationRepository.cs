@@ -18,7 +18,7 @@ namespace Project.RepositoryInterfaces
 
         public AccommodationReservation GetReservationById(int id);
 
-        public List<AccommodationReservation> GetByAccommodation(int accId);
+        public List<AccommodationReservation> GetReservationsByAccommodationId(int accId);
 
         public List<AccommodationReservation> GetAllReservations();
 

@@ -11,18 +11,17 @@ namespace Project.Model
     {
 
         public int Id { get; set; }
-        public int OwnerId { get; set; }
-        public int Guest1Id { get; set; }
+        public int ReservationId { get; set; }
+        public AccommodationReservation Reservation { get; set; }
         public int Cleanliness {get; set; }
         public int HousePolicies { get; set; }
         public string Comment { get; set; }
 
         public OwnerReview() { }
 
-        public OwnerReview(int ownerId, int guestId, int cleanliness, int housePolicies, string comment)
+        public OwnerReview(int reservationId, int cleanliness, int housePolicies, string comment)
         {
-            OwnerId = ownerId;
-            Guest1Id = guestId;
+            ReservationId = reservationId;
             Cleanliness = cleanliness;
             HousePolicies = housePolicies;
             Comment = comment;
@@ -32,16 +31,15 @@ namespace Project.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            OwnerId = Convert.ToInt32(values[1]);
-            Guest1Id = Convert.ToInt32(values[2]);
-            Cleanliness = Convert.ToInt32(values[3]);
-            HousePolicies = Convert.ToInt32(values[4]);
-            Comment = values[5];
+            ReservationId = Convert.ToInt32(values[1]);
+            Cleanliness = Convert.ToInt32(values[2]);
+            HousePolicies = Convert.ToInt32(values[3]);
+            Comment = values[4];
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), OwnerId.ToString(), Guest1Id.ToString(), Cleanliness.ToString(), HousePolicies.ToString(), Comment };
+            string[] csvValues = { Id.ToString(), ReservationId.ToString(), Cleanliness.ToString(), HousePolicies.ToString(), Comment };
             return csvValues;
         }
     }

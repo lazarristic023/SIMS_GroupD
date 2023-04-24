@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Project.Model;
 using Project.Serializer;
+using Project.RepositoryInterfaces;
 
 namespace Project.Repository
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
 
         private const string FilePath = "../../../Resources/Data/users.csv";

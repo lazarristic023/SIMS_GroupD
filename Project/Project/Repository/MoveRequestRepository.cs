@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.RepositoryInterfaces;
 using Project.Serializer;
 using Project.Observer;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class MoveRequestRepository : ISubject
+    public class MoveRequestRepository : ISubject, IMoveRequestRepository
     {
         private const string FilePath = "../../../Resources/Data/moveRequests.csv";
 
@@ -52,9 +53,7 @@ namespace Project.Repository
             MoveRequest oldRequest = GetRequestById(request.Id);
             if (oldRequest == null) return null;
 
-            oldRequest.OwnerId = request.OwnerId;
             oldRequest.ReservationId = request.ReservationId;
-            oldRequest.GuestId = request.GuestId;
             oldRequest.Status = request.Status;
             oldRequest.OwnerMessage = request.OwnerMessage;
             oldRequest.GuestMessage = request.GuestMessage;

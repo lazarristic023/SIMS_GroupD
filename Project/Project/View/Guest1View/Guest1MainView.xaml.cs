@@ -380,7 +380,8 @@ namespace Project.View.Guest1View
 
         public void NotifyOwner(string msg)
         {
-            _ownerNotificationService.Create(user.Id, SelectedReservation.Accommodation.OwnerId, msg);
+            OwnerNotification notification = new(user.Id, SelectedReservation.Accommodation.OwnerId, msg);
+            _ownerNotificationService.Add(notification);
         }
 
         private void tbMoveReservation_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

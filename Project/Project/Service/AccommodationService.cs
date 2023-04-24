@@ -1,5 +1,6 @@
 ﻿using Project.Model;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,17 @@ namespace Project.Service
 {
     public class AccommodationService
     {
-        private AccommodationRepository _accommodationRepository;
-        private AccommodationImageRepository _imageRepository;
+        private IAccommodationRepository _accommodationRepository;
+        private IAccommodationImageRepository _imageRepository;
+        private IUserRepository _userRepository;
 
         public AccommodationService() 
         {
-            _accommodationRepository = new AccommodationRepository();
-            _imageRepository = new AccommodationImageRepository();
+            _accommodationRepository = Injector.Injector.CreateInstance<IAccommodationRepository>();
+            _imageRepository = Injector.Injector.CreateInstance<IAccommodationImageRepository>();
+            _userRepository = Injector.Injector.CreateInstance<IUserRepository>();
             LinkAccommodationsAndImages();
+            LinkAccommodationsAndOwners();
         }
 
         public List<Accommodation> GetAllAccommodations()
@@ -40,6 +44,18 @@ namespace Project.Service
                 }
 
                 accommodation.Images.Add(image);
+            }
+        }
+
+        private void LinkAccommodationsAndOwners()
+        {
+            foreach (var accommodation in _accommodationRepository.GetAllAccommodations())
+            {
+                var owner = _userRepository.GetById(accommodation.OwnerId);
+                if (owner != null)
+                {
+                    accommodation.Owner = owner;
+                }
             }
         }
 
