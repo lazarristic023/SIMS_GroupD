@@ -25,7 +25,7 @@ namespace Project.View.Guest1View
         public ProfileWindow(User u)
         {
             InitializeComponent();
-            profileWindowViewModel = new ProfileWindowViewModel(u);
+            profileWindowViewModel = new ProfileWindowViewModel(u, this);
             this.DataContext = profileWindowViewModel;
         }
 
@@ -35,5 +35,6 @@ namespace Project.View.Guest1View
             moveReservationWindow.Show();
             Close();
         }
+
     }
 }
