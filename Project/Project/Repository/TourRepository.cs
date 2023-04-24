@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Project.Observer;
 using Project.Controller;
+using Project.RepositoryInterfaces;
 
 namespace Project.Repository
 {
-    public class TourRepository: ISubject
+    public class TourRepository: ISubject, ITourRepository
     {
         private const string FilePath = "../../../Resources/Data/tours.csv";
 

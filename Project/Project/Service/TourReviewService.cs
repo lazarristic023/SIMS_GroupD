@@ -1,6 +1,7 @@
 ﻿using Project.Model;
 using Project.Observer;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using Project.View.TourGuideView;
 using System;
 using System.Collections.Generic;
@@ -12,21 +13,17 @@ namespace Project.Service
 {
     public class TourReviewService
     {
-        TourReviewRepository tourReviewRepository;
+        private ITourReviewRepository tourReviewRepository;
+        //TourReviewRepository tourReviewRepository;
         AppointmentService appointmentService;
         TourService tourService;
         UserRepository userRepository;
-        public struct ShowingModel
-        {
-            public string userName;
-            public string tourName;
-            public DateTime appointment;
-            public double avgRating;
-            public bool validity;
-        }
+
         public TourReviewService()
         {
-            tourReviewRepository = new TourReviewRepository();
+            
+            //tourReviewRepository = new TourReviewRepository();
+            tourReviewRepository = Injector.Injector.CreateInstance<ITourReviewRepository>();
             appointmentService = new AppointmentService();
             tourService = new TourService();
 

@@ -37,7 +37,7 @@ namespace Project.View.TourGuideView
 
         private readonly TourReservationRepository reservationRepository;
         private readonly UserRepository userRepository;
-        private readonly PresentGuestsRepository presentGuestsRepository;
+
 
         public int tourId { get; set; }
         public int appointmentId { get; set; }
@@ -60,6 +60,7 @@ namespace Project.View.TourGuideView
 
             _tourPointController = new TourPointController();
             _tourPointController.Subscribe(this);
+
             _tourPointsListController = new TourPointsListController();
 
             _tourService = new TourService();
@@ -70,8 +71,7 @@ namespace Project.View.TourGuideView
 
             reservationRepository = new TourReservationRepository();
             userRepository = new UserRepository();
-            presentGuestsRepository = new PresentGuestsRepository();
-            presentGuestsRepository.Subscribe(this);
+
 
             tourId = sendedId;
             appointmentId = appointmentid;

@@ -1,5 +1,6 @@
 ﻿using Project.Model;
 using Project.Observer;
+using Project.RepositoryInterfaces;
 using Project.Serializer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Windows.Input;
 
 namespace Project.Repository
 {
-    public class PresentGuestsRepository : ISubject
+    public class PresentGuestsRepository : ISubject, IPresentGuestsRepository
     {
 
         private const string FilePath = "../../../Resources/Data/presentguests.csv";
