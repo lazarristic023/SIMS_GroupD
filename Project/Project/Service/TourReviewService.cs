@@ -70,7 +70,7 @@ namespace Project.Service
                 sm.tourName = tourService.GetById(tourId).Name;
                 sm.userName = userRepository.GetById(review.GuestId).Username;
                 sm.appointment = appointmentService.GetById(review.AppointmentId).DateAndTimeOfAppointment;
-                sm.avgRating = (review.InterestingRating + review.GuideLanguageRating + review.GuideKnowledgeRating) / 3;
+                sm.avgRating = Math.Round(((double)review.InterestingRating + (double)review.GuideLanguageRating + (double)review.GuideKnowledgeRating) / 3, 2);
                 sm.validity = review.IsValid;
                 sm.review = review.ReviewText;
                 sm.appointmentId = review.AppointmentId;
@@ -95,6 +95,11 @@ namespace Project.Service
         public void MarkAsInvalid(int id)
         {
             tourReviewRepository.MarkAsInvalid(id);
+        }
+
+        public bool IsValid(int id)
+        {
+            return tourReviewRepository.IsValid(id);
         }
 
         public void Subscribe(IObserver observer)

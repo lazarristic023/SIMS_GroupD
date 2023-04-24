@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\alert.png" />
     <None Remove="Resources\Images\ask.png" />
     <None Remove="Resources\Images\avatar.png" />
     <None Remove="Resources\Images\clockIcon.png" />
@@ -28,6 +29,7 @@
     <None Remove="Resources\Images\trend.png" />
     <None Remove="Resources\Images\userIcon.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="Resources\Images\warning.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +43,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\add.png" />
+    <Resource Include="Resources\Images\alert.png" />
     <Resource Include="Resources\Images\ask.png" />
     <Resource Include="Resources\Images\avatar.png" />
     <Resource Include="Resources\Images\clockIcon.png" />
@@ -60,6 +63,11 @@
     <Resource Include="Resources\Images\trend.png" />
     <Resource Include="Resources\Images\userIcon.png" />
     <Resource Include="Resources\Images\view.png" />
+    <Resource Include="Resources\Images\warning.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Command\TourGuideCommand\" />
   </ItemGroup>
 
 </Project>

@@ -5,11 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
-        Title="SingleReview" Height="450" Width="500" WindowStartupLocation="CenterOwner">
+        Title="SingleReview" Height="450" Width="500" WindowStartupLocation="CenterScreen" Background="LightBlue">
+
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="IsReadOnly" Value="true"/>
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type TextBox}}"
+               TargetType="TextBox"
+               x:Key="ReviewText">
+            <Setter Property="Height" Value="65"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="1.2*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="1.2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -23,41 +46,60 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <WrapPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
-            <Label Content="Guest: " FontFamily="Century Gothic"/>
-            <Label FontFamily="Century Gothic" Content="{Binding guestName}"/>
-        </WrapPanel>
-        <WrapPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
-            <Label Content="Tour name: " FontFamily="Century Gothic"/>
-            <Label FontFamily="Century Gothic" Content="{Binding tourName}"/>
-        </WrapPanel>
-        <WrapPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">
-            <Label Content="Boarding point: " FontFamily="Century Gothic"/>
-            <Label FontFamily="Century Gothic" Content="{Binding boardingPoint}"/>
-        </WrapPanel>
-        <WrapPanel Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">
-            <Label Content="Knowledge rating: " FontFamily="Century Gothic"/>
-            <Label FontFamily="Century Gothic" Content="{Binding knowledgeRating}"/>
-        </WrapPanel>
-        <Label Grid.Row="3" Grid.Column="1" Content="Total rating:" FontFamily="Century Gothic" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-        <Label Grid.Row="4" Grid.Column="1" Grid.RowSpan="2" Content="{Binding avgRating}" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Century Gothic" FontSize="40"/>
-        
-        <WrapPanel Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">
-            <Label Content="Language rating: " FontFamily="Century Gothic"/>
-            <Label FontFamily="Century Gothic" Content="{Binding languageRating}"/>
-        </WrapPanel>
-        <WrapPanel Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">
-            <Label Content="Interesting rating: " FontFamily="Century Gothic"/>
-            <Label FontFamily="Century Gothic" Content="{Binding interestingRating}"/>
-        </WrapPanel>
-        <WrapPanel Grid.Row="6" Grid.Column="0">
-            <TextBlock Text="Review: " FontFamily="Century Gothic"/>
-        </WrapPanel>
-        <TextBlock Grid.Row="7" Grid.Column="0" FontFamily="Century Gothic" Text="{Binding text}"/>
-        <Button x:Name="makeInvalidBtn" Grid.Column="1" Grid.Row="7"  Height="40" Width="100" Click="makeInvalidBtn_Click">
-            <TextBlock Text="Mark review as invalid" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+        <Label Grid.Column="0" Content="Guest: "/>
+        <TextBox Text="{Binding guestName}" Grid.Row="0" Grid.Column="1"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Tour name: "/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding tourName}"/>
+
+
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Boarding point: "/>
+        <TextBox Grid.Row="2" Text="{Binding boardingPoint}" Grid.Column="1"/>
+
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Knowledge rating: "/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding knowledgeRating}" Width="30" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
+
+
+        <Rectangle Grid.Row="3" Grid.RowSpan="3" Grid.Column="3" Fill="#ffdf00" Margin="0,0,2,0" RadiusX="20" RadiusY="20"/>
+        <Label Grid.Row="3" Grid.Column="3" Content="Total rating:" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="black"/>
+        <Label Grid.Row="4" Grid.Column="3" Grid.RowSpan="2"  Content="{Binding avgRating}" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Century Gothic" FontSize="60" Foreground="black"/>
+
+
+        <Label Grid.Row="4" Grid.Column="0" Content="Language rating: "/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding languageRating}" Width="30" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
+
+
+        <Label Grid.Row="5" Grid.Column="0" Content="Interesting rating: "/>
+        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding interestingRating}" Width="30" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
+
+        <Label Grid.Row="6" Grid.Column="0" Content="Review: "/>
+        <TextBox Style="{StaticResource ReviewText}" Grid.Row="7" Grid.Column="0" Text="{Binding text}" Grid.ColumnSpan="2" FontFamily="Verdana" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+
+        <Button x:Name="makeInvalidBtn" Grid.Column="3" Grid.Row="7"  Height="60" Width="110" Command="{Binding MakeInvalidCommand}">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0" Source="../../Resources/Images/warning.png" Margin="0,5,10,5"/>
+                <TextBlock Grid.Column="1" Text="Mark review as invalid"  TextWrapping="Wrap" VerticalAlignment="Center"/>
+            </Grid>
         </Button>
-        <Button x:Name="closeBtn" Grid.Row="8" Grid.Column="0" Content="Close" FontFamily="Century Gothic" Width="40" Height="20" Click="closeBtn_Click"/>
+        <Button x:Name="closeBtn" Grid.Row="8" Grid.Column="1" Content="Close" FontFamily="Century Gothic" Width="150" Height="20" Command="{Binding CloseCommand}" HorizontalAlignment="Left">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
     </Grid>
 </Window>
