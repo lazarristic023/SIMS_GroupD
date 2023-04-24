@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.Guest1View"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="YourReservationsWindow" Height="650" Width="1102" BorderThickness="1" BorderBrush="DarkBlue">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -125,7 +126,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <Button Margin="0,18" FontSize="17" Content="Rate" Width="60" Height="25"/>
+                    <Button x:Name="btnRate" Click="btnRate_Click" Margin="0,18" FontSize="17" Content="Rate" Width="60" Height="25"/>
                     <TextBlock HorizontalAlignment="Center" Foreground="LightCoral" FontSize="16" Text="NOTE: Select a reservaton first"/>
                 </StackPanel>
 

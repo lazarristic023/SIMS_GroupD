@@ -68,7 +68,7 @@ namespace Project.View
         private void CreateReservations(Accommodation selectedAccommodation)
         {
             DateTime today = DateTime.Today;
-            List<AccommodationReservation> temp = new List<AccommodationReservation>(controller.AccommodationReservationRepository.GetByAccommodation(selectedAccommodation.Id));
+            List<AccommodationReservation> temp = new List<AccommodationReservation>(controller.AccommodationReservationRepository.GetReservationsByAccommodationId(selectedAccommodation.Id));
             int days;
             foreach (var reservation in temp)
             {
@@ -112,8 +112,8 @@ namespace Project.View
             if (housePolicies == 0) { return; }
             string comment = tbComment.Text;
             comment = comment.Replace(System.Environment.NewLine, " ");
-            OwnerReview ownerReview = new OwnerReview(ownerId,guestId,cleanliness,housePolicies,comment);
-            controller.OwnerReviewRepository.AddOrUpdate(ownerReview);
+            //OwnerReview ownerReview = new OwnerReview(ownerId,guestId,cleanliness,housePolicies,comment);
+            //controller.OwnerReviewRepository.AddOrUpdate(ownerReview);
             MessageBox.Show("Comment added successfully");
             this.Close();
         }

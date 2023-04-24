@@ -83,10 +83,10 @@ namespace Project.View
                             break;
 
                         case Role.GUEST1:
-                            Guest1MainView guest1View = new Guest1MainView(user);
-                            guest1View.Show();
+                            ProfileWindow profileWindow = new ProfileWindow(user);
+                            profileWindow.Show();
                             Close();
-                            guest1View.ShowNotifications(user.Id);
+                            //guest1View.ShowNotifications(user.Id);
                             break;
 
                         default:

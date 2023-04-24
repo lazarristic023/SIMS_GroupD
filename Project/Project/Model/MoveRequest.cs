@@ -11,8 +11,6 @@ namespace Project.Model
     public class MoveRequest : ISerializable
     {
         public int Id { get; set; }
-        public int OwnerId { get; set; }
-        public int GuestId { get; set; }
         public int ReservationId { get; set; }
         public AccommodationReservation Reservation { get; set; }
         public string OwnerMessage { get; set; }
@@ -30,10 +28,8 @@ namespace Project.Model
             NewEndDate = DateTime.MinValue;
         }
 
-        public MoveRequest(int ownerId, int guestId, int reservationId, MoveRequestStatus status, string ownerMessage = "", string guestMessage = "", DateTime newStartDate = default, DateTime newEndDate = default)
+        public MoveRequest(int reservationId, MoveRequestStatus status, string ownerMessage = "", string guestMessage = "", DateTime newStartDate = default, DateTime newEndDate = default)
         {
-            OwnerId = ownerId;
-            GuestId = guestId;
             ReservationId = reservationId;
             OwnerMessage = ownerMessage;
             GuestMessage = guestMessage;
@@ -44,21 +40,19 @@ namespace Project.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), GuestId.ToString(), OwnerId.ToString(), ReservationId.ToString(), OwnerMessage, GuestMessage, RequestStatusToString(), NewStartDate.ToString(), NewEndDate.ToString()};
+            string[] csvValues = { Id.ToString(), ReservationId.ToString(), OwnerMessage, GuestMessage, RequestStatusToString(), NewStartDate.ToString(), NewEndDate.ToString()};
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            GuestId = Convert.ToInt32(values[1]);
-            OwnerId = Convert.ToInt32(values[2]);
-            ReservationId = Convert.ToInt32(values[3]);
-            OwnerMessage = values[4];
-            GuestMessage = values[5];
-            Status = StringToRequestStatus(values[6]);
-            NewStartDate = Convert.ToDateTime(values[7]);
-            NewEndDate = Convert.ToDateTime(values[8]);
+            ReservationId = Convert.ToInt32(values[1]);
+            OwnerMessage = values[2];
+            GuestMessage = values[3];
+            Status = StringToRequestStatus(values[4]);
+            NewStartDate = Convert.ToDateTime(values[5]);
+            NewEndDate = Convert.ToDateTime(values[6]);
         }
 
         private string RequestStatusToString()

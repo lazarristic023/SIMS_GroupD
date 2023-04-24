@@ -32,11 +32,6 @@ namespace Project.Service
             foreach (var notification in notifications)
             {
                 notifier.ShowInformation(notification.Message);
-                if (notification.Date.AddDays(5) >= DateTime.Now)
-                {
-                    continue;
-                }
-
                 _repository.Remove(notification.Id);
             }
 
@@ -58,9 +53,8 @@ namespace Project.Service
             return notifications;
         }
 
-        public void Create(int guestId, int ownerId, string message, DateTime date = default)
+        public void Add(Guest1Notification notification)
         {
-            Guest1Notification notification = new(guestId, ownerId, message, date);
             _repository.Add(notification);
         }
 

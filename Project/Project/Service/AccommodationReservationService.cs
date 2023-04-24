@@ -3,6 +3,7 @@ using Project.Observer;
 using Project.Repository;
 using System;
 using System.Collections.Generic;
+using Project.RepositoryInterfaces;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,14 +12,20 @@ namespace Project.Service
 {
     public class AccommodationReservationService
     {
-        private readonly AccommodationReservationRepository _reservationRepository;
+        private readonly IAccommodationReservationRepository _reservationRepository;
 
         private readonly AccommodationService _accommodationService;
+
+        private readonly IUserRepository _userRepository;
+
+
         public AccommodationReservationService()
         {
-            _reservationRepository = new AccommodationReservationRepository();
+            _reservationRepository = Injector.Injector.CreateInstance<IAccommodationReservationRepository>();
+            _userRepository = Injector.Injector.CreateInstance<IUserRepository>();
             _accommodationService = new AccommodationService();
             LinkAccommodationsAndReservations();
+            LinkReservationsAndGuests();
         }
 
 
@@ -28,6 +35,20 @@ namespace Project.Service
             foreach (var reservation in GetAllReservations())
             {
                 if (reservation.GuestId == guestId)
+                {
+                    reservations.Add(reservation);
+                }
+            }
+
+            return reservations;
+        }
+
+        public List<AccommodationReservation> GetOwnerReservations(int ownerId)
+        {
+            List<AccommodationReservation> reservations = new List<AccommodationReservation>();
+            foreach (var reservation in GetAllReservations())
+            {
+                if (reservation.Accommodation.OwnerId == ownerId)
                 {
                     reservations.Add(reservation);
                 }
@@ -52,6 +73,20 @@ namespace Project.Service
             }
 
         }
+
+        private void LinkReservationsAndGuests()
+        {
+            foreach (var reservation in _reservationRepository.GetAllReservations())
+            {
+                var guest = _userRepository.GetById(reservation.GuestId);
+
+                if (guest != null)
+                {
+                    reservation.Guest = guest;
+                }
+            }
+        }
+
 
         public List<AccommodationReservation> GetGuestsCurrentReservations(int guestId)
         {
@@ -85,21 +120,53 @@ namespace Project.Service
 
         }
 
-        public bool IsAccommodationFree(DateTime start, DateTime end, int id)
+        public List<AccommodationReservation> GetOwnersCurrentReservations(int ownerId)
+        {
+            List<AccommodationReservation> allReservations = new(GetOwnerReservations(ownerId));
+
+            foreach (var reservation in GetOwnerReservations(ownerId))
+            {
+                if (reservation.StartDate <= DateTime.Now.Date)
+                {
+                    allReservations.Remove(reservation);
+                }
+            }
+
+            return allReservations;
+
+        }
+
+        public List<AccommodationReservation> GetOwnersFormerReservations(int ownerId)
+        {
+            List<AccommodationReservation> allReservations = new(GetOwnerReservations(ownerId));
+
+            foreach (var reservation in GetOwnerReservations(ownerId))
+            {
+                if (reservation.StartDate > DateTime.Now.Date)
+                {
+                    allReservations.Remove(reservation);
+                }
+            }
+
+            return allReservations;
+
+        }
+
+        public bool IsAccommodationFree(DateTime start, DateTime end, int accommodatonId)
         {
             AccommodationReservation reservation = 
-                GetAccommodationReservations(id).Find(r => !(r.EndDate < start) && !(r.StartDate > end));
+                GetAccommodationReservations(accommodatonId).Find(r => !(r.EndDate < start) && !(r.StartDate > end));
 
             return reservation == null;
         }
 
-        public List<AccommodationReservation> GetAccommodationReservations(int id)
+        public List<AccommodationReservation> GetAccommodationReservations(int accommodationId)
         {
             List<AccommodationReservation> reservations = new();
 
             foreach (var reservation in GetAllReservations())
             {
-                if (reservation.AccommodationId == id)
+                if (reservation.AccommodationId == accommodationId)
                 {
                     reservations.Add(reservation);
                 }
@@ -112,6 +179,11 @@ namespace Project.Service
         public List<AccommodationReservation> GetAllReservations()
         {
             return _reservationRepository.GetAllReservations();
+        }
+
+        public AccommodationReservation GetReservationById(int reservationId)
+        {
+            return _reservationRepository.GetReservationById(reservationId);
         }
 
 

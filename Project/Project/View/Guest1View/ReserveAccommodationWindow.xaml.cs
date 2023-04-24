@@ -350,7 +350,7 @@ namespace Project.View.Guest1View
 
             if (result == MessageBoxResult.Yes)
             {
-                SelectedReservation.Guest = Controller.Guest;
+                //SelectedReservation.Guest = Controller.Guest;
                 SelectedReservation.Accommodation = Accommodation;
                 Controller.AddReservation(SelectedReservation);
                 this.Close();

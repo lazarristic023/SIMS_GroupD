@@ -1,5 +1,6 @@
 ﻿using Project.Model;
 using Project.Serializer;
+using Project.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,35 +9,35 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class OwnerReviewRepository
+    public class OwnerReviewRepository : IOwnerReviewRepository
     {
         private const string FilePath = "../../../Resources/Data/ownerReview.csv";
 
-        private readonly Serializer<OwnerReview> serializer;
+        private readonly Serializer<OwnerReview> _serializer;
 
-        private List<OwnerReview> reviews;
+        private List<OwnerReview> _reviews;
 
         public OwnerReviewRepository()
         {
-            serializer = new Serializer<OwnerReview>();
-            reviews = serializer.FromCSV(FilePath);
+            _serializer = new Serializer<OwnerReview>();
+            _reviews = _serializer.FromCSV(FilePath);
         }
 
         private void SaveInFile()
         {
-            serializer.ToCSV(FilePath, reviews);
+            _serializer.ToCSV(FilePath, _reviews);
         }
 
         private int GenerateId()
         {
-            if (reviews.Count == 0) return 0;
-            return reviews[reviews.Count - 1].Id + 1;
+            if (_reviews.Count == 0) return 0;
+            return _reviews[_reviews.Count - 1].Id + 1;
         }
 
         public OwnerReview Add(OwnerReview review)
         {
             review.Id = GenerateId();
-            reviews.Add(review);
+            _reviews.Add(review);
             SaveInFile();
             return review;
         }
@@ -44,16 +45,15 @@ namespace Project.Repository
 
         public OwnerReview AddOrUpdate(OwnerReview review)
         {
-            OwnerReview oldReview = GetReviewByIds(review.Guest1Id, review.OwnerId);
+            OwnerReview oldReview = GetReviewByReservationId(review.ReservationId);
             if (oldReview == null)
             {
                 review.Id = GenerateId();
-                reviews.Add(review);
+                _reviews.Add(review);
                 SaveInFile();
                 return review;
             }
-            oldReview.OwnerId = review.OwnerId;
-            oldReview.Guest1Id = review.Guest1Id;
+            oldReview.ReservationId = review.ReservationId;
             oldReview.Cleanliness = review.Cleanliness;
             oldReview.HousePolicies = review.HousePolicies;
             oldReview.Comment = review.Comment;
@@ -67,8 +67,7 @@ namespace Project.Repository
             OwnerReview oldReview = GetReviewById(review.Id);
             if (oldReview == null) return null;
 
-            oldReview.OwnerId = review.OwnerId;
-            oldReview.Guest1Id = review.Guest1Id;
+            oldReview.ReservationId = review.ReservationId;
             oldReview.Cleanliness = review.Cleanliness;
             oldReview.HousePolicies = review.HousePolicies;
             oldReview.Comment = review.Comment;
@@ -81,24 +80,24 @@ namespace Project.Repository
             OwnerReview review = GetReviewById(id);
             if (review == null) return null;
 
-            reviews.Remove(review);
+            _reviews.Remove(review);
             SaveInFile();
             return review;
         }
 
         public OwnerReview GetReviewById(int id)
         {
-            return reviews.Find(v => v.Id == id);
+            return _reviews.Find(v => v.Id == id);
         }
 
-        public OwnerReview GetReviewByIds(int id1, int id2)
+        public OwnerReview GetReviewByReservationId(int reservationId)
         {
-            return reviews.Find(v => v.Guest1Id == id1 & v.OwnerId == id2);
+            return _reviews.Find(r => r.ReservationId == reservationId);
         }
 
         public List<OwnerReview> GetAllReviews()
         {
-            return reviews;
+            return _reviews;
         }
 
     }

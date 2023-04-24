@@ -5,38 +5,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Project.RepositoryInterfaces;
 
 namespace Project.Repository
 {
-    public class Guest1ReviewRepository
+    public class Guest1ReviewRepository : IGuest1ReviewRepository
     {
         private const string FilePath = "../../../Resources/Data/guest1Reviews.csv";
 
         private readonly Serializer<Guest1Review> _serializer;
 
-        private List<Guest1Review> reviews;
+        private List<Guest1Review> _reviews;
 
         public Guest1ReviewRepository()
         {
             _serializer = new Serializer<Guest1Review>();
-            reviews = _serializer.FromCSV(FilePath);
+            _reviews = _serializer.FromCSV(FilePath);
         }
 
         private void SaveInFile()
         {
-            _serializer.ToCSV(FilePath, reviews);
+            _serializer.ToCSV(FilePath, _reviews);
         }
 
         private int GenerateId()
         {
-            if (reviews.Count == 0) return 0;
-            return reviews[reviews.Count - 1].Id + 1;
+            if (_reviews.Count == 0) return 0;
+            return _reviews[_reviews.Count - 1].Id + 1;
         }
 
         public Guest1Review Add(Guest1Review review)
         {
             review.Id = GenerateId();
-            reviews.Add(review);
+            _reviews.Add(review);
             SaveInFile();
             return review;
         }
@@ -60,19 +61,19 @@ namespace Project.Repository
             Guest1Review review = GetReviewById(id);
             if (review == null) return null;
 
-            reviews.Remove(review);
+            _reviews.Remove(review);
             SaveInFile();
             return review;
         }
 
         public Guest1Review GetReviewById(int id)
         {
-            return reviews.Find(v => v.Id == id);
+            return _reviews.Find(v => v.Id == id);
         }
 
         public List<Guest1Review> GetAllReviews()
         {
-            return reviews;
+            return _reviews;
         }
     }
 }

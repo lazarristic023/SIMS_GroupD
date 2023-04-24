@@ -1,6 +1,7 @@
 ﻿using Project.Model;
 using Project.Observer;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,31 +12,23 @@ namespace Project.Service
 {
     public class MoveRequestService
     {
-        private MoveRequestRepository _requestRepository;
+        private IMoveRequestRepository _requestRepository;
 
         private AccommodationReservationService _reservationService;
 
         public MoveRequestService()
         {
-            _requestRepository = new MoveRequestRepository();
+            _requestRepository = Injector.Injector.CreateInstance<IMoveRequestRepository>();
             _reservationService = new AccommodationReservationService();
             LinkRequestsAndReservations();
         }
 
-        public bool Create(AccommodationReservation reservation, DateTime startDate, DateTime endDate, string message)
+        public void Add(MoveRequest request)
         {
-            if(!_reservationService.IsAccommodationFree(startDate, endDate, reservation.AccommodationId))
-                return false;
-
-            if(DoesRequestAlreadyExist(reservation)) return false;
-
-            MoveRequest request = new(reservation.Accommodation.OwnerId, reservation.GuestId, reservation.Id, MoveRequestStatus.PENDING, "", message, startDate, endDate);
             _requestRepository.Add(request);
-            LinkRequestsAndReservations();
-            return true;
         }
 
-        private bool DoesRequestAlreadyExist(AccommodationReservation reservation)
+        public bool DoesRequestAlreadyExist(AccommodationReservation reservation)
         {
             MoveRequest request = _requestRepository.GetAllRequests().Find(r => (r.ReservationId == reservation.Id) && (r.Status == MoveRequestStatus.PENDING));
 
@@ -44,9 +37,9 @@ namespace Project.Service
 
         public List<MoveRequest> GetGuestsPendingRequests(int guestId)
         {
-            List<MoveRequest> requests = new(GetGuestsMoveRequests(guestId));
+            List<MoveRequest> requests = new(GetGuestsAllRequests(guestId));
 
-            foreach (var request in GetGuestsMoveRequests(guestId))
+            foreach (var request in GetGuestsAllRequests(guestId))
             {
                 if (request.Status != MoveRequestStatus.PENDING)
                 {
@@ -59,9 +52,9 @@ namespace Project.Service
 
         public List<MoveRequest> GetGuestsAcceptedRequests(int guestId)
         {
-            List<MoveRequest> requests = new(GetGuestsMoveRequests(guestId));
+            List<MoveRequest> requests = new(GetGuestsAllRequests(guestId));
 
-            foreach (var request in GetGuestsMoveRequests(guestId))
+            foreach (var request in GetGuestsAllRequests(guestId))
             {
                 if (request.Status != MoveRequestStatus.ACCEPTED)
                 {
@@ -74,9 +67,9 @@ namespace Project.Service
 
         public List<MoveRequest> GetGuestsDeclinedRequests(int guestId)
         {
-            List<MoveRequest> requests = new(GetGuestsMoveRequests(guestId));
+            List<MoveRequest> requests = new(GetGuestsAllRequests(guestId));
 
-            foreach (var request in GetGuestsMoveRequests(guestId))
+            foreach (var request in GetGuestsAllRequests(guestId))
             {
                 if (request.Status != MoveRequestStatus.DECLINED)
                 {
@@ -87,13 +80,13 @@ namespace Project.Service
             return requests;
         }
 
-        private List<MoveRequest> GetGuestsMoveRequests(int guestId)
+        private List<MoveRequest> GetGuestsAllRequests(int guestId)
         {
             List<MoveRequest> requests = new();
 
             foreach (var request in _requestRepository.GetAllRequests())
             {
-                if (request.GuestId == guestId)
+                if (request.Reservation.GuestId == guestId)
                 {
                     requests.Add(request);
                 }
@@ -120,6 +113,12 @@ namespace Project.Service
         {
             _requestRepository.Subscribe(observer);
         }
+
+        public bool IsAccommodationFree(AccommodationReservation reservation, DateTime startDate, DateTime endDate)
+        {
+            return _reservationService.IsAccommodationFree(startDate, endDate, reservation.AccommodationId);
+        }
+
 
     }
 }
