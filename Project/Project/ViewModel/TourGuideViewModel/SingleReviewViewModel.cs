@@ -181,7 +181,9 @@ namespace Project.ViewModel.TourGuideViewModel
 
         private bool CanMakeInvalid()
         {
-            return _tourReviewService.IsValid(Id);
+
+				return _tourReviewService.IsValid(Id);
+            
         }
 
         private void MakeInvalid()

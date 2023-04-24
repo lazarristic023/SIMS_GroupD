@@ -231,6 +231,5 @@ namespace Project.View.TourGuideView
             reviews.Show();
         }
 
-
     }
 }

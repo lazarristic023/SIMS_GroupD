@@ -97,7 +97,12 @@ namespace Project.Repository
         public bool IsValid(int id)
         {
             TourReview tourReview = tourReviews.Find(v => v.Id == id);
-            return tourReview.IsValid;
+            if(tourReview != null)
+            {
+                return tourReview.IsValid;
+            }
+            return false;
+            
         }
 
         public void NotifyObservers()

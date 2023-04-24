@@ -30,10 +30,5 @@ namespace Project.View.TourGuideView
             vm.ClosingRequest += (sender, e) => this.Close();
         }
 
-        //private void closeBtn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Close();
-        //}
-
     }
 }

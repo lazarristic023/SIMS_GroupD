@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
-        Title="SingleReview" Height="450" Width="500" WindowStartupLocation="CenterOwner" Background="LightBlue">
+        Title="SingleReview" Height="450" Width="500" WindowStartupLocation="CenterScreen" Background="LightBlue">
 
     <Window.Resources>
         <Style TargetType="TextBox">

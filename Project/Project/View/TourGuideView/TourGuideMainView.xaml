@@ -8,11 +8,8 @@
         Title="TourGuideMainView" Height="600" Width="800" Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen">
     <Grid Background="LightBlue">
+
         <DockPanel>
-
-
-
-
 
             <DockPanel>
 
@@ -130,7 +127,8 @@
                                   SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                                   AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
                                       SelectionChanged="myTourDataGrid_SelectionChanged"
-                                      Background="#F4F1De">
+                                      Background="#F4F1De"
+                              GridLinesVisibility="None">
                         <DataGrid.RowStyle>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
