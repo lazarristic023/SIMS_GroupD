@@ -5,22 +5,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
-namespace Project.Commands.Guest1Commands.WindowHyperlinkCommands
+namespace Project.Command.Guest1Commands.WindowLinkCommands
 {
-    public class ProfileHyperlinkCommand : CommandBase
+    public class YourReservationsLinkCommand : CommandBase
     {
         private readonly ViewModelBase viewModelBase;
 
-        public ProfileHyperlinkCommand(ViewModelBase viewModelBase)
+        public YourReservationsLinkCommand(ViewModelBase viewModelBase)
         {
             this.viewModelBase = viewModelBase;
         }
 
         public override void Execute(object? parameter)
         {
-            ProfileWindow profileWindow = new ProfileWindow(viewModelBase.User);
-            profileWindow.Show();
+            YourReservationsWindow yourReservationsWindow = new YourReservationsWindow(viewModelBase.User);
+            yourReservationsWindow.Show();
             viewModelBase.Window.Close();
         }
     }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Project.Commands
+namespace Project.Command
 {
     public abstract class CommandBase : ICommand
     {

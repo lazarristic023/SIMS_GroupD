@@ -29,12 +29,6 @@ namespace Project.View.Guest1View
             this.DataContext = profileWindowViewModel;
         }
 
-        private void Label_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            MoveReservationWindow moveReservationWindow = new MoveReservationWindow(profileWindowViewModel.User);
-            moveReservationWindow.Show();
-            Close();
-        }
 
     }
 }

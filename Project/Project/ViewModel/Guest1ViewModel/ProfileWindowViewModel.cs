@@ -1,5 +1,4 @@
-﻿using Project.Commands;
-using Project.Commands.Guest1Commands.WindowHyperlinkCommands;
+﻿using Project.Command.Guest1Commands.WindowLinkCommands;
 using Project.Model;
 using Project.Service;
 using System;
@@ -27,10 +26,12 @@ namespace Project.ViewModel.Guest1ViewModel
             RecievedReviews = new ObservableCollection<OwnerReview>();
             User = u;
             Window = window;
-            ProfileLinkCommand = new ProfileHyperlinkCommand(this);
+            ProfileLinkCommand = new ProfileLinkCommand(this);
+            YourReservationsLinkCommand = new YourReservationsLinkCommand(this);
             _reservationReviewService.FillGuestsGivenAndRecievedReviewsLists(GivenReviews, RecievedReviews, User.Id);
         }
 
         public ICommand ProfileLinkCommand { get; }
+        public ICommand YourReservationsLinkCommand { get; }
     }
 }

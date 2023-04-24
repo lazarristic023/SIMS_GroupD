@@ -38,7 +38,7 @@
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2">
                 <Image Height="25" Source="../../Resources/Images/view.png"/>
-                <TextBlock Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Text="Your reservations"/>
+                <Button Command="{Binding Path=YourReservationsLinkCommand}" Background="Transparent" BorderBrush="Transparent" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="_Your reservations"/>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3">
