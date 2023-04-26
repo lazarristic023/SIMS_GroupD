@@ -14,6 +14,7 @@ namespace Project.Service
         private readonly Guest1ReviewService _guest1ReviewService;
         private readonly AccommodationReservationService _reservationService;
         private readonly IOwnerReviewRepository _ownerReviewRepository;
+        private readonly Guest1NotificationService _guest1NotificationService;
 
         public AccommodationReservationReviewService()
         {
@@ -21,6 +22,7 @@ namespace Project.Service
             //_guest1ReviewService = Injector.Injector.CreateInstance<Guest1ReviewService>();
             _reservationService = new AccommodationReservationService();
             _guest1ReviewService = new Guest1ReviewService();
+            _guest1NotificationService = new Guest1NotificationService();
             _ownerReviewRepository = Injector.Injector.CreateInstance<IOwnerReviewRepository>();
             LinkReservationsAndReviews();
         }
@@ -129,6 +131,20 @@ namespace Project.Service
                 }
             }
 
+        }
+
+        public void RemindGuestToRate(int guestId)
+        {
+            foreach (var reservation in _reservationService.GetGuestsFormerReservations(guestId))
+            {
+
+                if (reservation.EndDate.AddDays(5).Date >= DateTime.Now.Date && reservation.GuestReview == null)
+                {
+                    string msg = $"You still have not rated reservation: Accommodation Name: {reservation.Accommodation.Name}, Start date: {reservation.StartDate}, End date: {reservation.EndDate} .";
+                    Guest1Notification notification = new Guest1Notification(guestId, 0, msg);
+                    _guest1NotificationService.Add(notification);
+                }
+            }
         }
 
 

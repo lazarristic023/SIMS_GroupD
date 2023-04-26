@@ -86,7 +86,8 @@ namespace Project.View
                             ProfileWindow profileWindow = new ProfileWindow(user);
                             profileWindow.Show();
                             Close();
-                            //guest1View.ShowNotifications(user.Id);
+                            profileWindow.RemindGuestToRate();
+                            profileWindow.ShowNotifications();
                             break;
 
                         default:

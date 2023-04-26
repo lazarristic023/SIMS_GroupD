@@ -21,18 +21,18 @@ namespace Project.View.Guest1View
     /// </summary>
     public partial class AccommodationInfoWindow : Window
     {
-        public Guest1Controller Controller { get; set; }
         public Accommodation ChosenAccommodation { get; set; }
+        private User user;
 
         public List<AccommodationImage> Images { get; set; }
 
         int i = 0;
 
-        public AccommodationInfoWindow(Guest1Controller guest1Controller, Accommodation accommodation)
+        public AccommodationInfoWindow(Accommodation accommodation, User u)
         {
             InitializeComponent();
             DataContext = this;
-            Controller = guest1Controller;
+            user = u;
             ChosenAccommodation = accommodation;
             Images = new List<AccommodationImage>(ChosenAccommodation.GetAccommodationImages());
         }
@@ -63,7 +63,7 @@ namespace Project.View.Guest1View
 
         private void btMakeReserv_Click(object sender, RoutedEventArgs e)
         {
-            ReserveAccommodationWindow reserveWindow = new ReserveAccommodationWindow(Controller, ChosenAccommodation);
+            ReserveAccommodationWindow reserveWindow = new ReserveAccommodationWindow(ChosenAccommodation, user);
             reserveWindow.Show();
         }
     }

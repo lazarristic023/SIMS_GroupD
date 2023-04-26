@@ -1,5 +1,6 @@
 ﻿using Project.Controller;
 using Project.Model;
+using Project.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,7 +23,10 @@ namespace Project.View.Guest1View
     /// </summary>
     public partial class ReserveAccommodationWindow : Window
     {
-        public Guest1Controller Controller { get; set; }
+        //public Guest1Controller Controller { get; set; }
+
+        private readonly AccommodationReservationService accommodationReservationService;
+        private readonly User user;
         public Accommodation Accommodation { get; set; }
 
         int repetition = 0;
@@ -34,12 +38,14 @@ namespace Project.View.Guest1View
 
         public DateTime EndDate { get; set; } = DateTime.Now.Date;
 
-        public ReserveAccommodationWindow(Guest1Controller controller, Accommodation accommodation)
+        public ReserveAccommodationWindow(Accommodation accommodation, User u)
         {
             InitializeComponent();
             DataContext = this;
-            Controller = controller;
+            //Controller = controller;
+            accommodationReservationService = new AccommodationReservationService();
             Accommodation = accommodation;
+            user = u;
             FreeReservations = new ObservableCollection<AccommodationReservation>();
 
         }
@@ -49,14 +55,7 @@ namespace Project.View.Guest1View
         {
             if (EndDate < DateTime.Now.Date)
             {
-                string sMessageBoxText = $"You have not chosen valid end date!";
-                string sCaption = "Input error: End date";
-
-                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
-                MessageBoxImage icnMessageBox = MessageBoxImage.Error;
-
-
-                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                MessageBox.Show("You have not chosen valid end date!", "Input error: End date", MessageBoxButton.OK, MessageBoxImage.Error);
                 dpEnd.SelectedDate = DateTime.Now.Date;
             }
 
@@ -298,7 +297,7 @@ namespace Project.View.Guest1View
         {
             List<AccommodationReservation> reservations = new List<AccommodationReservation>();
 
-            foreach (var reservation in Controller.GetAllReservations())
+            foreach (var reservation in accommodationReservationService.GetAllReservations())
             {
                 if (reservation.AccommodationId == Accommodation.Id)
                 {
@@ -318,42 +317,29 @@ namespace Project.View.Guest1View
         {
             if (SelectedReservation == null)
             {
-                string sMessageBoxText = $"Choose a reservation first!";
-                string sCaption = "Reservation not chosen";
-
-                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
-                MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
-
-
-                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                MessageBox.Show("Choose a reservation first!", "Reservation not chosen",MessageBoxButton.OK,MessageBoxImage.Warning);
                 return;
             }
 
-            var reservation = Controller.Guest.Reservations.Find(r => (r.AccommodationId == SelectedReservation.AccommodationId) &&
+            var reservation = accommodationReservationService.GetAllReservations().Find(r => (r.AccommodationId == SelectedReservation.AccommodationId) &&
+                                                    (r.GuestId == user.Id) &&
                                                     (r.StartDate == SelectedReservation.StartDate) &&
                                                     (r.EndDate == SelectedReservation.EndDate));
             if (reservation != null)
             {
-                string sMessageBoxText = $"You have already made this reservation!";
-                string sCaption = "Reservation already exists";
-
-                MessageBoxButton btnMessageBox = MessageBoxButton.OK;
-                MessageBoxImage icnMessageBox = MessageBoxImage.Error;
-
-
-                MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+                MessageBox.Show("You have already made this reservation!", "Reservation already exists", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to reserve this accommodation at chosen date?", "Confirm reservation",
+            MessageBoxResult result = MessageBox.Show($"Are you sure you want to reserve this accommodation at chosen date?\n\nAccommodation Name: {Accommodation.Name}\nNumber of guests: {tbGuests.Text}\nStart date: {SelectedReservation.StartDate}\nEnd date: {SelectedReservation.EndDate}", "Confirm reservation",
                     MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
-                //SelectedReservation.Guest = Controller.Guest;
                 SelectedReservation.Accommodation = Accommodation;
-                Controller.AddReservation(SelectedReservation);
-                this.Close();
+                SelectedReservation.Guest = user;
+                accommodationReservationService.Add(SelectedReservation);
+                Close();
 
             }
 
@@ -404,7 +390,7 @@ namespace Project.View.Guest1View
                 }
 
                 AccommodationReservation reservation =
-                    new(0, date, date.AddDays(numOfDays), Controller.Guest.User.Id, Accommodation.Id, guests);
+                    new(0, date, date.AddDays(numOfDays), user.Id, Accommodation.Id, guests);
 
                 FreeReservations.Add(reservation);
 

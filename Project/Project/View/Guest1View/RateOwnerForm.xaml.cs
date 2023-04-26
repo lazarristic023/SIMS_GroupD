@@ -33,11 +33,11 @@ namespace Project.View.Guest1View
         private Guest1RemindNotificationService _remindNotificationService { get; set; }
 
         private User user;
-        public int Cleanliness { get; set; }
-        public int OwnerBehaviour { get; set; }
+        public int Cleanliness { get; set; } = 1;
+        public int OwnerBehaviour { get; set; } = 1;
         public string Comment { get; set; } = string.Empty;
 
-        public int RenovationEmergencyLevel { get; set; }
+        public int RenovationEmergencyLevel { get; set; } = 0;
         public ObservableCollection<string> ImageUrls { get; set; }
 
         public AccommodationReservation SelectedReservation { get; set; }
@@ -121,13 +121,13 @@ namespace Project.View.Guest1View
         {
             if (SelectedReservation.OwnerReview != null)
             {
-                string msg = $"Guest {user.Username} has rated you for reservation: Accommodation name: {SelectedReservation.Accommodation.Name}, Start date: {SelectedReservation.StartDate.Date}, End date: {SelectedReservation.EndDate.Date}";
+                string msg = $"Guest {user.Username} has rated you for reservation: Accommodation _name: {SelectedReservation.Accommodation.Name}, Start date: {SelectedReservation.StartDate.Date}, End date: {SelectedReservation.EndDate.Date}";
                 OwnerNotification notifiation = new OwnerNotification(user.Id, SelectedReservation.Accommodation.OwnerId, msg);
                 _ownerNotificationService.Add(notifiation);
             }
             else
             {
-                string msg = $"Guest {user.Username} has rated you for reservation: Accommodation name: {SelectedReservation.Accommodation.Name}, Start date: {SelectedReservation.StartDate.Date}, End date: {SelectedReservation.EndDate.Date}. You will be able to see his review once you rate him or when rate period ends.";
+                string msg = $"Guest {user.Username} has rated you for reservation: Accommodation _name: {SelectedReservation.Accommodation.Name}, Start date: {SelectedReservation.StartDate.Date}, End date: {SelectedReservation.EndDate.Date}. You will be able to see his review once you rate him or when rate period ends.";
                 OwnerNotification notifiation = new OwnerNotification(user.Id, SelectedReservation.Accommodation.OwnerId, msg);
                 _ownerNotificationService.Add(notifiation);
             }

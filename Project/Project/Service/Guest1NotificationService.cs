@@ -1,5 +1,6 @@
 ﻿using Project.Model;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using Project.View.Guest1View;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,12 @@ namespace Project.Service
 {
     public class Guest1NotificationService
     {
-        private readonly Guest1NotificationRepository _repository;
+        private readonly IGuest1NotificationRepository _repository;
 
 
         public Guest1NotificationService()
         {
-            _repository = new Guest1NotificationRepository();
+            _repository = Injector.Injector.CreateInstance<IGuest1NotificationRepository>();
         }
 
         public void NotifyGuest(Notifier notifier, int userId)

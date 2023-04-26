@@ -29,6 +29,16 @@ namespace Project.View.Guest1View
             this.DataContext = profileWindowViewModel;
         }
 
+        public void RemindGuestToRate()
+        {
+            profileWindowViewModel.RemindGuestToRate();
+        }
+
+        public void ShowNotifications()
+        {
+            profileWindowViewModel.ShowNotifications();
+        }
+
 
     }
 }

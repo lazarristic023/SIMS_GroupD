@@ -48,7 +48,7 @@
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4">
                 <Image Height="25" Source="../../Resources/Images/searchIcon.png"/>
-                <Label Margin="5,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="Search accommodatons"/>
+                <Button Command="{Binding Path=SearchAccommodationsLinkCommand}" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="5,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="_Search accommodations"/>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5">

@@ -41,6 +41,7 @@ namespace Project.View.Guest1View
         public ICommand ProfileLinkCommand { get; }
         public ICommand YourReservationsLinkCommand { get; }
         public ICommand MoveReservationLinkCommand { get; }
+        public ICommand SearchAccommodationsLinkCommand { get; }
 
 
         public YourReservationsWindow(User user)
@@ -59,6 +60,7 @@ namespace Project.View.Guest1View
             ProfileLinkCommand = new ProfileLinkCommand(viewModelBase);
             YourReservationsLinkCommand = new YourReservationsLinkCommand(viewModelBase);
             MoveReservationLinkCommand = new MoveReservationLinkCommand(viewModelBase);
+            SearchAccommodationsLinkCommand = new SearchAccommodationsLinkCommand(viewModelBase);
 
             CurrentReservations = new ObservableCollection<AccommodationReservation>(_reservationService.GetGuestsCurrentReservations(User.Id));
             FormerReservations = new ObservableCollection<AccommodationReservation>(_reservationService.GetGuestsFormerReservations(User.Id));
@@ -71,12 +73,17 @@ namespace Project.View.Guest1View
             {
                 return;
             }
-            string msg = $"Guest {User.Username} has cancelled reservation: Accommodation name: {SelectedReservation.Accommodation.Name}, Start date: {SelectedReservation.StartDate}, End date: {SelectedReservation.EndDate} ";
+
+            MessageBoxResult result = MessageBox.Show($"Are you sure you want to cancel this reservation?\n\nAccommodation Name: {SelectedReservation.Accommodation.Name}\nStart date: {SelectedReservation.StartDate}\nEnd date: {SelectedReservation.EndDate}", "Confirm cancellation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+            string msg = $"Guest {User.Username} has cancelled reservation: Accommodation Name: {SelectedReservation.Accommodation.Name}, Start date: {SelectedReservation.StartDate}, End date: {SelectedReservation.EndDate} ";
             NotifyOwner(msg);
 
             _reservationService.Remove(SelectedReservation);
 
-            MessageBox.Show("Reservation successfully cancelled!");
         }
 
         private bool CheckCancellationPeriod()
@@ -89,7 +96,7 @@ namespace Project.View.Guest1View
 
             if (DateTime.Now.AddDays((double)SelectedReservation.Accommodation.CancellationPeriod) > SelectedReservation.StartDate)
             {
-                MessageBox.Show("You can not cancel this reservation, cancellation period has passed!");
+                MessageBox.Show("You can not cancel this reservation, cancellation period has passed!", "Cancellation period passed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return false;
             }
 
@@ -143,7 +150,7 @@ namespace Project.View.Guest1View
 
             if (SelectedReservation.EndDate >= DateTime.Now.Date)
             {
-                MessageBox.Show("You will be able to rate owner and accommodation when reservation finishes.");
+                MessageBox.Show("You will be able to rate owner and accommodation when reservation finishes.", "",MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 return false;
             }
 
@@ -155,7 +162,7 @@ namespace Project.View.Guest1View
 
             if (SelectedReservation.GuestReview != null)
             {
-                MessageBox.Show("You have already rated this reservation!");
+                MessageBox.Show("You have already rated this reservation!", "Already rated", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
