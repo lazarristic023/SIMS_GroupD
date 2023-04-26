@@ -126,14 +126,6 @@
 
                             <Button x:Name="AddDate" Grid.Row="0" Grid.Column="1" Margin="2,2,2,5" Content="Add date to list" Click="AddDate_Click"/>
 
-                            <!--<DataGrid Grid.Row="2" Grid.ColumnSpan="2">
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn Header="Date" Width="*"></DataGridTextColumn>
-                                                <DataGridTextColumn Header="Time" Width="*"></DataGridTextColumn>
-
-                                            </DataGrid.Columns>
-                                        </DataGrid>-->
-
                             <ListBox x:Name="dateTimeList" Grid.Row="2" Grid.ColumnSpan="2">
 
                             </ListBox>
