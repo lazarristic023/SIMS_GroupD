@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Project.RepositoryInterfaces;
 
 namespace Project.Repository
 {
-    public class TourReservationRepository : ISubject
+    public class TourReservationRepository : ISubject,ITourReservationRepository
     {
         private const string FilePath = "../../../Resources/Data/tourReservations.csv";
 

@@ -19,13 +19,11 @@ namespace Project.Repository
         private readonly List<IObserver> _observers;
 
         private List<Tour> tours;
-        private readonly LocationController _locationController;
 
         public TourRepository(){
             serializer = new Serializer<Tour>();
             tours = serializer.FromCSV(FilePath);
             _observers = new List<IObserver>();
-            _locationController = new LocationController();
         }
 
         private void SaveInFile()

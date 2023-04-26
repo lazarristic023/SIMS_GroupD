@@ -11,7 +11,7 @@ using Project.RepositoryInterfaces;
 
 namespace Project.Repository
 {
-    public class LocationRepository: ISubject
+    public class LocationRepository: ISubject, ILocationRepository
     {
         private const string FilePath = "../../../Resources/Data/locations.csv";
 
@@ -42,11 +42,24 @@ namespace Project.Repository
 
         public Location Add(Location location)
         {
-            location.Id = GenerateId();
-            locations.Add(location);
-            SaveInFile();
-            NotifyObservers();
-            return location;
+            
+            int locid = GetLocationByCityAndCountry(location);
+
+            if (locid != -2)
+            {
+                SaveInFile();
+                NotifyObservers();
+                return GetLocationById(locid);
+            }
+            else
+            {
+                location.Id = GenerateId();
+                locations.Add(location);
+                SaveInFile();
+                NotifyObservers();
+                return location;
+            }
+            
         }
 
         public Location Update(Location location)
@@ -77,6 +90,18 @@ namespace Project.Repository
             return locations.Find(v => v.Id == id);
         }
 
+        public int GetLocationByCityAndCountry(Location location)
+        {
+            int id = -2;
+            foreach(Location loc in GetAllLocations())
+            {
+                if(loc.City == location.City && loc.Country == location.Country)
+                {
+                    id = loc.Id;
+                }
+            }
+            return id;
+        }
         public string GetCountryById(int id)
         { 
             Location location = GetLocationById(id);

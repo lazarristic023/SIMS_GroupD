@@ -1,4 +1,5 @@
-﻿using Project.Model;
+﻿using Project.Controller;
+using Project.Model;
 using Project.Observer;
 using Project.Repository;
 using Project.RepositoryInterfaces;
@@ -15,12 +16,14 @@ namespace Project.Service
     {
         //TourRepository tourRepository;
         private ITourRepository tourRepository;
+        LocationController locationController;
         AppointmentService appointmentService;
 
         public TourService()
         {
             tourRepository = Injector.Injector.CreateInstance<ITourRepository>();
             appointmentService = new AppointmentService();
+            locationController = new LocationController();
 
         }
 
@@ -72,6 +75,7 @@ namespace Project.Service
                 foreach(Appointment appointment in appointments)
                 {
                     Tour newTour = new Tour(tour,appointment);
+                    newTour.Location = locationController.GetById(newTour.LocationId);
                     tourAppointments.Add(newTour);
                 }
             }

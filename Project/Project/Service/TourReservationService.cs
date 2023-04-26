@@ -1,5 +1,6 @@
 ﻿using Project.Model;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,14 @@ namespace Project.Service
 {
     public class TourReservationService
     {
-        TourReservationRepository tourReservationRepository;
+        //TourReservationRepository tourReservationRepository;
+        private ITourReservationRepository tourReservationRepository;
         UserRepository userRepository;
 
         public TourReservationService()
         {
-            tourReservationRepository = new TourReservationRepository();
+            //tourReservationRepository = new TourReservationRepository();
+            tourReservationRepository = Injector.Injector.CreateInstance<ITourReservationRepository>();
             userRepository = new UserRepository();
         }
 

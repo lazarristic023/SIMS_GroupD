@@ -136,6 +136,7 @@ namespace Project.View.TourGuideView
             _appointmentService.CompleteTour(appointmentId);
             MessageBox.Show("The tour is over");
             Close();
+            this.Owner.Close();
         }
 
         private void nextPoint_Click(object sender, RoutedEventArgs e)

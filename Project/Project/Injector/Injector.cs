@@ -29,8 +29,11 @@ namespace Project.Injector
             {typeof(ITourPointsListRepository), new TourPointsListRepository() },
             {typeof(IPresentGuestsRepository), new PresentGuestsRepository() },
             {typeof(IAppointmentRepository), new AppointmentRepository() },
+            {typeof(ILocationRepository), new LocationRepository() },
             {typeof(ICouponRepository), new CouponRepository() },
-            //{typeof(ILocationRepository), new LocationRepository() },
+            {typeof(IImageRepository), new ImageRepository() },
+            {typeof(ITourReservationRepository), new TourReservationRepository() },
+            
 
         // Services 
         //{ typeof(Guest1ReviewService), new Guest1ReviewService() },

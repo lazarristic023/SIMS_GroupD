@@ -12,13 +12,13 @@ namespace Project.Controller
 {
     public class LocationController
     {
-        //private ILocationRepository locationRepository;
-        LocationRepository locationRepository { get; set; }
+        private ILocationRepository locationRepository;
+        //LocationRepository locationRepository { get; set; }
 
         public LocationController()
         {
-            //locationRepository = Injector.Injector.CreateInstance<ILocationRepository>();
-            locationRepository = new LocationRepository();
+            //locationRepository = new LocationRepository();
+            locationRepository = Injector.Injector.CreateInstance<ILocationRepository>();
         }
 
         public Location Create(string city, string country)
