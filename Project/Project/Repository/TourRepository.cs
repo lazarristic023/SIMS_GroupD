@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Project.Observer;
 using Project.Controller;
+using Project.RepositoryInterfaces;
 
 namespace Project.Repository
 {
-    public class TourRepository: ISubject
+    public class TourRepository: ISubject, ITourRepository
     {
         private const string FilePath = "../../../Resources/Data/tours.csv";
 
@@ -18,13 +19,11 @@ namespace Project.Repository
         private readonly List<IObserver> _observers;
 
         private List<Tour> tours;
-        private readonly LocationController _locationController;
 
         public TourRepository(){
             serializer = new Serializer<Tour>();
             tours = serializer.FromCSV(FilePath);
             _observers = new List<IObserver>();
-            _locationController = new LocationController();
         }
 
         private void SaveInFile()
@@ -69,6 +68,23 @@ namespace Project.Repository
         {
             return tours;
         }
+
+        public List<Tour> FindAllAlternatives(Tour tour, int numberOfGuests)
+        {
+            List<Tour> alternative = new List<Tour>();
+            List<Tour> tours = GetAll();
+            
+            foreach(Tour t in tours)
+            {
+                if (t.City.Equals(tour.City) && t.MaxGuests >= numberOfGuests)
+                {
+                    alternative.Add(t);
+                }
+            }
+            return alternative;
+        }
+
+
 
         public void Subscribe(IObserver observer)
         {

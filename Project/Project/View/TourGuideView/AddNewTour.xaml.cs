@@ -43,35 +43,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _country;
-        public string Country
-        {
-            get => _country;
-            set
-            {
-                if (value != _country)
-                {
-                    _country = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _city;
-        public string City
-        {
-            get => _city;
-            set
-            {
-                if (value != _city)
-                {
-                    _city = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _name;
+        private string _name = string.Empty;
         public string NameOfTour
         {
             get => _name;
@@ -86,7 +58,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _description;
+        private string _description = string.Empty;
         public string Description
         {
             get => _description;
@@ -100,7 +72,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _language;
+        private string _language = string.Empty;
         public string LanguageOfTour
         {
             get => _language;
@@ -142,7 +114,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _startTime;
+        private string _startTime = string.Empty;
         public string StartTime
         {
             get => _startTime;
@@ -170,7 +142,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _coverImageUrl;
+        private string _coverImageUrl = string.Empty;
 
 
         public string CoverImageUrl
@@ -215,41 +187,49 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private readonly TourGuideController _tourGuideController;
         private readonly ImageController _imageController;
-        private readonly TourPointController _tourPointController;
+        //private readonly TourPointController _tourPointController;
         private readonly TourPointsListController _tourPointsListController;
         private readonly LocationController _locationController;
-        private readonly AppointmentController _appointmentController;
 
-        TourService tourService;
+
+        private readonly TourService _tourService;
+        private readonly AppointmentService _appointmentService;
+        private readonly TourPointService _tourPointService;
 
         List<DateTime> dates = new List<DateTime>();
         List<string> images = new List<string>();
         List<int> pointsIds = new List<int>();
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public AddNewTour(TourGuideController tourGuideController,ImageController imageController,
-                            TourPointController tourPointController,TourPointsListController tourPointsListController, LocationController locationController,
-                            AppointmentController appointmentController)
+        public AddNewTour(TourService tourService/*, ImageController imageController,
+                            TourPointsListController tourPointsListController, LocationController locationController*/,
+                            AppointmentService appointmentService)
         {
             InitializeComponent();
             DataContext = this;
 
-            _tourGuideController = tourGuideController;
-            _imageController = imageController;
-            _tourPointController = tourPointController;
-            _tourPointsListController = tourPointsListController;
-            _locationController = locationController;
-            _appointmentController = appointmentController;
+            //_imageController = imageController;
+            //_tourPointController = tourPointController;
+            //_tourPointService = new TourPointService();
+            //_tourPointsListController = tourPointsListController;
+            //_locationController = locationController;
 
-            tourService = new TourService();
+            //_tourService = tourService;
+            //_appointmentService = appointmentService;
+
+            _imageController = new ImageController();
+            _tourPointsListController = new TourPointsListController();
+            _tourPointService = new TourPointService();
+            _locationController = new LocationController();
+            _tourService = tourService;
+            _appointmentService = appointmentService;
+
 
             LocationOfTour = new Location();
 
-            StartDate = DateTime.Now;
-
             TodayDate = DateTime.Now;
+            StartDate = DateTime.Now;
 
 
         }
@@ -284,7 +264,7 @@ namespace Project.View.TourGuideView
 
             if (anotherPoint != "")
             {
-                int anotherTourPointId = _tourPointController.Create(anotherPoint, false);
+                int anotherTourPointId = _tourPointService.Create(anotherPoint, false);
                 pointsIds.Add(anotherTourPointId);
             }
 
@@ -315,13 +295,13 @@ namespace Project.View.TourGuideView
 
             //KREIRANJE TOUR-a
 
-            int tourId = _tourGuideController.Create(_location, NameOfTour, Description, LanguageOfTour, MaxGuests, Duration);
+            int tourId  = _tourService.Create(_location, NameOfTour, Description, LanguageOfTour, MaxGuests, Duration);
 
             //KREIRANJE APPOINTMENT-a
 
             foreach(DateTime date in dates)
             {
-                _appointmentController.Create(tourId,date);
+                _appointmentService.Create(tourId,date);
             }
 
             dates.Clear();
@@ -330,8 +310,8 @@ namespace Project.View.TourGuideView
 
             if (startPointTextBox.Text != "" && endPointTextBox.Text != "")
             {
-                int startPointId = _tourPointController.Create(startPointTextBox.Text, false);
-                int endPointId = _tourPointController.Create(endPointTextBox.Text, false);
+                int startPointId = _tourPointService.Create(startPointTextBox.Text, false);
+                int endPointId = _tourPointService.Create(endPointTextBox.Text, false);
                 pointsIds.Insert(0, startPointId);
                 pointsIds.Add(endPointId);
             }
@@ -352,7 +332,7 @@ namespace Project.View.TourGuideView
 
         private void AddDate_Click(object sender, RoutedEventArgs e)
         {
-            DateTime dateAndTime = tourService.BuildDate(StartDate, time.Text);
+            DateTime dateAndTime = _tourService.BuildDate(StartDate, time.Text);
 
             dates.Add(dateAndTime);
             time.Clear();

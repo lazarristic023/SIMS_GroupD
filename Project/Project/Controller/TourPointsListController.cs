@@ -1,6 +1,7 @@
 ﻿using Project.Model;
 using Project.Observer;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,14 @@ namespace Project.Controller
 {
     public class TourPointsListController
     {
-        TourPointsListRepository tourPointsListRepository { get; set; }
+        //TourPointsListRepository tourPointsListRepository { get; set; }
+        private ITourPointsListRepository tourPointsListRepository;
         TourPointController tourPointController { get; set; }
 
         public TourPointsListController()
         {
-            tourPointsListRepository = new TourPointsListRepository();
+            //tourPointsListRepository = new TourPointsListRepository();
+            tourPointsListRepository = Injector.Injector.CreateInstance<ITourPointsListRepository>();
             tourPointController = new TourPointController();
         }
 

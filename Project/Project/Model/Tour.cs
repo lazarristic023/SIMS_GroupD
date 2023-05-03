@@ -13,7 +13,7 @@ namespace Project.Model
 {
     public class Tour: ISerializable
     {
-        public enum STATUS { NOTSTARTED,STARTED,CANCELLED,ACTIVE}
+
         public int Id { get; set; }
         public string Country { get; set; }
         public string City { get; set; }  
@@ -24,10 +24,12 @@ namespace Project.Model
         public string Language { get; set; }
         public int MaxGuests { get; set; }
         public int Duration { get; set; }
-        public STATUS Status { get; set; }
+
+        public Appointment TourAppointment { get; set; }
 
 
-        private readonly LocationController locationController;
+
+        //private readonly LocationController locationController;
 
         public Tour(Location location, string name, string description, string language, int maxGuests, int duration)
         {
@@ -41,8 +43,8 @@ namespace Project.Model
             Location = location;
             Country = location.Country;
             City = location.City;
-            locationController = new LocationController();
-            Status = STATUS.NOTSTARTED;
+            //locationController = new LocationController();
+            TourAppointment = new Appointment();
 
         }
 
@@ -58,8 +60,24 @@ namespace Project.Model
             Location = new Location();
             City = "";
             Country = "";
-            locationController = new LocationController();
-            Status = STATUS.NOTSTARTED;
+            //locationController = new LocationController();
+            TourAppointment = new Appointment();
+        }
+
+        public Tour(Tour tour, Appointment appointment)
+        {
+            Id = tour.Id;
+            LocationId = tour.LocationId;
+            Name = tour.Name;
+            Description = tour.Description;
+            Language = tour.Language;
+            MaxGuests = tour.MaxGuests;
+            Duration = tour.Duration;
+            Location = tour.Location;
+            City = tour.City;
+            Country = tour.Country;
+            //locationController = tour.locationController;
+            TourAppointment = appointment;
         }
 
 
@@ -72,7 +90,6 @@ namespace Project.Model
                 Language,
                 MaxGuests.ToString(),
                 Duration.ToString(),
-                Status.ToString(),
 
             };
             return csvValues;
@@ -87,23 +104,8 @@ namespace Project.Model
             Language = values[4];
             MaxGuests = int.Parse(values[5]);
             Duration = int.Parse(values[6]);
-            Location = locationController.GetById(Id);
-            string status = values[7];
-            switch (status)
-            {
-                case "STARTED":
-                    Status = STATUS.STARTED;
-                    break;
-                case "CANCELLED":
-                    Status = STATUS.CANCELLED;
-                    break;
-                case "ACTIVE":
-                    Status = STATUS.ACTIVE;
-                    break;
-                default:
-                    Status = STATUS.NOTSTARTED;
-                    break;
-            }
+            //Location = locationController.GetById(Id);
+            
         }
     }
 }

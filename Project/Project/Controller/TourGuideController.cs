@@ -15,12 +15,12 @@ namespace Project.Controller
     {
 
         TourRepository tourRepository;
-        private readonly LocationController _locationController;
 
 
         public TourGuideController()
         {
             tourRepository = new TourRepository();
+            
         }
 
 
@@ -54,5 +54,6 @@ namespace Project.Controller
         {
             return tourRepository.GetById(id);
         }
+
     }
 }

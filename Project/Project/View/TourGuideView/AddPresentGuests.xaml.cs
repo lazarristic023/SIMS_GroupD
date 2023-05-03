@@ -1,5 +1,6 @@
 ﻿using Project.Model;
 using Project.Repository;
+using Project.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,10 +25,11 @@ namespace Project.View.TourGuideView
 
         public ObservableCollection<User> Reservations { get; set; }
 
-        public TourReservationRepository reservationRepository;
         public UserRepository userRepository;
-        public PresentGuestsRepository presentGuestsRepository;
-        public AppointmentRepository appointmentRepository;
+
+        private readonly PresentGuestsService presentGuestsService;
+        private readonly TourReservationService tourReservationService;
+
 
         public int tourId { get; set; }
         public int tourPointId { get; set; }
@@ -36,7 +38,7 @@ namespace Project.View.TourGuideView
 
         public List<PresentGuests> presentGuests { get; set; }
 
-        public AddPresentGuests(int id , int tourpointid, int appointmentid, PresentGuestsRepository pGrepository)
+        public AddPresentGuests(int id , int tourpointid, int appointmentid, PresentGuestsService pService)
         {
             InitializeComponent();
             DataContext = this;
@@ -45,48 +47,17 @@ namespace Project.View.TourGuideView
             tourPointId = tourpointid;
             appointmentId = appointmentid;
 
-            reservationRepository = new TourReservationRepository();
             userRepository = new UserRepository();
-            presentGuestsRepository = pGrepository;
+
+            presentGuestsService = pService;
+            tourReservationService = new TourReservationService();
+            
             
             presentGuests = new List<PresentGuests>();
 
-            presentGuests = presentGuestsRepository.GetByAppointmentId(appointmentId);
+            presentGuests = presentGuestsService.GetByAppointmentId(appointmentId);
 
-            Reservations = new ObservableCollection<User>(GetNotPresentGuests());
-        }
-
-
-        public List<User> GetNotPresentGuests()
-        {
-            List<User> notPresent = new List<User>();
-
-            foreach(User guest in GetApproprietReservations())
-            {
-                if (!presentGuestsRepository.GetAllGuestIds().Contains(guest.Id))
-                {
-                    notPresent.Add(guest);
-                }
-            }
-
-            return notPresent;
-        }
-
-
-        public List<User> GetApproprietReservations()
-        {
-            List<TourReservation> tourReservations = reservationRepository.GetAllTourReservations();
-            List<User> approprietReservations = new List<User>();
-
-            foreach (TourReservation reservation in tourReservations)
-            {
-                if (reservation.TourId == tourId)
-                {
-                    approprietReservations.Add(userRepository.GetById(reservation.GuestId));
-                }
-            }
-
-            return approprietReservations;
+            Reservations = new ObservableCollection<User>(presentGuestsService.GetNotPresentGuests(appointmentid));
         }
 
         private void Dismiss_Click(object sender, RoutedEventArgs e)
@@ -96,17 +67,18 @@ namespace Project.View.TourGuideView
 
         private void AddSelectedGuest_Click(object sender, RoutedEventArgs e)
         {
-            PresentGuests presentGuest = new PresentGuests();
-            presentGuest.GuestId = SelectedUser.Id;
-            presentGuest.TourId = tourId;
-            presentGuest.AppointmentId = appointmentId;
-            presentGuest.TourPointId = tourPointId;
+            if(SelectedUser != null)
+            {
+                PresentGuests presentGuest = new PresentGuests();
+                presentGuest.GuestId = SelectedUser.Id;
+                presentGuest.TourId = tourId;
+                presentGuest.AppointmentId = appointmentId;
+                presentGuest.TourPointId = tourPointId;
 
+                presentGuestsService.Create(presentGuest);
 
-            presentGuestsRepository.Add(presentGuest);
-
-            Close();
-
+                Close();
+            }
         }
     }
 }

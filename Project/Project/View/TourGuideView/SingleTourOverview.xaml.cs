@@ -1,6 +1,8 @@
 ﻿using Project.Controller;
 using Project.Model;
 using Project.Repository;
+using Project.RepositoryInterfaces;
+using Project.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,7 +28,7 @@ namespace Project.View.TourGuideView
     /// </summary>
     public partial class SingleTourOverview : Window,INotifyPropertyChanged
     {
-        private string _name;
+        private string _name = string.Empty;
         public string NameOfTour
         {
             get => _name;
@@ -55,7 +57,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _country;
+        private string _country = string.Empty;
         public string Country
         {
             get => _country;
@@ -69,7 +71,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _city;
+        private string _city = string.Empty;
         public string City
         {
             get => _city;
@@ -83,7 +85,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _description;
+        private string _description = string.Empty;
         public string Description
         {
             get => _description;
@@ -97,7 +99,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _language;
+        private string _language= string.Empty;
         public string LanguageOfTour
         {
             get => _language;
@@ -167,7 +169,21 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _coverImageUrl;
+        private Appointment _tourappointment;
+        public Appointment TourAppointment
+        {
+            get => _tourappointment;
+            set
+            {
+                if(value != _tourappointment)
+                {
+                    _tourappointment = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _coverImageUrl = string.Empty;
 
 
         public string CoverImageUrl
@@ -183,26 +199,10 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private List<Appointment> _appointments;
-        public List<Appointment> Appointments
-        {
-            get => _appointments;
-            set
-            {
-                if(value != _appointments)
-                {
-                    _appointments = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-
         private readonly ImageController _imageController;
-        private readonly AppointmentController _appointmentController;
 
-        private readonly TourReservationRepository tourReservationRepository;
-        private readonly UserRepository userRepository;
+        private readonly TourReservationService tourReservationService;
+
 
         Tour Tour { get; set; }
         public Appointment SelectedAppointment { get; set; }
@@ -218,10 +218,8 @@ namespace Project.View.TourGuideView
             Tour = new Tour();
 
             Tour = sendedTour;
-            _appointmentController = new AppointmentController();
             _imageController = new ImageController();
-            tourReservationRepository = new TourReservationRepository();
-            userRepository = new UserRepository();
+            tourReservationService = new TourReservationService(); 
 
 
             Id = Tour.Id;
@@ -232,44 +230,26 @@ namespace Project.View.TourGuideView
             LanguageOfTour = Tour.Language;
             MaxGuests = Tour.MaxGuests;
             Duration = Tour.Duration;
-            Appointments = _appointmentController.GetByTourId(Tour.Id);
-            Reservations = new ObservableCollection<User>(GetApproprietReservations());
-            
+            TourAppointment = Tour.TourAppointment;
+            Reservations = new ObservableCollection<User>(tourReservationService.GetApproprietReservations(TourAppointment.Id));
 
+            DisableStartTourButton();
         }
 
 
-        public List<User> GetApproprietReservations()
+        public void DisableStartTourButton()
         {
-            List<TourReservation> tourReservations = tourReservationRepository.GetAllTourReservations();
-            List<User> approprietReservations = new List<User>();
-
-            foreach(TourReservation reservation in tourReservations)
+            if (Tour.TourAppointment.DateAndTimeOfAppointment.ToShortDateString() != DateTime.Today.ToShortDateString() || Tour.TourAppointment.Status == Appointment.STATUS.COMPLETED)
             {
-                if(reservation.TourId == Id)
-                {
-                    approprietReservations.Add(userRepository.GetById(reservation.GuestId));
-                }
+                startTour.IsEnabled = false;
             }
-
-            return approprietReservations;
         }
-
-
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void SingleTourOverview_Loaded(object sender, RoutedEventArgs e)
-        {
-            if(SelectedAppointment == null)
-            {
-                startTour.IsEnabled = false;
-            }
         }
 
         private Image CreateImage(string imageUrl)
@@ -285,11 +265,7 @@ namespace Project.View.TourGuideView
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-                startTour.IsEnabled = false;
-
-            
-
-            foreach(string url in _imageController.GetImageUrlByTourId(Id))
+            foreach (string url in _imageController.GetImageUrlByTourId(Id))
             {
                 var image = CreateImage(url);
                 imagesWrap.Children.Add(image);
@@ -298,19 +274,14 @@ namespace Project.View.TourGuideView
             
         }
 
-        private void apointmentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selind = apointmentsList.SelectedIndex;
-            if (SelectedAppointment != null)
-            {
-                startTour.IsEnabled = true;
-            }
-        }
+
 
         private void startTour_Click(object sender, RoutedEventArgs e)
         {
-            TourTracking tourTracking = new TourTracking(Id,SelectedAppointment.Id);
+            TourTracking tourTracking = new TourTracking(Id, Tour.TourAppointment.Id);
+            tourTracking.Owner = this;
             tourTracking.Show();
+
         }
     }
 }

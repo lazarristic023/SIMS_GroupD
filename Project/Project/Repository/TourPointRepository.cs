@@ -1,5 +1,6 @@
 ﻿using Project.Model;
 using Project.Observer;
+using Project.RepositoryInterfaces;
 using Project.Serializer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Windows.Input;
 
 namespace Project.Repository
 {
-    public class TourPointRepository: ISubject
+    public class TourPointRepository: ISubject,ITourPointRepository
     {
         private const string FilePath = "../../../Resources/Data/tourpoint.csv";
 
@@ -71,6 +72,8 @@ namespace Project.Repository
         {
             return tourPoints.Find(v => v.Id == id);
         }
+
+        
 
         public List<TourPoint> GetAll()
         {

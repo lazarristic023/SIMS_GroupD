@@ -16,17 +16,19 @@ namespace Project.Model
 
         public Role Role { get; set; }
 
+        public int Age { get; set; }
+
         public User()
         {
 
         }
 
-        public User(string username, string password, Role role)
+        public User(string username, string password, Role role, int age)
         {
             Username = username;
             Password = password;
             Role = role;
-
+            Age = age;
         }
 
         public User(User u)
@@ -35,12 +37,13 @@ namespace Project.Model
             Username = u.Username;
             Password = u.Password;
             Role = u.Role;
+            Age = u.Age;
 
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, RoleToString() };
+            string[] csvValues = { Id.ToString(), Username, Password, RoleToString(), Age.ToString() };
             return csvValues;
         }
 
@@ -50,6 +53,7 @@ namespace Project.Model
             Username = values[1];
             Password = values[2];
             Role = StringToRole(values[3]);
+            Age = int.Parse(values[4]);
         }
 
         private string RoleToString()

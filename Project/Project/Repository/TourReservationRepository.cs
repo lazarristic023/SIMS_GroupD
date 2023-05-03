@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Project.RepositoryInterfaces;
 
 namespace Project.Repository
 {
-    public class TourReservationRepository : ISubject
+    public class TourReservationRepository : ISubject,ITourReservationRepository
     {
         private const string FilePath = "../../../Resources/Data/tourReservations.csv";
 
@@ -77,10 +78,26 @@ namespace Project.Repository
             return tourReservations.Find(v => v.Id == id);
         }
 
+        public List<TourReservation> GetReservationByTourId(int id)
+        {
+            List<TourReservation> reservationList = new List<TourReservation>();
+
+            foreach(TourReservation reservation in GetAllTourReservations())
+            {
+                if(reservation.TourId == id)
+                {
+                    reservationList.Add(reservation);
+                }
+            }
+
+            return reservationList;
+        }
+
         public List<TourReservation> GetAllTourReservations()
         {
             return tourReservations;
         }
+
 
         public void Subscribe(IObserver observer)
         {

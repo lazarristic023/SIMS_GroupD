@@ -8,11 +8,66 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\alert.png" />
+    <None Remove="Resources\Images\ask.png" />
     <None Remove="Resources\Images\avatar.png" />
+    <None Remove="Resources\Images\clockIcon.png" />
+    <None Remove="Resources\Images\delete.png" />
+    <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\forumIcon.jpg" />
+    <None Remove="Resources\Images\infoIcon.png" />
+    <None Remove="Resources\Images\katedralajpg.jpg" />
+    <None Remove="Resources\Images\logo.jpg" />
+    <None Remove="Resources\Images\paper-plane.png" />
+    <None Remove="Resources\Images\pdf.png" />
+    <None Remove="Resources\Images\plus.ico" />
+    <None Remove="Resources\Images\rating.png" />
+    <None Remove="Resources\Images\request.png" />
+    <None Remove="Resources\Images\reviews.png" />
+    <None Remove="Resources\Images\searchIcon.png" />
+    <None Remove="Resources\Images\trend.png" />
+    <None Remove="Resources\Images\userIcon.png" />
+    <None Remove="Resources\Images\view.png" />
+    <None Remove="Resources\Images\warning.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="C1.Xaml.WPF.FlexChart" Version="4.6.20231.784" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\add.png" />
+    <Resource Include="Resources\Images\alert.png" />
+    <Resource Include="Resources\Images\ask.png" />
     <Resource Include="Resources\Images\avatar.png" />
+    <Resource Include="Resources\Images\clockIcon.png" />
+    <Resource Include="Resources\Images\delete.png" />
+    <Resource Include="Resources\Images\edit.png" />
+    <Resource Include="Resources\Images\forumIcon.jpg" />
+    <Resource Include="Resources\Images\infoIcon.png" />
+    <Resource Include="Resources\Images\katedralajpg.jpg" />
+    <Resource Include="Resources\Images\logo.jpg" />
+    <Resource Include="Resources\Images\paper-plane.png" />
+    <Resource Include="Resources\Images\pdf.png" />
+    <Resource Include="Resources\Images\plus.ico" />
+    <Resource Include="Resources\Images\rating.png" />
+    <Resource Include="Resources\Images\request.png" />
+    <Resource Include="Resources\Images\reviews.png" />
+    <Resource Include="Resources\Images\searchIcon.png" />
+    <Resource Include="Resources\Images\trend.png" />
+    <Resource Include="Resources\Images\userIcon.png" />
+    <Resource Include="Resources\Images\view.png" />
+    <Resource Include="Resources\Images\warning.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Command\TourGuideCommand\" />
   </ItemGroup>
 
 </Project>

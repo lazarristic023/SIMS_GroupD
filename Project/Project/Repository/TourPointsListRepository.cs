@@ -1,5 +1,6 @@
 ﻿using Project.Model;
 using Project.Observer;
+using Project.RepositoryInterfaces;
 using Project.Serializer;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class TourPointsListRepository: ISubject
+    public class TourPointsListRepository: ISubject, ITourPointsListRepository
     {
         private const string FilePath = "../../../Resources/Data/tourpointslist.csv";
 

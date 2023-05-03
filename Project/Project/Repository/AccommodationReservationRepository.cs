@@ -1,5 +1,6 @@
 ﻿using Project.Model;
 using Project.Serializer;
+using Project.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using Project.Observer;
@@ -9,40 +10,40 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class AccommodationReservationRepository : ISubject
+    public class AccommodationReservationRepository : ISubject, IAccommodationReservationRepository
     {
 
         private const string FilePath = "../../../Resources/Data/accReservations.csv";
 
         private readonly Serializer<AccommodationReservation> _serializer;
 
-        private List<AccommodationReservation> _accReservations;
+        private List<AccommodationReservation> _reservations;
 
         private List<IObserver> _observers;
 
         public AccommodationReservationRepository()
         {
             _serializer = new Serializer<AccommodationReservation>();
-            _accReservations = _serializer.FromCSV(FilePath);
+            _reservations = _serializer.FromCSV(FilePath);
             _observers = new List<IObserver>();
         }
 
 
         private void SaveInFile()
         {
-            _serializer.ToCSV(FilePath, _accReservations);
+            _serializer.ToCSV(FilePath, _reservations);
         }
 
         private int GenerateId()
         {
-            if (_accReservations.Count == 0) return 0;
-            return _accReservations[_accReservations.Count - 1].Id + 1;
+            if (_reservations.Count == 0) return 0;
+            return _reservations[_reservations.Count - 1].Id + 1;
         }
 
         public AccommodationReservation Add(AccommodationReservation accReservation)
         {
             accReservation.Id = GenerateId();
-            _accReservations.Add(accReservation);
+            _reservations.Add(accReservation);
             SaveInFile();
             NotifyObservers();
             return accReservation;
@@ -57,6 +58,7 @@ namespace Project.Repository
             oldReservation.EndDate = accReservation.EndDate;
             oldReservation.GuestId = accReservation.GuestId;
             oldReservation.AccommodationId = accReservation.AccommodationId;
+            oldReservation.Guests = accReservation.Guests;
 
 
             SaveInFile();
@@ -69,7 +71,7 @@ namespace Project.Repository
             AccommodationReservation reservation = GetReservationById(id);
             if (reservation == null) return null;
 
-            _accReservations.Remove(reservation);
+            _reservations.Remove(reservation);
             SaveInFile();
             NotifyObservers();
             return reservation;
@@ -77,12 +79,27 @@ namespace Project.Repository
 
         public AccommodationReservation GetReservationById(int id)
         {
-            return _accReservations.Find(v => v.Id == id);
+            return _reservations.Find(v => v.Id == id);
+        }
+
+        public List<AccommodationReservation> GetReservationsByAccommodationId(int accId)
+        {
+            List<AccommodationReservation> reservations = new List<AccommodationReservation>();
+
+            foreach(var reservation in _reservations)
+            {
+                if(reservation.AccommodationId == accId)
+                {
+                    reservations.Add(reservation);
+                }
+            }
+
+            return reservations;
         }
 
         public List<AccommodationReservation> GetAllReservations()
         {
-            return _accReservations;
+            return _reservations;
         }
 
 

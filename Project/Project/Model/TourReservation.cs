@@ -35,6 +35,8 @@ namespace Project.Model
             TourId = tourId;
         }
 
+ 
+
         public TourReservation(TourReservation tourReservation)
         {
             Id = tourReservation.Id;
@@ -44,6 +46,7 @@ namespace Project.Model
             TourId = tourReservation.TourId;
             Guest = tourReservation.Guest;
             Tour = tourReservation.Tour;
+
         }
 
         public TourReservation(int id, List<DateTime>TourDates, int guestId, int tourId)
@@ -54,6 +57,8 @@ namespace Project.Model
             GuestId = guestId;
             TourId = tourId;
         }
+
+        
 
         public void FromCSV(string[] values)
         {

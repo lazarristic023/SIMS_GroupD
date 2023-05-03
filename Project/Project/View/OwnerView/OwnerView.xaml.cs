@@ -30,10 +30,11 @@ namespace Project.View
         
         private OwnerController controller;
 
-
         private List<AccommodationImage> tempImages;
 
         public ObservableCollection<Accommodation> Accommodations { get; set; }
+
+        public Accommodation SelectedAccommodation { get; set; }
 
         public ObservableCollection<string> Countries { get; set; }
 
@@ -51,6 +52,7 @@ namespace Project.View
         {
             InitializeComponent();
             DataContext = this;
+
             controller = new OwnerController(u);
 
             Accommodations = new ObservableCollection<Accommodation>(controller.Owner.Accommodations);
@@ -60,16 +62,10 @@ namespace Project.View
             tempImages = new List<AccommodationImage>();
 
             CountryCities = new ObservableCollection<string>();
+
+            user = u;
+
             FillCountriesList();
-
-            /*
-            Location location = new Location("Sombor", "Serbia");
-             
-            Accommodation acc = new Accommodation("primer",2,AccommodationType.COTTAGE,location,10,30,15);
-
-            acc = controller.AccommodationRepository.Add(acc);
-            Accommodations.Add(acc);
-            */
 
         }
 
@@ -79,6 +75,7 @@ namespace Project.View
             Close();
             signInView.Show();
         }
+
         private void FillCountriesList()
         {
             foreach (var location in controller.GetLocations())
@@ -88,6 +85,26 @@ namespace Project.View
                     Countries.Add(location.Country);
                 }
             }
+        }
+
+        private void tbMaximumGuests_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsNumeric(e.Text);
+        }
+
+        private void tbAdvanceReservation_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsNumeric(e.Text);
+        }
+
+        private void tbCancellationPeriod_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsNumeric(e.Text);
+        }
+
+        private static bool IsNumeric(string input)
+        {
+            return int.TryParse(input, out _);
         }
 
         private void cbCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -102,7 +119,29 @@ namespace Project.View
             }
         }
 
+        private void btRate_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(SelectedAccommodation == null))
+            {
+                RateGuestView rateGuestView = new RateGuestView(SelectedAccommodation, user);
+                try
+                {
+                    rateGuestView.ShowDialog();
+                }
+                catch
+                {
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select any accommodation.");
+                return;
+            }
      
+        }
+
+
 
         private void btAddImage_Click(object sender, RoutedEventArgs e)
         {
@@ -125,28 +164,8 @@ namespace Project.View
 
         }
 
-        private void btAddAccommodation_click(object sender, RoutedEventArgs e)
+        AccommodationType GetAccommodationType()
         {
-            string name = tbName.Text;
-            int cancellationPeriod, guestNumber, advanceReservation;
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                MessageBox.Show("Name is not entered properly");
-                return;
-            }
-
-            try
-            {
-                guestNumber = Convert.ToInt32(tbMaximumGuests.Text);
-            }
-            catch
-            {
-                MessageBox.Show("Field is not a number.");
-                return;
-            }
-            
-
             AccommodationType type = AccommodationType.COTTAGE;
             if (rbApartment.IsChecked == true)
             {
@@ -156,27 +175,29 @@ namespace Project.View
             {
                 type = AccommodationType.HOUSE;
             }
+            return type;
+        }
 
+        private void btAddAccommodation_click(object sender, RoutedEventArgs e)
+        {
+            string name = tbName.Text;
 
-            try
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(tbMaximumGuests.Text) || string.IsNullOrWhiteSpace(tbCancellationPeriod.Text) || string.IsNullOrWhiteSpace(tbAdvanceReservation.Text))
             {
-                cancellationPeriod = Convert.ToInt32(tbCancellationPeriod.Text);
-            }
-            catch
-            {
-                MessageBox.Show("Field is not a number.");
-                return;
-            }
-            try
-            {
-                advanceReservation = Convert.ToInt32(tbAdvanceReservation.Text);
-            }
-            catch
-            {
-                MessageBox.Show("Field is not a number.");
+                MessageBox.Show("Not all fields are entered.");
                 return;
             }
 
+            int guestNumber = Convert.ToInt32(tbMaximumGuests.Text);
+            int cancellationPeriod = Convert.ToInt32(tbCancellationPeriod.Text);
+            int advanceReservation = Convert.ToInt32(tbAdvanceReservation.Text);
+            AccommodationType type = GetAccommodationType();
+
+            if (SelectedCity == null || SelectedCountry == null)
+            {
+                MessageBox.Show("Please select location!");
+                return;
+            }
             Location location = new Location(SelectedCity, SelectedCountry);
             Accommodation accommodation = new Accommodation(name, controller.Owner.User.Id, type, location, guestNumber, advanceReservation, cancellationPeriod);
             foreach(var image in tempImages)
@@ -189,14 +210,8 @@ namespace Project.View
             Accommodations.Add(accommodation);
             MessageBox.Show("You've successfully added accommodation to your account.");
             tempImages.Clear();
-            /*
-                        Location location = new Location(SelectedCity, SelectedCountry);
-                        //public Accommodation(string name, int ownerId, AccommodationType at, Location location, int maxGuests, int minReservationDays, int cancellationPeriod = 1)
-                        Accommodation acc = new Accommodation(name, 2, AccommodationType.COTTAGE, location, 10, 30, 15);
-
-                        acc = controller.AccommodationRepository.Add(acc);
-                        Accommodations.Add(acc);
-            */
         }
+
+        
     }
 }

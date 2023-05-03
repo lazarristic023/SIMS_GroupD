@@ -13,6 +13,10 @@ namespace Project.Controller
         public Owner Owner { get; set; }
         public AccommodationRepository AccommodationRepository { get; set; }
 
+        public OwnerReviewRepository OwnerReviewRepository { get; set; }
+
+        public AccommodationReservationRepository AccommodationReservationRepository { get; set; }
+
         public LocationRepository LocationRepository { get; set; }
 
         public List<Location> Locations { get; set; }
@@ -23,9 +27,11 @@ namespace Project.Controller
         {
             Owner = new Owner();
             AccommodationRepository = new AccommodationRepository();
+            OwnerReviewRepository = new OwnerReviewRepository();
             LocationRepository = new LocationRepository();
             Locations = new List<Location>();
             AccommodationImageRepository = new AccommodationImageRepository();
+            AccommodationReservationRepository = new AccommodationReservationRepository();
             LinkOwnerAccommodation();
             FillLocationsList();
         }
@@ -33,9 +39,11 @@ namespace Project.Controller
         {
             Owner = new Owner(u);
             AccommodationRepository = new AccommodationRepository();
+            OwnerReviewRepository = new OwnerReviewRepository();
             LocationRepository = new LocationRepository();
             Locations = new List<Location>();
             AccommodationImageRepository = new AccommodationImageRepository();
+            AccommodationReservationRepository = new AccommodationReservationRepository();
             LinkOwnerAccommodation();
             FillLocationsList();
         }
@@ -44,6 +52,7 @@ namespace Project.Controller
         {
             return Locations;
         }
+
         private void LinkOwnerAccommodation()
         {
             foreach(Accommodation accommodation in AccommodationRepository.GetAllAccommodations())

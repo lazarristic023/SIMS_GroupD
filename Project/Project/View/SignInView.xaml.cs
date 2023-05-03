@@ -20,6 +20,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Project.View.TourGuideView;
 using Project.Controller;
+using Project.View.Guest1View;
+using Project.Service;
 
 namespace Project.View
 {
@@ -29,7 +31,8 @@ namespace Project.View
     public partial class SignInView : Window
     {
         private readonly UserRepository _repository;
-        private readonly TourGuideController _controller;
+        //private readonly TourGuideController _controller;
+        //private readonly TourService _tourService;
 
         private string _username;
         public string Username
@@ -57,7 +60,8 @@ namespace Project.View
             InitializeComponent();
             DataContext = this;
             _repository = new UserRepository();
-            _controller = new TourGuideController();
+            //_tourService = new TourService();
+            //_controller = new TourGuideController();
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
@@ -82,9 +86,11 @@ namespace Project.View
                             break;
 
                         case Role.GUEST1:
-                            Guest1View guest1View = new Guest1View(user);
-                            guest1View.Show();
+                            ProfileWindow profileWindow = new ProfileWindow(user);
+                            profileWindow.Show();
                             Close();
+                            profileWindow.RemindGuestToRate();
+                            profileWindow.ShowNotifications();
                             break;
 
                         default:

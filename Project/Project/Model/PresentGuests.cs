@@ -14,6 +14,7 @@ namespace Project.Model
         public int TourId { get; set; }
         public int AppointmentId { get; set; }
         public int TourPointId { get; set; }
+        public bool Coupon { get; set; }
 
         public PresentGuests()
         {
@@ -21,6 +22,7 @@ namespace Project.Model
             TourId = -1;
             AppointmentId = -1;
             TourPointId = -1;
+            Coupon = false;
         }
 
         public PresentGuests(int guestId,int tourid, int appointmentId, int tourPointId)
@@ -29,6 +31,7 @@ namespace Project.Model
             TourId = tourid;
             AppointmentId = appointmentId;
             TourPointId = tourPointId;
+            Coupon = false;
         }
 
         public string[] ToCSV()
@@ -38,6 +41,7 @@ namespace Project.Model
                 TourId.ToString(),
                 AppointmentId.ToString(),
                 TourPointId.ToString(),
+                Coupon.ToString(),
             };
             return csvValues;
         }
@@ -48,6 +52,7 @@ namespace Project.Model
             TourId = int.Parse(values[1]);
             AppointmentId = int.Parse(values[2]);
             TourPointId = int.Parse(values[3]);
+            Coupon = bool.Parse(values[4]);
         }
     }
 }

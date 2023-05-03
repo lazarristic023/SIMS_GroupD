@@ -20,6 +20,7 @@ using System.Reflection.Metadata;
 using Project.Model;
 using System.Collections.ObjectModel;
 using Project.Observer;
+using Project.Service;
 
 namespace Project.View.TourGuideView
 {
@@ -30,25 +31,15 @@ namespace Project.View.TourGuideView
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private readonly TourGuideController _tourGuideController;
-        private readonly TourAppointmentsController _tourAppointmentsController;
-        private readonly ImageController _imageController;
-        private readonly TourPointController _tourPointController;
-        private readonly TourPointsListController _tourPointsListController;
-        private readonly LocationController _locationController;
-        private readonly AppointmentController _appointmentController;
+
+        private readonly TourService _tourService;
+        private readonly AppointmentService _appointmentService;
 
         public Tour SelectedTour { get; set; }
 
-        
-
-
         public ObservableCollection<Tour> Tours { get; set; }
-        public ObservableCollection<TourPointsList> Points { get; set; }
 
         User User { get; set; }
-
-        
 
         private string _imagesource;
         public string ImageSource
@@ -64,38 +55,24 @@ namespace Project.View.TourGuideView
             }
         }
 
+
         public TourGuideMainView(User user)
         {
             InitializeComponent();
             DataContext =  this;
 
             User = user;
-             
-            _tourGuideController = new TourGuideController();
-            _tourGuideController.Subscribe(this);
 
-            _tourAppointmentsController = new TourAppointmentsController();
-            _tourAppointmentsController.Subscribe(this);
+            _appointmentService = new AppointmentService();
+            _appointmentService.Subscribe(this);
 
-            _imageController = new ImageController();
-            _imageController.Subscribe(this);
-
-            _tourPointController = new TourPointController();
-            _tourPointController.Subscribe(this);
-
-            _tourPointsListController = new TourPointsListController();
-            _tourPointsListController.Subscribe(this);
-
-            _locationController = new LocationController();
-            _locationController.Subscribe(this);
-
-            _appointmentController = new AppointmentController();
-            _appointmentController.Subscribe(this);
+            _tourService = new TourService();
+            _tourService.Subscribe(this);
 
             ImageSource = "../../Resources/Data/images.csv";
 
+            Tours = new ObservableCollection<Tour>(_tourService.GetAllTourAppointments());
 
-            Tours = new ObservableCollection<Tour>(_tourGuideController.GetAllTours());
 
         }
 
@@ -105,11 +82,22 @@ namespace Project.View.TourGuideView
             UpdateTours();
         }
 
+
+        public void UpdateToursServiceChanged()
+        {
+            Tours.Clear();
+
+            foreach (var tour in _tourService.GetAll())
+            {
+                Tours.Add(tour);
+            }
+        }
+
         public void UpdateTours()
         {
             Tours.Clear();
 
-            foreach (var tour in _tourGuideController.GetAllTours())
+            foreach(var tour in _tourService.GetAllTourAppointments())
             {
                 Tours.Add(tour);
             }
@@ -123,13 +111,15 @@ namespace Project.View.TourGuideView
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             usernameLabel.Content = User.Username;
+            cancelTour.IsEnabled = false;
 
         }
 
 
         private void addTourButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNewTour addNewTour = new AddNewTour(_tourGuideController, _imageController,_tourPointController,_tourPointsListController,_locationController, _appointmentController);
+            AddNewTour addNewTour = new AddNewTour(_tourService,_appointmentService);
+            addNewTour.Owner = this;
             addNewTour.Show();
         }
 
@@ -139,9 +129,74 @@ namespace Project.View.TourGuideView
             if(SelectedTour != null)
             {
                 SingleTourOverview singleTour = new SingleTourOverview(SelectedTour);
+                singleTour.Owner = this;
                 singleTour.Show();
             }
             
         }
+
+        
+
+
+
+        private void cancelTour_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTour != null)
+            {
+
+                var timespan = SelectedTour.TourAppointment.DateAndTimeOfAppointment - DateTime.Now;
+                
+                if(timespan.TotalHours < 48)
+                {
+                    MessageBox.Show(this,"You cannot cancel this tour.\nThe tour can be canceled no later than 48 hours before the scheduled start.");
+                }
+                else
+                {
+                    if (MessageBox.Show("Are you sure you want to cancel the tour?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    {
+                        //no
+                    }
+                    else
+                    {
+                        //yes
+                        _appointmentService.Cancel(SelectedTour.TourAppointment);
+                    }
+
+                }
+
+                
+            }
+            
+            
+            
+        }
+
+        private void myTourDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(SelectedTour == null)
+            {
+                cancelTour.IsEnabled = false;
+            }
+            else
+            {
+                cancelTour.IsEnabled = true;
+            }
+            
+        }
+
+        private void StatisticBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Statistic statistic = new Statistic();
+            statistic.Owner = this;
+            statistic.Show();
+        }
+
+        private void ReviewsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Reviews reviews = new Reviews();
+            reviews.Owner = this;
+            reviews.Show();
+        }
+
     }
 }

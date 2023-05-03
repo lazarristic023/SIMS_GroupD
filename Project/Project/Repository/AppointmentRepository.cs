@@ -1,5 +1,6 @@
 ﻿using Project.Model;
 using Project.Observer;
+using Project.RepositoryInterfaces;
 using Project.Serializer;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class AppointmentRepository: ISubject
+    public class AppointmentRepository: ISubject, IAppointmentRepository
     {
         private const string FilePath = "../../../Resources/Data/appointment.csv";
 
@@ -86,6 +87,27 @@ namespace Project.Repository
         {
             return appointments;
         }
+
+        public void Cancel(int id)
+        {
+            appointments.Find(v => v.Id == id).IsNotCanceled = false;
+            SaveInFile();
+            NotifyObservers();
+
+        }
+
+        public void RefreshAppointments()
+        {
+            appointments = serializer.FromCSV(FilePath);
+        }
+
+        public void CompleteTour(int id)
+        {
+            appointments.Find(v => v.Id == id).Status = Appointment.STATUS.COMPLETED;
+            SaveInFile();
+            NotifyObservers();
+        }
+
 
         public void NotifyObservers()
         {

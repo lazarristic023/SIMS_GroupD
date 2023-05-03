@@ -1,5 +1,8 @@
-﻿using Project.Model;
+﻿using Project.Controller;
+using Project.Model;
+using Project.Observer;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +14,16 @@ namespace Project.Service
 {
     public class TourService
     {
-        TourRepository tourRepository;
+        //TourRepository tourRepository;
+        private ITourRepository tourRepository;
+        LocationController locationController;
+        AppointmentService appointmentService;
 
         public TourService()
         {
-            tourRepository = new TourRepository();
+            tourRepository = Injector.Injector.CreateInstance<ITourRepository>();
+            appointmentService = new AppointmentService();
+            locationController = new LocationController();
 
         }
 
@@ -36,6 +44,60 @@ namespace Project.Service
             string[] splitedTime = time.Split(':');
             DateTime newDate = new DateTime(date.Year, date.Month, date.Day, int.Parse(splitedTime[0]), int.Parse(splitedTime[1]), 0);
             return newDate;
+        }
+
+
+
+        public List<Tour> GetAll()
+        {
+            return tourRepository.GetAll();
+        }
+
+        public Tour GetById(int id)
+        {
+            return tourRepository.GetById(id);
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            tourRepository.Subscribe(observer);
+        }
+
+        public List<Tour> GetAllTourAppointments()
+        {
+            List<Tour> tourAppointments = new List<Tour>();
+            List<Tour> tours = GetAll();
+            appointmentService.RefreshAppointments();
+
+            foreach(Tour tour in tours)
+            {
+                List<Appointment> appointments = appointmentService.GetByTourId(tour.Id);
+                foreach(Appointment appointment in appointments)
+                {
+                    Tour newTour = new Tour(tour,appointment);
+                    newTour.Location = locationController.GetById(newTour.LocationId);
+                    tourAppointments.Add(newTour);
+                }
+            }
+
+
+            return tourAppointments;
+        }
+
+        public List<Tour> GetCompletedTours()
+        {
+            List<Tour> allTours = GetAllTourAppointments();
+            List<Tour> completedTours = new List<Tour>();
+
+            foreach(Tour tour in allTours)
+            {
+                if(tour.TourAppointment.Status == Appointment.STATUS.COMPLETED)
+                {
+                    completedTours.Add(tour);
+                }
+            }
+
+            return completedTours;
         }
 
 

@@ -12,7 +12,7 @@ namespace Project.Model
     {
         public int Id { get; set; }
         public string Url { get; set; }
-        public int EntityId { get; set; }
+        public int AccommodationId { get; set; }
 
 
         public AccommodationImage() { }
@@ -21,12 +21,12 @@ namespace Project.Model
         {
             Id = id;
             Url = url;
-            EntityId = entityId;
+            AccommodationId = entityId;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Url, EntityId.ToString() };
+            string[] csvValues = { Id.ToString(), Url, AccommodationId.ToString() };
             return csvValues;
         }
 
@@ -34,7 +34,7 @@ namespace Project.Model
         {
             Id = Convert.ToInt32(values[0]);
             Url = values[1];
-            EntityId = Convert.ToInt32(values[2]);
+            AccommodationId = Convert.ToInt32(values[2]);
         }
 
 
