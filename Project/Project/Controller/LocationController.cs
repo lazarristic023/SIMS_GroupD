@@ -1,6 +1,7 @@
 ﻿using Project.Model;
 using Project.Observer;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,13 @@ namespace Project.Controller
 {
     public class LocationController
     {
-        LocationRepository locationRepository { get; set; }
+        private ILocationRepository locationRepository;
+        //LocationRepository locationRepository { get; set; }
 
         public LocationController()
         {
-            locationRepository = new LocationRepository();
+            //locationRepository = new LocationRepository();
+            locationRepository = Injector.Injector.CreateInstance<ILocationRepository>();
         }
 
         public Location Create(string city, string country)

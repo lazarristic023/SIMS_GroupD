@@ -1,6 +1,7 @@
 ﻿using Project.Model;
 using Project.Observer;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,15 @@ namespace Project.Service
 {
     public class AppointmentService
     {
-        AppointmentRepository appointmentRepository { get; set; }
+        private IAppointmentRepository appointmentRepository;
+        //AppointmentRepository appointmentRepository { get; set; }
         
         private readonly CouponService couponService;
         private readonly TourReservationService tourReservationService;
         public AppointmentService()
         {
-            appointmentRepository = new AppointmentRepository();
+            //appointmentRepository = new AppointmentRepository();
+            appointmentRepository = Injector.Injector.CreateInstance<IAppointmentRepository>();
 
             couponService = new CouponService();
             tourReservationService = new TourReservationService();

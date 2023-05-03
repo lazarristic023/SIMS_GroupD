@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using Project.Model;
 using Project.Observer;
+using Project.RepositoryInterfaces;
 using Project.Serializer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Project.Repository
 {
-    public class TourReviewRepository : ISubject
+    public class TourReviewRepository : ISubject, ITourReviewRepository
     {
 
         private const string FilePath = "../../../Resources/Data/tourreviews.csv";

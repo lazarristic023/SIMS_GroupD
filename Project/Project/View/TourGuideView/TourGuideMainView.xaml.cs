@@ -31,28 +31,15 @@ namespace Project.View.TourGuideView
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private readonly TourGuideController _tourGuideController;
-        private readonly TourAppointmentsController _tourAppointmentsController;
-        private readonly ImageController _imageController;
-        private readonly TourPointController _tourPointController;
-        private readonly TourPointsListController _tourPointsListController;
-        private readonly LocationController _locationController;
-        private readonly AppointmentController _appointmentController;
 
         private readonly TourService _tourService;
         private readonly AppointmentService _appointmentService;
 
         public Tour SelectedTour { get; set; }
 
-        
-
-
         public ObservableCollection<Tour> Tours { get; set; }
-        public ObservableCollection<TourPointsList> Points { get; set; }
 
         User User { get; set; }
-
-        
 
         private string _imagesource;
         public string ImageSource
@@ -68,39 +55,19 @@ namespace Project.View.TourGuideView
             }
         }
 
+
         public TourGuideMainView(User user)
         {
             InitializeComponent();
             DataContext =  this;
 
             User = user;
-             
-            _tourGuideController = new TourGuideController();
-            _tourGuideController.Subscribe(this);
-
-            _tourAppointmentsController = new TourAppointmentsController();
-            _tourAppointmentsController.Subscribe(this);
-
-            _imageController = new ImageController();
-            _imageController.Subscribe(this);
-
-            _tourPointController = new TourPointController();
-            _tourPointController.Subscribe(this);
-
-            _tourPointsListController = new TourPointsListController();
-            _tourPointsListController.Subscribe(this);
-
-            _locationController = new LocationController();
-            _locationController.Subscribe(this);
-
-            _appointmentController = new AppointmentController();
-            _appointmentController.Subscribe(this);
-
-            _tourService = new TourService();
-            _tourService.Subscribe(this);
 
             _appointmentService = new AppointmentService();
             _appointmentService.Subscribe(this);
+
+            _tourService = new TourService();
+            _tourService.Subscribe(this);
 
             ImageSource = "../../Resources/Data/images.csv";
 
@@ -151,7 +118,7 @@ namespace Project.View.TourGuideView
 
         private void addTourButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNewTour addNewTour = new AddNewTour(_tourGuideController,_tourService, _imageController,_tourPointController,_tourPointsListController,_locationController, _appointmentController,_appointmentService);
+            AddNewTour addNewTour = new AddNewTour(_tourService,_appointmentService);
             addNewTour.Owner = this;
             addNewTour.Show();
         }

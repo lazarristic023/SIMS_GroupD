@@ -1,6 +1,7 @@
 ﻿using Project.Controller;
 using Project.Model;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using Project.Service;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Project.View.TourGuideView
     /// </summary>
     public partial class SingleTourOverview : Window,INotifyPropertyChanged
     {
-        private string _name;
+        private string _name = string.Empty;
         public string NameOfTour
         {
             get => _name;
@@ -56,7 +57,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _country;
+        private string _country = string.Empty;
         public string Country
         {
             get => _country;
@@ -70,7 +71,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _city;
+        private string _city = string.Empty;
         public string City
         {
             get => _city;
@@ -84,7 +85,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _description;
+        private string _description = string.Empty;
         public string Description
         {
             get => _description;
@@ -98,7 +99,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _language;
+        private string _language= string.Empty;
         public string LanguageOfTour
         {
             get => _language;
@@ -182,7 +183,7 @@ namespace Project.View.TourGuideView
             }
         }
 
-        private string _coverImageUrl;
+        private string _coverImageUrl = string.Empty;
 
 
         public string CoverImageUrl
@@ -199,12 +200,9 @@ namespace Project.View.TourGuideView
         }
 
         private readonly ImageController _imageController;
-        private readonly AppointmentController _appointmentController;
 
         private readonly TourReservationService tourReservationService;
 
-        private readonly TourReservationRepository tourReservationRepository;
-        private readonly UserRepository userRepository;
 
         Tour Tour { get; set; }
         public Appointment SelectedAppointment { get; set; }
@@ -220,11 +218,8 @@ namespace Project.View.TourGuideView
             Tour = new Tour();
 
             Tour = sendedTour;
-            _appointmentController = new AppointmentController();
             _imageController = new ImageController();
             tourReservationService = new TourReservationService(); 
-            tourReservationRepository = new TourReservationRepository();
-            userRepository = new UserRepository();
 
 
             Id = Tour.Id;
@@ -286,6 +281,7 @@ namespace Project.View.TourGuideView
             TourTracking tourTracking = new TourTracking(Id, Tour.TourAppointment.Id);
             tourTracking.Owner = this;
             tourTracking.Show();
+
         }
     }
 }

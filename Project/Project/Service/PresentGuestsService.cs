@@ -1,6 +1,7 @@
 ﻿using Project.Model;
 using Project.Observer;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -13,7 +14,8 @@ namespace Project.Service
 
     public class PresentGuestsService
     {
-        PresentGuestsRepository presentGuestsRepository;
+        private IPresentGuestsRepository presentGuestsRepository;
+        //PresentGuestsRepository presentGuestsRepository;
         UserRepository userRepository;
 
 
@@ -24,7 +26,8 @@ namespace Project.Service
 
         public PresentGuestsService()
         {
-            presentGuestsRepository = new PresentGuestsRepository();
+            //presentGuestsRepository = new PresentGuestsRepository();
+            presentGuestsRepository = Injector.Injector.CreateInstance<IPresentGuestsRepository>();
             userRepository = new UserRepository();
             tourTourPointService = new TourPointService();
             tourReservationService = new TourReservationService();

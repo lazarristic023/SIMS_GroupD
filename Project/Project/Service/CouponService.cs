@@ -1,5 +1,6 @@
 ﻿using Project.Model;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +11,22 @@ namespace Project.Service
 {
     public class CouponService
     {
-        CouponRepository couponRepository;
+        private ICouponRepository couponRepository;
+        //CouponRepository couponRepository;
         public Guest2 Guest { get; set; }
 
         public CouponService()
         {
-            couponRepository = new CouponRepository();
+            //couponRepository = new CouponRepository();
+            couponRepository = Injector.Injector.CreateInstance<ICouponRepository>();
             Guest = new Guest2();
             LinkGuest2Coupons();
         }
 
         public CouponService(User u)
         {
-            couponRepository = new CouponRepository();
+            //couponRepository = new CouponRepository();
+            couponRepository = Injector.Injector.CreateInstance<ICouponRepository>();
             Guest = new Guest2(u);
             LinkGuest2Coupons();
         }

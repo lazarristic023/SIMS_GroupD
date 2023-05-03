@@ -29,7 +29,7 @@ namespace Project.Model
 
 
 
-        private readonly LocationController locationController;
+        //private readonly LocationController locationController;
 
         public Tour(Location location, string name, string description, string language, int maxGuests, int duration)
         {
@@ -43,7 +43,7 @@ namespace Project.Model
             Location = location;
             Country = location.Country;
             City = location.City;
-            locationController = new LocationController();
+            //locationController = new LocationController();
             TourAppointment = new Appointment();
 
         }
@@ -60,7 +60,7 @@ namespace Project.Model
             Location = new Location();
             City = "";
             Country = "";
-            locationController = new LocationController();
+            //locationController = new LocationController();
             TourAppointment = new Appointment();
         }
 
@@ -76,7 +76,7 @@ namespace Project.Model
             Location = tour.Location;
             City = tour.City;
             Country = tour.Country;
-            locationController = tour.locationController;
+            //locationController = tour.locationController;
             TourAppointment = appointment;
         }
 
@@ -104,7 +104,7 @@ namespace Project.Model
             Language = values[4];
             MaxGuests = int.Parse(values[5]);
             Duration = int.Parse(values[6]);
-            Location = locationController.GetById(Id);
+            //Location = locationController.GetById(Id);
             
         }
     }

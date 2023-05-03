@@ -1,6 +1,7 @@
 ﻿using Project.Model;
 using Project.Observer;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,13 @@ namespace Project.Controller
 {
     public class AppointmentController
     {
-        AppointmentRepository appointmentRepository { get; set; }
+        private IAppointmentRepository appointmentRepository;
+        //AppointmentRepository appointmentRepository { get; set; }
 
         public AppointmentController()
         {
-            appointmentRepository = new AppointmentRepository();
+            //appointmentRepository = new AppointmentRepository();
+            appointmentRepository = Injector.Injector.CreateInstance<IAppointmentRepository>();
         }
 
         public void Subscribe(IObserver observer)

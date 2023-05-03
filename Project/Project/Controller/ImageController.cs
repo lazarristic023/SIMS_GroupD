@@ -1,6 +1,7 @@
 ﻿using Project.Model;
 using Project.Observer;
 using Project.Repository;
+using Project.RepositoryInterfaces;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -12,11 +13,13 @@ namespace Project.Controller
 {
     public class ImageController
     {
-        ImageRepository imageRepository { get; set; }
+        //ImageRepository imageRepository { get; set; }
+        private IImageRepository imageRepository;
 
         public ImageController()
         {
-            imageRepository = new ImageRepository();
+            //imageRepository = new ImageRepository();
+            imageRepository = Injector.Injector.CreateInstance<IImageRepository>();
         }
 
         public void Subscribe(IObserver observer)
