@@ -94,7 +94,7 @@ namespace Project.Service
 
             foreach (var reservation in GetGuestReservations(guestId))
             {
-                if (reservation.StartDate <= DateTime.Now.Date)
+                if (reservation.EndDate.Date < DateTime.Now.Date)
                 {
                     allReservations.Remove(reservation);
                 }
@@ -110,7 +110,7 @@ namespace Project.Service
 
             foreach (var reservation in GetGuestReservations(guestId))
             {
-                if (reservation.StartDate > DateTime.Now.Date)
+                if (reservation.EndDate.Date >= DateTime.Now.Date)
                 {
                     allReservations.Remove(reservation);
                 }
@@ -186,6 +186,10 @@ namespace Project.Service
             return _reservationRepository.GetReservationById(reservationId);
         }
 
+        public void Add(AccommodationReservation reservation)
+        {
+            _reservationRepository.Add(reservation);
+        }
 
         public void Remove(AccommodationReservation reservation)
         {

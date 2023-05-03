@@ -59,7 +59,7 @@ namespace Project.Service
             }
         }
 
-        private List<Location> GetAccommodationLocationsList()
+        public List<Location> GetAccommodationLocationsList()
         {
             List<Location> accommodationLocations = new List<Location>();
             foreach (var accommodation in _accommodationRepository.GetAllAccommodations())
