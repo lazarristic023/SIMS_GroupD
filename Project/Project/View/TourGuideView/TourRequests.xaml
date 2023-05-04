@@ -62,7 +62,15 @@
                             <Label Grid.Row="0" Grid.Column="2" Content="Start date:"/>
                             <Label Grid.Row="1" Grid.Column="2" Content="End date:"/>
                             <Label Grid.Row="2" Grid.Column="2" Content="Number of guests:"/>
-                            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Height="25" Content="Apply filter" Width="200" FontSize="14" FontFamily="Sylften">
+
+                            <Button Grid.Row="3" Grid.Column="0" Content="Clear filter" Height="25" FontSize="14" FontFamily="Sylften" Command="{Binding ClearFilterCommand}">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                            <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="25" Content="Apply filter" Width="200" FontSize="14" FontFamily="Sylften" Command="{Binding ApplyFilterCommand}">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="5"/>
@@ -70,14 +78,26 @@
                                 </Button.Resources>
                             </Button>
 
-                            <ComboBox Grid.Row="0" Grid.Column="1"/>
-                            <ComboBox Grid.Row="1" Grid.Column="1"/>
-                            <ComboBox Grid.Row="2" Grid.Column="1"/>
+                            <ComboBox Grid.Row="0" Grid.Column="1" 
+                                      ItemsSource="{Binding Path = Countries}"
+                                      SelectedValue="{Binding Path = Country}"
+                                      FontFamily="Sylften"
+                                      FontSize="13"/>
+                            <ComboBox Grid.Row="1" Grid.Column="1"
+                                      ItemsSource="{Binding Path=Cities}"
+                                      SelectedValue="{Binding Path=City}"
+                                      FontFamily="Sylften"
+                                      FontSize="13"/>
+                            <ComboBox Grid.Row="2" Grid.Column="1"
+                                      ItemsSource="{Binding Path=Languages}"
+                                      SelectedValue="{Binding Path=Language}"
+                                      FontFamily="Sylften"
+                                      FontSize="13"/>
 
-                            <DatePicker Grid.Row="0" Grid.Column="3" FontSize="15"/>
-                            <DatePicker Grid.Row="1" Grid.Column="3" FontSize="15"/>
+                            <DatePicker Grid.Row="0" Grid.Column="3" FontSize="14" SelectedDate="{Binding StartDate}"/>
+                            <DatePicker Grid.Row="1" Grid.Column="3" FontSize="14" SelectedDate="{Binding EndDate}"/>
 
-                            <TextBox Grid.Row="2" Grid.Column="3" Margin="0,5,0,5" HorizontalAlignment="Left" Width="30" Text="15" FontSize="14"/>
+                            <TextBox Grid.Row="2" Grid.Column="3" Margin="0,5,0,5" HorizontalAlignment="Left" Width="30" Height="25" Text="{Binding GuestNumber}" FontSize="14"/>
 
                         </Grid>
                     </GroupBox>
@@ -88,7 +108,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0" Content="Back" Width="100" FontFamily="Sylften" Margin="0,3,0,3">
+                        <Button Grid.Column="0" Content="Close" Width="100" FontFamily="Sylften" Margin="0,3,0,3">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>
@@ -105,14 +125,16 @@
                     </Grid>
 
                     <DataGrid Grid.Row="1" AutoGenerateColumns="False" Margin="0,5,0,0"
-                              Background="#F4F1De">
+                              IsReadOnly="True"
+                              Background="#F4F1De"
+                              ItemsSource="{Binding Requests}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Country" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Header="City" Width="1.1*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Language" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Max guests" Width="0.7*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Start date" Width="1.1*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="End date" Width="1.1*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Language" Binding="{Binding Language}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Max guests" Binding="{Binding GuestNumber}" Width="0.7*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Start date" Binding="{Binding StartDate, StringFormat=g}" HeaderStringFormat="d" Width="1.1*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="End date" Binding="{Binding EndDate, StringFormat=g}" Width="1.1*"></DataGridTextColumn>
                             
                         </DataGrid.Columns>
                         

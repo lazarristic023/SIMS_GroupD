@@ -27,6 +27,10 @@ namespace Project.RepositoryInterfaces
 
         public string[] GetAppropriateCities(string country);
 
+        public string[] GetAllCities();
+
         public List<Location> GetAllLocations();
+
+        public string GetAppropriateCountry(string city);
     }
 }

@@ -33,6 +33,7 @@ namespace Project.Injector
             {typeof(ICouponRepository), new CouponRepository() },
             {typeof(IImageRepository), new ImageRepository() },
             {typeof(ITourReservationRepository), new TourReservationRepository() },
+            {typeof(ITourRequestRepository), new TourRequestRepository() },
             
 
         // Services 

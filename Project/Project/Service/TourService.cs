@@ -14,16 +14,15 @@ namespace Project.Service
 {
     public class TourService
     {
-        //TourRepository tourRepository;
         private ITourRepository tourRepository;
-        LocationController locationController;
+        LocationService locationService;
         AppointmentService appointmentService;
 
         public TourService()
         {
             tourRepository = Injector.Injector.CreateInstance<ITourRepository>();
             appointmentService = new AppointmentService();
-            locationController = new LocationController();
+            locationService = new LocationService();
 
         }
 
@@ -75,7 +74,7 @@ namespace Project.Service
                 foreach(Appointment appointment in appointments)
                 {
                     Tour newTour = new Tour(tour,appointment);
-                    newTour.Location = locationController.GetById(newTour.LocationId);
+                    newTour.Location = locationService.GetById(newTour.LocationId);
                     tourAppointments.Add(newTour);
                 }
             }

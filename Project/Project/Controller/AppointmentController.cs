@@ -13,11 +13,9 @@ namespace Project.Controller
     public class AppointmentController
     {
         private IAppointmentRepository appointmentRepository;
-        //AppointmentRepository appointmentRepository { get; set; }
 
         public AppointmentController()
         {
-            //appointmentRepository = new AppointmentRepository();
             appointmentRepository = Injector.Injector.CreateInstance<IAppointmentRepository>();
         }
 

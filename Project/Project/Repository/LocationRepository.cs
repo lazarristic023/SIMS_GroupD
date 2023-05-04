@@ -165,5 +165,45 @@ namespace Project.Repository
                 observer.Update();
             }
         }
+
+        public string[] GetAllCities()
+        {
+            
+            List<string> pom = new List<string>();
+
+            StreamReader citySource = new StreamReader(@"../../../Resources/Data/city.csv");
+            string line;
+
+            while ((line = citySource.ReadLine()) != null)
+            {
+
+                string[] couple = line.Split('|');
+
+                pom.AddRange(couple[1].Split(';'));
+
+            }
+
+            return pom.ToArray();
+        }
+
+        public string GetAppropriateCountry(string city)
+        {
+            string country = string.Empty;
+            StreamReader citySource = new StreamReader(@"../../../Resources/Data/city.csv");
+            string line;
+
+            while ((line = citySource.ReadLine()) != null)
+            {
+
+                string[] couple = line.Split('|');
+                string[] cities = couple[1].Split(';');
+                if (cities.Contains(city))
+                {
+                    country = couple[0];
+                }
+            }
+
+            return country;
+        }
     }
 }
