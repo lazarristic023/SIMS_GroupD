@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace Project.ViewModel.TourGuideViewModel
 {
-    public class TourRequestsViewModel:ViewModelBase
+    public class TourRequestsViewModel:CloseableViewModel
     {
 		private string[] _countries;
 		public string[] Countries
@@ -156,42 +156,28 @@ namespace Project.ViewModel.TourGuideViewModel
 		}
 
 		private readonly LocationService locationService;
+		private readonly TourRequestService tourRequestService;
 
         List<TourRequest> tourRequests = new List<TourRequest>();
 
         public TourRequestsViewModel()
         {
 			locationService = new LocationService();
+			tourRequestService = new TourRequestService();
 
 			Countries = locationService.GetAllCountries();
 			Cities = LoadCities();
 			Languages = LoadLanguages();
 
-			DateTime date1 = new DateTime(20 / 05 / 2022);
-			DateTime date2 = new DateTime(25 / 05 / 2022);
-			DateTime date3 = new DateTime(28 / 05 / 2022);
-			DateTime date4 = new DateTime(31 / 05 / 2022);
-			DateTime date5 = DateTime.MinValue;
-
-			
-			tourRequests.Add(new TourRequest(1, "Opis 1", "Serbian", 5, date1, date2, date5, TourRequest.STATUS.ONHOLD));
-			tourRequests.Add(new TourRequest(13, "Opis 2", "Croatian", 10, date3, date4, date5, TourRequest.STATUS.ONHOLD));
-
-			Requests = new ObservableCollection<TourRequest>(tourRequests);
+			tourRequests = tourRequestService.GetAll();
+			Requests = new ObservableCollection<TourRequest>(tourRequestService.GetAll());
 			
         }
 
-		private List<TourRequest> ApplyedFilter(List<TourRequest> torReq)
+		private List<TourRequest> ApplyingFilter(List<TourRequest> torReq)
 		{
-            List<TourRequest> req = new List<TourRequest>();
-
-			foreach(TourRequest t in torReq)
-			{
-				if(t.Language == Language)
-				{
-					req.Add(t);
-				}
-			}
+			TourRequestFilter filter = new TourRequestFilter(tourRequests,Country,City,Language,GuestNumber,StartDate,EndDate);
+			List<TourRequest> req = filter.Filtering();
 
 			return req;
 		}
@@ -223,6 +209,29 @@ namespace Project.ViewModel.TourGuideViewModel
 			}
 		}
 
+        private RelayCommand closeCommand;
+        public ICommand CloseCommand
+        {
+            get
+            {
+                if (closeCommand == null)
+                {
+                    closeCommand = new RelayCommand(param => this.Close(), param => this.CanClose());
+                }
+                return closeCommand;
+            }
+        }
+
+        private bool CanClose()
+        {
+            return true;
+        }
+
+        private void Close()
+        {
+            this.OnClosingRequest();
+        }
+
         private RelayCommand clearFilterCommand;
         public ICommand ClearFilterCommand
         {
@@ -248,6 +257,8 @@ namespace Project.ViewModel.TourGuideViewModel
 			Language = string.Empty;
 			GuestNumber = 0;
 			Requests.Clear();
+			StartDate = DateTime.MinValue;
+			EndDate = DateTime.MinValue;
             foreach (var el in tourRequests)
             {
                 Requests.Add(el);
@@ -287,7 +298,7 @@ namespace Project.ViewModel.TourGuideViewModel
 				tr.Add(element);
 			}
 			Requests.Clear();
-			foreach(var el in ApplyedFilter(tr))
+			foreach(var el in ApplyingFilter(tr))
 			{
 				Requests.Add(el);
 			}

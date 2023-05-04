@@ -1,4 +1,5 @@
-﻿using Project.ViewModel.TourGuideViewModel;
+﻿using Project.Service;
+using Project.ViewModel.TourGuideViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,9 @@ namespace Project.View.TourGuideView
         public TourRequests()
         {
             InitializeComponent();
-            DataContext = new TourRequestsViewModel();
+            var vm = new TourRequestsViewModel();
+            this.DataContext = vm;
+            vm.ClosingRequest += (sender, e) => this.Close();
         }
     }
 }

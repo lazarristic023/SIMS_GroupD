@@ -40,12 +40,13 @@ namespace Project.Repository
             return requests[requests.Count - 1].Id + 1;
         }
 
-        public void Add(TourRequest request)
+        public int Add(TourRequest request)
         {
             request.Id = GenerateId();
             requests.Add(request);
             SaveInFile();
             NotifyObservers();
+            return request.Id;
 
         }
 

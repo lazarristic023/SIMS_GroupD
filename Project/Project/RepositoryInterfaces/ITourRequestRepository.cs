@@ -10,7 +10,7 @@ namespace Project.RepositoryInterfaces
 {
     public interface ITourRequestRepository:ISubject
     {
-        public void Add(TourRequest request);
+        public int Add(TourRequest request);
         public void Remove(int id);
         public TourRequest GetById(int id);
         public List<TourRequest> GetAll();
