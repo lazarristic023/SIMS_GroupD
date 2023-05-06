@@ -4,7 +4,6 @@ using Project.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +15,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Xml.Linq;
 
-namespace Project.View
+namespace Project.View.OwnerView
 {
     /// <summary>
     /// Interaction logic for RateGuestView.xaml
@@ -50,7 +48,7 @@ namespace Project.View
             Reservations = new List<AccommodationReservation>();
             CreateReservations(selectedAccommodation);
             FillGuests();
-            if(Guests.Count == 0)
+            if (Guests.Count == 0)
             {
                 MessageBox.Show("There are no guests to rate in this accommodation.");
                 this.Close();
@@ -59,7 +57,7 @@ namespace Project.View
 
         private void FillGuests()
         {
-            foreach(var res in Reservations)
+            foreach (var res in Reservations)
             {
                 Guests.Add(_repository.GetById(res.GuestId));                //Guests.Add(UserRepository.GetById(res.GuestId));
             }
@@ -83,7 +81,7 @@ namespace Project.View
                 }
 
             }
-            
+
         }
 
         private void tbCleanliness_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -140,5 +138,6 @@ namespace Project.View
             housePolicies = Convert.ToInt32(tbHousePolicies.Text);
             return housePolicies;
         }
+
     }
 }

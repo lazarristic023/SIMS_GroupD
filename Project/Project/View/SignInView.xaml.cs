@@ -22,6 +22,7 @@ using Project.View.TourGuideView;
 using Project.Controller;
 using Project.View.Guest1View;
 using Project.Service;
+using Project.View.OwnerView;
 
 namespace Project.View
 {
@@ -74,8 +75,10 @@ namespace Project.View
                     switch (user.Role)
                     {
                         case Role.OWNER:
-                            OwnerView ownerView = new OwnerView(user);
-                            ownerView.Show();
+                            /* OwnerMainView ownerMainView = new OwnerMainView(user);
+                             ownerMainView.Show();*/
+                            MenuView menuView = new MenuView(user);
+                            menuView.Show();
                             Close();
                             break;
 
