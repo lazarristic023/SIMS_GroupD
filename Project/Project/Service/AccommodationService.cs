@@ -59,7 +59,7 @@ namespace Project.Service
             }
         }
 
-        private List<Location> GetAccommodationLocationsList()
+        public List<Location> GetAccommodationLocationsList()
         {
             List<Location> accommodationLocations = new List<Location>();
             foreach (var accommodation in _accommodationRepository.GetAllAccommodations())
@@ -80,6 +80,21 @@ namespace Project.Service
         public Accommodation GetAccommodationById(int id)
         {
             return _accommodationRepository.GetAccommodationById(id);
+        }
+
+        public List<Accommodation> GetAllOwnerAccommodations(int ownerId)
+        {
+            List<Accommodation> accommodations = new List<Accommodation>();
+
+            foreach (Accommodation accommodation in _accommodationRepository.GetAllAccommodations())
+            {
+                if (accommodation.OwnerId == ownerId)
+                {
+                    accommodations.Add(accommodation);
+                }
+            }
+
+            return accommodations;
         }
 
 

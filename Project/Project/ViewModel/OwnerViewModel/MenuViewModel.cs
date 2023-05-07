@@ -1,0 +1,24 @@
+﻿using Project.Command.OwnerCommands.MenuNavigationCommands;
+using Project.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+
+namespace Project.ViewModel.OwnerViewModel
+{
+    public class MenuViewModel : ViewModelBase
+    {
+        public MenuViewModel(User user, Window window)
+        {
+            User = user;
+            Window = window;
+            HomeNavigationCommand = new HomeNavigationCommand(this);
+        }
+
+        public ICommand HomeNavigationCommand { get;  }
+    }
+}

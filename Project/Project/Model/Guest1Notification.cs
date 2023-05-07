@@ -30,7 +30,7 @@ namespace Project.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), GuestId.ToString(), OwnerId.ToString() };
+            string[] csvValues = { Id.ToString(), GuestId.ToString(), OwnerId.ToString(), Message };
             return csvValues;
         }
 

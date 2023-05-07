@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using Project.Repository;
 using System.Collections.ObjectModel;
 using Project.Observer;
+using Project.ViewModel;
+using Project.Command.Guest1Commands.WindowLinkCommands;
 
 namespace Project.View.Guest1View
 {
@@ -37,11 +39,25 @@ namespace Project.View.Guest1View
 
         public AccommodationReservation SelectedReservation { get; set; }
 
+        private ViewModelBase viewModelBase;
+        public ICommand ProfileLinkCommand { get; }
+        public ICommand YourReservationsLinkCommand { get; }
+        public ICommand MoveReservationLinkCommand { get; }
+        public ICommand SearchAccommodationsLinkCommand { get; }
+
         public MoveReservationWindow(User u)
         {
             InitializeComponent();
             DataContext = this;
             User = u;
+            viewModelBase = new ViewModelBase();
+            viewModelBase.User = User;
+            viewModelBase.Window = this;
+
+            ProfileLinkCommand = new ProfileLinkCommand(viewModelBase);
+            YourReservationsLinkCommand = new YourReservationsLinkCommand(viewModelBase);
+            MoveReservationLinkCommand = new MoveReservationLinkCommand(viewModelBase);
+            SearchAccommodationsLinkCommand = new SearchAccommodationsLinkCommand(viewModelBase);
 
             _reservationService = new AccommodationReservationService();
             _requestService = new MoveRequestService();
@@ -57,6 +73,12 @@ namespace Project.View.Guest1View
             if (SelectedReservation == null)
             {
                 MessageBox.Show("Choose a reservation first!", "Reservation not chosen", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (SelectedReservation.StartDate <= DateTime.Now.Date)
+            {
+                MessageBox.Show("You can not move reservation that has already started", "Reservation already started", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 

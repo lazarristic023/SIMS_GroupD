@@ -1,6 +1,5 @@
 ﻿using Project.Controller;
 using Project.Model;
-using Project.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,19 +14,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
-
-namespace Project.View
+namespace Project.View.OwnerView
 {
     /// <summary>
-    /// Interaction logic for OwnerView.xaml
+    /// Interaction logic for OwnerMainView.xaml
     /// </summary>
-    public partial class OwnerView : Window
+    public partial class OwnerMainView : Window
     {
         private User user;
-        
+
         private OwnerController controller;
 
         private List<AccommodationImage> tempImages;
@@ -43,12 +39,7 @@ namespace Project.View
         public string SelectedCountry { get; set; }
 
         public string SelectedCity { get; set; }
-
-
-
-
-
-        public OwnerView(User u)
+        public OwnerMainView(User u)
         {
             InitializeComponent();
             DataContext = this;
@@ -66,7 +57,6 @@ namespace Project.View
             user = u;
 
             FillCountriesList();
-
         }
 
         private void btSignOut_Click(object sender, RoutedEventArgs e)
@@ -138,7 +128,7 @@ namespace Project.View
                 MessageBox.Show("Please select any accommodation.");
                 return;
             }
-     
+
         }
 
 
@@ -152,7 +142,7 @@ namespace Project.View
             }
             try
             {
-                AccommodationImage image = new AccommodationImage(0,tbAddLink.Text, controller.AccommodationRepository.GetLastId());
+                AccommodationImage image = new AccommodationImage(0, tbAddLink.Text, controller.AccommodationRepository.GetLastId());
                 tempImages.Add(image);
                 MessageBox.Show("Image added successfully!");
             }
@@ -200,18 +190,17 @@ namespace Project.View
             }
             Location location = new Location(SelectedCity, SelectedCountry);
             Accommodation accommodation = new Accommodation(name, controller.Owner.User.Id, type, location, guestNumber, advanceReservation, cancellationPeriod);
-            foreach(var image in tempImages)
+            foreach (var image in tempImages)
             {
                 controller.AccommodationImageRepository.Add(image);
                 accommodation.Images.Add(image);
             }
-            
+
             accommodation = controller.AccommodationRepository.Add(accommodation);
             Accommodations.Add(accommodation);
             MessageBox.Show("You've successfully added accommodation to your account.");
             tempImages.Clear();
         }
 
-        
     }
 }
