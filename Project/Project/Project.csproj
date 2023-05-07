@@ -16,6 +16,7 @@
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\forumIcon.jpg" />
+    <None Remove="Resources\Images\home_icon.jpg" />
     <None Remove="Resources\Images\infoIcon.png" />
     <None Remove="Resources\Images\katedralajpg.jpg" />
     <None Remove="Resources\Images\logo.jpg" />
@@ -50,6 +51,7 @@
     <Resource Include="Resources\Images\delete.png" />
     <Resource Include="Resources\Images\edit.png" />
     <Resource Include="Resources\Images\forumIcon.jpg" />
+    <Resource Include="Resources\Images\home_icon.jpg" />
     <Resource Include="Resources\Images\infoIcon.png" />
     <Resource Include="Resources\Images\katedralajpg.jpg" />
     <Resource Include="Resources\Images\logo.jpg" />

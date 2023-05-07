@@ -198,5 +198,11 @@ namespace Project.View.TourGuideView
             reviews.Show();
         }
 
+        private void tourrequestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TourRequests tourRequests = new TourRequests();
+            tourRequests.Owner = this;
+            tourRequests.Show();
+        }
     }
 }

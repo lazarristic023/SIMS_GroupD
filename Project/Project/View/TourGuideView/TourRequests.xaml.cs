@@ -1,15 +1,8 @@
-﻿using Microsoft.Win32;
-using Project.Controller;
-using Project.Model;
-using Project.Service;
+﻿using Project.Service;
 using Project.ViewModel.TourGuideViewModel;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,14 +17,14 @@ using System.Windows.Shapes;
 namespace Project.View.TourGuideView
 {
     /// <summary>
-    /// Interaction logic for AddNewTour.xaml
+    /// Interaction logic for TourRequests.xaml
     /// </summary>
-    public partial class AddNewTour : Window
+    public partial class TourRequests : Window
     {
-        public AddNewTour(TourService tourService, AppointmentService appointmentService)
+        public TourRequests()
         {
             InitializeComponent();
-            var vm = new AddNewTourViewModel(tourService,appointmentService);
+            var vm = new TourRequestsViewModel();
             this.DataContext = vm;
             vm.ClosingRequest += (sender, e) => this.Close();
         }

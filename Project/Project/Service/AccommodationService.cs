@@ -97,6 +97,21 @@ namespace Project.Service
             return cities;
         }
 
+        public List<Accommodation> GetAllOwnerAccommodations(int ownerId)
+        {
+            List<Accommodation> accommodations = new List<Accommodation>();
+
+            foreach (Accommodation accommodation in _accommodationRepository.GetAllAccommodations())
+            {
+                if (accommodation.OwnerId == ownerId)
+                {
+                    accommodations.Add(accommodation);
+                }
+            }
+
+            return accommodations;
+        }
+
 
     }
 }

@@ -1,0 +1,89 @@
+﻿using Project.Model;
+using Project.Observer;
+using Project.RepositoryInterfaces;
+using Project.Serializer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Project.Repository
+{
+    public class TourRequestRepository : ISubject,ITourRequestRepository
+    {
+
+        private const string FilePath = "../../../Resources/Data/tourRequests.csv";
+
+        private readonly Serializer<TourRequest> serializer;
+
+        private readonly List<IObserver> _observers;
+
+        private List<TourRequest> requests;
+        public TourRequestRepository()
+        {
+            serializer = new Serializer<TourRequest>();
+            requests = serializer.FromCSV(FilePath);
+            _observers = new List<IObserver>();
+        }
+
+        private void SaveInFile()
+        {
+            serializer.ToCSV(FilePath, requests);
+        }
+
+        private int GenerateId()
+        {
+            if (requests.Count == 0)
+                return 0;
+
+            return requests[requests.Count - 1].Id + 1;
+        }
+
+        public int Add(TourRequest request)
+        {
+            request.Id = GenerateId();
+            requests.Add(request);
+            SaveInFile();
+            NotifyObservers();
+            return request.Id;
+
+        }
+
+        public void Remove(int id)
+        {
+            TourRequest request = GetById(id);
+
+            requests.Remove(request);
+            SaveInFile();
+
+        }
+
+        public TourRequest GetById(int id)
+        {
+            return requests.Find(v => v.Id == id);
+        }
+
+        public List<TourRequest> GetAll()
+        {
+            return requests;
+        }
+
+
+
+        public void NotifyObservers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

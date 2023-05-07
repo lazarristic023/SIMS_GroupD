@@ -72,7 +72,7 @@
                             </Grid>
                         </Button>
 
-                        <Button Grid.Row="3" Margin="5,0,5,10" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold">
+                        <Button x:Name="tourrequestBtn" Grid.Row="3" Margin="5,0,5,10" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Click="tourrequestBtn_Click">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>

@@ -1,23 +1,22 @@
-﻿using Project.Model;
+﻿using Project.Controller;
+using Project.Model;
 using Project.Observer;
-using Project.Repository;
 using Project.RepositoryInterfaces;
-using Project.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project.Controller
+namespace Project.Service
 {
-    public class TourPointsListController
+    public class TourPointsListService
     {
 
         private ITourPointsListRepository tourPointsListRepository;
         TourPointService tourPointService { get; set; }
 
-        public TourPointsListController()
+        public TourPointsListService()
         {
             tourPointsListRepository = Injector.Injector.CreateInstance<ITourPointsListRepository>();
             tourPointService = new TourPointService();
@@ -30,18 +29,19 @@ namespace Project.Controller
 
         public void Create(int tourId, List<int> pointsId)
         {
-            TourPointsList tourPointsList = new TourPointsList(tourId,pointsId);
+            TourPointsList tourPointsList = new TourPointsList(tourId, pointsId);
             tourPointsListRepository.Add(tourPointsList);
-        
+
         }
 
-        public TourPointsList GetByTourId(int id) {
+        public TourPointsList GetByTourId(int id)
+        {
             List<TourPointsList> tourPointsLists = GetAll();
             TourPointsList tourPoints = new TourPointsList();
 
-            foreach(TourPointsList tourPointsList in tourPointsLists)
+            foreach (TourPointsList tourPointsList in tourPointsLists)
             {
-                if(tourPointsList.TourId == id)
+                if (tourPointsList.TourId == id)
                 {
                     tourPoints = tourPointsList;
                 }
@@ -49,7 +49,7 @@ namespace Project.Controller
             }
 
             return tourPoints;
-        
+
         }
 
         public List<TourPointsList> GetAll()
