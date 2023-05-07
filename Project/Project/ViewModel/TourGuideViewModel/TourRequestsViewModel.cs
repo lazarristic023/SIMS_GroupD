@@ -1,6 +1,7 @@
 ﻿using Project.Command;
 using Project.Model;
 using Project.Service;
+using Project.View.TourGuideView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -155,6 +156,20 @@ namespace Project.ViewModel.TourGuideViewModel
 			}
 		}
 
+		private TourRequest _selectedRequest;
+		public TourRequest SelectedRequest
+		{
+			get
+			{
+				return _selectedRequest;
+			}
+			set
+			{
+				_selectedRequest = value;
+				OnPropertyChanged(nameof(SelectedRequest));
+			}
+		}
+
 		private readonly LocationService locationService;
 		private readonly TourRequestService tourRequestService;
 
@@ -303,5 +318,30 @@ namespace Project.ViewModel.TourGuideViewModel
 				Requests.Add(el);
 			}
 		}
+
+        private RelayCommand acceptCommand;
+        public ICommand AcceptCommand
+        {
+            get
+            {
+                if (acceptCommand == null)
+                {
+                    acceptCommand = new RelayCommand(param => this.Accept(), param => this.CanAccept());
+                }
+                return acceptCommand;
+            }
+        }
+
+        private bool CanAccept()
+        {
+            return SelectedRequest!=null;
+        }
+
+        private void Accept()
+        {
+			RequestDatePicker datePicker = new RequestDatePicker(SelectedRequest);
+			datePicker.Show();
+			SelectedRequest = null;
+        }
     }
 }
