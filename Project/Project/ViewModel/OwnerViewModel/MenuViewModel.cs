@@ -1,4 +1,5 @@
-﻿using Project.Command.OwnerCommands.MenuNavigationCommands;
+﻿using Project.Command.OwnerCommands;
+using Project.Command.OwnerCommands.MenuNavigationCommands;
 using Project.Model;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,13 @@ namespace Project.ViewModel.OwnerViewModel
         {
             User = user;
             Window = window;
+
             HomeNavigationCommand = new HomeNavigationCommand(this);
+            AddAccommodationCommand = new AddAccommodationNavigationCommand(this);
+
         }
 
         public ICommand HomeNavigationCommand { get;  }
+        public ICommand AddAccommodationCommand { get; }
     }
 }

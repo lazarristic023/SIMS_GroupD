@@ -1,4 +1,5 @@
 ﻿using Project.View.Guest1View;
+using Project.View.OwnerView;
 using Project.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,9 @@ namespace Project.Command.OwnerCommands.MenuNavigationCommands
 
         public override void Execute(object? parameter)
         {
-
-           /* MoveReservationWindow moveReservationWindow = new MoveReservationWindow(viewModelBase.User);
-            moveReservationWindow.Show();
-            viewModelBase.Window.Close();*/
+            AddAccommodationForm addAccommodationForm = new AddAccommodationForm(viewModelBase.User);
+            addAccommodationForm.Show();
+            viewModelBase.Window.Close();
         }
     }
 }

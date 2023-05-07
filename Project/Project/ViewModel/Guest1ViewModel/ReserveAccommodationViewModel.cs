@@ -56,7 +56,7 @@ namespace Project.ViewModel.Guest1ViewModel
             set
             {
                 _notFoundText = value;
-                OnPropertyChanged(nameof(_notFoundText));
+                OnPropertyChanged();
             }
         }
 

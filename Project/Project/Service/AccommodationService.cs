@@ -113,5 +113,16 @@ namespace Project.Service
         }
 
 
+        public void Add(Accommodation accommodation)
+        {
+            _accommodationRepository.Add(accommodation);
+        }
+
+        public void AddImage(AccommodationImage image)
+        {
+            _imageRepository.Add(image);
+        }
+
+
     }
 }

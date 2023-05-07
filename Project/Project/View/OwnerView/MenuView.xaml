@@ -33,7 +33,7 @@
 
             <StackPanel Grid.Row="1">
 
-                <Button Content="Add Accommodation" Width="200" Height="75" FontSize="20" Margin="0,30"/>
+                <Button Command="{Binding AddAccommodationCommand}" Content="Add Accommodation" Width="200" Height="75" FontSize="20" Margin="0,30"/>
                 <Button Content="Reservations" Width="200" Height="75" FontSize="20" Margin="0,30"/>
                 <Button Content="Rate Guest" Width="200" Height="75" FontSize="20" Margin="0,30"/>
                 <Button Content="Statistics" Width="200" Height="75" FontSize="20" Margin="0,30"/>

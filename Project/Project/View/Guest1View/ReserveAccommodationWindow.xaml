@@ -18,7 +18,7 @@
         <DatePicker DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding Path=EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     HorizontalAlignment="Left" Margin="180,205,0,0" VerticalAlignment="Top"/>
         <Button Command="{Binding SearchCommand}" Content="Search" HorizontalAlignment="Left" Margin="389,117,0,0" VerticalAlignment="Top" Height="33" Width="65"/>
-        <TextBlock x:Name="tbNotFound" Foreground="Red" Text="{Binding Path=NotFoundText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="auto" HorizontalAlignment="Left" Margin="37,262,0,0"  VerticalAlignment="Top"/>
+        <TextBlock x:Name="tbNotFound" Foreground="Red" Text="{Binding Path=NotFoundText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="auto" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="37,262,0,0"  VerticalAlignment="Top"/>
         <DataGrid SelectedItem="{Binding Path=SelectedReservation}" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FreeReservations}" Margin="52,304,52,91">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Start Date" Binding="{Binding Path=StartDate}" Width="1*"/>
