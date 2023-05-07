@@ -8,6 +8,7 @@ using Project.Serializer;
 using Project.Observer;
 using System.IO;
 using Project.RepositoryInterfaces;
+using Project.Service;
 
 namespace Project.Repository
 {
@@ -142,6 +143,7 @@ namespace Project.Repository
 
             return cities;
         }
+
 
         public List<Location> GetAllLocations()
         {

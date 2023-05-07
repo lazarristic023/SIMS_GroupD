@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Project.View.Guest1View"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="YourReservationsWindow" Height="650" Width="1102" BorderThickness="1" BorderBrush="DarkBlue">
+        Title="Profile" Height="650" Width="1102" BorderThickness="1" BorderBrush="DarkBlue">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="260"/>
