@@ -64,6 +64,19 @@ namespace Project.Repository
             return tours.Find(v => v.Id == id);
         }
 
+        public List<Tour> GetAll(int guideId)
+        {
+            List<Tour> tempTours = new List<Tour>();
+            foreach (Tour tour in tours)
+            {
+                if(tour.GuideId == guideId)
+                {
+                    tempTours.Add(tour);
+                }
+            }
+            return tempTours;
+        }
+
         public List<Tour> GetAll()
         {
             return tours;

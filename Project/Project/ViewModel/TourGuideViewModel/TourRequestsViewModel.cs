@@ -1,5 +1,6 @@
 ﻿using Project.Command;
 using Project.Model;
+using Project.Observer;
 using Project.Service;
 using Project.View.TourGuideView;
 using System;
@@ -13,7 +14,7 @@ using System.Windows.Input;
 
 namespace Project.ViewModel.TourGuideViewModel
 {
-    public class TourRequestsViewModel:CloseableViewModel
+    public class TourRequestsViewModel:CloseableViewModel, IObserver
     {
 		private string[] _countries;
 		public string[] Countries
@@ -128,6 +129,20 @@ namespace Project.ViewModel.TourGuideViewModel
 			}
 		}
 
+		private DateTime _datePickerDates;
+		public DateTime DatePickerDates
+		{
+			get
+			{
+				return _datePickerDates;
+			}
+			set
+			{
+				_datePickerDates = value;
+				OnPropertyChanged(nameof(DatePickerDates));
+			}
+		}
+
 		private int _guestNumber;
 		public int GuestNumber
 		{
@@ -170,24 +185,65 @@ namespace Project.ViewModel.TourGuideViewModel
 			}
 		}
 
+		private bool _isVisible;
+		public bool IsVisible
+		{
+			get
+			{
+				return _isVisible;
+			}
+			set
+			{
+				_isVisible = value;
+				OnPropertyChanged(nameof(IsVisible));
+			}
+		}
+
 		private readonly LocationService locationService;
 		private readonly TourRequestService tourRequestService;
+		private readonly TourService tourService;
+		private readonly AppointmentService appointmentService;
 
         List<TourRequest> tourRequests = new List<TourRequest>();
 
-        public TourRequestsViewModel()
+		private User Guide;
+
+        public TourRequestsViewModel(User user)
         {
-			locationService = new LocationService();
+            Guide = user;
+
+            locationService = new LocationService();
 			tourRequestService = new TourRequestService();
+
+			tourService = new TourService();
+			tourService.Subscribe(this);
+
+			appointmentService = new AppointmentService();
+			appointmentService.Subscribe(this);
 
 			Countries = locationService.GetAllCountries();
 			Cities = LoadCities();
 			Languages = LoadLanguages();
 
-			tourRequests = tourRequestService.GetAll();
-			Requests = new ObservableCollection<TourRequest>(tourRequestService.GetAll());
+			DatePickerDates = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+			IsVisible = false;
+
+			tourRequests = tourRequestService.GetAllNotAccepted();
+			Requests = new ObservableCollection<TourRequest>(tourRequestService.GetAllNotAccepted());
 			
         }
+
+		public void UpdateRequests()
+		{
+			Requests.Clear();
+
+			foreach (TourRequest request in tourRequestService.GetAllNotAccepted())
+			{
+				Requests.Add(request);
+			}
+		}
+
+		
 
 		private List<TourRequest> ApplyingFilter(List<TourRequest> torReq)
 		{
@@ -339,9 +395,14 @@ namespace Project.ViewModel.TourGuideViewModel
 
         private void Accept()
         {
-			RequestDatePicker datePicker = new RequestDatePicker(SelectedRequest);
+			RequestDatePicker datePicker = new RequestDatePicker(SelectedRequest, Guide, tourService, appointmentService);
 			datePicker.Show();
 			SelectedRequest = null;
         }
-    }
+
+		public void Update()
+		{
+			UpdateRequests();
+		}
+	}
 }

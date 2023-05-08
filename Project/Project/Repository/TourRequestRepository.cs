@@ -69,21 +69,40 @@ namespace Project.Repository
             return requests;
         }
 
-
-
-        public void NotifyObservers()
+        public void MarkAsAccepted(int id)
         {
-            throw new NotImplementedException();
+            TourRequest tourRequest = requests.Find(v => v.Id == id);
+            tourRequest.Status = TourRequest.STATUS.ACCEPTED;
+            SaveInFile();
+            NotifyObservers();
         }
+
 
         public void Subscribe(IObserver observer)
         {
-            throw new NotImplementedException();
+            _observers.Add(observer);
         }
 
         public void Unsubscribe(IObserver observer)
         {
-            throw new NotImplementedException();
+            _observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
+
+        public void AddAcceptedAppointment(int id, DateTime date, int guideId)
+        {
+            TourRequest tourRequest = requests.Find(v => v.Id == id);
+            tourRequest.AcceptedAppointment = date;
+            tourRequest.GuideId = guideId;
+            SaveInFile();
+            NotifyObservers();
         }
     }
 }

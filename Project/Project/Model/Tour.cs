@@ -25,13 +25,15 @@ namespace Project.Model
         public int MaxGuests { get; set; }
         public int Duration { get; set; }
 
+        public int GuideId { get; set; }
+
         public Appointment TourAppointment { get; set; }
 
 
 
         //private readonly LocationController locationController;
 
-        public Tour(Location location, string name, string description, string language, int maxGuests, int duration)
+        public Tour(Location location, string name, string description, string language, int maxGuests, int duration, int guideId)
         {
             Id = -1;
             LocationId = location.Id;
@@ -45,7 +47,7 @@ namespace Project.Model
             City = location.City;
             //locationController = new LocationController();
             TourAppointment = new Appointment();
-
+            GuideId = guideId;
         }
 
         public Tour()
@@ -62,6 +64,7 @@ namespace Project.Model
             Country = "";
             //locationController = new LocationController();
             TourAppointment = new Appointment();
+            GuideId = -1;
         }
 
         public Tour(Tour tour, Appointment appointment)
@@ -78,6 +81,7 @@ namespace Project.Model
             Country = tour.Country;
             //locationController = tour.locationController;
             TourAppointment = appointment;
+            GuideId = tour.GuideId;
         }
 
 
@@ -90,6 +94,7 @@ namespace Project.Model
                 Language,
                 MaxGuests.ToString(),
                 Duration.ToString(),
+                GuideId.ToString(),
 
             };
             return csvValues;
@@ -104,6 +109,7 @@ namespace Project.Model
             Language = values[4];
             MaxGuests = int.Parse(values[5]);
             Duration = int.Parse(values[6]);
+            GuideId = int.Parse(values[7]);
             //Location = locationController.GetById(Id);
             
         }

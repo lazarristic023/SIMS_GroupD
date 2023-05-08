@@ -163,6 +163,20 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
+        private DateTime _datePickerStartDate;
+        public DateTime DatePickerStartDate
+        {
+            get
+            {
+                return _datePickerStartDate;
+            }
+            set
+            {
+                _datePickerStartDate = value;
+                OnPropertyChanged(nameof(DatePickerStartDate));
+            }
+        }
+
         private string _startTime = string.Empty;
         public string StartTime
         {
@@ -311,10 +325,16 @@ namespace Project.ViewModel.TourGuideViewModel
         private readonly TourPointService _tourPointService;
         private readonly TourPointsListService _tourPointsListService;
         private readonly LocationService _locationService;
+        private readonly TourRequestService _tourRequestService;
 
         List<int> pointsIds = new List<int>();
 
-        public AddNewTourViewModel(TourService tourService, AppointmentService appointmentService)
+        private User Guide;
+
+        public bool IsEnabled { get; set; }
+        public int RequestId { get; set; }
+
+        public AddNewTourViewModel(TourService tourService, AppointmentService appointmentService, User user)
         {
             _imageController = new ImageController();
             _tourPointsListService = new TourPointsListService();
@@ -322,11 +342,36 @@ namespace Project.ViewModel.TourGuideViewModel
             _locationService = new LocationService();
             _tourService = tourService;
             _appointmentService = appointmentService;
+            _tourRequestService = new TourRequestService();
 
 
             Countries = _locationService.GetAllCountries();
             Cities = LoadCities();
             Languages = LoadLanguages();
+            Guide = user;
+            IsEnabled = true;
+            DatePickerStartDate = DateTime.Today;
+        }
+
+        public AddNewTourViewModel(Location location,string language,int guestNum,DateTime appointmnet, User user, int requestId, TourService tourService, AppointmentService appointmentService)
+        {
+            _imageController = new ImageController();
+            _tourPointsListService = new TourPointsListService();
+            _tourPointService = new TourPointService();
+            _locationService = new LocationService();
+            _tourService = tourService;
+            _appointmentService = appointmentService;
+            _tourRequestService = new TourRequestService();
+
+            Country = location.Country;
+            City = location.City;
+            Language = language;
+            MaxGuests = guestNum;
+            Dates.Add(appointmnet);
+            Guide = user;
+
+            RequestId = requestId;
+            IsEnabled = false;
         }
 
 
@@ -357,9 +402,6 @@ namespace Project.ViewModel.TourGuideViewModel
             return languages;
 
         }
-
-
-
 
 
 
@@ -500,16 +542,26 @@ namespace Project.ViewModel.TourGuideViewModel
             //PRAVLJENJE LOCATION-a
 
             _location = _locationService.Create(City, Country);
+
+            if (!IsEnabled)
+            {
+                _tourRequestService.MarkAsAccepted(RequestId);
+            }
             
             //KREIRANJE TOUR-a
 
-            int tourId = _tourService.Create(_location, NameOfTour, Description, Language, MaxGuests, Duration);
+            int tourId = _tourService.Create(_location, NameOfTour, Description, Language, MaxGuests, Duration, Guide.Id);
 
             //KREIRANJE APPOINTMENT-a
 
             foreach (DateTime date in Dates)
             {
                 _appointmentService.Create(tourId, date);
+
+                if (!IsEnabled)
+                {
+                    _tourRequestService.AddAcceptedAppointment(RequestId,date,Guide.Id);
+                }
             }
 
             Dates.Clear();
@@ -534,6 +586,10 @@ namespace Project.ViewModel.TourGuideViewModel
             }
             Images.Clear();
 
+            if (!IsEnabled)
+            {
+                MessageBox.Show("The tour was successfully created against the tour request");
+            }
 
             Close();
 
