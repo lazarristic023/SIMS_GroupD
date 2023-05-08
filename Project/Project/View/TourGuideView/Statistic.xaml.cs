@@ -27,10 +27,10 @@ namespace Project.View.TourGuideView
     /// 
     public partial class Statistic : Window
     {
-        public Statistic()
+        public Statistic(User user)
         {
             InitializeComponent();
-            DataContext = new StatisticViewModel();
+            DataContext = new StatisticViewModel(user);
         }
     }
 }

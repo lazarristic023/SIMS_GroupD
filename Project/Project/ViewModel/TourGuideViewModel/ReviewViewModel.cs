@@ -46,11 +46,11 @@ namespace Project.ViewModel.TourGuideViewModel
 			}
 		}
 
-        public ReviewViewModel()
+        public ReviewViewModel(int guideId)
         {
 			_tourReviewService = new TourReviewService();
 
-            TourReviews = new ObservableCollection<ReviewDisplay>(_tourReviewService.GetReviewForDisplay());
+            TourReviews = new ObservableCollection<ReviewDisplay>(_tourReviewService.GetReviewForDisplay(guideId));
         }
 
 

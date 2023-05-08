@@ -1,4 +1,5 @@
 ﻿using Project.Model;
+using Project.Service;
 using Project.ViewModel.TourGuideViewModel;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,13 @@ namespace Project.View.TourGuideView
     /// </summary>
     public partial class RequestDatePicker : Window
     {
-        public RequestDatePicker(TourRequest request)
+        public RequestDatePicker(TourRequest request, User guide, TourService tourService, AppointmentService appointmentService)
         {
             InitializeComponent();
-            DataContext = new RequestDatePickerViewModel(request);
+            var vm = new RequestDatePickerViewModel(request, guide, tourService,appointmentService);
+            this.DataContext = vm;
+            vm.ClosingRequest += (sender, e) => this.Close();
+
         }
     }
 }

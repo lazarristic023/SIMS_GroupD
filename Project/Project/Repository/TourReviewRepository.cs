@@ -60,6 +60,7 @@ namespace Project.Repository
             return tourReviews;
         }
 
+
         public List<TourReview> GetGuestsReview(int id)
         {
             List<TourReview> guestReviews = new List<TourReview>();

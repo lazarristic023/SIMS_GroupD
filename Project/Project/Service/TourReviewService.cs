@@ -51,13 +51,31 @@ namespace Project.Service
             return tourReviewRepository.GetAll();
         }
 
+        public List<TourReview> GetAll(int guideId)
+        {
+            List<TourReview> tourReviews = new List<TourReview>();
+            List<TourReview> allTourReviews = new List<TourReview>(tourReviewRepository.GetAll());
 
-        public List<ReviewDisplay> GetReviewForDisplay()
+            foreach (TourReview tourReview in allTourReviews)
+            {
+                Tour tour = new Tour();
+                int tourId = appointmentService.GetTourId(tourReview.AppointmentId);
+                tour = tourService.GetById(tourId);
+                if(tour.GuideId == guideId)
+                {
+                    tourReviews.Add(tourReview);
+                }
+            }
+            return tourReviews;
+        }
+
+
+        public List<ReviewDisplay> GetReviewForDisplay(int guideId)
         {
             List<ReviewDisplay> list = new List<ReviewDisplay>();
 
 
-            List<TourReview> tourReviews = GetAll();
+            List<TourReview> tourReviews = GetAll(guideId);
 
             foreach (TourReview review in tourReviews)
             {

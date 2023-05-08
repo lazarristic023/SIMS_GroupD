@@ -20,6 +20,7 @@ namespace Project.Model
         public DateTime EndDate { get; set; }
         public DateTime AcceptedAppointment { get; set; }
         public int GuideId { get; set; }
+        public int GuestId { get; set; }
         public STATUS Status { get; set; }
 
         public TourRequest()
@@ -34,11 +35,12 @@ namespace Project.Model
             EndDate = DateTime.MinValue;
             AcceptedAppointment = DateTime.MinValue;
             GuideId = -1;
+            GuestId = -1;
             Status = STATUS.ONHOLD;
         }
 
         public TourRequest(int locationId, string description, string language, int guestNum,
-                            DateTime startDate, DateTime endDate, DateTime acceptedAppointment, STATUS status)
+                            DateTime startDate, DateTime endDate, DateTime acceptedAppointment, STATUS status, int guestId)
         {
             Id = -1;
             LocationId = locationId;
@@ -50,6 +52,7 @@ namespace Project.Model
             EndDate = endDate;
             AcceptedAppointment = acceptedAppointment;
             GuideId = -1;
+            GuestId = guestId;
             Status = status;
         }
 
@@ -65,6 +68,7 @@ namespace Project.Model
                 EndDate.ToString("G"),
                 AcceptedAppointment.ToString("G"),
                 GuideId.ToString(),
+                GuestId.ToString(),
                 Status.ToString(),
             };
             return csvValues;
@@ -81,7 +85,8 @@ namespace Project.Model
             EndDate = DateTime.Parse(values[6]);
             AcceptedAppointment = DateTime.Parse(values[7]);
             GuideId = int.Parse(values[8]);
-            string status = values[9];
+            GuestId = int.Parse(values[9]);
+            string status = values[10];
             switch (status)
             {
                 case "ACCEPTED":

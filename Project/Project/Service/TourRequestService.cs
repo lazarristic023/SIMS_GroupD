@@ -18,9 +18,9 @@ namespace Project.Service
             locationService = new LocationService();
         }
 
-        public void Create(int locationId, string description, string language, int guestNum, DateTime startDate, DateTime endDate, DateTime acceptedAppointment, TourRequest.STATUS status)
+        public void Create(int locationId, string description, string language, int guestNum, DateTime startDate, DateTime endDate, DateTime acceptedAppointment, TourRequest.STATUS status,int guestId)
         {
-            TourRequest tourRequest = new TourRequest(locationId,description,language,guestNum,startDate,endDate,acceptedAppointment,status);
+            TourRequest tourRequest = new TourRequest(locationId,description,language,guestNum,startDate,endDate,acceptedAppointment,status,guestId);
 
             int requestId = tourRequestRepository.Add(tourRequest);
         }
@@ -43,9 +43,35 @@ namespace Project.Service
             return requests;
         }
 
+        public List<TourRequest> GetAllNotAccepted()
+        {
+            List<TourRequest> requests = new List<TourRequest>();
+
+            foreach (TourRequest req in tourRequestRepository.GetAll())
+            {
+                req.Location = locationService.GetById(req.LocationId);
+                if(req.Status != TourRequest.STATUS.ACCEPTED)
+                {
+                    requests.Add(req);
+                }
+                
+            }
+            return requests;
+        }
+
         public void Remove(int id)
         {
             tourRequestRepository.Remove(id);
+        }
+
+        public void MarkAsAccepted(int id)
+        {
+            tourRequestRepository.MarkAsAccepted(id);
+        }
+
+        public void AddAcceptedAppointment(int id, DateTime date, int guideId)
+        {
+            tourRequestRepository.AddAcceptedAppointment(id, date, guideId);
         }
     }
 }

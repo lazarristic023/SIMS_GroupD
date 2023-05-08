@@ -13,6 +13,7 @@ namespace Project.RepositoryInterfaces
         public int Add(Tour tour);
         public void Remove(int id);
         public Tour GetById(int id);
+        public List<Tour> GetAll(int guideId);
         public List<Tour> GetAll();
         public List<Tour> FindAllAlternatives(Tour tour, int numberOfGuests);
 

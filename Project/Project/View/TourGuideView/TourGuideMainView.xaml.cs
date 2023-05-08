@@ -71,7 +71,7 @@ namespace Project.View.TourGuideView
 
             ImageSource = "../../Resources/Data/images.csv";
 
-            Tours = new ObservableCollection<Tour>(_tourService.GetAllTourAppointments());
+            Tours = new ObservableCollection<Tour>(_tourService.GetAllTourAppointments(User.Id));
 
 
         }
@@ -87,7 +87,7 @@ namespace Project.View.TourGuideView
         {
             Tours.Clear();
 
-            foreach (var tour in _tourService.GetAll())
+            foreach (var tour in _tourService.GetAll(User.Id))
             {
                 Tours.Add(tour);
             }
@@ -97,7 +97,7 @@ namespace Project.View.TourGuideView
         {
             Tours.Clear();
 
-            foreach(var tour in _tourService.GetAllTourAppointments())
+            foreach(var tour in _tourService.GetAllTourAppointments(User.Id))
             {
                 Tours.Add(tour);
             }
@@ -118,7 +118,7 @@ namespace Project.View.TourGuideView
 
         private void addTourButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNewTour addNewTour = new AddNewTour(_tourService,_appointmentService);
+            AddNewTour addNewTour = new AddNewTour(_tourService,_appointmentService,User);
             addNewTour.Owner = this;
             addNewTour.Show();
         }
@@ -186,21 +186,21 @@ namespace Project.View.TourGuideView
 
         private void StatisticBtn_Click(object sender, RoutedEventArgs e)
         {
-            Statistic statistic = new Statistic();
+            Statistic statistic = new Statistic(User);
             statistic.Owner = this;
             statistic.Show();
         }
 
         private void ReviewsBtn_Click(object sender, RoutedEventArgs e)
         {
-            Reviews reviews = new Reviews();
+            Reviews reviews = new Reviews(User.Id);
             reviews.Owner = this;
             reviews.Show();
         }
 
         private void tourrequestBtn_Click(object sender, RoutedEventArgs e)
         {
-            TourRequests tourRequests = new TourRequests();
+            TourRequests tourRequests = new TourRequests(User);
             tourRequests.Owner = this;
             tourRequests.Show();
         }

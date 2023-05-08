@@ -27,10 +27,10 @@ namespace Project.View.TourGuideView
     public partial class Reviews : Window
     {
 
-        public Reviews()
+        public Reviews(int guideId)
         {
             InitializeComponent();
-            DataContext = new ReviewViewModel();
+            DataContext = new ReviewViewModel(guideId);
         }
 
     }

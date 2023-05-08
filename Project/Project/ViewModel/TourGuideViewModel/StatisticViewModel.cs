@@ -379,16 +379,20 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
+        private User user;
+
         private readonly TourService tourService;
         private readonly PresentGuestsService presentGuestsService;
 
         
         public bool DateView;
-        public StatisticViewModel()
+        public StatisticViewModel(User user)
         {
+            User = user;
+
             tourService = new TourService();
             presentGuestsService = new PresentGuestsService();
-            CompletedTours = new List<Tour>(tourService.GetCompletedTours());
+            CompletedTours = new List<Tour>(tourService.GetCompletedTours(User.Id));
 
             Years = new List<string>();
 
@@ -498,7 +502,7 @@ namespace Project.ViewModel.TourGuideViewModel
 
         public Tour GetBestTour()
         {
-            List<Tour> completed = tourService.GetCompletedTours();
+            List<Tour> completed = tourService.GetCompletedTours(User.Id);
             int highestNumberOfGuests = 0;
             Tour bestTour = new Tour();
 

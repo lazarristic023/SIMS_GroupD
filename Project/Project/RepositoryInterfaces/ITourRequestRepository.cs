@@ -14,5 +14,7 @@ namespace Project.RepositoryInterfaces
         public void Remove(int id);
         public TourRequest GetById(int id);
         public List<TourRequest> GetAll();
+        public void MarkAsAccepted(int id);
+        public void AddAcceptedAppointment(int id,DateTime date, int guideId);
     }
 }

@@ -30,11 +30,11 @@ namespace Project.Controller
         }
 
 
-        public int Create(Location location, string name, string description, string language, int maxGuests, int duration)
+        public int Create(Location location, string name, string description, string language, int maxGuests, int duration,int guideId)
         {
 
 
-            Tour tour = new Tour(location, name, description, language, maxGuests, duration);
+            Tour tour = new Tour(location, name, description, language, maxGuests, duration,guideId);
 
             int tourId = tourRepository.Add(tour);
 
