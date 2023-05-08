@@ -19,7 +19,7 @@
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <Button Background="Transparent" BorderBrush="Transparent" Grid.Column="0" HorizontalAlignment="Left" Height="40" Margin="5,0,0,0">
+                <Button Command="{Binding BurgerMenuCommand}" Background="Transparent" BorderBrush="Transparent" Grid.Column="0" HorizontalAlignment="Left" Height="40" Margin="5,0,0,0">
                     <Image Source="D:\6. semestar\SIMS\ProjectDirectory\SIMS_GroupD\Project\Project\Resources\Images\return_icon.png"/>
                 </Button>
                 <TextBlock Text="Reservations" Foreground="White" FontSize="25"  HorizontalAlignment="Center" Padding="0,5,0,5" Height="50" Grid.Column="1"/>
@@ -28,9 +28,9 @@
 
         <ScrollViewer Grid.Row="1">
             <StackPanel>
-                <DataGrid SelectedItem="{Binding SelectedReservation}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding Reservations}" FontSize="16">
+                <DataGrid IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding CurrentReservations}" FontSize="16">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Accommodaton" Binding="{Binding Path=Name}" Width="1*"/>
+                        <DataGridTextColumn Header="Accommodaton" Binding="{Binding Path=Accommodation.Name}" Width="1*"/>
                         <DataGridTextColumn Header="Start Date" Binding="{Binding Path=StartDate}" Width="1*"/>
                         <DataGridTextColumn Header="End Date" Binding="{Binding Path=EndDate}" Width="1*"/>
                     </DataGrid.Columns>

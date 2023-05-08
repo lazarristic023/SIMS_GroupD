@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Project.Model;
+using Project.ViewModel.OwnerViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,13 @@ namespace Project.View.OwnerView
     /// </summary>
     public partial class MoreAccommodationInfoView : Window
     {
-        public MoreAccommodationInfoView()
+        private readonly MoreAccommodationInfoViewModel moreAccommodationInfoViewModel;
+        public MoreAccommodationInfoView(User user, Accommodation accommodation)
         {
             InitializeComponent();
+            moreAccommodationInfoViewModel = new MoreAccommodationInfoViewModel(user, this, accommodation);
+            DataContext = moreAccommodationInfoViewModel;
+            
         }
     }
 }

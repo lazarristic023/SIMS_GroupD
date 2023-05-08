@@ -91,6 +91,12 @@ namespace Project.Command.OwnerCommands.AddAccommodationCommands
                 return true;
             }
 
+            if (_viewModel.ImageUrls.Count == 0)
+            {
+                MessageBox.Show("Please enter at least one image", "Accommodation images missing", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return true;
+            }
+
             return false;
 
         }

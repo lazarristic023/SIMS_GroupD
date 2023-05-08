@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Project.View.OwnerView"
         mc:Ignorable="d"
           Title="My Accommodations" Height="750" Width="430" ResizeMode="NoResize">
-    <Grid>
+    <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="13*"/>
@@ -49,7 +49,7 @@
                         </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate >
-                                <Button HorizontalAlignment="Stretch">
+                                <Button x:Name="btnMore" HorizontalAlignment="Stretch" Command="{Binding ElementName=grid, Path=DataContext.MoreInfoCommand}" CommandParameter="{Binding}">
                                     <Image Height="20" Source="D:\6. semestar\SIMS\ProjectDirectory\SIMS_GroupD\Project\Project\Resources\Images\plus.ico"/>
                                 </Button>
                             </DataTemplate>

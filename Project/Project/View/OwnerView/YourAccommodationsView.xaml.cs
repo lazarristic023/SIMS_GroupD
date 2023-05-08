@@ -27,7 +27,9 @@ namespace Project.View.OwnerView
             InitializeComponent();
             _yourAccommodationsViewModel = new(user, this);
             DataContext = _yourAccommodationsViewModel;
-
+            
         }
+
+        
     }
 }

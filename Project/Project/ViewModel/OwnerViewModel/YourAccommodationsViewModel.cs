@@ -1,5 +1,6 @@
 ﻿using Project.Command.OwnerCommands;
 using Project.Command.OwnerCommands.MenuNavigationCommands;
+using Project.Command.OwnerCommands.YourAccommodationsCommands;
 using Project.Model;
 using Project.Service;
 using System;
@@ -26,10 +27,12 @@ namespace Project.ViewModel.OwnerViewModel
             _accommodationService = new();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAllOwnerAccommodations(user.Id));
             BurgerMenuCommand = new BurgerMenuCommand(this);
+            MoreInfoCommand = new MoreInfoCommand(this);
 
         }
 
         public ICommand BurgerMenuCommand { get;  }
+        public ICommand MoreInfoCommand { get; }
         
 
     }

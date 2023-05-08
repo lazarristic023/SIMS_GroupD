@@ -41,9 +41,9 @@
                 <Label Content="Location" FontSize="25" FontWeight="SemiBold" Margin="30,20"/>
                 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <ComboBox x:Name="cbCountry"  ItemsSource="{Binding Path=Countries, UpdateSourceTrigger=PropertyChanged}"
+                    <ComboBox Text="Country" x:Name="cbCountry"  ItemsSource="{Binding Path=Countries, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedItem="{Binding Path=Country, UpdateSourceTrigger=PropertyChanged}" Margin="40,0,0,0" Width="150" Height="30" FontSize="20" HorizontalAlignment="Left"/>
-                    <ComboBox ItemsSource="{Binding Path=CountryCities, UpdateSourceTrigger=PropertyChanged}"
+                    <ComboBox Text="City" ItemsSource="{Binding Path=CountryCities, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding Path=City, UpdateSourceTrigger=PropertyChanged}" Margin="50,0,0,0" Width="150" Height="30" FontSize="20" HorizontalAlignment="Left"/>
                 </StackPanel>
                 

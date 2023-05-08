@@ -20,10 +20,12 @@ namespace Project.ViewModel.OwnerViewModel
 
             HomeNavigationCommand = new HomeNavigationCommand(this);
             AddAccommodationCommand = new AddAccommodationNavigationCommand(this);
+            ReservationsNavigationCommand = new ReservationsNavigationCommand(this);
 
         }
 
         public ICommand HomeNavigationCommand { get;  }
         public ICommand AddAccommodationCommand { get; }
+        public ICommand ReservationsNavigationCommand { get; }
     }
 }
