@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.OwnerView"
         mc:Ignorable="d"
-        Title="Upcoming Reservations" Height="750" Width="430" ResizeMode="NoResize">
+        Title="Upcoming Reservations" Height="750" Width="430" ResizeMode="NoResize" Top="300" Left="500">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -20,7 +20,7 @@
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <Button Command="{Binding BurgerMenuCommand}" Background="Transparent" BorderBrush="Transparent" Grid.Column="0" HorizontalAlignment="Left" Height="40" Margin="5,0,0,0">
-                    <Image Source="D:\6. semestar\SIMS\ProjectDirectory\SIMS_GroupD\Project\Project\Resources\Images\return_icon.png"/>
+                    <Image Source="../../Resources/Images/burger_menu1.png"/>
                 </Button>
                 <TextBlock Text="Reservations" Foreground="White" FontSize="25"  HorizontalAlignment="Center" Padding="0,5,0,5" Height="50" Grid.Column="1"/>
             </Grid>

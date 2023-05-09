@@ -30,5 +30,14 @@ namespace Project.View.OwnerView
             DataContext = menuViewViewModel;
 
         }
+
+        /*private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SignInView.PreviousWindow != null)
+            {
+                SignInView.PreviousWindow.Show();
+                Close();
+            }
+        }*/
     }
 }

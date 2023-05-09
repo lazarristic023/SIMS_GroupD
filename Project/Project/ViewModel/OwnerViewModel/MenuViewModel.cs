@@ -21,11 +21,14 @@ namespace Project.ViewModel.OwnerViewModel
             HomeNavigationCommand = new HomeNavigationCommand(this);
             AddAccommodationCommand = new AddAccommodationNavigationCommand(this);
             ReservationsNavigationCommand = new ReservationsNavigationCommand(this);
-
+            BackNavigationCommand = new BackNavigationCommand(this);
+            LogOutCommand = new LogOutCommand(this);
         }
 
         public ICommand HomeNavigationCommand { get;  }
         public ICommand AddAccommodationCommand { get; }
         public ICommand ReservationsNavigationCommand { get; }
+        public ICommand BackNavigationCommand { get; }
+        public ICommand LogOutCommand { get; }
     }
 }

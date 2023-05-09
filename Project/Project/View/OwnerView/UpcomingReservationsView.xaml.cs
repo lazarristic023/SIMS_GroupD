@@ -25,6 +25,7 @@ namespace Project.View.OwnerView
         public UpcomingReservationsView(User user)
         {
             InitializeComponent();
+            SignInView.PreviousWindow = this;
             upcomingReservationsViewModel = new UpcomingReservationsViewModel(user, this);
             DataContext = upcomingReservationsViewModel;
         }

@@ -25,6 +25,7 @@ namespace Project.View.OwnerView
         public AddAccommodationForm(User user)
         {
             InitializeComponent();
+            SignInView.PreviousWindow = this;
             viewModel = new AddAccommodationViewModel(user, this);
             DataContext = viewModel;
         }
