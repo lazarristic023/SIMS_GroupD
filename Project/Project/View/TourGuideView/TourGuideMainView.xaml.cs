@@ -39,9 +39,22 @@ namespace Project.View.TourGuideView
 
         public ObservableCollection<Tour> Tours { get; set; }
 
-        User User { get; set; }
 
-        private string _imagesource;
+        private User _user = new User();
+        public User User
+        {
+            get
+            {
+                return _user;
+            }
+            set
+            {
+                _user = value;
+                OnPropertyChanged(nameof(User));
+            }
+        }
+
+        private string _imagesource = string.Empty;
         public string ImageSource
         {
             get => _imagesource;
@@ -62,6 +75,7 @@ namespace Project.View.TourGuideView
             DataContext =  this;
 
             User = user;
+            
 
             _appointmentService = new AppointmentService();
             _appointmentService.Subscribe(this);

@@ -8,13 +8,61 @@
         mc:Ignorable="d"
         Title="Statistic" Height="600" Width="800"
         WindowStartupLocation="CenterOwner">
-    <Grid >
-        <TabControl Background="LightBlue">
-            <TabItem Header="Highest attended">
+    <Window.Resources>
+        <Style TargetType="TabItem">
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Width" Value="390"/>
+            <Setter Property="FontFamily" Value="Sylfaen"/>
 
-                <StackPanel  Background="AliceBlue" Margin="5,0,0,5">
+        </Style>
+        
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+    </Window.Resources>
+    <Grid >
+        <TabControl Background="#28365e" Margin="0,20,0,0">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Grid Name="Panel">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="109,10"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Panel" Property="Background" Value="#0a0e17"/>
+
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Panel" Property="Background" Value="#141b2f" />
+
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Highest attended" FontSize="25" Foreground="White"/>
+                </TabItem.Header>
+
+                <StackPanel  Background="#28365e" Margin="5,0,0,5">
                     <WrapPanel>
-                        <Label Content="Year: "></Label>
+                        <Label Content="Year:" FontSize="14"></Label>
                         <ComboBox x:Name="yearComboBox" Width="100" Height="20" SelectedIndex="0" 
                                   
                                   SelectedItem="{Binding SelectedYear}"
@@ -34,8 +82,10 @@
                         <Label x:Name="dateElementHighest" FontSize="14"  Content="{Binding bestAppointmentDate}"></Label>
                     </WrapPanel>
 
-                    <GroupBox BorderThickness="2" BorderBrush="Black" Margin="0,0,5,0">
-                        <GroupBox.Header>Age statistic</GroupBox.Header>
+                    <GroupBox BorderThickness="0.5" BorderBrush="White" Margin="5,0,5,0">
+                        <GroupBox.Header>
+                            <Label Content="Age statistic"/>
+                        </GroupBox.Header>
                         <StackPanel>
 
 
@@ -78,7 +128,10 @@
                 </StackPanel>
 
             </TabItem>
-            <TabItem Header="Other tours">
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Other tours" FontSize="25" Foreground="White"/>
+                </TabItem.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -87,7 +140,7 @@
 
 
 
-                    <StackPanel Grid.Column="0"  Background="AliceBlue" Margin="5,0,0,5">
+                    <StackPanel Grid.Column="0"  Background="#28365e" Margin="5,0,0,5">
 
                         <WrapPanel>
                             <Label FontSize="14" Content="Tour name:"></Label>
@@ -99,8 +152,10 @@
                             <Label x:Name="dateElement" FontSize="14" Visibility="{Binding Visible}" Content="{Binding AppointmentDate}"></Label>
                         </WrapPanel>
 
-                        <GroupBox BorderThickness="2" BorderBrush="Black"  Margin="0,0,5,0">
-                            <GroupBox.Header>Age statistic</GroupBox.Header>
+                        <GroupBox BorderThickness="0.5" BorderBrush="white"  Margin="0,0,5,0">
+                            <GroupBox.Header>
+                                <Label Content="Age statistic"/>
+                            </GroupBox.Header>
                             <StackPanel>
 
 
@@ -142,7 +197,7 @@
 
                     </StackPanel>
 
-                    <Grid Grid.Column="2" Margin="0,0,5,5" Background="AliceBlue">
+                    <Grid Grid.Column="2" Margin="0,0,5,5" Background="#28365e">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"></RowDefinition>
@@ -153,7 +208,7 @@
 
                             <Label Grid.Row="0" Content="Tour list:" FontSize="15" VerticalContentAlignment="Bottom"/>
 
-                        <TextBlock Grid.Row="2" Text="(click on a tour in the data grid to display its statistics)" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="2" Text="(click on a tour in the data grid to display its statistics)" VerticalAlignment="Top" Foreground="White"/>
                         <DataGrid x:Name="tourList"
                             Grid.Row="1" 
                             ItemsSource="{Binding CompletedTours, UpdateSourceTrigger=PropertyChanged}"
@@ -161,7 +216,48 @@
                             IsReadOnly="True" 
                             SelectionMode="Single" 
                             SelectedItem="{Binding SelectedTour}"
-                            GridLinesVisibility="Horizontal">
+                            GridLinesVisibility="None"
+                                  Background="#506dbb">
+
+                            <DataGrid.Resources>
+
+                                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="Background" Value="#3c528c"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontFamily" Value="Century Gothic"/>
+
+                                    <Setter Property="Height" Value="40"/>
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="Background" Value="#465fa4"/>
+
+                                </Style>
+                                
+                            </DataGrid.Resources>
+                            <DataGrid.RowHeaderStyle>
+                                <Style TargetType="{x:Type DataGridRowHeader}">
+                                    <Setter Property="Height" Value="25"/>
+                                </Style>
+                            </DataGrid.RowHeaderStyle>
+
+                            <DataGrid.RowStyle>
+                                <Style TargetType="{x:Type DataGridRow}">
+                                    
+                                    <Setter Property="Background" Value="#465fa4"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontFamily" Value="Century Gothic"/>
+
+                                </Style>
+                            </DataGrid.RowStyle>
+
+
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}"></DataGridTextColumn>

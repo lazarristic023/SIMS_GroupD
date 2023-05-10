@@ -6,22 +6,32 @@
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
         Title="Reviews" Height="450" Width="800"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner" Background="#28365e">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="12*"></RowDefinition>
             
         </Grid.RowDefinitions>
-        <Label Content="*Double click on column to see details about review"/>
-        <DataGrid Grid.Row="1" Margin="10,5,10,5"
+        <Label Content="*Double click on column to see details about review" FontSize="14" Foreground="White" FontFamily="Century Gothic"/>
+        <DataGrid Grid.Row="1" Margin="10,5,10,20"
                   AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
                   ItemsSource="{Binding TourReviews, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedReview, UpdateSourceTrigger=PropertyChanged}"
                   GridLinesVisibility="None"
-                  IsSynchronizedWithCurrentItem="True">
+                  IsSynchronizedWithCurrentItem="True"
+                  Background="#506dbb">
+            <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#3c528c"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="#465fa4"/>
+                </Style>
+            </DataGrid.Resources>
 
-            
+
             <DataGrid.InputBindings>
                 <MouseBinding
                 MouseAction="LeftDoubleClick"
@@ -29,9 +39,7 @@
                 CommandParameter="{Binding TourReviews/}"/>
             </DataGrid.InputBindings>
             <DataGrid.RowHeaderStyle>
-                <Style TargetType="{x:Type DataGridRowHeader}">
-                    <Setter Property="Height" Value="25"/>
-                </Style>
+                <Style/>
             </DataGrid.RowHeaderStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Tour name" Width="*" Binding="{Binding tourName}"></DataGridTextColumn>
