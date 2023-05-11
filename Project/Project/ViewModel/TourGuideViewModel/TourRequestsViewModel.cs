@@ -228,8 +228,8 @@ namespace Project.ViewModel.TourGuideViewModel
 			DatePickerDates = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
 			IsVisible = false;
 
-			tourRequests = tourRequestService.GetAllNotAccepted();
-			Requests = new ObservableCollection<TourRequest>(tourRequestService.GetAllNotAccepted());
+			tourRequests = tourRequestService.GetAllNotAcceptedAndNotExpired();
+			Requests = new ObservableCollection<TourRequest>(tourRequestService.GetAllNotAcceptedAndNotExpired());
 			
         }
 
@@ -237,7 +237,7 @@ namespace Project.ViewModel.TourGuideViewModel
 		{
 			Requests.Clear();
 
-			foreach (TourRequest request in tourRequestService.GetAllNotAccepted())
+			foreach (TourRequest request in tourRequestService.GetAllNotAcceptedAndNotExpired())
 			{
 				Requests.Add(request);
 			}
@@ -247,8 +247,8 @@ namespace Project.ViewModel.TourGuideViewModel
 
 		private List<TourRequest> ApplyingFilter(List<TourRequest> torReq)
 		{
-			TourRequestFilter filter = new TourRequestFilter(tourRequests,Country,City,Language,GuestNumber,StartDate,EndDate);
-			List<TourRequest> req = filter.Filtering();
+			TourRequestFilter filter = new TourRequestFilter();
+			List<TourRequest> req = filter.Filtering(tourRequests, Country, City, Language, GuestNumber, StartDate, EndDate);
 
 			return req;
 		}
@@ -400,7 +400,31 @@ namespace Project.ViewModel.TourGuideViewModel
 			SelectedRequest = null;
         }
 
-		public void Update()
+        private RelayCommand openStatisticCommand;
+        public ICommand OpenStatisticCommand
+        {
+            get
+            {
+                if (openStatisticCommand == null)
+                {
+                    openStatisticCommand = new RelayCommand(param => this.OpenStatistic(), param => this.CanOpenStatistic());
+                }
+                return openStatisticCommand;
+            }
+        }
+
+        private bool CanOpenStatistic()
+        {
+            return true;
+        }
+
+        private void OpenStatistic()
+        {
+			RequestStatistic requestStatistic = new RequestStatistic();
+			requestStatistic.Show();
+        }
+
+        public void Update()
 		{
 			UpdateRequests();
 		}

@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="AddPresentGuests" Height="350" Width="300"
         WindowStartupLocation="CenterOwner">
+
+
+
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="White"/>

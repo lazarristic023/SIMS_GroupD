@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
-        Title="TourGuideMainView" Height="600" Width="800" Loaded="Window_Loaded"
+        Title="TourGuideMainView" Height="800" Width="1100" Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
+    </Window.Resources>
 
 
     <Grid Background="#28365e">
@@ -15,10 +21,10 @@
 
             <DockPanel>
 
-                <Grid DockPanel.Dock="Left" Width="150" Background="#3d405b">
+                <Grid DockPanel.Dock="Left" Width="200" Background="#3d405b">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="150"></RowDefinition>
+                        <RowDefinition Height="200"></RowDefinition>
                         <RowDefinition Height="70"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
@@ -42,8 +48,8 @@
 
 
                     <StackPanel Grid.Row="2">
-                        <Label x:Name="usernameLabel" Content="{Binding User.Username}" HorizontalAlignment="Center" FontSize="16" FontFamily="Verdana" Foreground="White"></Label>
-                        <Label Content="Status: Regular" HorizontalAlignment="Center" FontSize="16" FontFamily="Malgun Ghotic" Foreground="White"/>
+                        <Label x:Name="usernameLabel" Content="{Binding User.Username}" HorizontalAlignment="Center" FontSize="20" FontFamily="Verdana" Foreground="White"></Label>
+                        <Label Content="Status: Regular" HorizontalAlignment="Center" FontSize="18" FontFamily="Malgun Ghotic" Foreground="White"/>
                     </StackPanel>
                     
 
@@ -177,6 +183,7 @@
                                 <Setter Property="Background" Value="#3c528c"/>
                                 <Setter Property="Foreground" Value="White"/>
                                 <Setter Property="FontFamily" Value="Century Gothic"/>
+                                <Setter Property="FontSize" Value="16"/>
 
                                 <Setter Property="Height" Value="40"/>
                                 <Setter Property="ContentTemplate">
@@ -200,6 +207,7 @@
                                 <Setter Property="Background" Value="#465fa4"/>
                                 <Setter Property="Foreground" Value="White"/>
                                 <Setter Property="FontFamily" Value="Century Gothic"/>
+                                <Setter Property="FontSize" Value="18"/>
                             </Style>
                         </DataGrid.RowStyle>
 
@@ -215,7 +223,7 @@
 
                         <DataGrid.RowHeaderStyle>
                             <Style TargetType="{x:Type DataGridRowHeader}">
-                                <Setter Property="Height" Value="25"/>
+                                <Setter Property="Height" Value="30"/>
                             </Style>
                         </DataGrid.RowHeaderStyle>
                         
@@ -226,7 +234,7 @@
                             <DataGridTextColumn Header="City" Binding="{Binding Location.City}" Width="1.5*"></DataGridTextColumn>
 
                             <DataGridTextColumn Header="Language" Binding="{Binding Language}" Width="1.5*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Max guests" Binding="{Binding MaxGuests}" Width="1*"></DataGridTextColumn>
+
 
 
                             <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="1.1*"></DataGridTextColumn>

@@ -601,5 +601,30 @@ namespace Project.ViewModel.TourGuideViewModel
                 && Language!=string.Empty && MaxGuests!=0 && StartPoint!="" && EndPoint!="" && Description!=string.Empty;
         }
 
+
+        private RelayCommand createSugestionCommand;
+        public ICommand CreateSugestionCommand
+        {
+            get
+            {
+                if (createSugestionCommand == null)
+                {
+                    createSugestionCommand = new RelayCommand(param => this.CreateSugestion(), param => this.CanCreateSugestion());
+                }
+                return createSugestionCommand;
+            }
+
+        }
+        private bool CanCreateSugestion()
+        {
+            return true;
+        }
+
+        private void CreateSugestion()
+        {
+            
+
+        }
+
     }
 }

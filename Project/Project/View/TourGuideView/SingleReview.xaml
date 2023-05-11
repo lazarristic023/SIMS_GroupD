@@ -15,8 +15,9 @@
             <Setter Property="Height" Value="25"/>
             <Setter Property="IsReadOnly" Value="true"/>
             <Setter Property="Margin" Value="0,0,10,0"/>
-            <Setter Property="Background" Value="#5a7ad3"/>
+            <Setter Property="Background" Value="#3c528c"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style BasedOn="{StaticResource {x:Type TextBox}}"
                TargetType="TextBox"

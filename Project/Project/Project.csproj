@@ -45,12 +45,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="ScottPlot.WinForms" Version="4.1.63" />
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="C1.Xaml.WPF.FlexChart" Version="4.6.20231.784" />
   </ItemGroup>
 
   <ItemGroup>

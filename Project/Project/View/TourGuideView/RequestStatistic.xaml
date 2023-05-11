@@ -1,0 +1,90 @@
+﻿<Window x:Class="Project.View.TourGuideView.RequestStatistic"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:local="clr-namespace:Project.View.TourGuideView"
+        mc:Ignorable="d"
+        Title="RequestStatistic" Height="600" Width="900" WindowStartupLocation="CenterScreen">
+   
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="30"/>
+        </Style>
+        
+    </Window.Resources>
+    <Grid Background="#28365e">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2.5*"/>
+            <RowDefinition Height="7.5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Country:" Margin="10,0,0,0"/>
+            <Label Grid.Row="0" Grid.Column="2" Content="Language:" Margin="10,0,0,0"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="City:" Margin="10,0,0,0"/>
+            <Label Grid.Row="1" Grid.Column="2" Content="Year:" Margin="10,0,0,0"/>
+
+            <ComboBox Grid.Row="0" Grid.Column="1" 
+                      ItemsSource="{Binding Countries, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding Country, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" 
+                      ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding City, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Grid.Row="0" Grid.Column="3" Margin="0,0,10,0" 
+                      ItemsSource="{Binding Languages, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding Language, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Grid.Row="1" Grid.Column="3" Margin="0,0,10,0"
+                      ItemsSource="{Binding Years, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding Year, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Button Grid.Row="2" Grid.ColumnSpan="4" Margin="200,10,200,5" Command="{Binding ClearFilterCommand}">
+                <TextBlock Text="Clear filter" FontSize="15" FontFamily="Century Gothic"/>
+            </Button>
+
+        </Grid>
+
+
+        <DataGrid Grid.Row="1" Margin="10" Width="250" IsReadOnly="true" AutoGenerateColumns="False"
+                  ItemsSource="{Binding ChartData}">
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Date}" Width="3*">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataContext.DataGridHeader, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Number of tours" Binding="{Binding NumberOfRequests}" Width="3*"></DataGridTextColumn>
+            </DataGrid.Columns>
+
+            
+
+
+        </DataGrid>
+        
+
+    </Grid>
+
+    
+</Window>

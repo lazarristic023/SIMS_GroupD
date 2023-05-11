@@ -22,6 +22,7 @@ namespace Project.Model
         public int GuideId { get; set; }
         public int GuestId { get; set; }
         public STATUS Status { get; set; }
+        public DateTime CreatingDate { get; set; }
 
         public TourRequest()
         {
@@ -37,6 +38,7 @@ namespace Project.Model
             GuideId = -1;
             GuestId = -1;
             Status = STATUS.ONHOLD;
+            CreatingDate = DateTime.Today;
         }
 
         public TourRequest(int locationId, string description, string language, int guestNum,
@@ -54,6 +56,7 @@ namespace Project.Model
             GuideId = -1;
             GuestId = guestId;
             Status = status;
+            CreatingDate = DateTime.Today;
         }
 
         public string[] ToCSV()
@@ -70,6 +73,7 @@ namespace Project.Model
                 GuideId.ToString(),
                 GuestId.ToString(),
                 Status.ToString(),
+                CreatingDate.ToString(),
             };
             return csvValues;
         }
@@ -87,6 +91,7 @@ namespace Project.Model
             GuideId = int.Parse(values[8]);
             GuestId = int.Parse(values[9]);
             string status = values[10];
+            CreatingDate = DateTime.Parse(values[11]);
             switch (status)
             {
                 case "ACCEPTED":
