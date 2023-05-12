@@ -41,15 +41,16 @@ namespace Project.ViewModel.Guest1ViewModel
             User = u;
             Window = window;
 
+            _reservationService = new AccommodationReservationService();
+            _requestService = new MoveRequestService();
+            _requestService.SubscribeToRepository(this);
+
             ProfileLinkCommand = new ProfileLinkCommand(this);
             YourReservationsLinkCommand = new YourReservationsLinkCommand(this);
             MoveReservationLinkCommand = new MoveReservationLinkCommand(this);
             SearchAccommodationsLinkCommand = new SearchAccommodationsLinkCommand(this);
-            MoveReservationCommand = new MoveCommand(this);
+            MoveReservationCommand = new MoveCommand(this, _requestService);
 
-            _reservationService = new AccommodationReservationService();
-            _requestService = new MoveRequestService();
-            _requestService.SubscribeToRepository(this);
             CurrentReservations = new ObservableCollection<AccommodationReservation>(_reservationService.GetGuestsCurrentReservations(User.Id));
             PendingRequests = new ObservableCollection<MoveRequest>(_requestService.GetGuestsPendingRequests(User.Id));
             AcceptedRequests = new ObservableCollection<MoveRequest>(_requestService.GetGuestsAcceptedRequests(User.Id));
@@ -90,11 +91,5 @@ namespace Project.ViewModel.Guest1ViewModel
             UpdateDeclinedRequests();
         }
 
-        /*private void tbYourReservations_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            YourReservationsWindow yourReservationsWindow = new YourReservationsWindow(User);
-            yourReservationsWindow.Show();
-            Close();
-        }*/
     }
 }

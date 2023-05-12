@@ -17,16 +17,18 @@ using System.Collections.ObjectModel;
 using Project.Observer;
 using Project.Command.Guest1Commands.WindowLinkCommands;
 using Project.ViewModel;
+using Project.ViewModel.OwnerViewModel;
+using Project.ViewModel.Guest1ViewModel;
 
 namespace Project.View.Guest1View
 {
     /// <summary>
     /// Interaction logic for YourReservationsWindow.xaml
     /// </summary>
-    public partial class YourReservationsWindow : Window, IObserver
+    public partial class YourReservationsWindow : Window
     {
 
-        private readonly AccommodationReservationService _reservationService;
+        /*private readonly AccommodationReservationService _reservationService;
 
         private OwnerNotificationService _ownerNotificationService;
         public ObservableCollection<AccommodationReservation> CurrentReservations { get; set; }
@@ -167,6 +169,15 @@ namespace Project.View.Guest1View
             }
 
             return true;
+        }*/
+
+        private readonly YourReservationsViewModel yourReservationsViewModel;
+
+        public YourReservationsWindow(User user)
+        {
+            InitializeComponent();
+            yourReservationsViewModel = new YourReservationsViewModel(user, this);
+            this.DataContext = yourReservationsViewModel;
         }
     }
 }

@@ -32,6 +32,7 @@ namespace Project.View
     public partial class SignInView : Window
     {
         private readonly UserRepository _repository;
+        private readonly SuperGuestService _superGuestService;
         //private readonly TourGuideController _controller;
         //private readonly TourService _tourService;
 
@@ -61,6 +62,7 @@ namespace Project.View
             InitializeComponent();
             DataContext = this;
             _repository = new UserRepository();
+            _superGuestService = new SuperGuestService();
             //_tourService = new TourService();
             //_controller = new TourGuideController();
         }
@@ -89,6 +91,7 @@ namespace Project.View
                             break;
 
                         case Role.GUEST1:
+                            _superGuestService.UpdateGuestStatus(user);
                             ProfileWindow profileWindow = new ProfileWindow(user);
                             profileWindow.Show();
                             Close();

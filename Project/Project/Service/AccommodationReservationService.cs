@@ -120,6 +120,20 @@ namespace Project.Service
 
         }
 
+        public List<AccommodationReservation> GetGuestsLastYearReservations(int guestId, DateTime startDate)
+        {
+            List<AccommodationReservation> reservations = new();
+            foreach (var reservation in GetGuestsFormerReservations(guestId))
+            {
+                if (reservation.StartDate.Date >= startDate.Date)
+                {
+                    reservations.Add(reservation);
+                }
+            }
+
+            return reservations;
+        }
+
         public List<AccommodationReservation> GetOwnersCurrentReservations(int ownerId)
         {
             List<AccommodationReservation> allReservations = new(GetOwnerReservations(ownerId));
@@ -186,9 +200,14 @@ namespace Project.Service
             return _reservationRepository.GetReservationById(reservationId);
         }
 
-        public void Add(AccommodationReservation reservation)
+        public void Add(AccommodationReservation reservation, User guest)
         {
             _reservationRepository.Add(reservation);
+            if (guest.Points > 0)
+            {
+                guest.Points--;
+                _userRepository.Update(guest);
+            }
         }
 
         public void Remove(AccommodationReservation reservation)

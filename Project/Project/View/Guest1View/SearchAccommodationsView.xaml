@@ -112,7 +112,7 @@
                     </WrapPanel>
 
                     <WrapPanel Grid.Row="1" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="1">
-                        <Label Target="{Binding ElementName=tbDaysNum}" Content="Number of days:"/>
+                        <Label Target="{Binding ElementName=tbDaysNum}" Content="Number of _days:"/>
                         <TextBox Text="{Binding Days, UpdateSourceTrigger=PropertyChanged}" x:Name="tbDaysNum" Margin="20,0,0,0" Width="100"/>
                     </WrapPanel>
                 </Grid>
