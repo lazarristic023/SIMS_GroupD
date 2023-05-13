@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
         Title="AddNewTour" Height="800" Width="1000"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -71,7 +71,10 @@
                         <RowDefinition Height="30"></RowDefinition>
                         <RowDefinition Height="30"></RowDefinition>
                         <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
 
 
 
@@ -121,7 +124,7 @@
 
                                     <ComboBox x:Name="countryComboBox" Width="120" Height="25" VerticalContentAlignment="Center"
                                               ItemsSource="{Binding Path=Countries, UpdateSourceTrigger=PropertyChanged}" 
-                                              SelectedValue="{Binding Path=Country, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectedValue="{Binding Path=SharedViewModel.Country, UpdateSourceTrigger=PropertyChanged}"
                                               IsEnabled="{Binding IsEnabled}">
 
                                     </ComboBox>
@@ -130,10 +133,11 @@
                                 <WrapPanel Grid.Column="1">
                                     <Label>City:</Label>
                                     <ComboBox x:Name="cityComboBox" Width="130" Height="25" VerticalContentAlignment="Center"
-                                              Text="{Binding Path=City, UpdateSourceTrigger=PropertyChanged}"
+                                              Text="{Binding Path=SharedViewModel.City, UpdateSourceTrigger=PropertyChanged}"
                                               ItemsSource="{Binding Path=Cities, UpdateSourceTrigger=PropertyChanged}"
-                                              SelectedValue="{Binding Path=City, UpdateSourceTrigger=PropertyChanged}"
-                                              IsEnabled="{Binding IsEnabled}"></ComboBox>
+                                              SelectedValue="{Binding Path=SharedViewModel.City, UpdateSourceTrigger=PropertyChanged}"
+                                              IsEnabled="{Binding IsEnabled}"
+                                                ></ComboBox>
                                 </WrapPanel>
                             </Grid>
 
@@ -218,9 +222,9 @@
                         <Label Grid.Column="0">Language:</Label>
                         <ComboBox x:Name="languageComboBox" Grid.Column="1" Height="20"
                                   
-                                  SelectedItem="{Binding Path=Language, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding Path=SharedViewModel.Language, UpdateSourceTrigger=PropertyChanged}"
                                   ItemsSource="{Binding Languages}"
-                                  SelectedValue="{Binding Language, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedValue="{Binding SharedViewModel.Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   IsEnabled="{Binding IsEnabled}">
                         </ComboBox>
                         
@@ -233,14 +237,17 @@
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Max number of guests:</Label>
                         <TextBox Grid.Column="1" Height="20" 
-                                 Text="{Binding Path=MaxGuests, UpdateSourceTrigger=PropertyChanged}" 
+                                 Text="{Binding Path=SharedViewModel.GuestNumber, UpdateSourceTrigger=PropertyChanged}" 
                                  IsEnabled="{Binding IsEnabled}"></TextBox>
                     </Grid>
 
 
-                    <Button Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,0" Height="40" Width="200">
+                    <Button Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,0" Height="40" Width="200" Command="{Binding CreateSuggestionCommand}">
                         <TextBlock Text="Create tour against popular location or language" Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                     </Button>
+                    <TextBox Grid.Row="7" Text="{Binding SharedViewModel.Country}"/>
+                    <TextBox Grid.Row="8" Text="{Binding SharedViewModel.City}"/>
+                    <TextBox Grid.Row="9" Text="{Binding SharedViewModel.Language}"/>
 
 
                 </Grid>

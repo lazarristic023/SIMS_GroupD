@@ -162,7 +162,14 @@ namespace Project.ViewModel.TourGuideViewModel
 
 			if (IsGuideFree(appointment))
 			{
-                AddNewTour addNewTour = new AddNewTour(tourRequest.Location, tourRequest.Language, tourRequest.GuestNumber, appointment, Guide, tourRequest.Id, tourService, appointmentService);
+				AddSharedViewModel sharedViewModel = new AddSharedViewModel();
+				sharedViewModel.Country = tourRequest.Location.Country;
+				sharedViewModel.City = tourRequest.Location.City;
+				sharedViewModel.Language = tourRequest.Language;
+				sharedViewModel.GuestNumber = tourRequest.GuestNumber;
+				sharedViewModel.Appointment = appointment;
+
+                AddNewTour addNewTour = new AddNewTour(sharedViewModel, Guide, tourRequest.Id, tourService, appointmentService);
                 addNewTour.Show();
                 Close();
             }

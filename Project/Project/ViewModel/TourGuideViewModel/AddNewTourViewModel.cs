@@ -317,6 +317,8 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
+        public AddSharedViewModel SharedViewModel { get; set; }
+
 
         private readonly ImageController _imageController;
 
@@ -334,7 +336,7 @@ namespace Project.ViewModel.TourGuideViewModel
         public bool IsEnabled { get; set; }
         public int RequestId { get; set; }
 
-        public AddNewTourViewModel(TourService tourService, AppointmentService appointmentService, User user)
+        public AddNewTourViewModel(TourService tourService, AppointmentService appointmentService, User user, AddSharedViewModel sharedViewModel)
         {
             _imageController = new ImageController();
             _tourPointsListService = new TourPointsListService();
@@ -343,6 +345,7 @@ namespace Project.ViewModel.TourGuideViewModel
             _tourService = tourService;
             _appointmentService = appointmentService;
             _tourRequestService = new TourRequestService();
+            SharedViewModel = sharedViewModel;
 
 
             Countries = _locationService.GetAllCountries();
@@ -353,7 +356,7 @@ namespace Project.ViewModel.TourGuideViewModel
             DatePickerStartDate = DateTime.Today;
         }
 
-        public AddNewTourViewModel(Location location,string language,int guestNum,DateTime appointmnet, User user, int requestId, TourService tourService, AppointmentService appointmentService)
+        public AddNewTourViewModel(AddSharedViewModel sharedViewModel, User user, int requestId, TourService tourService, AppointmentService appointmentService)
         {
             _imageController = new ImageController();
             _tourPointsListService = new TourPointsListService();
@@ -363,11 +366,16 @@ namespace Project.ViewModel.TourGuideViewModel
             _appointmentService = appointmentService;
             _tourRequestService = new TourRequestService();
 
-            Country = location.Country;
-            City = location.City;
-            Language = language;
-            MaxGuests = guestNum;
-            Dates.Add(appointmnet);
+
+            SharedViewModel = sharedViewModel;
+
+            Countries = _locationService.GetAllCountries();
+            Cities = LoadCities();
+            Languages = LoadLanguages();
+            DatePickerStartDate = DateTime.Today;
+
+
+            Dates.Add(SharedViewModel.Appointment);
             Guide = user;
 
             RequestId = requestId;
@@ -489,6 +497,7 @@ namespace Project.ViewModel.TourGuideViewModel
 
         private void Close()
         {
+            SharedViewModel = new AddSharedViewModel();
             this.OnClosingRequest();
         }
 
@@ -597,32 +606,33 @@ namespace Project.ViewModel.TourGuideViewModel
 
         private bool CanSubmit()
         {
-            return NameOfTour!=string.Empty && Country!=string.Empty && City!=string.Empty && Dates.Count!=0 && Duration!=0 
-                && Language!=string.Empty && MaxGuests!=0 && StartPoint!="" && EndPoint!="" && Description!=string.Empty;
+            return NameOfTour!=string.Empty && SharedViewModel.Country!=string.Empty && SharedViewModel.City!=string.Empty && Dates.Count!=0 && Duration!=0 
+                && SharedViewModel.Language!=string.Empty && SharedViewModel.GuestNumber!=0 && StartPoint!="" && EndPoint!="" && Description!=string.Empty;
         }
 
 
-        private RelayCommand createSugestionCommand;
-        public ICommand CreateSugestionCommand
+        private RelayCommand createSuggestionCommand;
+        public ICommand CreateSuggestionCommand
         {
             get
             {
-                if (createSugestionCommand == null)
+                if (createSuggestionCommand == null)
                 {
-                    createSugestionCommand = new RelayCommand(param => this.CreateSugestion(), param => this.CanCreateSugestion());
+                    createSuggestionCommand = new RelayCommand(param => this.CreateSuggestion(), param => this.CanCreateSuggestion());
                 }
-                return createSugestionCommand;
+                return createSuggestionCommand;
             }
 
         }
-        private bool CanCreateSugestion()
+        private bool CanCreateSuggestion()
         {
-            return true;
+            return IsEnabled;
         }
 
-        private void CreateSugestion()
+        private void CreateSuggestion()
         {
-            
+            Suggestion suggestion = new Suggestion(SharedViewModel);
+            suggestion.Show();
 
         }
 

@@ -28,18 +28,18 @@ namespace Project.View.TourGuideView
     /// </summary>
     public partial class AddNewTour : Window
     {
-        public AddNewTour(TourService tourService, AppointmentService appointmentService, User user)
+        public AddNewTour(TourService tourService, AppointmentService appointmentService, User user, AddSharedViewModel sharedViewModel)
         {
             InitializeComponent();
-            var vm = new AddNewTourViewModel(tourService,appointmentService,user);
+            var vm = new AddNewTourViewModel(tourService,appointmentService,user,sharedViewModel);
             this.DataContext = vm;
             vm.ClosingRequest += (sender, e) => this.Close();
         }
 
-        public AddNewTour(Location location, string language, int guestNum, DateTime appointmnet, User user,int requestId, TourService tourService,AppointmentService appointmentService)
+        public AddNewTour(AddSharedViewModel sharedViewModel, User user,int requestId, TourService tourService,AppointmentService appointmentService)
         {
             InitializeComponent();
-            var vm = new AddNewTourViewModel(location,language,guestNum,appointmnet,user,requestId,tourService,appointmentService);
+            var vm = new AddNewTourViewModel(sharedViewModel,user,requestId,tourService,appointmentService);
             this.DataContext = vm;
             vm.ClosingRequest += (sender, e) => this.Close();
         }

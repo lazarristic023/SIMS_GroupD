@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
-        Title="Suggestion" Height="250" Width="350">
+        Title="Suggestion" Height="250" Width="350"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="13"/>
@@ -32,26 +33,27 @@
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="10,10,10,10">
             <WrapPanel>
                 <Label Content="Most popular language is:"/>
-                <Label Content="Serbian"/>
+                <Label Content="{Binding Language}"/>
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Most popular location is:"/>
-                <Label Content="Serbia"/>
+                <Label Content="{Binding Country}"/>
                 <Label Content=","/>
-                <Label Content="Novi Sad"/>
+                <Label Content="{Binding City}"/>
             </WrapPanel>
         </StackPanel>
 
 
 
-        <Button Grid.Row="1" Grid.Column="0"  Margin="10,10,10,10">
+        <Button Grid.Row="1" Grid.Column="0"  Margin="10,10,10,10" Command="{Binding SuggestLanguageCommand}">
             <TextBlock Text="Make tour against language suggestion"/>
         </Button>
-        <Button Grid.Row="1" Grid.Column="1" Margin="10,10,10,10" Grid.ColumnSpan="2">
+        <Button Grid.Row="1" Grid.Column="1" Margin="10,10,10,10" Grid.ColumnSpan="2" Command="{Binding SuggestLocationCommand}">
             <TextBlock Text="Make tour against location suggestion"/>
         </Button>
 
-        <Button Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="100" Height="20" VerticalAlignment="Center">
+        <Button Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="100" Height="20" VerticalAlignment="Center"
+                Command="{Binding CloseCommand}">
             <TextBlock Text="Close"/>
         </Button>
 

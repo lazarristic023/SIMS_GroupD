@@ -21,6 +21,7 @@ using Project.Model;
 using System.Collections.ObjectModel;
 using Project.Observer;
 using Project.Service;
+using Project.ViewModel.TourGuideViewModel;
 
 namespace Project.View.TourGuideView
 {
@@ -67,6 +68,8 @@ namespace Project.View.TourGuideView
                 }
             }
         }
+
+        public AddSharedViewModel SharedViewModel { get; set; } = new AddSharedViewModel();
 
 
         public TourGuideMainView(User user)
@@ -132,7 +135,8 @@ namespace Project.View.TourGuideView
 
         private void addTourButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNewTour addNewTour = new AddNewTour(_tourService,_appointmentService,User);
+            SharedViewModel = new AddSharedViewModel();
+            AddNewTour addNewTour = new AddNewTour(_tourService,_appointmentService,User,SharedViewModel);
             addNewTour.Owner = this;
             addNewTour.Show();
         }

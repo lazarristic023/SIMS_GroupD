@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.ViewModel.TourGuideViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,12 @@ namespace Project.View.TourGuideView
     /// </summary>
     public partial class Suggestion : Window
     {
-        public Suggestion()
+        public Suggestion(AddSharedViewModel SharedViewModel)
         {
             InitializeComponent();
+            var vm = new SuggestionViewModel(SharedViewModel);
+            this.DataContext = vm;
+            vm.ClosingRequest += (sender, e) => this.Close();
         }
     }
 }
