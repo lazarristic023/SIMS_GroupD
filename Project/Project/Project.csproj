@@ -13,6 +13,7 @@
     <None Remove="Resources\Images\alert.png" />
     <None Remove="Resources\Images\ask.png" />
     <None Remove="Resources\Images\avatar.png" />
+    <None Remove="Resources\Images\check.png" />
     <None Remove="Resources\Images\clockIcon.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
@@ -22,6 +23,9 @@
     <None Remove="Resources\Images\infoIcon.png" />
     <None Remove="Resources\Images\invite.png" />
     <None Remove="Resources\Images\katedralajpg.jpg" />
+    <None Remove="Resources\Images\language.png" />
+    <None Remove="Resources\Images\lightbulb.png" />
+    <None Remove="Resources\Images\location.png" />
     <None Remove="Resources\Images\logo.jpg" />
     <None Remove="Resources\Images\next-location.png" />
     <None Remove="Resources\Images\paper-plane.png" />
@@ -42,6 +46,7 @@
     <None Remove="Resources\Images\userIcon.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\Images\warning.png" />
+    <None Remove="Resources\Images\x.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,6 +64,7 @@
     <Resource Include="Resources\Images\alert.png" />
     <Resource Include="Resources\Images\ask.png" />
     <Resource Include="Resources\Images\avatar.png" />
+    <Resource Include="Resources\Images\check.png" />
     <Resource Include="Resources\Images\clockIcon.png" />
     <Resource Include="Resources\Images\delete.png" />
     <Resource Include="Resources\Images\edit.png" />
@@ -68,6 +74,9 @@
     <Resource Include="Resources\Images\infoIcon.png" />
     <Resource Include="Resources\Images\invite.png" />
     <Resource Include="Resources\Images\katedralajpg.jpg" />
+    <Resource Include="Resources\Images\language.png" />
+    <Resource Include="Resources\Images\lightbulb.png" />
+    <Resource Include="Resources\Images\location.png" />
     <Resource Include="Resources\Images\logo.jpg" />
     <Resource Include="Resources\Images\next-location.png" />
     <Resource Include="Resources\Images\paper-plane.png" />
@@ -88,6 +97,7 @@
     <Resource Include="Resources\Images\userIcon.png" />
     <Resource Include="Resources\Images\view.png" />
     <Resource Include="Resources\Images\warning.png" />
+    <Resource Include="Resources\Images\x.png" />
   </ItemGroup>
 
   <ItemGroup>

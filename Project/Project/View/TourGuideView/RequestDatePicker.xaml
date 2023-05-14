@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
         Title="Pick your date" Height="150" Width="250" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#28365e">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>

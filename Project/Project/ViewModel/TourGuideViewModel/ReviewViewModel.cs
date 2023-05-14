@@ -1,5 +1,6 @@
 ﻿using Project.Command;
 using Project.Model;
+using Project.Observer;
 using Project.Service;
 using Project.View.TourGuideView;
 using System;
@@ -13,7 +14,7 @@ using System.Windows.Input;
 
 namespace Project.ViewModel.TourGuideViewModel
 {
-    public class ReviewViewModel:ViewModelBase
+    public class ReviewViewModel:ViewModelBase, IObserver
     {
         private readonly TourReviewService _tourReviewService;
 
@@ -46,11 +47,16 @@ namespace Project.ViewModel.TourGuideViewModel
 			}
 		}
 
+        public int GuideId { get; set; }
+
         public ReviewViewModel(int guideId)
         {
 			_tourReviewService = new TourReviewService();
+            _tourReviewService.Subscribe(this);
 
-            TourReviews = new ObservableCollection<ReviewDisplay>(_tourReviewService.GetReviewForDisplay(guideId));
+            GuideId = guideId;
+            
+            TourReviews = new ObservableCollection<ReviewDisplay>(_tourReviewService.GetReviewForDisplay(GuideId));
         }
 
 
@@ -77,6 +83,15 @@ namespace Project.ViewModel.TourGuideViewModel
         {
                 SingleReview singleReview = new SingleReview(SelectedReview, _tourReviewService);
                 singleReview.Show();
+        }
+
+        public void Update()
+        {
+            TourReviews.Clear();
+            foreach(var review in _tourReviewService.GetReviewForDisplay(GuideId))
+            {
+                TourReviews.Add(review);
+            }
         }
     }
 }

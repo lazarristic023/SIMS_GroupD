@@ -50,34 +50,6 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
-        private string _country = string.Empty;
-        public string Country
-        {
-            get
-            {
-                return _country;
-            }
-            set
-            {
-                _country = value;
-                OnPropertyChanged(nameof(Country));
-                Cities = LoadCities();
-            }
-        }
-
-        private string _city = string.Empty;
-        public string City
-        {
-            get
-            {
-                return _city;
-            }
-            set
-            {
-                _city = value;
-                OnPropertyChanged(nameof(City));
-            }
-        }
 
         private List<string> _languages;
         public List<string> Languages
@@ -93,19 +65,6 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
-        private string _language = string.Empty;
-        public string Language
-        {
-            get
-            {
-                return _language;
-            }
-            set
-            {
-                _language = value;
-                OnPropertyChanged(nameof(Language));
-            }
-        }
 
         private string _nameOfTour = string.Empty;
         public string NameOfTour
@@ -386,13 +345,13 @@ namespace Project.ViewModel.TourGuideViewModel
 
         private string[] LoadCities()
         {
-            if (Country == string.Empty)
+            if (SharedViewModel.Country == string.Empty)
             {
                 return _locationService.GetAllCities();
             }
             else
             {
-                return _locationService.GetAppropriateCities(Country);
+                return _locationService.GetAppropriateCities(SharedViewModel.Country);
             }
         }
 
@@ -550,7 +509,7 @@ namespace Project.ViewModel.TourGuideViewModel
         {
             //PRAVLJENJE LOCATION-a
 
-            _location = _locationService.Create(City, Country);
+            _location = _locationService.Create(SharedViewModel.City, SharedViewModel.Country);
 
             if (!IsEnabled)
             {
@@ -559,7 +518,7 @@ namespace Project.ViewModel.TourGuideViewModel
             
             //KREIRANJE TOUR-a
 
-            int tourId = _tourService.Create(_location, NameOfTour, Description, Language, MaxGuests, Duration, Guide.Id);
+            int tourId = _tourService.Create(_location, NameOfTour, Description, SharedViewModel.Language, MaxGuests, Duration, Guide.Id);
 
             //KREIRANJE APPOINTMENT-a
 

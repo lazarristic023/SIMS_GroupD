@@ -19,6 +19,7 @@
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="15"/>
         </Style>
 
         <Style TargetType="TextBlock">
@@ -62,8 +63,8 @@
 
                 <StackPanel  Background="#28365e" Margin="5,0,0,5">
                     <WrapPanel>
-                        <Label Content="Year:" FontSize="14"></Label>
-                        <ComboBox x:Name="yearComboBox" Width="100" Height="20" SelectedIndex="0" 
+                        <Label Content="Year:"></Label>
+                        <ComboBox x:Name="yearComboBox" Width="100" Height="25" SelectedIndex="0" FontSize="14"
                                   
                                   SelectedItem="{Binding SelectedYear}"
                                   ItemsSource="{Binding Years}">
@@ -73,13 +74,13 @@
                     </WrapPanel>
 
                     <WrapPanel>
-                        <Label FontSize="14" Content="Tour name:"></Label>
-                        <Label FontSize="14" Content="{Binding bestNameOfTour}"/>
+                        <Label  Content="Tour name:"></Label>
+                        <Label  Content="{Binding bestNameOfTour}"/>
 
                     </WrapPanel>
                     <WrapPanel>
-                        <Label FontSize="14" Content="Date and time:"></Label>
-                        <Label x:Name="dateElementHighest" FontSize="14"  Content="{Binding bestAppointmentDate}"></Label>
+                        <Label Content="Date and time:"></Label>
+                        <Label x:Name="dateElementHighest" Content="{Binding bestAppointmentDate}"></Label>
                     </WrapPanel>
 
                     <GroupBox BorderThickness="0.5" BorderBrush="White" Margin="5,0,5,0">
@@ -89,7 +90,7 @@
                         <StackPanel>
 
 
-                            <Label FontSize="14" Content="Under 18: "/>
+                            <Label  Content="Under 18: "/>
                             <Grid>
                                 <ProgressBar Value="{Binding bestPercent18}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
                                 <TextBlock HorizontalAlignment="Center" Text="{Binding bestUnder18}"></TextBlock>
@@ -97,7 +98,7 @@
 
 
 
-                            <Label FontSize="14" Content="Between 18 and 50: "/>
+                            <Label Content="Between 18 and 50: "/>
                             <Grid>
                                 <ProgressBar Value="{Binding bestPercent1850}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
                                 <TextBlock HorizontalAlignment="Center" Text="{Binding bestBetween18and50}"></TextBlock>
@@ -105,7 +106,7 @@
 
 
 
-                            <Label FontSize="14" Content="Over 50: "/>
+                            <Label Content="Over 50: "/>
                             <Grid>
                                 <ProgressBar Value="{Binding bestPercent50}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
                                 <TextBlock HorizontalAlignment="Center" Text="{Binding bestOver50}"></TextBlock>
@@ -118,7 +119,7 @@
                         </StackPanel>
                     </GroupBox>
                     <WrapPanel>
-                        <Label FontSize="14" Content="Guests with coupon: "/>
+                        <Label Content="Guests with coupon: "/>
                     </WrapPanel>
                     <Grid>
                         <ProgressBar Value="{Binding bestCoupon}" Height="20" Minimum="0" Maximum="100" Margin="0,0,5,0"></ProgressBar>
@@ -140,16 +141,16 @@
 
 
 
-                    <StackPanel Grid.Column="0"  Background="#28365e" Margin="5,0,0,5">
+                    <StackPanel Grid.Column="1"  Background="#28365e" Margin="5,0,0,5">
 
                         <WrapPanel>
-                            <Label FontSize="14" Content="Tour name:"></Label>
-                            <Label FontSize="14" Content="{Binding NameOfTour}"/>
+                            <Label  Content="Tour name:"></Label>
+                            <Label  Content="{Binding NameOfTour}"/>
 
                         </WrapPanel>
                         <WrapPanel>
-                            <Label FontSize="14" Content="Date and time:"></Label>
-                            <Label x:Name="dateElement" FontSize="14" Visibility="{Binding Visible}" Content="{Binding AppointmentDate}"></Label>
+                            <Label Content="Date and time:"></Label>
+                            <Label x:Name="dateElement" Visibility="{Binding Visible}" Content="{Binding AppointmentDate}"></Label>
                         </WrapPanel>
 
                         <GroupBox BorderThickness="0.5" BorderBrush="white"  Margin="0,0,5,0">
@@ -159,7 +160,7 @@
                             <StackPanel>
 
 
-                                <Label FontSize="14" Content="Under 18: "/>
+                                <Label Content="Under 18: "/>
                                 <Grid>
                                     <ProgressBar Value="{Binding Percent18}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding Under18}"></TextBlock>
@@ -167,7 +168,7 @@
 
 
 
-                                <Label FontSize="14" Content="Between 18 and 50: "/>
+                                <Label Content="Between 18 and 50: "/>
                                 <Grid>
                                     <ProgressBar Value="{Binding Percent1850}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding Between18and50}"></TextBlock>
@@ -175,7 +176,7 @@
 
 
 
-                                <Label FontSize="14" Content="Over 50: "/>
+                                <Label Content="Over 50: "/>
                                 <Grid>
                                     <ProgressBar Value="{Binding Percent50}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding Over50}"></TextBlock>
@@ -188,7 +189,7 @@
                             </StackPanel>
                         </GroupBox>
                         <WrapPanel>
-                            <Label FontSize="14" Content="Guests with coupon: "/>
+                            <Label Content="Guests with coupon: "/>
                         </WrapPanel>
                         <Grid>
                             <ProgressBar Value="{Binding Coupon}" Height="20" Minimum="0" Maximum="100" Margin="0,0,5,0"></ProgressBar>
@@ -197,19 +198,21 @@
 
                     </StackPanel>
 
-                    <Grid Grid.Column="2" Margin="0,0,5,5" Background="#28365e">
+                    <Grid Grid.Column="0" Margin="0,0,5,5" Background="#28365e">
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="6*"></RowDefinition>
+                            <RowDefinition Height="0.4*"></RowDefinition>
+                            <RowDefinition Height="6.3*"></RowDefinition>
                             <RowDefinition Height="0.3*"></RowDefinition>
                         </Grid.RowDefinitions>
 
 
-                            <Label Grid.Row="0" Content="Tour list:" FontSize="15" VerticalContentAlignment="Bottom"/>
+                            <Label Grid.Row="0" Content="Tour list:" FontSize="18" VerticalContentAlignment="Bottom"/>
 
                         <TextBlock Grid.Row="2" Text="(click on a tour in the data grid to display its statistics)" VerticalAlignment="Top" Foreground="White"/>
                         <DataGrid x:Name="tourList"
+                            HeadersVisibility="Column"
+                            Margin="5,0,0,0"
                             Grid.Row="1" 
                             ItemsSource="{Binding CompletedTours, UpdateSourceTrigger=PropertyChanged}"
                             AutoGenerateColumns="False" 
@@ -253,6 +256,7 @@
                                     <Setter Property="Background" Value="#465fa4"/>
                                     <Setter Property="Foreground" Value="White"/>
                                     <Setter Property="FontFamily" Value="Century Gothic"/>
+                                    <Setter Property="FontSize" Value="15"/>
 
                                 </Style>
                             </DataGrid.RowStyle>
@@ -261,7 +265,7 @@
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Appointment" Width="2*" Binding="{Binding TourAppointment.DateAndTimeOfAppointment, StringFormat=f}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Appointment" Width="*"  Binding="{Binding TourAppointment.DateAndTimeOfAppointment, StringFormat=g, ConverterCulture=fr-FR}"></DataGridTextColumn>
                             </DataGrid.Columns>
 
                         </DataGrid>

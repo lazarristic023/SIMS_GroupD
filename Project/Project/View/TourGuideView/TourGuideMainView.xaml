@@ -172,12 +172,15 @@
                         </Button>
                     </Grid>
 
-                    <DataGrid x:Name="myTourDataGrid" Grid.Row="1" Margin="10,3,10,5" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
-                                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
-                                      SelectionChanged="myTourDataGrid_SelectionChanged"
-                                      Background="#506dbb"
+                    <DataGrid x:Name="myTourDataGrid" Grid.Row="1" Margin="10,3,10,5" 
+                              ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
+                              AutoGenerateColumns="False" IsReadOnly="True"
+                              SelectionMode="Single"
+                              SelectionChanged="myTourDataGrid_SelectionChanged"
+                              Background="#506dbb"
                               GridLinesVisibility="None">
+                                
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#3c528c"/>
@@ -224,6 +227,7 @@
                         <DataGrid.RowHeaderStyle>
                             <Style TargetType="{x:Type DataGridRowHeader}">
                                 <Setter Property="Height" Value="30"/>
+                                <Setter Property="Width" Value="0"/>
                             </Style>
                         </DataGrid.RowHeaderStyle>
                         

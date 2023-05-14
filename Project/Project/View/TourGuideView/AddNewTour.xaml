@@ -12,19 +12,32 @@
         <Style TargetType="TextBox">
             <Setter Property="Background" Value="#506dbb"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="ListBox">
             <Setter Property="Background" Value="#506dbb"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
         </Style>
         <Style TargetType="ComboBox">
             <Setter Property="Foreground" Value="black"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
+            
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="25"/>
         </Style>
 
         
@@ -34,7 +47,7 @@
 
         <DockPanel>
 
-            <Grid DockPanel.Dock="Bottom">
+            <Grid DockPanel.Dock="Bottom" Height="40">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -58,21 +71,21 @@
             
 
 
-            <Grid DockPanel.Dock="Left" Width="400">
+            <Grid DockPanel.Dock="Left" Width="500">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
 
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition Height="75"></RowDefinition>
-                        <RowDefinition Height="200"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="230"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="80"/>
                         <RowDefinition />
                         <RowDefinition />
 
@@ -83,13 +96,13 @@
 
                     <Grid Grid.Row="0" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="70"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
 
                         <Label  Grid.Column="0">Tour name:</Label>
-                        <TextBox x:Name="tourNameTextbox" Grid.Column="1" Height="20" Text="{Binding Path=NameOfTour, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox x:Name="tourNameTextbox" Grid.Column="1" Text="{Binding Path=NameOfTour, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
                         </TextBox>
 
 
@@ -162,31 +175,30 @@
 
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="55*"></ColumnDefinition>
-                                <ColumnDefinition Width="45*"></ColumnDefinition>
+                                <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                                <ColumnDefinition Width="1.15*"></ColumnDefinition>
+                                <ColumnDefinition Width="1.15*"></ColumnDefinition>
 
                             </Grid.ColumnDefinitions>
 
-                            <WrapPanel Grid.Row="0" Grid.Column="0">
-                                <Label >Date:</Label>
-                                <DatePicker x:Name="date" Width="130" Height="25"
-                                            Margin="42,0,0,0"
+                                <Label Grid.Row="0" Grid.Column="0">Date:</Label>
+                                <DatePicker x:Name="date" Grid.Row="0" Grid.Column="1" Width="150" Height="30" FontSize="14"
+                                            
                                             SelectedDate="{Binding Path=StartDate, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
                                             DisplayDateStart="{Binding DatePickerStartDate}"
                                             IsEnabled="{Binding IsEnabled}"></DatePicker>
-                            </WrapPanel>
-                            <WrapPanel Grid.Row="1" Grid.Column="0">
-                                <Label Content="Time(hh:mm)"/>
-                                <TextBox x:Name="time" ToolTip="hh:mm" Width="130" Height="20" 
+
+                            
+                                <Label Grid.Row="1" Grid.Column="0" Content="Time(hh:mm)"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" x:Name="time" ToolTip="hh:mm" Width="150" Height="25" 
                                          Text="{Binding StartTime, UpdateSourceTrigger=PropertyChanged}"
                                          IsEnabled="{Binding IsEnabled}"></TextBox>
-                            </WrapPanel>
-
-                            <Button x:Name="AddDate" Grid.Row="1" Grid.Column="1" Margin="2,2,2,5" Width="150"
+                            
+                            <Button x:Name="AddDate" Grid.Row="1" Grid.Column="2"  Width="150"
                                     Content="Add date to list"
                                     Command="{Binding AddDateCommand}"/>
 
-                            <ListBox x:Name="dateTimeList" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Dates, UpdateSourceTrigger=PropertyChanged, StringFormat=g, ConverterCulture=fr-FR}">
+                            <ListBox x:Name="dateTimeList" Grid.Row="2" Grid.ColumnSpan="3" ItemsSource="{Binding Dates, UpdateSourceTrigger=PropertyChanged, StringFormat=g, ConverterCulture=fr-FR}">
 
                             </ListBox>
 
@@ -211,7 +223,7 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Duration (hours):</Label>
-                        <TextBox Grid.Column="1" Height="20" Text="{Binding Path=Duration, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBox Grid.Column="1"  Text="{Binding Path=Duration, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     </Grid>
 
                     <Grid Grid.Row="4">
@@ -220,7 +232,7 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Language:</Label>
-                        <ComboBox x:Name="languageComboBox" Grid.Column="1" Height="20"
+                        <ComboBox x:Name="languageComboBox" Grid.Column="1" Height="25"
                                   
                                   SelectedItem="{Binding Path=SharedViewModel.Language, UpdateSourceTrigger=PropertyChanged}"
                                   ItemsSource="{Binding Languages}"
@@ -236,18 +248,34 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Max number of guests:</Label>
-                        <TextBox Grid.Column="1" Height="20" 
+                        <TextBox Grid.Column="1" 
                                  Text="{Binding Path=SharedViewModel.GuestNumber, UpdateSourceTrigger=PropertyChanged}" 
                                  IsEnabled="{Binding IsEnabled}"></TextBox>
                     </Grid>
 
 
-                    <Button Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,0" Height="40" Width="200" Command="{Binding CreateSuggestionCommand}">
-                        <TextBlock Text="Create tour against popular location or language" Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                    <Button Grid.Row="7" HorizontalAlignment="Center" Width="300" Height="60" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold"
+                            Command="{Binding CreateSuggestionCommand}"
+                            IsEnabled="{Binding IsEnabled}">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0" Source="../../Resources/Images/lightbulb.png" Margin="0,5,10,5"/>
+                            <TextBlock Grid.Column="1" Text="Create tour against popular location or language" 
+                                       VerticalAlignment="Center" FontSize="14"
+                                       TextWrapping="Wrap"/>
+                        </Grid>
                     </Button>
-                    <TextBox Grid.Row="7" Text="{Binding SharedViewModel.Country}"/>
-                    <TextBox Grid.Row="8" Text="{Binding SharedViewModel.City}"/>
-                    <TextBox Grid.Row="9" Text="{Binding SharedViewModel.Language}"/>
+
 
 
                 </Grid>
@@ -256,12 +284,13 @@
 
 
             <!--DESNA STRANA-->
-            <Grid DockPanel.Dock="Right" Width="350">
+            <Grid DockPanel.Dock="Right" Width="450">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="230"></RowDefinition>
+                    <RowDefinition Height="290"></RowDefinition>
                     <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="105"></RowDefinition>
+                    <RowDefinition Height="150"></RowDefinition>
                     <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
                     <RowDefinition Height="30"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
 
@@ -278,7 +307,8 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
-                            <RowDefinition Height="70"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="100"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.25*"></ColumnDefinition>
@@ -287,27 +317,27 @@
 
 
                         <Label Grid.Column="0" Grid.Row="0">Start point:</Label>
-                        <TextBox x:Name="startPointTextBox" Grid.Column="1" Grid.Row="0" Height="20" Text="{Binding Path=StartPoint, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                        <TextBox x:Name="startPointTextBox" Grid.Column="1" Grid.Row="0" Text="{Binding Path=StartPoint, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
 
 
 
                         <Label Grid.Column="0" Grid.Row="1">End point:</Label>
-                        <TextBox x:Name="endPointTextBox" Grid.Column="1" Grid.Row="1" Height="20" Text="{Binding Path=EndPoint, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBox x:Name="endPointTextBox" Grid.Column="1" Grid.Row="1" Text="{Binding Path=EndPoint, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
 
-                        <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">Add more points in the order in which they will be visited (optional):</TextBlock>
+                        <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="14" Foreground="White" VerticalAlignment="Bottom">Add more points in the order in which they will be visited (optional):</TextBlock>
                         <Grid Grid.Row="3" Grid.ColumnSpan="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.65*"/>
                                 <ColumnDefinition Width="0.35*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBox x:Name="pointInput" Grid.Column="0" Height="20" Text="{Binding Path=AnotherPoint, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                            <Button x:Name="AddPoints" Grid.Column="1" Grid.Row="3" Content="Add tour point" Height="20" Margin="5,0,0,0" Command="{Binding AddPointCommand}"/>
+                            <TextBox x:Name="pointInput" Grid.Column="0" Text="{Binding Path=AnotherPoint, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <Button x:Name="AddPoints" Grid.Column="1" Grid.Row="3" Content="Add tour point" Margin="5,0,0,0" Command="{Binding AddPointCommand}"/>
                         </Grid>
-                        
 
-                        <ListBox x:Name="pointsList" Grid.Row="4" Grid.ColumnSpan="2" ItemsSource="{Binding AnotherPoints, UpdateSourceTrigger=PropertyChanged}"></ListBox>
+                        <Label Grid.Row="4" Content="Added points:"/>
+                        <ListBox x:Name="pointsList" Grid.Row="5" Grid.ColumnSpan="2" ItemsSource="{Binding AnotherPoints, UpdateSourceTrigger=PropertyChanged}"></ListBox>
 
                     </Grid>
                 </GroupBox>
@@ -316,7 +346,7 @@
 
 
                 <Label Grid.Row="1">Description:</Label>
-                <TextBox Grid.Row="2" Width="330" Height="100" TextWrapping="Wrap" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Grid.Row="2" Width="430" Height="150" TextWrapping="Wrap" VerticalContentAlignment="Top" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <Button x:Name="AddPictureButton" Grid.Row="4" Margin="10,0,10,5" Command="{Binding AddPictureCommand}">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -328,8 +358,9 @@
                         <TextBlock Grid.Column="1" Text="Add pictures..." Foreground="Black" TextWrapping="Wrap" VerticalAlignment="Center"/>
                     </Grid>
                 </Button>
-                
-                <ListBox x:Name="imageList" Grid.Row="5" Margin="5,0,5,0" ItemsSource="{Binding Images, UpdateSourceTrigger=PropertyChanged}">
+
+                <Label Grid.Row="5" Content="Added pictures:"/>
+                <ListBox x:Name="imageList" Grid.Row="6" Margin="5,0,5,0" ItemsSource="{Binding Images, UpdateSourceTrigger=PropertyChanged}">
 
 
                 </ListBox>
