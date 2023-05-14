@@ -1,4 +1,6 @@
-﻿using Project.Command;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using Project.Command;
 using Project.Model;
 using Project.Service;
 using Project.View.TourGuideView;
@@ -223,6 +225,9 @@ namespace Project.ViewModel.TourGuideViewModel
 
         private List<RequestChartData> allChartData;
 
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+
         private readonly TourRequestService _tourRequestService;
         private readonly LocationService locationService;
 
@@ -237,6 +242,7 @@ namespace Project.ViewModel.TourGuideViewModel
 
             allChartData = GetData();
             ChartData = new ObservableCollection<RequestChartData>(GetData());
+
             DataGridHeader = "Year";
             Languages = LoadLanguages();
             Countries = locationService.GetAllCountries();

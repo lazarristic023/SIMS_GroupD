@@ -287,6 +287,7 @@ namespace Project.ViewModel.TourGuideViewModel
         private readonly TourPointsListService _tourPointsListService;
         private readonly LocationService _locationService;
         private readonly TourRequestService _tourRequestService;
+        private readonly NotificationService _notificationService;
 
         List<int> pointsIds = new List<int>();
 
@@ -304,6 +305,7 @@ namespace Project.ViewModel.TourGuideViewModel
             _tourService = tourService;
             _appointmentService = appointmentService;
             _tourRequestService = new TourRequestService();
+            _notificationService = new NotificationService();
             SharedViewModel = sharedViewModel;
 
 
@@ -324,6 +326,7 @@ namespace Project.ViewModel.TourGuideViewModel
             _tourService = tourService;
             _appointmentService = appointmentService;
             _tourRequestService = new TourRequestService();
+            _notificationService = new NotificationService();
 
 
             SharedViewModel = sharedViewModel;
@@ -556,6 +559,10 @@ namespace Project.ViewModel.TourGuideViewModel
 
             if (!IsEnabled)
             {
+                string message = $"Guide {Guide.Username} has created a tour according to your request " +
+                    $"({_tourRequestService.GetById(RequestId).Location.Country},{_tourRequestService.GetById(RequestId).Location.City},{_tourRequestService.GetById(RequestId).Language})" +
+                    $" and scheduled it to start on {_tourRequestService.GetById(RequestId).AcceptedAppointment}. Name of tour is {NameOfTour}.";
+                _notificationService.Create(_tourRequestService.GetById(RequestId).GuestId,message);
                 MessageBox.Show("The tour was successfully created against the tour request");
             }
 
