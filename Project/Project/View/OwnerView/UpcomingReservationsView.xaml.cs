@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Project.Model;
+using Project.ViewModel.OwnerViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,13 @@ namespace Project.View.OwnerView
     /// </summary>
     public partial class UpcomingReservationsView : Window
     {
-        public UpcomingReservationsView()
+        private readonly UpcomingReservationsViewModel upcomingReservationsViewModel;
+        public UpcomingReservationsView(User user)
         {
             InitializeComponent();
+            SignInView.PreviousWindow = this;
+            upcomingReservationsViewModel = new UpcomingReservationsViewModel(user, this);
+            DataContext = upcomingReservationsViewModel;
         }
     }
 }

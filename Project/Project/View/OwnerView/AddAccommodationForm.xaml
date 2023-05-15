@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.OwnerView"
         mc:Ignorable="d"
-      Title="Add Accommodation" Height="750" Width="430" ResizeMode="NoResize">
+      Title="Add Accommodation" Height="750" Width="430" ResizeMode="NoResize" Top="300" Left="500">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -20,7 +20,7 @@
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <Button Command="{Binding BurgerMenuCommand}" Background="Transparent" BorderBrush="Transparent" Grid.Column="0" HorizontalAlignment="Left" Height="40" Margin="5,0,0,0">
-                    <Image Source="D:\6. semestar\SIMS\ProjectDirectory\SIMS_GroupD\Project\Project\Resources\Images\burger_menu1.png"/>
+                    <Image Source="../../Resources/Images/burger_menu1.png"/>
                 </Button>
                 <TextBlock Text="Add Accommodation" Foreground="White" FontSize="25"  HorizontalAlignment="Center" Padding="0,5,0,5" Height="50" Grid.Column="1"/>
             </Grid>
@@ -31,48 +31,47 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Name" FontSize="25" FontWeight="SemiBold" Margin="30,30"/>
-                    <TextBox x:Name="tbName" Height="30" Width="200" FontSize="20" BorderThickness="0 0 0 3"/>
+                    <TextBox x:Name="tbName" Text="{Binding Name}" Height="30" Width="200" FontSize="20" BorderThickness="0 0 0 3"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Type" FontSize="25" FontWeight="SemiBold" Margin="30,20"/>
-                    <ComboBox x:Name="cbType" Height="30" Width="150" Margin="15,0,0,0" SelectedIndex="0" FontSize="20" FontWeight="SemiBold">
-                        <ComboBoxItem>House</ComboBoxItem>
-                        <ComboBoxItem>Cottage</ComboBoxItem>
-                        <ComboBoxItem>Apartment</ComboBoxItem>
-                    </ComboBox>
+                    <ComboBox x:Name="cbType" ItemsSource="{Binding Types}" Height="30" Width="150" Margin="15,0,0,0" SelectedItem="{Binding Type, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" FontSize="20" FontWeight="SemiBold"/>
+
                 </StackPanel>
                 <Label Content="Location" FontSize="25" FontWeight="SemiBold" Margin="30,20"/>
-                <!--
+                
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <ComboBox x:Name="cbCountry" SelectionChanged="cbCountry_SelectionChanged" ItemsSource="{Binding Path=Countries, UpdateSourceTrigger=PropertyChanged}"
-                                      SelectedItem="{Binding Path=SelectedCountry, UpdateSourceTrigger=PropertyChanged}" Margin="40,0,0,0" Width="150" Height="30" FontSize="20" HorizontalAlignment="Left"/>
-                    <ComboBox ItemsSource="{Binding Path=CountryCities, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding Path=SelectedCity, UpdateSourceTrigger=PropertyChanged}" Margin="50,0,0,0" Width="150" Height="30" FontSize="20" HorizontalAlignment="Left"/>
+                    <ComboBox Text="Country" x:Name="cbCountry"  ItemsSource="{Binding Path=Countries, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedItem="{Binding Path=Country, UpdateSourceTrigger=PropertyChanged}" Margin="40,0,0,0" Width="150" Height="30" FontSize="20" HorizontalAlignment="Left"/>
+                    <ComboBox Text="City" ItemsSource="{Binding Path=CountryCities, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=City, UpdateSourceTrigger=PropertyChanged}" Margin="50,0,0,0" Width="150" Height="30" FontSize="20" HorizontalAlignment="Left"/>
                 </StackPanel>
-                -->
+                
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Capacity" FontSize="25" FontWeight="SemiBold" Margin="30,20"/>
-                    <TextBox x:Name="tbCapacity" Height="30" Width="40" FontSize="20" BorderThickness="0 0 0 3"/>
+                    <TextBox Text="{Binding Capacity, UpdateSourceTrigger=PropertyChanged}" x:Name="tbCapacity" Height="30" Width="40" FontSize="20" BorderThickness="0 0 0 3"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Booking lead time" FontWeight="SemiBold" FontSize="25" Margin="30,20"/>
-                    <TextBox x:Name="tbBookingLeadTime" Height="30" Width="40" FontSize="20" BorderThickness="0 0 0 3"/>
+                    <TextBox Text="{Binding BookingLeadTime,UpdateSourceTrigger=PropertyChanged}" x:Name="tbBookingLeadTime" Height="30" Width="40" FontSize="20" BorderThickness="0 0 0 3"/>
                 </StackPanel>
+                
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Cancellation deadline" FontWeight="SemiBold" FontSize="25" Margin="30,20"/>
-                    <TextBox x:Name="tbCancellationDeadline" Height="30" Width="40" FontSize="20" BorderThickness="0 0 0 3"/>
+                    <TextBox Text="{Binding CancellationPeriod, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" x:Name="tbCancellationDeadline" Height="30" Width="40" FontSize="20" BorderThickness="0 0 0 3"/>
                 </StackPanel>
+                
                 <Label Content="Image link" FontWeight="SemiBold" FontSize="25" Margin="30,20"/>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="tbImage" Height="30" Width="300" FontSize="20" Margin="36,0,0,15" HorizontalAlignment="Left" BorderThickness="0 0 0 3"/>
-                    <Button x:Name="addImage" Height="40" Margin="10,0,0,0" Background="Transparent" BorderBrush="Transparent">
-                        <Image Source="D:\6. semestar\SIMS\ProjectDirectory\SIMS_GroupD\Project\Project\Resources\Images\add.png"/>
+                    <TextBox Text="{Binding ImageUrl, UpdateSourceTrigger=LostFocus,Mode=TwoWay}" x:Name="tbImage" Height="30" Width="300" FontSize="20" Margin="36,0,0,15" HorizontalAlignment="Left" BorderThickness="0 0 0 3"/>
+                    <Button Command="{Binding AddImageCommand}" x:Name="addImage" Height="40" Margin="10,0,0,0" Background="Transparent" BorderBrush="Transparent">
+                        <Image Source="../../Resources/Images/add.png"/>
                     </Button>
                 </StackPanel>
-                <ListView ItemsSource="{Binding Path=ImageUrls, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="400" Height="60"/>
+                <ListView ItemsSource="{Binding Path=ImageUrls, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="300" Height="60" HorizontalAlignment="Left" Margin="35,0,0,0"/>
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Demo" Margin="30,40,0,30" Width="100" Height="40" FontSize="30" Background="Red" BorderThickness="2" Foreground="White" FontWeight="SemiBold"/>
-                    <Button Content="Add" Margin="150,40,0,30" Width="100" Height="40" FontSize="30" BorderThickness="2" FontWeight="SemiBold"/>
+                    <Button Command="{Binding AddAccommodationCommand}" Content="Add" Margin="150,40,0,30" Width="100" Height="40" FontSize="30" BorderThickness="2" FontWeight="SemiBold"/>
                 </StackPanel>
                 
 

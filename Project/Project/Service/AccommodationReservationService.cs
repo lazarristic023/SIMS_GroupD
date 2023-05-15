@@ -126,7 +126,7 @@ namespace Project.Service
 
             foreach (var reservation in GetOwnerReservations(ownerId))
             {
-                if (reservation.StartDate <= DateTime.Now.Date)
+                if (reservation.EndDate.Date < DateTime.Now.Date)
                 {
                     allReservations.Remove(reservation);
                 }
@@ -142,7 +142,7 @@ namespace Project.Service
 
             foreach (var reservation in GetOwnerReservations(ownerId))
             {
-                if (reservation.StartDate > DateTime.Now.Date)
+                if (reservation.EndDate.Date >= DateTime.Now.Date)
                 {
                     allReservations.Remove(reservation);
                 }

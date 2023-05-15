@@ -1,4 +1,4 @@
-﻿using Project.View.Guest1View;
+﻿using Project.View;
 using Project.View.OwnerView;
 using Project.ViewModel;
 using System;
@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace Project.Command.OwnerCommands.MenuNavigationCommands
 {
-    public class AddAccommodationNavigationCommand : CommandBase
+    public class LogOutCommand : CommandBase
     {
         private readonly ViewModelBase viewModelBase;
 
-        public AddAccommodationNavigationCommand(ViewModelBase viewModelBase)
+        public LogOutCommand(ViewModelBase viewModelBase)
         {
             this.viewModelBase = viewModelBase;
         }
 
         public override void Execute(object? parameter)
         {
-            AddAccommodationForm addAccommodationForm = new AddAccommodationForm(viewModelBase.User);
-            addAccommodationForm.Show();
+            SignInView signInView = new SignInView();
+            signInView.Show();
             viewModelBase.Window.Close();
         }
     }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Project.View.Guest1View"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MoveReservationView" Height="650" Width="1102" BorderThickness="1" BorderBrush="DarkBlue">
+        Title="Move reservation" Height="650" Width="1102" BorderThickness="1" BorderBrush="DarkBlue">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="260"/>
@@ -98,7 +98,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <Button x:Name="btnMove" Click="btnMove_Click" Margin="0,18" FontSize="17" Content="Move" Width="55" Height="25"/>
+                    <Button x:Name="btnMove" Command="{Binding MoveReservationCommand}" Margin="0,18" FontSize="17" Content="Move" Width="55" Height="25"/>
                     <TextBlock HorizontalAlignment="Center" Foreground="LightCoral" FontSize="16" Text="NOTE: Select a reservaton first"/>
                 </StackPanel>
 

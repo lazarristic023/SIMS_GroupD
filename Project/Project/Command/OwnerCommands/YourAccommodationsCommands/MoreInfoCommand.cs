@@ -1,4 +1,5 @@
-﻿using Project.ViewModel.OwnerViewModel;
+﻿using Project.View.OwnerView;
+using Project.ViewModel.OwnerViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,18 @@ namespace Project.Command.OwnerCommands.YourAccommodationsCommands
 {
     public class MoreInfoCommand : CommandBase
     {
-        private readonly YourAccommodationsViewModel yourAccommodationsViewModel;
+        private readonly YourAccommodationsViewModel _yourAccommodationsViewModel;
+
+        public MoreInfoCommand(YourAccommodationsViewModel yourAccommodationsViewModel)
+        {
+            _yourAccommodationsViewModel = yourAccommodationsViewModel;
+        }
 
         public override void Execute(object? parameter)
         {
-            throw new NotImplementedException();
-            
+            MoreAccommodationInfoView moreAccommodationInfoView = new MoreAccommodationInfoView(_yourAccommodationsViewModel.User, _yourAccommodationsViewModel.SelectedAccommodation);
+            moreAccommodationInfoView.Show();
+            _yourAccommodationsViewModel.Window.Close();
         }
     }
 }

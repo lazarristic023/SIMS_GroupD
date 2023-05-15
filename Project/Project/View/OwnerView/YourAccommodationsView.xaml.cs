@@ -25,9 +25,11 @@ namespace Project.View.OwnerView
         public YourAccommodationsView(User user)
         {
             InitializeComponent();
+            SignInView.PreviousWindow = this;
             _yourAccommodationsViewModel = new(user, this);
             DataContext = _yourAccommodationsViewModel;
-
         }
+
+        
     }
 }

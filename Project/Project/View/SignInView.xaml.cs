@@ -32,6 +32,7 @@ namespace Project.View
     public partial class SignInView : Window
     {
         private readonly UserRepository _repository;
+        public static Window PreviousWindow { get; set; }
         //private readonly TourGuideController _controller;
         //private readonly TourService _tourService;
 
@@ -77,8 +78,10 @@ namespace Project.View
                         case Role.OWNER:
                             /* OwnerMainView ownerMainView = new OwnerMainView(user);
                              ownerMainView.Show();*/
-                            MenuView menuView = new MenuView(user);
-                            menuView.Show();
+                            /*MenuView menuView = new MenuView(user);
+                            menuView.Show();*/
+                            YourAccommodationsView yourAccommodationsView = new YourAccommodationsView(user);
+                            yourAccommodationsView.Show();
                             Close();
                             break;
 

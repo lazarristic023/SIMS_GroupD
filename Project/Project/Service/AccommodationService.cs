@@ -59,27 +59,42 @@ namespace Project.Service
             }
         }
 
-        public List<Location> GetAccommodationLocationsList()
-        {
-            List<Location> accommodationLocations = new List<Location>();
-            foreach (var accommodation in _accommodationRepository.GetAllAccommodations())
-            {
-                Location location =
-                    accommodationLocations.Find(l => (l.City == accommodation.Location.City) && (l.Country == accommodation.Location.Country));
-
-                if (location == null)
-                {
-                    accommodationLocations.Add(accommodation.Location);
-                }
-            }
-
-            return accommodationLocations;
-
-        }
 
         public Accommodation GetAccommodationById(int id)
         {
             return _accommodationRepository.GetAccommodationById(id);
+        }
+
+        public List<string> GetAllAccommodationCountries()
+        {
+            List<string> countries = new();
+            foreach (var accommodation in GetAllAccommodations())
+            {
+                string country = accommodation.Location.Country;
+                if (!countries.Contains(country))
+                {
+                    countries.Add(country);
+                }
+            }
+
+            return countries;
+        }
+
+        public List<string> GetAllAccommodationCitiesByCountry(string country)
+        {
+            List<string> cities = new();
+            foreach (var accommodation in GetAllAccommodations())
+            {
+                if (accommodation.Location.Country == country)
+                {
+                    if (!cities.Exists(c => c == accommodation.Location.City))
+                    {
+                        cities.Add(accommodation.Location.City);
+                    }
+                }
+            }
+
+            return cities;
         }
 
         public List<Accommodation> GetAllOwnerAccommodations(int ownerId)
@@ -95,6 +110,17 @@ namespace Project.Service
             }
 
             return accommodations;
+        }
+
+
+        public void Add(Accommodation accommodation)
+        {
+            _accommodationRepository.Add(accommodation);
+        }
+
+        public void AddImage(AccommodationImage image)
+        {
+            _imageRepository.Add(image);
         }
 
 

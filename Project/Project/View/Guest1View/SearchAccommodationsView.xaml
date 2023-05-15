@@ -6,15 +6,16 @@
         xmlns:local="clr-namespace:Project.View.Guest1View"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="YourReservationsWindow" Height="650" Width="1102" BorderThickness="1" BorderBrush="DarkBlue">
+        Title="Search accommodations" Height="650" Width="1102" BorderThickness="1" BorderBrush="DarkBlue">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="49.333"/>
+            <ColumnDefinition Width="210.667"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
+        <Grid Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="170"/>
                 <RowDefinition/>
@@ -48,7 +49,7 @@
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4">
                 <Image Height="25" Source="../../Resources/Images/searchIcon.png"/>
-                <Button Command="{Binding Path=SearchAccommodationsLinkCommand}" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="5,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="_Move reservation"/>
+                <Button Command="{Binding Path=SearchAccommodationsLinkCommand}" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="5,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="15" Content="_Search accommodations"/>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5">
@@ -64,11 +65,11 @@
             <Image Height="130" Grid.Row="8" Source="../../Resources/Images/logo.jpg"/>
         </Grid>
 
-        <StackPanel Grid.Column="1" Orientation="Horizontal">
+        <StackPanel Grid.Column="2" Orientation="Horizontal">
             <Rectangle VerticalAlignment="Stretch" Fill="DarkBlue" Width="1"/>
         </StackPanel>
 
-        <Grid Grid.Column="2">
+        <Grid Grid.Column="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="1*"/>
@@ -96,23 +97,23 @@
 
                     <WrapPanel Margin="20,0" VerticalAlignment="Center">
                         <Label Target="{Binding ElementName=tbName}" Margin="0,0,25,0" Content="_Name:"/>
-                        <TextBox x:Name="tbName" Width="200"/>
+                        <TextBox x:Name="tbName" Width="200" Text="{Binding Name}"/>
                     </WrapPanel>
-                    
+
                     <WrapPanel VerticalAlignment="Center" Margin="20,0" Grid.Row="1">
                         <Label Target="{Binding ElementName=cbCountry}" Margin="0,0,10,0" Content="_Location:"/>
-                        <ComboBox x:Name="cbCountry" ItemsSource="{Binding Path=Countries,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedCountry, UpdateSourceTrigger=PropertyChanged}" Text="Country" Width="100"/>
-                        <ComboBox x:Name="cbCity" ItemsSource="{Binding Path=CountryCities, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedCity, UpdateSourceTrigger=PropertyChanged}" Text="City" Margin="5,0,0,0" Width="100"/>
+                        <ComboBox  x:Name="cbCountry" ItemsSource="{Binding Path=Countries,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=Country, UpdateSourceTrigger=PropertyChanged}" Text="Country" Width="100"/>
+                        <ComboBox x:Name="cbCity" ItemsSource="{Binding Path=CountryCities, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=City, UpdateSourceTrigger=PropertyChanged}" Text="City" Margin="5,0,0,0" Width="100"/>
                     </WrapPanel>
 
                     <WrapPanel Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                         <Label Target="{Binding ElementName=tbGuestNum}" Content="Number of _guests:"/>
-                        <TextBox x:Name="tbGuestNum" Margin="10,0,0,0" Width="100"/>
+                        <TextBox x:Name="tbGuestNum" Margin="10,0,0,0" Width="100" Text="{Binding Guests, UpdateSourceTrigger=PropertyChanged}"/>
                     </WrapPanel>
 
                     <WrapPanel Grid.Row="1" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                         <Label Target="{Binding ElementName=tbDaysNum}" Content="Number of days:"/>
-                        <TextBox x:Name="tbDaysNum" Margin="20,0,0,0" Width="100"/>
+                        <TextBox Text="{Binding Days, UpdateSourceTrigger=PropertyChanged}" x:Name="tbDaysNum" Margin="20,0,0,0" Width="100"/>
                     </WrapPanel>
                 </Grid>
 
@@ -124,18 +125,18 @@
 
                     <StackPanel HorizontalAlignment="Center" Margin="35,0,0,0" VerticalAlignment="Center">
                         <Label Target="{Binding ElementName=chbHouse}" HorizontalContentAlignment="Left" Margin="0,0,0,10" Content="Accommodation _type:"/>
-                        <CheckBox x:Name="chbHouse" Margin="5,0,0,15"  Content="House"/>
-                        <CheckBox x:Name="chbAppartment" Margin="5,0,0,15" Content="Appartment"/>
-                        <CheckBox x:Name="chbCottage" Margin="5,0,0,0" Content="Cottage"/>
+                        <CheckBox IsChecked="{Binding IsHouse}" x:Name="chbHouse" Margin="5,0,0,15"  Content="House"/>
+                        <CheckBox IsChecked="{Binding IsAppartment}" x:Name="chbAppartment" Margin="5,0,0,15" Content="Appartment"/>
+                        <CheckBox IsChecked="{Binding IsCottage}" x:Name="chbCottage" Margin="5,0,0,0" Content="Cottage"/>
                     </StackPanel>
 
-                    <Button HorizontalAlignment="Center" Click="FilterAccommodations" Content="S_earch" Grid.Column="1" Height="40" Width="60"/>
+                    <Button HorizontalAlignment="Center" Command="{Binding SearchAccommodationsCommand}" Content="S_earch" Grid.Column="1" Height="40" Width="60"/>
 
                 </Grid>
-                
+
             </Grid>
 
-            <DataGrid KeyDown="DataGrid_KeyDown" ItemsSource="{Binding Path=Accommodations,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedAccommodation,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="10,5,10,0" Grid.Row="2">
+            <DataGrid ItemsSource="{Binding Path=Accommodations,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedAccommodation,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="10,5,10,0" Grid.Row="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="auto"/>
                     <DataGridTextColumn Header="Country" Binding="{Binding Path=Location.Country}" Width="auto"/>
@@ -148,7 +149,7 @@
             </DataGrid>
 
             <StackPanel VerticalAlignment="Center" Grid.Row="3">
-                <Button x:Name="btnMakeReservation" Click="btnMakeReservation_Click"  Content="Make _reservation" Height="30" Width="130"/>
+                <Button Command="{Binding MakeReservationCommand}" x:Name="btnMakeReservation" Content="Make _reservation" Height="30" Width="130"/>
                 <Label Margin="0,8" Foreground="LightCoral" HorizontalContentAlignment="Center" Content="NOTE: Select accommodation first"/>
             </StackPanel>
 

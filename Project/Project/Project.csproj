@@ -13,11 +13,16 @@
     <None Remove="Resources\Images\alert.png" />
     <None Remove="Resources\Images\ask.png" />
     <None Remove="Resources\Images\avatar.png" />
+<<<<<<< HEAD
     <None Remove="Resources\Images\check.png" />
+=======
+    <None Remove="Resources\Images\burger_menu1.png" />
+>>>>>>> development
     <None Remove="Resources\Images\clockIcon.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\forumIcon.jpg" />
+    <None Remove="Resources\Images\forum_icon.png" />
     <None Remove="Resources\Images\home_icon.jpg" />
     <None Remove="Resources\Images\image.png" />
     <None Remove="Resources\Images\infoIcon.png" />
@@ -35,6 +40,7 @@
     <None Remove="Resources\Images\question.png" />
     <None Remove="Resources\Images\rating.png" />
     <None Remove="Resources\Images\request.png" />
+    <None Remove="Resources\Images\return_icon.png" />
     <None Remove="Resources\Images\reviews.png" />
     <None Remove="Resources\Images\searchIcon.png" />
     <None Remove="Resources\Images\setting.png" />
@@ -64,11 +70,16 @@
     <Resource Include="Resources\Images\alert.png" />
     <Resource Include="Resources\Images\ask.png" />
     <Resource Include="Resources\Images\avatar.png" />
+<<<<<<< HEAD
     <Resource Include="Resources\Images\check.png" />
+=======
+    <Resource Include="Resources\Images\burger_menu1.png" />
+>>>>>>> development
     <Resource Include="Resources\Images\clockIcon.png" />
     <Resource Include="Resources\Images\delete.png" />
     <Resource Include="Resources\Images\edit.png" />
     <Resource Include="Resources\Images\forumIcon.jpg" />
+    <Resource Include="Resources\Images\forum_icon.png" />
     <Resource Include="Resources\Images\home_icon.jpg" />
     <Resource Include="Resources\Images\image.png" />
     <Resource Include="Resources\Images\infoIcon.png" />
@@ -86,6 +97,7 @@
     <Resource Include="Resources\Images\question.png" />
     <Resource Include="Resources\Images\rating.png" />
     <Resource Include="Resources\Images\request.png" />
+    <Resource Include="Resources\Images\return_icon.png" />
     <Resource Include="Resources\Images\reviews.png" />
     <Resource Include="Resources\Images\searchIcon.png" />
     <Resource Include="Resources\Images\setting.png" />

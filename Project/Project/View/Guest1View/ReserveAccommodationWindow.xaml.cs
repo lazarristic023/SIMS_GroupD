@@ -1,6 +1,7 @@
 ﻿using Project.Controller;
 using Project.Model;
 using Project.Service;
+using Project.ViewModel.Guest1ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,7 +24,7 @@ namespace Project.View.Guest1View
     /// </summary>
     public partial class ReserveAccommodationWindow : Window
     {
-        //public Guest1Controller Controller { get; set; }
+        /*//public Guest1Controller Controller { get; set; }
 
         private readonly AccommodationReservationService accommodationReservationService;
         private readonly User user;
@@ -110,7 +111,7 @@ namespace Project.View.Guest1View
             }
             else if (FreeReservations.Count > 0 && repetition > 0)
             {
-                tbNotFound.Text = $"We have not been able to find free dates. Here are some alternatives in the next {(repetition + 1) * (int)daysBetween} days:";
+                tbNotFound.Text = $"We have not been able to find free dates in the next {repetition * (int)daysBetween} days. Here are some alternatives:";
                 repetition = 0;
             }
             else
@@ -395,6 +396,20 @@ namespace Project.View.Guest1View
                 FreeReservations.Add(reservation);
 
             }
+        }*/
+
+        private readonly ReserveAccommodationViewModel viewModel;
+
+        public ReserveAccommodationWindow(Accommodation accommodation, User user)
+        {
+            InitializeComponent();
+            viewModel = new ReserveAccommodationViewModel(accommodation, user, this);
+            this.DataContext = viewModel;
         }
+
+
+
+
+
     }
 }
