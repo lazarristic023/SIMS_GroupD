@@ -67,8 +67,11 @@
     <Resource Include="Resources\Images\alert.png" />
     <Resource Include="Resources\Images\ask.png" />
     <Resource Include="Resources\Images\avatar.png" />
+<<<<<<< HEAD
     <Resource Include="Resources\Images\check.png" />
+=======
     <Resource Include="Resources\Images\burger_menu1.png" />
+>>>>>>> development
     <Resource Include="Resources\Images\clockIcon.png" />
     <Resource Include="Resources\Images\delete.png" />
     <Resource Include="Resources\Images\edit.png" />
