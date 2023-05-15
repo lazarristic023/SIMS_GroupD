@@ -169,12 +169,12 @@ namespace Project.Service
         public bool IsAccommodationFree(DateTime start, DateTime end, int accommodatonId)
         {
             AccommodationReservation reservation = 
-                GetAccommodationReservations(accommodatonId).Find(r => !(r.EndDate < start) && !(r.StartDate > end));
+                GetReservationsByAccommodation(accommodatonId).Find(r => !(r.EndDate < start) && !(r.StartDate > end));
 
             return reservation == null;
         }
 
-        public List<AccommodationReservation> GetAccommodationReservations(int accommodationId)
+        public List<AccommodationReservation> GetReservationsByAccommodation(int accommodationId)
         {
             List<AccommodationReservation> reservations = new();
 
@@ -210,8 +210,13 @@ namespace Project.Service
             }
         }
 
-        public void Remove(AccommodationReservation reservation)
+        public void Remove(AccommodationReservation reservation, User guest)
         {
+            if (reservation.UsedPoints)
+            {
+                guest.Points++;
+                _userRepository.Update(guest);
+            }
             _reservationRepository.Remove(reservation.Id);
         }
         public void SubscribeToReservationRepository(IObserver observer)

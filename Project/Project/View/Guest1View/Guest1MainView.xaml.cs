@@ -349,7 +349,7 @@ namespace Project.View.Guest1View
             string msg = $"Guest {user.Username} has cancelled reservation:\nAccommodation _name: {SelectedReservation.Accommodation.Name}\nStart date: {SelectedReservation.StartDate}\nEnd date: {SelectedReservation.EndDate} ";
             NotifyOwner(msg);
 
-            _reservationService.Remove(SelectedReservation);
+            //_reservationService.Remove(SelectedReservation);
             GuestReservations.Remove(SelectedReservation);
 
             MessageBox.Show("Reservation successfully cancelled!");

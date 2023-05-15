@@ -46,7 +46,7 @@ namespace Project.Command.Guest1Commands.YourReservationsCommands
             string msg = $"Guest {_yourReservationsViewModel.User.Username} has cancelled reservation: Accommodation Name: {_yourReservationsViewModel.SelectedReservation.Accommodation.Name}, Start date: {_yourReservationsViewModel.SelectedReservation.StartDate}, End date: {_yourReservationsViewModel.SelectedReservation.EndDate} ";
             NotifyOwner(msg);
 
-            _accommodationReservationService.Remove(_yourReservationsViewModel.SelectedReservation);
+            _accommodationReservationService.Remove(_yourReservationsViewModel.SelectedReservation, _yourReservationsViewModel.User);
             MessageBox.Show("Reservation has been successfully cancelled.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
         }

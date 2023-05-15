@@ -338,8 +338,7 @@ namespace Project.ViewModel.Guest1ViewModel
                     break;
                 }
 
-                AccommodationReservation reservation =
-                    new(0, date, date.AddDays(numOfDays), User.Id, Accommodation.Id, guests);
+                AccommodationReservation reservation = new(0, date, date.AddDays(numOfDays), User.Id, Accommodation.Id, guests);
 
                 FreeReservations.Add(reservation);
 
