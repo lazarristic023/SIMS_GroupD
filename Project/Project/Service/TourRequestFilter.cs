@@ -15,11 +15,18 @@ namespace Project.Service
         private int GuestNumber = 0;
         private DateTime StartDate = DateTime.MinValue;
         private DateTime EndDate = DateTime.MinValue;
+        private string Year = string.Empty;
 
         private List<TourRequest> tourRequests = new List<TourRequest>();
 
-        public TourRequestFilter(List<TourRequest> sendedList,string country,string city,string language, int guestNumber,
-            DateTime startDate,DateTime endDate)
+
+        public TourRequestFilter()
+        {
+
+        }
+
+        public List<TourRequest> Filtering(List<TourRequest> sendedList, string country, string city, string language, int guestNumber,
+            DateTime startDate, DateTime endDate)
         {
             tourRequests = new List<TourRequest>(sendedList);
             Country = country;
@@ -28,10 +35,6 @@ namespace Project.Service
             GuestNumber = guestNumber;
             StartDate = startDate;
             EndDate = endDate;
-        }
-
-        public List<TourRequest> Filtering()
-        {
             List<TourRequest> requests = new List<TourRequest>(tourRequests);
 
             if(Country != string.Empty)
@@ -100,6 +103,66 @@ namespace Project.Service
                 foreach (TourRequest element in tempList)
                 {
                     if (element.EndDate.Date > EndDate.Date)
+                    {
+                        requests.Remove(element);
+                    }
+                }
+            }
+
+            return requests;
+        }
+
+        public List<TourRequest> StatisticFiltering(List<TourRequest> sendedList, string country, string city, string language,string year)
+        {
+            tourRequests = new List<TourRequest>(sendedList);
+            Country = country;
+            City = city;
+            Language = language;
+            Year = year;
+            List<TourRequest> requests = new List<TourRequest>(tourRequests);
+
+            if (Country != string.Empty)
+            {
+                List<TourRequest> tempList = new List<TourRequest>(requests);
+                foreach (TourRequest element in tempList)
+                {
+                    if (element.Location.Country != Country)
+                    {
+                        requests.Remove(element);
+                    }
+                }
+            }
+
+            if (City != string.Empty)
+            {
+                List<TourRequest> tempList = new List<TourRequest>(requests);
+                foreach (TourRequest element in tempList)
+                {
+                    if (element.Location.City != City)
+                    {
+                        requests.Remove(element);
+                    }
+                }
+            }
+
+            if (Language != string.Empty)
+            {
+                List<TourRequest> tempList = new List<TourRequest>(requests);
+                foreach (TourRequest element in tempList)
+                {
+                    if (element.Language != Language)
+                    {
+                        requests.Remove(element);
+                    }
+                }
+            }
+
+            if (Year != string.Empty)
+            {
+                List<TourRequest> tempList = new List<TourRequest>(requests);
+                foreach (TourRequest element in tempList)
+                {
+                    if (element.CreatingDate.Year.ToString() != Year)
                     {
                         requests.Remove(element);
                     }

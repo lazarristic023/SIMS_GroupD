@@ -21,6 +21,7 @@ using Project.Model;
 using System.Collections.ObjectModel;
 using Project.Observer;
 using Project.Service;
+using Project.ViewModel.TourGuideViewModel;
 
 namespace Project.View.TourGuideView
 {
@@ -39,9 +40,22 @@ namespace Project.View.TourGuideView
 
         public ObservableCollection<Tour> Tours { get; set; }
 
-        User User { get; set; }
 
-        private string _imagesource;
+        private User _user = new User();
+        public User User
+        {
+            get
+            {
+                return _user;
+            }
+            set
+            {
+                _user = value;
+                OnPropertyChanged(nameof(User));
+            }
+        }
+
+        private string _imagesource = string.Empty;
         public string ImageSource
         {
             get => _imagesource;
@@ -55,6 +69,8 @@ namespace Project.View.TourGuideView
             }
         }
 
+        public AddSharedViewModel SharedViewModel { get; set; } = new AddSharedViewModel();
+
 
         public TourGuideMainView(User user)
         {
@@ -62,6 +78,7 @@ namespace Project.View.TourGuideView
             DataContext =  this;
 
             User = user;
+            
 
             _appointmentService = new AppointmentService();
             _appointmentService.Subscribe(this);
@@ -118,7 +135,8 @@ namespace Project.View.TourGuideView
 
         private void addTourButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNewTour addNewTour = new AddNewTour(_tourService,_appointmentService,User);
+            SharedViewModel = new AddSharedViewModel();
+            AddNewTour addNewTour = new AddNewTour(_tourService,_appointmentService,User,SharedViewModel);
             addNewTour.Owner = this;
             addNewTour.Show();
         }

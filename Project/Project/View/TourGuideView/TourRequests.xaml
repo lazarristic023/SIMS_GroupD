@@ -16,6 +16,8 @@
         </Style>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
         <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="0,7,10,7"/>
@@ -24,9 +26,9 @@
             <Setter Property="Margin" Value="0,7,0,7"/>
         </Style>
     </Window.Resources>
-    <Grid>
-        <TabControl Background="AliceBlue">
-            <TabItem>
+    <Grid Background="#28365e">
+        <TabControl Background="#28365e">
+            <TabItem Background="#506dbb">
                 <TabItem.Header>
                     <TextBlock Text="Regular tours" FontSize="25"/>
                 </TabItem.Header>
@@ -40,16 +42,26 @@
                     </Grid.RowDefinitions>
 
 
-                    <Button Grid.Row="0" Content="Tour requests statistic" HorizontalAlignment="Left" Width="300" FontSize="15" Margin="0,5,0,0">
+                    <Button Grid.Row="0" HorizontalAlignment="Center" Width="300" FontSize="15" Margin="10,5,0,0" Command="{Binding OpenStatisticCommand}">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </Button.Resources>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0" Source="../../Resources/Images/statistic.png" Margin="0,5,10,5"/>
+                            <TextBlock Grid.Column="1" Text="Tour requests statistic" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        </Grid>
                     </Button>
-                    <GroupBox Grid.Row="1" BorderBrush="Black" BorderThickness="2">
+                    <GroupBox Grid.Row="1" BorderBrush="White" BorderThickness="0.5" Margin="5,0,5,0">
                         <GroupBox.Header>
-                            <TextBlock Text="Filter" FontSize="20"/>
+                            <Label Content="Filter" FontSize="20"/>
                         </GroupBox.Header>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -59,8 +71,8 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
-                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition Width="0.6*"/>
+                                <ColumnDefinition Width="1.4*"/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
@@ -124,20 +136,69 @@
                                 </Style>
                             </Button.Resources>
                         </Button>
-                        <Button Grid.Column="1" Content="Accept selected request" FontFamily="Sylften" Margin="0,3,10,3" Command="{Binding AcceptCommand}">
+                        <Button Grid.Column="1" FontFamily="Sylften" Margin="0,3,10,3" Command="{Binding AcceptCommand}">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>
                                 </Style>
                             </Button.Resources>
+                            
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0" Source="../../Resources/Images/plane.png" Margin="0,0,10,0"/>
+                                <TextBlock Grid.Column="1" Text="Accept selected request" VerticalAlignment="Center"/>
+                            </Grid>
                         </Button>
                     </Grid>
 
-                    <DataGrid Grid.Row="2" AutoGenerateColumns="False" Margin="0,5,0,0"
+                    <DataGrid Grid.Row="2" AutoGenerateColumns="False" Margin="5,5,5,0"
                               IsReadOnly="True"
-                              Background="#F4F1De"
                               ItemsSource="{Binding Requests}"
-                              SelectedItem="{Binding SelectedRequest}">
+                              SelectedItem="{Binding SelectedRequest}"
+                              GridLinesVisibility="None"
+                              
+                              Background="#506dbb">
+                        <DataGrid.Resources>
+                            <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#3c528c"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="Height" Value="35"/>
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Background" Value="#465fa4"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Setter Property="Background" Value="#465fa4"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+                                <Setter Property="FontSize" Value="14"/>
+                            </Style>
+                        </DataGrid.RowStyle>
+
+                        <DataGrid.RowHeaderStyle>
+                            <Style TargetType="{x:Type DataGridRowHeader}">
+                                <Setter Property="Height" Value="25"/>
+                                <Setter Property="Width" Value="0"/>
+                                
+                            </Style>
+                        </DataGrid.RowHeaderStyle>
+
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Country" Binding="{Binding Location.Country}" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Header="City" Binding="{Binding Location.City}" Width="1.1*"></DataGridTextColumn>
@@ -153,7 +214,7 @@
                 
             </TabItem>
 
-            <TabItem>
+            <TabItem Background="#506dbb">
                 <TabItem.Header>
                     <TextBlock Text="Complex tours" FontSize="25"/>
                 </TabItem.Header>

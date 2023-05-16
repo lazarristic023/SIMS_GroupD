@@ -43,14 +43,14 @@ namespace Project.Service
             return requests;
         }
 
-        public List<TourRequest> GetAllNotAccepted()
+        public List<TourRequest> GetAllNotAcceptedAndNotExpired()
         {
             List<TourRequest> requests = new List<TourRequest>();
 
             foreach (TourRequest req in tourRequestRepository.GetAll())
             {
                 req.Location = locationService.GetById(req.LocationId);
-                if(req.Status != TourRequest.STATUS.ACCEPTED)
+                if(req.Status != TourRequest.STATUS.ACCEPTED && req.Status != TourRequest.STATUS.EXPIRED)
                 {
                     requests.Add(req);
                 }

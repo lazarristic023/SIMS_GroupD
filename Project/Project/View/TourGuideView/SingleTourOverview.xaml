@@ -8,7 +8,21 @@
         Title="SingleTourOverview" Height="450" Width="800"
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterOwner">
-    <Grid Background="AliceBlue">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#5a7ad3"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#5a7ad3"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#28365e">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -134,7 +148,7 @@
             </Button>
 
 
-            <GroupBox Grid.Row="1" BorderBrush="Black" Margin="0,0,0,10" Width="250">
+            <GroupBox Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="0,0,0,10" Width="250">
                 <GroupBox.Header>
                     <Label Content="Guests with reservation"/>
                 </GroupBox.Header>
@@ -150,7 +164,7 @@
                 </ListBox>
             </GroupBox>
             
-            <GroupBox Grid.Row="2" BorderBrush="Black" Margin="0,0,0,10"> 
+            <GroupBox Grid.Row="2" BorderBrush="White" Margin="0,0,0,10"> 
                 <GroupBox.Header>
                     <Label Content="Images"></Label>
                 </GroupBox.Header>

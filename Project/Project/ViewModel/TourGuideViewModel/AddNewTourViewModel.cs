@@ -50,34 +50,6 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
-        private string _country = string.Empty;
-        public string Country
-        {
-            get
-            {
-                return _country;
-            }
-            set
-            {
-                _country = value;
-                OnPropertyChanged(nameof(Country));
-                Cities = LoadCities();
-            }
-        }
-
-        private string _city = string.Empty;
-        public string City
-        {
-            get
-            {
-                return _city;
-            }
-            set
-            {
-                _city = value;
-                OnPropertyChanged(nameof(City));
-            }
-        }
 
         private List<string> _languages;
         public List<string> Languages
@@ -93,19 +65,6 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
-        private string _language = string.Empty;
-        public string Language
-        {
-            get
-            {
-                return _language;
-            }
-            set
-            {
-                _language = value;
-                OnPropertyChanged(nameof(Language));
-            }
-        }
 
         private string _nameOfTour = string.Empty;
         public string NameOfTour
@@ -317,6 +276,8 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
+        public AddSharedViewModel SharedViewModel { get; set; }
+
 
         private readonly ImageController _imageController;
 
@@ -326,6 +287,7 @@ namespace Project.ViewModel.TourGuideViewModel
         private readonly TourPointsListService _tourPointsListService;
         private readonly LocationService _locationService;
         private readonly TourRequestService _tourRequestService;
+        private readonly NotificationService _notificationService;
 
         List<int> pointsIds = new List<int>();
 
@@ -334,7 +296,7 @@ namespace Project.ViewModel.TourGuideViewModel
         public bool IsEnabled { get; set; }
         public int RequestId { get; set; }
 
-        public AddNewTourViewModel(TourService tourService, AppointmentService appointmentService, User user)
+        public AddNewTourViewModel(TourService tourService, AppointmentService appointmentService, User user, AddSharedViewModel sharedViewModel)
         {
             _imageController = new ImageController();
             _tourPointsListService = new TourPointsListService();
@@ -343,6 +305,8 @@ namespace Project.ViewModel.TourGuideViewModel
             _tourService = tourService;
             _appointmentService = appointmentService;
             _tourRequestService = new TourRequestService();
+            _notificationService = new NotificationService();
+            SharedViewModel = sharedViewModel;
 
 
             Countries = _locationService.GetAllCountries();
@@ -353,7 +317,7 @@ namespace Project.ViewModel.TourGuideViewModel
             DatePickerStartDate = DateTime.Today;
         }
 
-        public AddNewTourViewModel(Location location,string language,int guestNum,DateTime appointmnet, User user, int requestId, TourService tourService, AppointmentService appointmentService)
+        public AddNewTourViewModel(AddSharedViewModel sharedViewModel, User user, int requestId, TourService tourService, AppointmentService appointmentService)
         {
             _imageController = new ImageController();
             _tourPointsListService = new TourPointsListService();
@@ -362,12 +326,18 @@ namespace Project.ViewModel.TourGuideViewModel
             _tourService = tourService;
             _appointmentService = appointmentService;
             _tourRequestService = new TourRequestService();
+            _notificationService = new NotificationService();
 
-            Country = location.Country;
-            City = location.City;
-            Language = language;
-            MaxGuests = guestNum;
-            Dates.Add(appointmnet);
+
+            SharedViewModel = sharedViewModel;
+
+            Countries = _locationService.GetAllCountries();
+            Cities = LoadCities();
+            Languages = LoadLanguages();
+            DatePickerStartDate = DateTime.Today;
+
+
+            Dates.Add(SharedViewModel.Appointment);
             Guide = user;
 
             RequestId = requestId;
@@ -378,13 +348,13 @@ namespace Project.ViewModel.TourGuideViewModel
 
         private string[] LoadCities()
         {
-            if (Country == string.Empty)
+            if (SharedViewModel.Country == string.Empty)
             {
                 return _locationService.GetAllCities();
             }
             else
             {
-                return _locationService.GetAppropriateCities(Country);
+                return _locationService.GetAppropriateCities(SharedViewModel.Country);
             }
         }
 
@@ -489,6 +459,7 @@ namespace Project.ViewModel.TourGuideViewModel
 
         private void Close()
         {
+            SharedViewModel = new AddSharedViewModel();
             this.OnClosingRequest();
         }
 
@@ -541,7 +512,7 @@ namespace Project.ViewModel.TourGuideViewModel
         {
             //PRAVLJENJE LOCATION-a
 
-            _location = _locationService.Create(City, Country);
+            _location = _locationService.Create(SharedViewModel.City, SharedViewModel.Country);
 
             if (!IsEnabled)
             {
@@ -550,7 +521,7 @@ namespace Project.ViewModel.TourGuideViewModel
             
             //KREIRANJE TOUR-a
 
-            int tourId = _tourService.Create(_location, NameOfTour, Description, Language, MaxGuests, Duration, Guide.Id);
+            int tourId = _tourService.Create(_location, NameOfTour, Description, SharedViewModel.Language, MaxGuests, Duration, Guide.Id);
 
             //KREIRANJE APPOINTMENT-a
 
@@ -588,6 +559,10 @@ namespace Project.ViewModel.TourGuideViewModel
 
             if (!IsEnabled)
             {
+                string message = $"Guide {Guide.Username} has created a tour according to your request " +
+                    $"({_tourRequestService.GetById(RequestId).Location.Country},{_tourRequestService.GetById(RequestId).Location.City},{_tourRequestService.GetById(RequestId).Language})" +
+                    $" and scheduled it to start on {_tourRequestService.GetById(RequestId).AcceptedAppointment}. Name of tour is {NameOfTour}.";
+                _notificationService.Create(_tourRequestService.GetById(RequestId).GuestId,message);
                 MessageBox.Show("The tour was successfully created against the tour request");
             }
 
@@ -597,8 +572,34 @@ namespace Project.ViewModel.TourGuideViewModel
 
         private bool CanSubmit()
         {
-            return NameOfTour!=string.Empty && Country!=string.Empty && City!=string.Empty && Dates.Count!=0 && Duration!=0 
-                && Language!=string.Empty && MaxGuests!=0 && StartPoint!="" && EndPoint!="" && Description!=string.Empty;
+            return NameOfTour!=string.Empty && SharedViewModel.Country!=string.Empty && SharedViewModel.City!=string.Empty && Dates.Count!=0 && Duration!=0 
+                && SharedViewModel.Language!=string.Empty && SharedViewModel.GuestNumber!=0 && StartPoint!="" && EndPoint!="" && Description!=string.Empty;
+        }
+
+
+        private RelayCommand createSuggestionCommand;
+        public ICommand CreateSuggestionCommand
+        {
+            get
+            {
+                if (createSuggestionCommand == null)
+                {
+                    createSuggestionCommand = new RelayCommand(param => this.CreateSuggestion(), param => this.CanCreateSuggestion());
+                }
+                return createSuggestionCommand;
+            }
+
+        }
+        private bool CanCreateSuggestion()
+        {
+            return IsEnabled;
+        }
+
+        private void CreateSuggestion()
+        {
+            Suggestion suggestion = new Suggestion(SharedViewModel);
+            suggestion.Show();
+
         }
 
     }

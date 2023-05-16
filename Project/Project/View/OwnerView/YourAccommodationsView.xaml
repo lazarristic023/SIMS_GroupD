@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.OwnerView"
         mc:Ignorable="d"
-          Title="My Accommodations" Height="750" Width="430" ResizeMode="NoResize">
+          Title="My Accommodations" Height="750" Width="430" ResizeMode="NoResize" Top="300" Left="500">
     <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -30,9 +30,9 @@
 
         <ScrollViewer Grid.Row="1">
 
-            <DataGrid SelectedItem="{Binding SelectedAccommodation}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding Accommodations}">
+            <DataGrid SelectedItem="{Binding SelectedAccommodation}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding Accommodations}" RowHeight="50" FontSize="20" FontWeight="SemiBold">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="auto">
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="11*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="HorizontalContentAlignment"
@@ -40,7 +40,7 @@
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
-                    <DataGridTemplateColumn Header="More info" Width="*">
+                    <DataGridTemplateColumn Header="More info" Width="10*">
                         <DataGridTemplateColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="HorizontalContentAlignment"
@@ -48,9 +48,9 @@
                             </Style>
                         </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate >
+                            <DataTemplate>
                                 <Button x:Name="btnMore" HorizontalAlignment="Stretch" Command="{Binding ElementName=grid, Path=DataContext.MoreInfoCommand}" CommandParameter="{Binding}">
-                                    <Image Height="20" Source="D:\6. semestar\SIMS\ProjectDirectory\SIMS_GroupD\Project\Project\Resources\Images\plus.ico"/>
+                                    <Image Height="20" Source="../../Resources/Images/plus.ico"/>
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

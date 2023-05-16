@@ -9,26 +9,75 @@
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterOwner"
         >
-    <Grid>
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#5a7ad3"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#28365e">
         <DockPanel>
-            <Grid DockPanel.Dock="Bottom">
+            <Grid DockPanel.Dock="Bottom" Height="50">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="nextPoint" Grid.Column="0" Content="Next point" Margin="10" Click="nextPoint_Click"/>
-                <Button x:Name="endTour" Grid.Column="1" Content="Finish the tour" Margin="10" Click="endTour_Click"/>
+                <Button x:Name="nextPoint" Grid.Column="0"  Margin="10" Click="nextPoint_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Column="0" Source="../../Resources/Images/next-location.png" Margin="0,2,10,2"/>
+                        <TextBlock Grid.Column="1" Foreground="Black" Text="Next point" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="endTour" Grid.Column="1" Margin="10" Click="endTour_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Column="0" Source="../../Resources/Images/stophand.png" Margin="0,2,10,2"/>
+                        <TextBlock Grid.Column="1" Foreground="Black" Text="Finish the tour" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    </Grid>
+                </Button>
             </Grid>
 
             <TextBlock x:Name="tourName" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="24" FontFamily="Century Gothic" ></TextBlock>
 
             <Grid DockPanel.Dock="Left" Width="200" Margin="10">
-                <Border BorderBrush="Black" BorderThickness="2">
-                <StackPanel x:Name="RadioStackPanel" Grid.Row="1" Background="LightGray"></StackPanel>
+                <Border BorderBrush="Transparent" BorderThickness="2">
+                    <StackPanel x:Name="RadioStackPanel" Grid.Row="1" Background="#324475"></StackPanel>
                 </Border>
             </Grid>
 
-            <GroupBox DockPanel.Dock="Right" Margin="10">
+            <GroupBox DockPanel.Dock="Right" Margin="10" BorderBrush="White" BorderThickness="0.5">
 
                 
                 <GroupBox.Header>
@@ -49,7 +98,23 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button x:Name="AddGuests" Margin="5" Grid.Row="1" Content="Add guests to current point" Click="AddGuests_Click"/>
+                    <Button x:Name="AddGuests" Margin="5" Grid.Row="1" Click="AddGuests_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0" Source="../../Resources/Images/invite.png" Margin="0,5,10,5"/>
+                            <TextBlock Grid.Column="1" Foreground="Black" Text="Add guests to current point" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        </Grid>
+                    </Button>
 
 
                 </Grid>
