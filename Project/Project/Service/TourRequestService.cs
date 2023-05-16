@@ -59,6 +59,21 @@ namespace Project.Service
             return requests;
         }
 
+        public List<TourRequest> GetAllGuestsTourRequests(int guestId)
+        {
+            tourRequestRepository.MarkAsExpired();
+            List<TourRequest> requests = new List<TourRequest>();
+            foreach(TourRequest request in tourRequestRepository.GetAll())
+            {
+                if(request.GuestId == guestId)
+                {
+                    requests.Add(request);
+                }
+            }
+
+            return requests;
+        }
+
         public void Remove(int id)
         {
             tourRequestRepository.Remove(id);

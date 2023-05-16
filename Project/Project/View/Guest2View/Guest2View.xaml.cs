@@ -330,5 +330,11 @@ namespace Project.View
             TourReview tourReview= new TourReview(controller, SelectedAppointment);
             tourReview.Show();
         }
+
+        private void btTourRequest_Click(object sender, RoutedEventArgs e)
+        {
+            Guest2TourRequests tourRequests = new Guest2TourRequests(user);
+            tourRequests.Show();
+        }
     }
 }
