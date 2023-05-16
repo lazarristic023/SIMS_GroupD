@@ -120,6 +120,20 @@ namespace Project.Service
 
         }
 
+        public List<AccommodationReservation> GetGuestsLastYearReservations(int guestId, DateTime startDate)
+        {
+            List<AccommodationReservation> reservations = new();
+            foreach (var reservation in GetGuestsFormerReservations(guestId))
+            {
+                if (reservation.StartDate.Date >= startDate.Date)
+                {
+                    reservations.Add(reservation);
+                }
+            }
+
+            return reservations;
+        }
+
         public List<AccommodationReservation> GetOwnersCurrentReservations(int ownerId)
         {
             List<AccommodationReservation> allReservations = new(GetOwnerReservations(ownerId));
@@ -155,12 +169,12 @@ namespace Project.Service
         public bool IsAccommodationFree(DateTime start, DateTime end, int accommodatonId)
         {
             AccommodationReservation reservation = 
-                GetAccommodationReservations(accommodatonId).Find(r => !(r.EndDate < start) && !(r.StartDate > end));
+                GetReservationsByAccommodation(accommodatonId).Find(r => !(r.EndDate < start) && !(r.StartDate > end));
 
             return reservation == null;
         }
 
-        public List<AccommodationReservation> GetAccommodationReservations(int accommodationId)
+        public List<AccommodationReservation> GetReservationsByAccommodation(int accommodationId)
         {
             List<AccommodationReservation> reservations = new();
 
@@ -186,13 +200,23 @@ namespace Project.Service
             return _reservationRepository.GetReservationById(reservationId);
         }
 
-        public void Add(AccommodationReservation reservation)
+        public void Add(AccommodationReservation reservation, User guest)
         {
             _reservationRepository.Add(reservation);
+            if (guest.Points > 0)
+            {
+                guest.Points--;
+                _userRepository.Update(guest);
+            }
         }
 
-        public void Remove(AccommodationReservation reservation)
+        public void Remove(AccommodationReservation reservation, User guest)
         {
+            if (reservation.UsedPoints)
+            {
+                guest.Points++;
+                _userRepository.Update(guest);
+            }
             _reservationRepository.Remove(reservation.Id);
         }
         public void SubscribeToReservationRepository(IObserver observer)

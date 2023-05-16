@@ -1,4 +1,5 @@
-﻿using Project.Command.Guest1Commands.WindowLinkCommands;
+﻿using Microsoft.Win32.SafeHandles;
+using Project.Command.Guest1Commands.WindowLinkCommands;
 using Project.Model;
 using Project.Service;
 using Project.View.Guest1View;
@@ -18,6 +19,23 @@ namespace Project.ViewModel.Guest1ViewModel
 {
     public class ProfileWindowViewModel : ViewModelBase
     {
+
+        private string _status;
+        public string Status
+        {
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                _status = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
         private readonly AccommodationReservationReviewService _reservationReviewService;
         private readonly Guest1NotificationService _guest1NotificationService;
 
@@ -30,6 +48,7 @@ namespace Project.ViewModel.Guest1ViewModel
         {
             _reservationReviewService = new AccommodationReservationReviewService();
             _guest1NotificationService = new Guest1NotificationService();
+
             GivenReviews = new ObservableCollection<Guest1Review>();
             RecievedReviews = new ObservableCollection<OwnerReview>();
             User = u;
@@ -54,6 +73,15 @@ namespace Project.ViewModel.Guest1ViewModel
 
                 cfg.Dispatcher = Application.Current.Dispatcher;
             });
+
+            if (User.SuperUserActivationDate.AddYears(1).Date >= DateTime.Now.Date)
+            {
+                Status = "Yes";
+            }
+            else
+                Status = "No";
+
+
         }
 
         public ICommand ProfileLinkCommand { get; }
@@ -71,5 +99,7 @@ namespace Project.ViewModel.Guest1ViewModel
         {
             _reservationReviewService.RemindGuestToRate(User.Id);
         }
+
+
     }
 }

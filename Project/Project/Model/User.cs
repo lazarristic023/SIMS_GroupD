@@ -17,18 +17,22 @@ namespace Project.Model
         public Role Role { get; set; }
 
         public int Age { get; set; }
+        public DateTime SuperUserActivationDate { get; set; }
+        public int Points { get; set; }
 
         public User()
         {
 
         }
 
-        public User(string username, string password, Role role, int age)
+        public User(string username, string password, Role role, int age, DateTime activationDate = default, int points = 0)
         {
             Username = username;
             Password = password;
             Role = role;
             Age = age;
+            SuperUserActivationDate = activationDate;
+            Points = points;
         }
 
         public User(User u)
@@ -38,12 +42,14 @@ namespace Project.Model
             Password = u.Password;
             Role = u.Role;
             Age = u.Age;
+            SuperUserActivationDate = u.SuperUserActivationDate;
+            Points = u.Points;
 
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, RoleToString(), Age.ToString() };
+            string[] csvValues = { Id.ToString(), Username, Password, RoleToString(), Age.ToString(), SuperUserActivationDate.ToString(), Points.ToString() };
             return csvValues;
         }
 
@@ -54,6 +60,8 @@ namespace Project.Model
             Password = values[2];
             Role = StringToRole(values[3]);
             Age = int.Parse(values[4]);
+            SuperUserActivationDate = DateTime.Parse(values[5]);
+            Points = int.Parse(values[6]);
         }
 
         private string RoleToString()

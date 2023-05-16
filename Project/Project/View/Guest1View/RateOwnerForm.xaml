@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Project.View.Guest1View"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="RateOwnerForm" Height="500" Width="500">
     <Window.Resources>
         <sys:String x:Key="renovationTooltip">
@@ -28,6 +29,7 @@
 
         <WrapPanel VerticalAlignment="Center" Margin="70,0,0,0">
             <TextBlock TextDecorations="Underline" FontWeight="DemiBold" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Rate Owner and Accommodation"/>
+            <Button Height="0" Width="0" IsCancel="True"/>
             <Image Margin="30,0,0,0" Stretch="Uniform" Height="25" Source="../../Resources/Images/infoIcon.png"/>
         </WrapPanel>
 
@@ -41,8 +43,8 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Cleanliness:"/>
-            <TextBlock Grid.Row="1" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Owner behaviour:"/>
+            <Label Target="{Binding ElementName=sliderClean}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Content="_Cleanliness:"/>
+            <Label Target="{Binding ElementName=sliderBehaviour}" Grid.Row="1" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Content="_Owner behaviour:"/>
 
             <WrapPanel VerticalAlignment="Center" Grid.Column="1">
                 <Slider IsSnapToTickEnabled="True" TickFrequency="1" x:Name="sliderClean" Value="{Binding Path=Cleanliness,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="1" Maximum="5" VerticalAlignment="Center" Width="160"/>
@@ -57,15 +59,15 @@
         </Grid>
 
         <StackPanel Margin="35,5" Grid.Row="2">
-            <Label Content="Write an additional comment:"/>
-            <TextBox Text="{Binding Path=Comment,Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}" VerticalScrollBarVisibility="Visible" Height="80" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" TextWrapping="Wrap"/>
+            <Label Target="{Binding ElementName=tbComment}" Content="_Write an additional comment:"/>
+            <TextBox x:Name="tbComment" Text="{Binding Path=Comment,Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}" VerticalScrollBarVisibility="Visible" Height="80" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" TextWrapping="Wrap"/>
         </StackPanel>
 
         <StackPanel Margin="35,5" Grid.Row="3">
             <WrapPanel>
-                <Label Content="Add images:"/>
+                <Label Target="{Binding ElementName=tbImageUrl}" Content="Add _images:"/>
                 <TextBox Foreground="Gray" GotFocus="tbImageUrl_GotFocus" LostFocus="tbImageUrl_LostFocus" Text="Paste image urls here" x:Name="tbImageUrl" VerticalContentAlignment="Center" Width="240" Margin="15,0,0,0"/>
-                <Button x:Name="btnAddImage" Click="btnAddImage_Click" Content="Add" Margin="10,0,0,0" Width="60"/>
+                <Button x:Name="btnAddImage" Click="btnAddImage_Click" Content="_Add" Margin="10,0,0,0" Width="60"/>
             </WrapPanel>
             <ListView ItemsSource="{Binding Path=ImageUrls, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Height="60"/>
         </StackPanel>
@@ -80,8 +82,8 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock FontSize="12" VerticalAlignment="Center"  Text="Does accommodaiton need renovation?"/>
-            <TextBlock x:Name="tbRenovation" Grid.Row="1" FontSize="15" Foreground="Gray" VerticalAlignment="Center" Text="Renovation emergency level:"/>
+            <Label FontSize="12" VerticalAlignment="Center" Target="{Binding ElementName=chbRenovation}" Content="_Does accommodaiton need renovation?"/>
+            <Label Target="{Binding ElementName=sliderRenovation}" x:Name="tbRenovation" Grid.Row="1" FontSize="15" Foreground="Gray" VerticalAlignment="Center" Content="_Renovation emergency level:"/>
 
             <WrapPanel VerticalAlignment="Center" Grid.Column="1">
                 <CheckBox x:Name="chbRenovation" Unchecked="chbRenovation_Unchecked" Checked="chbRenovation_Checked" IsChecked="False" Margin="20,0" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="Yes" FontSize="14"/>
@@ -133,7 +135,7 @@
 
         </Grid>
 
-        <Button x:Name="btnSendRecension" Click="btnSendRecension_Click" Content="Send recension" Grid.Row="5" Height="20" Width="90"/>
+        <Button x:Name="btnSendRecension" Click="btnSendRecension_Click" Content="_Send recension" Grid.Row="5" Height="20" Width="90"/>
 
     </Grid>
 </Window>
