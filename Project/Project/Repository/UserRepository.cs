@@ -26,6 +26,27 @@ namespace Project.Repository
             users = serializer.FromCSV(FilePath);
         }
 
+        private void SaveInFile()
+        {
+            serializer.ToCSV(FilePath, users);
+        }
+
+        public User Update(User user)
+        {
+            User oldUser = GetById(user.Id);
+            if (oldUser == null) return null;
+
+            oldUser.Username = user.Username;
+            oldUser.Role = user.Role;
+            oldUser.Age = user.Age;
+            oldUser.Points = user.Points;
+            oldUser.Password = user.Password;
+            oldUser.SuperUserActivationDate = user.SuperUserActivationDate;
+
+            SaveInFile();
+            return oldUser;
+        }
+
         public User GetByUsername(string username)
         {
             users = serializer.FromCSV(FilePath);

@@ -34,9 +34,14 @@ namespace Project.Command.Guest1Commands.SearchAccommodationsCommands
 
             if (result == MessageBoxResult.Yes)
             {
+                if (viewModel.User.Points > 0)
+                {
+                    viewModel.SelectedReservation.UsedPoints = true;
+                }
                 viewModel.SelectedReservation.Accommodation = viewModel.Accommodation;
-                viewModel.SelectedReservation.Guest = viewModel.User;
-                reservationService.Add(viewModel.SelectedReservation);
+                viewModel.SelectedReservation.Guest = viewModel.User;                
+                reservationService.Add(viewModel.SelectedReservation, viewModel.User);
+                MessageBox.Show("Accommodation has been successfully reserved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 viewModel.Window.Close();
 
             }

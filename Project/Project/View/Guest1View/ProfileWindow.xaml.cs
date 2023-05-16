@@ -27,6 +27,7 @@ namespace Project.View.Guest1View
             InitializeComponent();
             profileWindowViewModel = new ProfileWindowViewModel(u, this);
             this.DataContext = profileWindowViewModel;
+            
         }
 
         public void RemindGuestToRate()

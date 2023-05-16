@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Project.View.Guest1View"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="MakeMoveRequestView" Height="450" Width="500">
     <Grid>
         <Grid.RowDefinitions>
@@ -80,25 +81,25 @@
                 </Grid.ColumnDefinitions>
 
                 <WrapPanel Margin="28,0,0,0" VerticalAlignment="Center">
-                    <TextBlock VerticalAlignment="Center" Text="New start date:"/>
-                    <DatePicker SelectedDate="{Binding Path=NewStartDate,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayDateStart="{x:Static sys:DateTime.Today}" Margin="10,0"/>
+                    <Label  VerticalAlignment="Center" Content="New s_tart date:" Target="{Binding ElementName=dpStart}"/>
+                    <DatePicker Name="dpStart" SelectedDate="{Binding Path=NewStartDate,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayDateStart="{x:Static sys:DateTime.Today}" Margin="10,0"/>
                 </WrapPanel>
 
                 <WrapPanel Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="1">
-                    <TextBlock VerticalAlignment="Center" Text="New end date:"/>
-                    <DatePicker SelectedDate="{Binding Path=NewEndDate,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayDateStart="{x:Static sys:DateTime.Today}" Margin="10,0"/>
+                    <Label VerticalAlignment="Center" Content="New _end date:" Target="{Binding ElementName=dpEnd}"/>
+                    <DatePicker x:Name="dpEnd" SelectedDate="{Binding Path=NewEndDate,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayDateStart="{x:Static sys:DateTime.Today}" Margin="10,0"/>
                 </WrapPanel>
                 
 
             </Grid>
 
             <StackPanel Margin="25,0" Grid.Row="1">
-                <TextBlock Margin="0,0,0,5" FontSize="11" Text="Why do you want to move this reservation? Please write a comment:"/>
-                <TextBox Text="{Binding Path=Comment, Mode=OneWayToSource,UpdateSourceTrigger=LostFocus}" Height="69" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" TextWrapping="Wrap"/>
-
+                <Label Target="{Binding ElementName=tbComment}" Margin="0,0,0,5" FontSize="11" Content="_Why do you want to move this reservation? Please write a comment:"/>
+                <TextBox x:Name="tbComment" Text="{Binding Path=Comment, Mode=OneWayToSource,UpdateSourceTrigger=LostFocus}" Height="69" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" TextWrapping="Wrap"/>
+                <Button Height="0" Width="0" IsCancel="True"/>
             </StackPanel>
 
-            <Button x:Name="btnSendRequest" Click="btnSendRequest_Click" Margin="0,0,0,13" FontSize="13" Content="Send request" Height="20" Width="90" Grid.Row="2"/>
+            <Button x:Name="btnSendRequest" Click="btnSendRequest_Click" Margin="0,0,0,13" FontSize="13" Content="_Send request" Height="20" Width="90" Grid.Row="2"/>
 
         </Grid>
         

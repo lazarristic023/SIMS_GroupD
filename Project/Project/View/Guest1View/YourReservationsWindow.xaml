@@ -84,8 +84,8 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Margin="20,15" VerticalAlignment="top">
-                    <TextBlock FontSize="23" Text="Current reservations:"/>
-                    <DataGrid SelectionMode="Single" SelectedItem="{Binding Path=SelectedReservation,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Margin="0,10" Height="165" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=CurrentReservations, UpdateSourceTrigger=PropertyChanged}">
+                    <Label Target="{Binding ElementName=dgCurrent}" FontSize="23" Content="C_urrent reservations:"/>
+                    <DataGrid x:Name="dgCurrent" SelectionMode="Single" SelectedItem="{Binding Path=SelectedReservation,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Margin="0,10" Height="165" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=CurrentReservations, UpdateSourceTrigger=PropertyChanged}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Start Date" Binding="{Binding Path=StartDate,StringFormat=d}" Width="1.1*"/>
                             <DataGridTextColumn Header="End Date" Binding="{Binding Path=EndDate,StringFormat=d}" Width="1.1*"/>
@@ -98,7 +98,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <Button x:Name="btnCancel" Click="btnCancel_Click" Margin="0,18" FontSize="17" Content="Cancel" Width="60" Height="25"/>
+                    <Button x:Name="btnCancel" Command="{Binding CancelCommand}" Margin="0,18" FontSize="17" Content="_Cancel" Width="60" Height="25"/>
                     <TextBlock HorizontalAlignment="Center" Foreground="LightCoral" FontSize="16" Text="NOTE: Select a reservaton first"/>
                 </StackPanel>
 
@@ -112,8 +112,8 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Margin="20,15" VerticalAlignment="top">
-                    <TextBlock FontSize="23" Text="Former reservations:"/>
-                    <DataGrid SelectionMode="Single" SelectedItem="{Binding Path=SelectedReservation,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Margin="0,10" Height="165" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FormerReservations, UpdateSourceTrigger=PropertyChanged}">
+                    <Label Target="{Binding ElementName=dgFormer}" FontSize="23" Content="F_ormer reservations:"/>
+                    <DataGrid x:Name="dgFormer" SelectionMode="Single" SelectedItem="{Binding Path=SelectedReservation,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Margin="0,10" Height="165" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FormerReservations, UpdateSourceTrigger=PropertyChanged}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Start Date" Binding="{Binding Path=StartDate,StringFormat=d}" Width="1.1*"/>
                             <DataGridTextColumn Header="End Date" Binding="{Binding Path=EndDate,StringFormat=d}" Width="1.1*"/>
@@ -126,7 +126,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <Button x:Name="btnRate" Click="btnRate_Click" Margin="0,18" FontSize="17" Content="Rate" Width="60" Height="25"/>
+                    <Button x:Name="btnRate" Command="{Binding RateCommand}" Margin="0,18" FontSize="17" Content="_Rate" Width="60" Height="25"/>
                     <TextBlock HorizontalAlignment="Center" Foreground="LightCoral" FontSize="16" Text="NOTE: Select a reservaton first"/>
                 </StackPanel>
 

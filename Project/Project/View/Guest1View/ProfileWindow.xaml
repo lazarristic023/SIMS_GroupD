@@ -97,6 +97,19 @@
                     </DataGrid>
                 </StackPanel>
 
+                <StackPanel Grid.Column="1">
+                    <WrapPanel HorizontalAlignment="Center" Margin="20 50 0 0">
+                        <TextBlock FontSize="20" Text="Super-guest:"/>
+                        <TextBlock Margin="15 0 10 0" FontSize="20" Text="{Binding Status}"/>
+                        <Image Height="20" Source="../../Resources/Images/infoIcon.png"/>
+                    </WrapPanel>
+                    <WrapPanel HorizontalAlignment="Center" Margin="20 20 0 0">
+                        <TextBlock FontSize="20" Text="Points:"/>
+                        <TextBlock Margin="15 0 10 0" FontSize="20" Text="{Binding Path=User.Points}"/>
+                        <Image Height="20" Source="../../Resources/Images/infoIcon.png"/>
+                    </WrapPanel>
+                </StackPanel>
+
             </Grid>
 
 
@@ -111,7 +124,7 @@
                     <DataGrid SelectionMode="Single" AutoGenerateColumns="False"  Margin="0,10" Height="165" IsReadOnly="True" ItemsSource="{Binding Path=RecievedReviews, UpdateSourceTrigger=PropertyChanged}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Cleanliness" Binding="{Binding Path=Cleanliness}" Width="auto"/>
-                            <DataGridTextColumn Header="House Polices" Binding="{Binding Path=HousePolices}" Width="auto"/>
+                            <DataGridTextColumn Header="House Polices" Binding="{Binding Path=HousePolicies}" Width="auto"/>
                             <DataGridTextColumn Header="Guest" Binding="{Binding Path=Reservation.Guest.Username}" Width="auto"/>
                             <DataGridTextColumn Header="Accommodation" Binding="{Binding Path=Reservation.Accommodation.Name}" Width="auto"/>
                             <DataGridTextColumn Header="Start Date" Binding="{Binding Path=Reservation.StartDate, StringFormat=d}" Width="auto"/>

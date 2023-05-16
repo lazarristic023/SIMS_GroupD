@@ -11,7 +11,7 @@ namespace Project.RepositoryInterfaces
     public interface IUserRepository
     {
         public User GetByUsername(string username);
-
-        public User GetById(int id);        
+        public User GetById(int id);
+        public User Update(User user);
     }
 }

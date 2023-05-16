@@ -60,6 +60,11 @@ namespace Project.View.Guest1View
             {
                 return;
             }
+            if(tbImageUrl.Text == "Paste image urls here")
+            {
+                return;
+            }
+
             ImageUrls.Add(tbImageUrl.Text);
             tbImageUrl.Text = string.Empty;
         }

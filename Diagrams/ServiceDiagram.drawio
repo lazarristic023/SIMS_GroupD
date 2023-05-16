@@ -1,0 +1,130 @@
+<mxfile host="Electron" modified="2023-05-15T17:56:27.201Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="mA2JNCzodc8at-3s5As8" version="21.2.8" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1514" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-4" value="Guest1ReviewService" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="-270" y="90" width="350" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-5" value="-&amp;nbsp; _imageRepository: IGuest1ReviewImageRepository&amp;nbsp;&lt;br&gt;-&amp;nbsp; _reviewRepository: IGuest1ReviewRepository" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="0EWLEJtqdN_Lyg8LjIYQ-4" vertex="1">
+          <mxGeometry y="26" width="350" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-6" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="0EWLEJtqdN_Lyg8LjIYQ-4" vertex="1">
+          <mxGeometry y="70" width="350" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-7" value="-&amp;nbsp; LinkReviewsAndImages(): void&lt;br&gt;+&amp;nbsp;Add(Guest1Review review): void&lt;br&gt;+&amp;nbsp;AddImage(Guest1ReviewImage image)&lt;br&gt;+&amp;nbsp;GetAllReviews(): List&amp;lt;Guest1Review&amp;gt;&lt;br&gt;+&amp;nbsp;GetReviewByReservationId(int reservationId): Guest1Review" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="0EWLEJtqdN_Lyg8LjIYQ-4" vertex="1">
+          <mxGeometry y="78" width="350" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-8" value="AccommodationReservationReviewService" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="240" y="140" width="700" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-9" value="-&amp;nbsp;&amp;nbsp;_ownerReviewRepository:&amp;nbsp;IOwnerReviewRepository" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="0EWLEJtqdN_Lyg8LjIYQ-8" vertex="1">
+          <mxGeometry y="26" width="700" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-10" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="0EWLEJtqdN_Lyg8LjIYQ-8" vertex="1">
+          <mxGeometry y="52" width="700" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-11" value="-&amp;nbsp; LinkReservationsAndReviews(): void&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;+ FillGuestsGivenAndRecievedReviewsLists&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;(ObservableCollection&amp;lt;Guest1Review&amp;gt; guestReviews, ObservableCollection&amp;lt;OwnerReview&amp;gt; ownerReviews, int guestId): void&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;+ FillOwnersGivenAndRecievedReviewsLists&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;(ObservableCollection&amp;lt;Guest1Review&amp;gt; guestReviews, ObservableCollection&amp;lt;OwnerReview&amp;gt; ownerReviews, int ownerId): void&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;+&amp;nbsp;RemindGuestToRate(int guestId): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="0EWLEJtqdN_Lyg8LjIYQ-8" vertex="1">
+          <mxGeometry y="60" width="700" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-12" value="Guest1NotificationService" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="-270" y="280" width="350" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-13" value="-&amp;nbsp; _repository:&amp;nbsp;IGuest1NotificationRepository" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="0EWLEJtqdN_Lyg8LjIYQ-12" vertex="1">
+          <mxGeometry y="26" width="350" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-14" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="0EWLEJtqdN_Lyg8LjIYQ-12" vertex="1">
+          <mxGeometry y="60" width="350" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-15" value="+&amp;nbsp;Add(Guest1Notification notification): void&lt;br&gt;+ GetGuestsNotifications(int userId): List&amp;lt;Guest1Notification&amp;gt;&lt;br&gt;+&amp;nbsp;NotifyGuest(Notifier notifier, int userId): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="0EWLEJtqdN_Lyg8LjIYQ-12" vertex="1">
+          <mxGeometry y="68" width="350" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-16" value="AccommodationReservation" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1110" y="70" width="580" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-17" value="-&amp;nbsp; _reservationRepository: IAccommodationReservationRepository&lt;br&gt;-&amp;nbsp; _userRepository: IUserRepository&amp;nbsp;&lt;br&gt;&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="0EWLEJtqdN_Lyg8LjIYQ-16" vertex="1">
+          <mxGeometry y="26" width="580" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-18" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="0EWLEJtqdN_Lyg8LjIYQ-16" vertex="1">
+          <mxGeometry y="80" width="580" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-19" value="-&amp;nbsp;&amp;nbsp;LinkAccommodationsAndReservations(): void&lt;br&gt;-&amp;nbsp;&amp;nbsp;LinkReservationsAndGuests(): void&lt;br&gt;+&amp;nbsp;Add(AccommodationReservation reservation, User guest): void&lt;br&gt;+ Remove(AccommodationReservation reservation): void&lt;br&gt;+ GetAllReservations(): List&amp;lt;AccommodationReservation&amp;gt;&lt;br&gt;+ GetReservationById(int reservationId): AccommodationReservation&lt;br&gt;+ GetReservationsByAccommodation(int accommodationId): List&amp;lt;AccommodationReservation&amp;gt;&lt;br&gt;+ IsAccommodationFree(DateTime start, DateTime end, int accommodatonId): bool&lt;br&gt;+ GetOwnersFormerReservations(int ownerId): List&amp;lt;AccommodationReservation&amp;gt;&lt;br&gt;+ GetOwnersCurrentReservations(int ownerId): List&amp;lt;AccommodationReservation&amp;gt;&lt;br&gt;+ GetGuestsFormerReservations(int guestId): List&amp;lt;AccommodationReservation&amp;gt;&lt;br&gt;+ GetGuestsCurrentReservations(int guestId): List&amp;lt;AccommodationReservation&amp;gt;&lt;br&gt;+ GetGuestsLastYearReservations(int guestId, DateTime startDate): List&amp;lt;AccommodationReservation&amp;gt;&lt;br&gt;+ GetOwnerReservations(int ownerId): List&amp;lt;AccommodationReservation&amp;gt;&lt;br&gt;+ GetGuestReservations(int guestId): List&amp;lt;AccommodationReservation&amp;gt;&lt;br&gt;+ SubscribeToReservationRepository(IObserver observer): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="0EWLEJtqdN_Lyg8LjIYQ-16" vertex="1">
+          <mxGeometry y="88" width="580" height="242" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-20" value="AccommodationService" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1870" y="110" width="410" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-21" value="-&amp;nbsp; _accommodationRepository: IAccommodationRepository&lt;br&gt;-&amp;nbsp; _imageRepository: IAccommodationImageRepository&lt;br&gt;-&amp;nbsp; _userRepository: IUserRepository&lt;br&gt;&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="0EWLEJtqdN_Lyg8LjIYQ-20" vertex="1">
+          <mxGeometry y="26" width="410" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-22" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="0EWLEJtqdN_Lyg8LjIYQ-20" vertex="1">
+          <mxGeometry y="90" width="410" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-23" value="-&amp;nbsp;&amp;nbsp;LinkAccommodationsAndImages(): void&lt;br&gt;-&amp;nbsp;&amp;nbsp;LinkAccommodationsAndOwners(): void&lt;br&gt;+&amp;nbsp;Add(Accommodation accommodation): void&lt;br&gt;+&amp;nbsp;AddImage(AccommodationImage image): void&lt;br&gt;+ GetAllAccommodations(): List&amp;lt;Accommodation&amp;gt;&lt;br&gt;+&amp;nbsp;GetAccommodationById(int id): Accommodation&lt;br&gt;+ GetAllOwnerAccommodations(int ownerId): List&amp;lt;Accommodation&amp;gt;&lt;br&gt;+ GetAllAccommodationCountries(): List&amp;lt;string&amp;gt;&lt;br&gt;+ GetAllAccommodationCitiesByCountry(string country): List&amp;lt;string&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="0EWLEJtqdN_Lyg8LjIYQ-20" vertex="1">
+          <mxGeometry y="98" width="410" height="162" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-24" value="SuperGuestService" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1310" y="500" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-25" value="-&amp;nbsp; _userRepository: IUserRepository" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="0EWLEJtqdN_Lyg8LjIYQ-24" vertex="1">
+          <mxGeometry y="26" width="260" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-26" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="0EWLEJtqdN_Lyg8LjIYQ-24" vertex="1">
+          <mxGeometry y="60" width="260" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-27" value="+&amp;nbsp;UpdateGuestStatus(User guest): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="0EWLEJtqdN_Lyg8LjIYQ-24" vertex="1">
+          <mxGeometry y="68" width="260" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-28" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0EWLEJtqdN_Lyg8LjIYQ-9" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="230" y="100" as="sourcePoint" />
+            <mxPoint x="80" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-29" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=-0.001;exitY=0.898;exitDx=0;exitDy=0;exitPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0EWLEJtqdN_Lyg8LjIYQ-11" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="110" y="340" as="sourcePoint" />
+            <mxPoint x="80" y="299" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-30" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="940" y="220" as="sourcePoint" />
+            <mxPoint x="1110" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-31" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0EWLEJtqdN_Lyg8LjIYQ-24" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1440" y="470" as="sourcePoint" />
+            <mxPoint x="1440" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0EWLEJtqdN_Lyg8LjIYQ-32" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1690" y="200" as="sourcePoint" />
+            <mxPoint x="1870" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bKbcfKgbFnV0hpblDRmc-0" value="AccommodationRenovationService" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1870" y="490" width="410" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="bKbcfKgbFnV0hpblDRmc-1" value="-&amp;nbsp; _renovationRepository: IAccommodationRenovationRepository" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="bKbcfKgbFnV0hpblDRmc-0">
+          <mxGeometry y="26" width="410" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="bKbcfKgbFnV0hpblDRmc-2" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="bKbcfKgbFnV0hpblDRmc-0">
+          <mxGeometry y="60" width="410" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="bKbcfKgbFnV0hpblDRmc-3" value="-&amp;nbsp;&amp;nbsp;LinkAccommodationsAndRenovations(): void&lt;br&gt;+ Add(AccommodationRenovation renovation): void&lt;br&gt;+ Remove(AccommodationRenovation renovation): void&lt;br&gt;+ GetAllRenovations(): List&amp;lt;AccommodationRenovation&amp;gt;&lt;br&gt;+ GetRenovationById(int renovationId): AccommodationRenovation&lt;br&gt;+ GetOwnerRenovations(int ownerId): List&amp;lt;AccommodationRenovation&amp;gt;&lt;br&gt;+ SubscribeToRenovationRepository(IObserver observer): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="bKbcfKgbFnV0hpblDRmc-0">
+          <mxGeometry y="68" width="410" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="bKbcfKgbFnV0hpblDRmc-4" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="2080" y="490" as="sourcePoint" />
+            <mxPoint x="2080" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

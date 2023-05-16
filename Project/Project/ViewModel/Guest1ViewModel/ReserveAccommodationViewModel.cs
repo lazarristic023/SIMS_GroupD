@@ -294,38 +294,6 @@ namespace Project.ViewModel.Guest1ViewModel
             return reservations;
         }
 
-        /*private void btReserve_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedReservation == null)
-            {
-                MessageBox.Show("Choose a reservation first!", "Reservation not chosen", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            var reservation = accommodationReservationService.GetAllReservations().Find(r => (r.AccommodationId == SelectedReservation.AccommodationId) &&
-                                                    (r.GuestId == user.Id) &&
-                                                    (r.StartDate == SelectedReservation.StartDate) &&
-                                                    (r.EndDate == SelectedReservation.EndDate));
-            if (reservation != null)
-            {
-                MessageBox.Show("You have already made this reservation!", "Reservation already exists", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            MessageBoxResult result = MessageBox.Show($"Are you sure you want to reserve this accommodation at chosen date?\n\nAccommodation Name: {Accommodation.Name}\nNumber of guests: {tbGuests.Text}\nStart date: {SelectedReservation.StartDate}\nEnd date: {SelectedReservation.EndDate}", "Confirm reservation",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                SelectedReservation.Accommodation = Accommodation;
-                SelectedReservation.Guest = user;
-                accommodationReservationService.Add(SelectedReservation);
-                Close();
-
-            }
-
-        }*/
-
         private List<DateTime> GetDatesInRange(DateTime startDate, DateTime endDate)
         {
             List<DateTime> dates = new List<DateTime>();
@@ -370,8 +338,7 @@ namespace Project.ViewModel.Guest1ViewModel
                     break;
                 }
 
-                AccommodationReservation reservation =
-                    new(0, date, date.AddDays(numOfDays), User.Id, Accommodation.Id, guests);
+                AccommodationReservation reservation = new(0, date, date.AddDays(numOfDays), User.Id, Accommodation.Id, guests);
 
                 FreeReservations.Add(reservation);
 

@@ -1,4 +1,5 @@
-﻿using Project.View.Guest1View;
+﻿using Project.Service;
+using Project.View.Guest1View;
 using Project.ViewModel.Guest1ViewModel;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,14 @@ namespace Project.Command.Guest1Commands.MoveReservationCommands
 {
     public class MoveCommand : CommandBase
     {
-        MoveReservationViewModel _viewModel;
+        private readonly MoveReservationViewModel _viewModel;
+        private readonly MoveRequestService _moveRequestService;
 
-        public MoveCommand(MoveReservationViewModel viewModel)
+
+        public MoveCommand(MoveReservationViewModel viewModel, MoveRequestService moveRequestService)
         {
             _viewModel = viewModel;
+            _moveRequestService = moveRequestService;
         }
 
         public override void Execute(object? parameter)
@@ -32,8 +36,15 @@ namespace Project.Command.Guest1Commands.MoveReservationCommands
                 MessageBox.Show("You can not move reservation that has already started", "Reservation already started", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+            if (_moveRequestService.DoesRequestAlreadyExist(_viewModel.SelectedReservation))
+            {
+                MessageBox.Show("There is already pending move request for this reservation!", "Request already exists", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             MakeMoveRequestView makeMoveRequestView = new MakeMoveRequestView(_viewModel.SelectedReservation, _viewModel.User);
-            makeMoveRequestView.Show();
+            makeMoveRequestView.ShowDialog();
         }
     }
 }

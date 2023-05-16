@@ -11,7 +11,6 @@ namespace Project.Model
     {
 
         public int Id { get; set; }
-
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int GuestId { get; set; }
@@ -21,14 +20,13 @@ namespace Project.Model
         public Accommodation Accommodation { get; set; }
 
         public int Guests { get; set; }
-
         public Guest1Review GuestReview { get; set; }
-
         public OwnerReview OwnerReview { get; set; }
+        public bool UsedPoints { get; set; }
 
         public AccommodationReservation() { }
 
-        public AccommodationReservation(int id, DateTime start, DateTime end, int guestId, int accId, int guests)
+        public AccommodationReservation(int id, DateTime start, DateTime end, int guestId, int accId, int guests, bool usedPoints = false)
         {
             Id = id;
             StartDate = start;
@@ -36,6 +34,7 @@ namespace Project.Model
             GuestId = guestId;
             AccommodationId = accId;
             Guests = guests;
+            UsedPoints = usedPoints;
         }
 
         public AccommodationReservation(AccommodationReservation accommodationReservation)
@@ -48,12 +47,13 @@ namespace Project.Model
             Guest = accommodationReservation.Guest;
             Accommodation = accommodationReservation.Accommodation;
             Guests = accommodationReservation.Guests;
+            UsedPoints = accommodationReservation.UsedPoints;
         }
 
         public string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), StartDate.ToString(), EndDate.ToString(),
-                                GuestId.ToString(), AccommodationId.ToString(), Guests.ToString() };
+                                GuestId.ToString(), AccommodationId.ToString(), Guests.ToString(), UsedPoints.ToString() };
             return csvValues;
         }
 
@@ -65,6 +65,7 @@ namespace Project.Model
             GuestId = int.Parse(values[3]);
             AccommodationId = int.Parse(values[4]);
             Guests = int.Parse(values[5]);
+            UsedPoints = bool.Parse(values[6]);
         }
 
 
