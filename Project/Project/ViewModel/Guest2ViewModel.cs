@@ -1,6 +1,9 @@
-﻿using Project.Observer;
+﻿using Project.Command.Guest2Commands;
+using Project.Command.Guest2Commands.LinkCommands;
 using Project.Controller;
 using Project.Model;
+using Project.Service;
+using Project.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,27 +11,79 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using Project.Service;
 
-namespace Project.View
+namespace Project.ViewModel
 {
-    /// <summary>
-    /// Interaction logic for Guest2View.xaml
-    /// </summary>
-    public partial class Guest2View : Window, IObserver
+    public class Guest2ViewModel : ViewModelBase
     {
+        private string _selectedCountry;
+        public string SelectedCountry
+        {
+            get { return _selectedCountry; }
+            set 
+            { 
+                _selectedCountry = value; 
+                OnPropertyChanged(nameof(_selectedCountry));
+            }
+        }
+
+        public string _selectedCity;
+        public string SelectedCity
+        {
+            get { return _selectedCity; }
+            set
+            {
+                _selectedCity = value;
+                OnPropertyChanged(nameof(_selectedCity));
+            }
+        }
+
+
+        public string _selectedLanguage;
+        public string SelectedLanguage
+        {
+            get { return _selectedLanguage; }
+            set
+            {
+                _selectedLanguage = value;
+                OnPropertyChanged(nameof(_selectedLanguage));
+            }
+        }
+
+        private string _guests;
+        public string Guests
+        {
+            get { return _guests; }
+            set
+            {
+                if (value == "0")
+                {
+                    return;
+                }
+                if (!IsDigitsOnly(value)) { return; }
+                _guests = value;
+                OnPropertyChanged(nameof(_guests));
+            }
+        }
+
+        private string _hours;
+        public string Hours
+        {
+            get { return _hours; }
+            set
+            {
+                if(value == "0") { return; }
+                if(!IsDigitsOnly(value)) { return; }
+                _hours = value;
+                OnPropertyChanged(nameof(_hours));
+            }
+        }
+
+
         private Guest2Controller controller;
         private User user;
-        public ObservableCollection<Coupon> Coupons {  get; set; }
-        public ObservableCollection<TourReview> GuestReviews { get; set; }
+        public ObservableCollection<Coupon> Coupons { get; set; }
         public ObservableCollection<TourReservation> TourReservations { get; set; }
         public ObservableCollection<Appointment> TourReservationsForReview { get; set; }
         public ObservableCollection<Tour> Tours { get; set; }
@@ -36,9 +91,10 @@ namespace Project.View
         public ObservableCollection<string> Countries { get; set; }
         public ObservableCollection<string> CountryCities { get; set; }
         public ObservableCollection<string> Languages { get; set; }
-        public string SelectedCountry { get; set; }
-        public string SelectedCity { get; set; }
-        public string SelectedLanguage { get; set; }
+       
+        public ICommand Guest2LinkCommand { get; set; }
+        public ICommand Guest2Command { get; set; }
+
         public Tour SelectedTour { get; set; }
         public Appointment SelectedAppointment { get; set; }
         private readonly CouponService couponService;
@@ -47,28 +103,26 @@ namespace Project.View
         private readonly TourReviewService tourReviewService;
 
 
-        public Guest2View(User u)
+        public Guest2ViewModel(User user, Window window)
         {
-            InitializeComponent();
-            DataContext = this;
-            controller = new Guest2Controller(u);
-            couponService = new CouponService(u);
+            User = user;
+            Window = window;
+
+            Guest2LinkCommand = new Guest2LinkCommand(this);
+            Guest2Command = new Guest2Command(this);
+
             tourReviewService = new TourReviewService();
             TourReservations = new ObservableCollection<TourReservation>(controller.GetTourReservations());
             TourReservationsForReview = new ObservableCollection<Appointment>(controller.GetAppointmentsForReview());
             Tours = new ObservableCollection<Tour>(controller.GetTours());
             Coupons = new ObservableCollection<Coupon>(couponService.GetGuest2Coupons());
-            GuestReviews = new ObservableCollection<TourReview>();
             FilteredTours = new ObservableCollection<Tour>(Tours);
-            controller.SubscribeToReservationRepo(this);
             Countries = new ObservableCollection<string>();
             CountryCities = new ObservableCollection<string>();
             Languages = new ObservableCollection<string>();
             tourService = new TourService();
-            tourService.Subscribe(this);
 
             appointmentService = new AppointmentService();
-            appointmentService.Subscribe(this);
 
             FilteredTours = new ObservableCollection<Tour>(tourService.GetAllTourAppointments());
             Tours = new ObservableCollection<Tour>(tourService.GetAllTourAppointments());
@@ -79,32 +133,44 @@ namespace Project.View
         private void btSignOut_Click(object sender, RoutedEventArgs e)
         {
             SignInView signInView = new SignInView();
-            Close();
+            //Close();
             signInView.Show();
         }
 
-        
 
-        private void cbCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        //private void cbCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    CountryCities.Clear();
+        //    foreach (var location in controller.GetTourLocations())
+        //    {
+        //        if (location.Country == SelectedCountry)
+        //        {
+        //            CountryCities.Add(location.City);
+        //        }
+        //    }
+        //}
+
+        //private void cbLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    Languages.Clear();
+        //    foreach (var language in controller.GetTourLanguages())
+        //    {
+        //        if (language.ToString() == SelectedLanguage)
+        //        {
+        //            Languages.Add(language.ToString());
+        //        }
+        //    }
+        //}
+
+        public void SelectedCountryChanged()
         {
             CountryCities.Clear();
             foreach(var location in controller.GetTourLocations())
             {
-                if(location.Country == SelectedCountry)
+                if (location.Country == SelectedCountry)
                 {
                     CountryCities.Add(location.City);
-                }
-            }
-        }
-
-        private void cbLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Languages.Clear();
-            foreach(var language in controller.GetTourLanguages())
-            {
-                if(language.ToString() == SelectedLanguage)
-                {
-                    Languages.Add(language.ToString());
                 }
             }
         }
@@ -158,9 +224,9 @@ namespace Project.View
 
             // Number of guests
 
-            if (!string.IsNullOrWhiteSpace(tbGuestNumber.Text))
+            if (!IsFieldEmpty(Guests))
             {
-                if (!IsDigitsOnly(tbGuestNumber.Text))
+                if (!IsFieldEmpty(Guests.ToString()))
                 {
                     string sMessageBoxText = $"Number of guests field must contain only digits!";
                     string sCaption = "Input error - Number of guests";
@@ -173,7 +239,7 @@ namespace Project.View
                 }
 
                 hasEntered = true;
-                int guestNum = Convert.ToInt32(tbGuestNumber.Text);
+                int guestNum = Convert.ToInt32(Guests.ToString());
 
                 foreach (Tour tour in temp)
                 {
@@ -196,9 +262,9 @@ namespace Project.View
 
             // Duration of tour
 
-            if (!string.IsNullOrWhiteSpace(tbHours.Text))
+            if (!IsFieldEmpty(Hours))
             {
-                if (!IsDigitsOnly(tbHours.Text))
+                if (!IsDigitsOnly(Hours.ToString()))
                 {
                     string sMessageBoxText = $"Duration of tour field must contain only digits!";
                     string sCaption = "Input error - Number of days";
@@ -211,7 +277,7 @@ namespace Project.View
                 }
 
                 hasEntered = true;
-                int durationInHours = Convert.ToInt32(tbHours.Text);
+                int durationInHours = Convert.ToInt32(Hours.ToString());
 
                 foreach (Tour tour in temp)
                 {
@@ -232,17 +298,22 @@ namespace Project.View
             }
 
             FilteredTours.Clear();
-            foreach(Tour t in temp)
+            foreach (Tour t in temp)
             {
                 FilteredTours.Add(t);
             }
 
-            
+
+        }
+
+        private bool IsFieldEmpty(string fieldInput)
+        {
+            return string.IsNullOrWhiteSpace(fieldInput);
         }
 
         private void FillCountriesList()
         {
-            foreach(var location in controller.GetTourLocations())
+            foreach (var location in controller.GetTourLocations())
             {
                 if (!Countries.Contains(location.Country))
                 {
@@ -253,7 +324,7 @@ namespace Project.View
 
         private void FillLanguagesList()
         {
-            foreach(var language in controller.GetTourLanguages())
+            foreach (var language in controller.GetTourLanguages())
             {
                 if (!Languages.Contains(language.ToString()))
                 {
@@ -265,79 +336,6 @@ namespace Project.View
         private bool IsDigitsOnly(string str)
         {
             return str.All(c => c >= '0' && c <= '9');
-        }
-
-        private void tbViewDetails_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            TourInfoView tourInfoView = new TourInfoView(controller, SelectedTour);
-            tourInfoView.Top = this.Top;
-            tourInfoView.Left = this.Left;
-            tourInfoView.Show();
-        }
-
-        private void UpdateMyTourReservationsList()
-        {
-            TourReservations.Clear();
-            foreach(var reservation in controller.GetTourReservations())
-            {
-                TourReservations.Add(reservation);
-            }
-        }
-
-        private void UpdateMyCouponList()
-        {
-            Coupons.Clear();
-            foreach(var coupon in couponService.GetGuest2Coupons())
-            {
-                Coupons.Add(coupon);
-            }
-        }
-
-        public void Update()
-        {
-            UpdateMyTourReservationsList();
-            UpdateMyCouponList();
-        }
-
-        private void btnReset_Click(object sender, RoutedEventArgs e)
-        {
-            cbCountry.SelectedValue = string.Empty;
-            cbLanguage.SelectedValue = string.Empty;
-            tbGuestNumber.Text = string.Empty;
-            tbHours.Text = string.Empty;
-            btnSearch_Click(this, e);
-        }
-
-        private void tbReview_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            TourReview tourReview= new TourReview(controller, SelectedAppointment);
-            tourReview.Show();
-        }
-
-        private void Button_Click_Profile(object sender, RoutedEventArgs e)
-        {
-            //ProfileGuest2 profileGuest2 = new ProfileGuest2(this.user);
-            ProfileGuest2 profileGuest2 = new ProfileGuest2();
-            //this.Close();
-            profileGuest2.Top = this.Top;
-            profileGuest2.Left = this.Left;
-            profileGuest2.Show();
-        }
-
-        private void Button_Click_Vouchers(object sender, RoutedEventArgs e)
-        {
-            VoucherView vouchers = new VoucherView();
-            vouchers.Top = this.Top;
-            vouchers.Left = this.Left;
-            vouchers.Show();
-        }
-
-        private void Button_Click_Tour_History(object sender, RoutedEventArgs e)
-        {
-            TourHistoryView tourHistory = new TourHistoryView();
-            tourHistory.Top = this.Top;
-            tourHistory.Left = this.Left;
-            tourHistory.Show();
         }
     }
 }

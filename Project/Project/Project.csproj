@@ -9,17 +9,27 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\avatar.png" />
+	<None Remove="Resources\Images\ancient-scroll.png" />
+	<None Remove="Resources\Images\bell.png" />
+	<None Remove="Resources\Images\book.png" />
     <None Remove="Resources\Images\clockIcon.png" />
+	<None Remove="Resources\Images\compass.png" />
+	<None Remove="Resources\Images\discount.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\forumIcon.jpg" />
     <None Remove="Resources\Images\katedralajpg.jpg" />
     <None Remove="Resources\Images\logo.jpg" />
+	<None Remove="Resources\Images\logout.png" />
+	<None Remove="Resources\Images\question-mark.png" />
+	<None Remove="Resources\Images\request1.png" />
     <None Remove="Resources\Images\searchIcon.png" />
     <None Remove="Resources\Images\userIcon.png" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="2.1.2" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.8.0" />
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
   </ItemGroup>
@@ -30,11 +40,19 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\avatar.png" />
+	<Resource Include="Resources\Images\ancient-scroll.png" />
+	<Resource Include="Resources\Images\bell.png" />
+	<Resource Include="Resources\Images\book.png" />
     <Resource Include="Resources\Images\clockIcon.png" />
+	<Resource Include="Resources\Images\compass.png" />
+	<Resource Include="Resources\Images\discount.png" />
     <Resource Include="Resources\Images\edit.png" />
     <Resource Include="Resources\Images\forumIcon.jpg" />
     <Resource Include="Resources\Images\katedralajpg.jpg" />
     <Resource Include="Resources\Images\logo.jpg" />
+	<Resource Include="Resources\Images\logout.png" />
+	<Resource Include="Resources\Images\question-mark.png" />
+	<Resource Include="Resources\Images\request1.png" />
     <Resource Include="Resources\Images\searchIcon.png" />
     <Resource Include="Resources\Images\userIcon.png" />
     <Resource Include="Resources\Images\view.png" />

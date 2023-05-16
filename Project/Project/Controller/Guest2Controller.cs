@@ -54,6 +54,7 @@ namespace Project.Controller
         {
             foreach(var tourReservation in TourReservationRepository.GetAllTourReservations())
             {
+
                 if(tourReservation.GuestId == Guest.User.Id)
                 {
                     Guest.Reservations.Add(tourReservation);

@@ -4,104 +4,161 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View"
+
         mc:Ignorable="d"
-        Title="Guest2View" Height="500" Width="880">
-    <StackPanel>
-        <ToolBar>
-            <Button x:Name="btSignOut" Content="Sign out" Margin="2" BorderBrush="BLack" HorizontalAlignment="Right" Click="btSignOut_Click"/>
-        </ToolBar>
+        Title="Guest2View" Height="768" Width="1024">
 
-        <TabControl Margin="8, 10">
-            <TabItem Header="Your tour reservations">
-                <DataGrid ItemsSource="{Binding Path=TourReservations}"/>
-            </TabItem>
+    <Grid Background="#cce0d2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-            <TabItem Header="Tours">
-                <Grid Height="330">
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="170"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="160"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Background="WhiteSmoke" BorderBrush="Black" BorderThickness="2" Margin="2,10,0,0" Height="160" VerticalAlignment="Top" HorizontalAlignment="Left" Width="255">
+                <WrapPanel>
+                    <Image Height="70" Source="../../Resources/Images/avatar.png" Width="53" VerticalAlignment="Top" Margin="10,50"/>
+                    <Label FontSize="20" HorizontalContentAlignment="Center" FontWeight="Bold" Content="Bob Smith" Height="38" />
+                    <Image Height="62" Source="../../Resources/Images/bell.png" Width="47" Margin="10,0,0,0"/>
+                </WrapPanel>
+            </GroupBox>
+
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/book.png"/>
+                <Button  Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Active and reserved tours" Click="Button_Click_Profile"/>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/compass.png"/>
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Available tours"/>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/request1.png"/>
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Tour requests"/>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/question-mark.png"/>
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Complex tour requests"/>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/discount.png"/>
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Vouchers" Click="Button_Click_Vouchers"/>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="6" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/ancient-scroll.png"/>
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Tour history" Click="Button_Click_Tour_History"/>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="7" Margin="90,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/logout.png"/>
+                <Button x:Name="btSignOut" Background="Transparent" BorderBrush="Transparent" Content="Sign out" Margin="2" HorizontalAlignment="Right" Click="btSignOut_Click" FontWeight="DemiBold" FontSize="19"/>
+            </WrapPanel>
+
+
+
+        </Grid>
+        <Separator Grid.Column="2" Grid.Row="1" Margin="30,409,37,-12"/>
+
+        <GroupBox Background="WhiteSmoke" BorderBrush="Black" BorderThickness="2" Margin="10,10,10,10"  Grid.Column="2">
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="30" Text="Search tours"/>
+
+                <Grid Margin="0,13,0,10" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="5*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid x:Name="availableToursDataGrid" SelectedItem="{Binding Path=SelectedTour}" Grid.Row="1" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FilteredTours}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
-                            <DataGridTextColumn Header="Country" Binding="{Binding Path=Location.Country}"/>
-                            <DataGridTextColumn Header="City" Binding="{Binding Path=Location.City}"/>
-                            <DataGridTextColumn Header="Date and Time" Binding="{Binding TourAppointment.DateAndTimeOfAppointment, StringFormat=f}"/>
-                            <DataGridTextColumn Header="Tour duration" Binding="{Binding Path=Duration}"/>
-                            <DataGridTextColumn Header="Language" Binding="{Binding Path=Language}"/>
-                            <DataGridTextColumn Header="Maximum guests on tour" Binding="{Binding Path=MaxGuests}"/>
-                            <DataGridTemplateColumn Width="*">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock x:Name="tbViewDetails" MouseLeftButtonUp="tbViewDetails_MouseLeftButtonUp" TextDecorations="Underline" Text="View details" Foreground="Blue"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
 
-                    <ComboBox x:Name="cbCountry" SelectionChanged="cbCountry_SelectionChanged" ItemsSource="{Binding Path=Countries, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding Path=SelectedCountry, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="99,33,0,0" VerticalAlignment="Top" Width="100"/>
+                    <WrapPanel Grid.Row="0" Grid.Column="0">
+                        <Label Content="Country: " HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="15"/>
+                        <ComboBox x:Name="cbCountry" SelectionChanged="cbCountry_SelectionChanged" ItemsSource="{Binding Countries, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedCountry, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="37,27,0,0" VerticalAlignment="Top" Width="159"/>
+                    </WrapPanel>
 
-                    <ComboBox ItemsSource="{Binding Path=CountryCities, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding Path=SelectedCity, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="212,33,0,0" VerticalAlignment="Top" Width="100"/>
+                    <WrapPanel Grid.Row="0" Grid.Column="1">
+                        <Label Content="City: " HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="15"/>
+                        <ComboBox ItemsSource="{Binding Path=CountryCities, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=SelectedCity, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="118,27,0,0" VerticalAlignment="Top" Width="159"/>
+                    </WrapPanel>
 
-                    <Label Content="Location" HorizontalAlignment="Left" Margin="44,31,0,0" VerticalAlignment="Top"/>
+                    <WrapPanel Grid.Row="1" Grid.Column="0">
+                        <Label Content="Language:" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="15"/>
+                        <ComboBox x:Name="cbLanguage" SelectionChanged="cbLanguage_SelectionChanged" ItemsSource="{Binding Path=Languages, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=SelectedLanguage, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="27,27,0,0" VerticalAlignment="Top" Width="159"/>
+                    </WrapPanel>
 
-                    <Label Content="Tour duration" HorizontalAlignment="Left" Margin="386,31,0,0" VerticalAlignment="Top"/>
-                    <TextBox Name="tbHours" HorizontalAlignment="Left" Margin="472,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+                    <WrapPanel Grid.Row="2" Grid.Column="0">
+                        <Label Content="Tour duration:" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="15"/>
+                        <TextBox Name="tbHours" Text="{Binding Hours, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="4,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159"/>
+                    </WrapPanel>
 
-                    <Label Content="Number of guests" HorizontalAlignment="Left" Margin="363,77,0,0" VerticalAlignment="Top"/>
-                    <TextBox Name="tbGuestNumber" HorizontalAlignment="Left" Margin="472,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+                    <WrapPanel Grid.Row="2" Grid.Column="1">
+                        <Label Content="Number of guests:" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="15"/>
+                        <TextBox x:Name="tbGuestNumber" Text="{Binding Guests, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Margin="30,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159"/>
+                    </WrapPanel>
 
-                    <Label Content="Language" HorizontalAlignment="Left" Margin="37,79,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="cbLanguage" SelectionChanged="cbLanguage_SelectionChanged" ItemsSource="{Binding Path=Languages, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding Path=SelectedLanguage, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="99,81,0,0" VerticalAlignment="Top" Width="100"/>
+                    <Button Grid.Row="3" Grid.Column="1" Name="btnSearch" Click="btnSearch_Click" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Height="40" Width="80" Margin="263,0,0,0"/>
 
-                    <Button Name="btnReset" Click="btnReset_Click" Content="Reset" HorizontalAlignment="Left" Margin="237,83,0,0" VerticalAlignment="Top" Width="57"/>
+                    <Button Grid.Row="3" Name="btnReset" Click="btnReset_Click" Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Height="40" Width="80" Margin="204,0,0,0"/>
 
-                    <Button Name="btnSearch" Click="btnSearch_Click" Content="Search" HorizontalAlignment="Left" Margin="632,45,0,0" VerticalAlignment="Top" Height="40" Width="57"/>
                 </Grid>
-            </TabItem>
 
-            <TabItem Header="My coupons">
-                <DataGrid ItemsSource="{Binding Path=Coupons}" IsReadOnly="True" AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Path=Id}"/>
-                        <DataGridTextColumn Header="Expiration Date" Binding="{Binding Path=ExpiryDate}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
 
-            <TabItem Header="Tour review">
-                <DataGrid SelectedItem="{Binding Path=SelectedAppointment}" ItemsSource="{Binding Path=TourReservationsForReview}" IsReadOnly="True" AutoGenerateColumns="False">
+
+                <DataGrid x:Name="availableToursDataGrid" SelectedItem="{Binding Path=SelectedTour}" Grid.Row="2" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=FilteredTours}" Margin="20,50,30,112">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Tour Id" Binding="{Binding Path=TourId}"/>
-                        <DataGridTextColumn Header="Date and time" Binding="{Binding Path=DateAndTimeOfAppointment}"/>
-                        <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                        <DataGridTextColumn Header="Country" Binding="{Binding Path=Location.Country}"/>
+                        <DataGridTextColumn Header="City" Binding="{Binding Path=Location.City}"/>
+                        <DataGridTextColumn Header="Date and Time" Binding="{Binding TourAppointment.DateAndTimeOfAppointment, StringFormat=f}"/>
+                        <DataGridTextColumn Header="Tour duration" Binding="{Binding Path=Duration}"/>
+                        <DataGridTextColumn Header="Language" Binding="{Binding Path=Language}"/>
+                        <DataGridTextColumn Header="Maximum guests" Binding="{Binding Path=MaxGuests}"/>
                         <DataGridTemplateColumn Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="tbReview" MouseLeftButtonUp="tbReview_MouseLeftButtonUp" TextDecorations="Underline" Text="Review" Foreground="Blue"/>
+                                    <TextBlock x:Name="tbViewDetails" MouseLeftButtonUp="tbViewDetails_MouseLeftButtonUp" TextDecorations="Underline" Text="View details" Foreground="Blue"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
+                <Separator Margin="20,283,30,312" Background="Black" Grid.Row="1" Grid.RowSpan="2"/>
 
-            </TabItem>
+            </Grid>
 
-            <TabItem Header="My reviews">
-                <DataGrid ItemsSource="{Binding Path=Coupons}" IsReadOnly="True" AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Path=Id}"/>
-                        <DataGridTextColumn Header="Expiration Date" Binding="{Binding Path=ExpiryDate}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
+        </GroupBox>
+    </Grid>
 
-        </TabControl>
-    </StackPanel>
 </Window>

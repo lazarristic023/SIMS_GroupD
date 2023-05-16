@@ -40,5 +40,17 @@ namespace Project.View
             ReserveTourSpotView reserveSpot = new ReserveTourSpotView(Controller, ChosenTour);
             reserveSpot.Show();
         }
+
+        private void btSignOut_Click(object sender, RoutedEventArgs e)
+        {
+            SignInView signInView = new SignInView();
+            Close();
+            signInView.Show();
+        }
+
+        private void Button_Click_Back(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
