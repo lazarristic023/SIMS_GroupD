@@ -19,7 +19,7 @@ namespace Project.Service
         UserRepository userRepository;
 
 
-        private readonly TourPointService tourTourPointService;
+        private readonly TourPointService tourPointService;
         private readonly TourReservationService tourReservationService;
 
         
@@ -29,7 +29,7 @@ namespace Project.Service
             //presentGuestsRepository = new PresentGuestsRepository();
             presentGuestsRepository = Injector.Injector.CreateInstance<IPresentGuestsRepository>();
             userRepository = new UserRepository();
-            tourTourPointService = new TourPointService();
+            tourPointService = new TourPointService();
             tourReservationService = new TourReservationService();
 
             
@@ -146,7 +146,7 @@ namespace Project.Service
             }
             else
             {
-                return tourTourPointService.GetPointNameById(boardingPointId);
+                return tourPointService.GetPointNameById(boardingPointId);
             }
             
         }
