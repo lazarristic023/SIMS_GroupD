@@ -76,6 +76,20 @@ namespace Project.Repository
             SaveInFile();
             NotifyObservers();
         }
+        
+        public void MarkAsExpired()
+        {
+            foreach(var request in requests)
+            {
+                TimeSpan timeRemaining = request.StartDate - DateTime.Now;
+                if(timeRemaining.TotalHours < 48 && request.Status == TourRequest.STATUS.ONHOLD)
+                {
+                    request.Status = TourRequest.STATUS.EXPIRED;
+                    SaveInFile();
+                    NotifyObservers();
+                }
+            }
+        }
 
 
         public void Subscribe(IObserver observer)

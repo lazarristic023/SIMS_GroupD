@@ -59,6 +59,24 @@ namespace Project.Model
             CreatingDate = DateTime.Today;
         }
 
+        public TourRequest(int locationId, string description, string language, int guestNum, DateTime startDate, DateTime endDate, int guestId)
+        {
+            Id = -1;
+            LocationId = locationId;
+            Location = new Location();
+            Description = description;
+            Language = language;
+            GuestNumber = guestNum;
+            StartDate = startDate;
+            EndDate = endDate;
+            AcceptedAppointment = new DateTime();
+            GuideId = -1;
+            GuestId = guestId;
+            Status = STATUS.ONHOLD;
+            CreatingDate = DateTime.Today;
+
+        }
+
         public string[] ToCSV()
         {
             string[] csvValues = {
