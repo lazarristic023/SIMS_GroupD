@@ -16,6 +16,7 @@
             <Setter Property="FontFamily" Value="Century Gothic"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            
         </Style>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="White"/>

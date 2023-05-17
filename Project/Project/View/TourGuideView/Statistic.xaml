@@ -44,6 +44,7 @@
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter TargetName="Panel" Property="Background" Value="#0a0e17"/>
+                                        
 
                                     </Trigger>
                                     <Trigger Property="IsSelected" Value="False">
@@ -80,7 +81,7 @@
                     </WrapPanel>
                     <WrapPanel>
                         <Label Content="Date and time:"></Label>
-                        <Label x:Name="dateElementHighest" Content="{Binding bestAppointmentDate}"></Label>
+                        <Label x:Name="dateElementHighest" Content="{Binding bestAppointmentDate}" FontWeight="Normal"></Label>
                     </WrapPanel>
 
                     <GroupBox BorderThickness="0.5" BorderBrush="White" Margin="5,0,5,0">
@@ -93,7 +94,7 @@
                             <Label  Content="Under 18: "/>
                             <Grid>
                                 <ProgressBar Value="{Binding bestPercent18}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding bestUnder18}"></TextBlock>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding bestUnder18}" FontWeight="Bold" ></TextBlock>
                             </Grid>
 
 
@@ -101,7 +102,7 @@
                             <Label Content="Between 18 and 50: "/>
                             <Grid>
                                 <ProgressBar Value="{Binding bestPercent1850}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding bestBetween18and50}"></TextBlock>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding bestBetween18and50}" FontWeight="Bold"></TextBlock>
                             </Grid>
 
 
@@ -109,7 +110,7 @@
                             <Label Content="Over 50: "/>
                             <Grid>
                                 <ProgressBar Value="{Binding bestPercent50}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding bestOver50}"></TextBlock>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding bestOver50}" FontWeight="Bold"></TextBlock>
                             </Grid>
 
 
@@ -123,7 +124,7 @@
                     </WrapPanel>
                     <Grid>
                         <ProgressBar Value="{Binding bestCoupon}" Height="20" Minimum="0" Maximum="100" Margin="0,0,5,0"></ProgressBar>
-                        <TextBlock HorizontalAlignment="Center" Text="{Binding bestCouponPercent}"></TextBlock>
+                        <TextBlock HorizontalAlignment="Center" Text="{Binding bestCouponPercent}" FontWeight="Bold"></TextBlock>
                     </Grid>
 
                 </StackPanel>
@@ -150,7 +151,7 @@
                         </WrapPanel>
                         <WrapPanel>
                             <Label Content="Date and time:"></Label>
-                            <Label x:Name="dateElement" Visibility="{Binding Visible}" Content="{Binding AppointmentDate}"></Label>
+                            <Label Visibility="{Binding Visible}" Content="{Binding AppointmentDate}" FontWeight="Normal"></Label>
                         </WrapPanel>
 
                         <GroupBox BorderThickness="0.5" BorderBrush="white"  Margin="0,0,5,0">
@@ -163,7 +164,7 @@
                                 <Label Content="Under 18: "/>
                                 <Grid>
                                     <ProgressBar Value="{Binding Percent18}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Under18}"></TextBlock>
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Under18}" FontWeight="Bold"></TextBlock>
                                 </Grid>
 
 
@@ -171,7 +172,7 @@
                                 <Label Content="Between 18 and 50: "/>
                                 <Grid>
                                     <ProgressBar Value="{Binding Percent1850}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Between18and50}"></TextBlock>
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Between18and50}" FontWeight="Bold"></TextBlock>
                                 </Grid>
 
 
@@ -179,7 +180,7 @@
                                 <Label Content="Over 50: "/>
                                 <Grid>
                                     <ProgressBar Value="{Binding Percent50}" Height="20" Minimum="0" Maximum="100"></ProgressBar>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Over50}"></TextBlock>
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Over50}" FontWeight="Bold"></TextBlock>
                                 </Grid>
 
 
@@ -193,7 +194,7 @@
                         </WrapPanel>
                         <Grid>
                             <ProgressBar Value="{Binding Coupon}" Height="20" Minimum="0" Maximum="100" Margin="0,0,5,0"></ProgressBar>
-                            <TextBlock HorizontalAlignment="Center" Text="{Binding CouponPercent}"></TextBlock>
+                            <TextBlock HorizontalAlignment="Center" Text="{Binding CouponPercent}" FontWeight="Bold"></TextBlock>
                         </Grid>
 
                     </StackPanel>
