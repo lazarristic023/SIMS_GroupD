@@ -41,16 +41,16 @@ namespace Project.View.TourGuideView
         public ObservableCollection<Tour> Tours { get; set; }
 
 
-        private User _user = new User();
-        public User User
+        private User _currentUser = new User();
+        public User CurrentUser
         {
             get
             {
-                return _user;
+                return _currentUser;
             }
             set
             {
-                _user = value;
+                _currentUser = value;
                 OnPropertyChanged(nameof(User));
             }
         }
@@ -77,7 +77,7 @@ namespace Project.View.TourGuideView
             InitializeComponent();
             DataContext =  this;
 
-            User = user;
+            CurrentUser = user;
             
 
             _appointmentService = new AppointmentService();
@@ -88,7 +88,7 @@ namespace Project.View.TourGuideView
 
             ImageSource = "../../Resources/Data/images.csv";
 
-            Tours = new ObservableCollection<Tour>(_tourService.GetAllTourAppointments(User.Id));
+            Tours = new ObservableCollection<Tour>(_tourService.GetAllTourAppointments(CurrentUser.Id));
 
 
         }
@@ -104,7 +104,7 @@ namespace Project.View.TourGuideView
         {
             Tours.Clear();
 
-            foreach (var tour in _tourService.GetAll(User.Id))
+            foreach (var tour in _tourService.GetAll(CurrentUser.Id))
             {
                 Tours.Add(tour);
             }
@@ -114,7 +114,7 @@ namespace Project.View.TourGuideView
         {
             Tours.Clear();
 
-            foreach(var tour in _tourService.GetAllTourAppointments(User.Id))
+            foreach(var tour in _tourService.GetAllTourAppointments(CurrentUser.Id))
             {
                 Tours.Add(tour);
             }
@@ -127,7 +127,7 @@ namespace Project.View.TourGuideView
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            usernameLabel.Content = User.Username;
+            usernameLabel.Content = CurrentUser.Username;
             cancelTour.IsEnabled = false;
 
         }
@@ -136,7 +136,7 @@ namespace Project.View.TourGuideView
         private void addTourButton_Click(object sender, RoutedEventArgs e)
         {
             SharedViewModel = new AddSharedViewModel();
-            AddNewTour addNewTour = new AddNewTour(_tourService,_appointmentService,User,SharedViewModel);
+            AddNewTour addNewTour = new AddNewTour(_tourService,_appointmentService,CurrentUser,SharedViewModel);
             addNewTour.Owner = this;
             addNewTour.Show();
         }
@@ -204,23 +204,32 @@ namespace Project.View.TourGuideView
 
         private void StatisticBtn_Click(object sender, RoutedEventArgs e)
         {
-            Statistic statistic = new Statistic(User);
+            Statistic statistic = new Statistic(CurrentUser);
             statistic.Owner = this;
             statistic.Show();
         }
 
         private void ReviewsBtn_Click(object sender, RoutedEventArgs e)
         {
-            Reviews reviews = new Reviews(User.Id);
+            Reviews reviews = new Reviews(CurrentUser.Id);
             reviews.Owner = this;
             reviews.Show();
         }
 
         private void tourrequestBtn_Click(object sender, RoutedEventArgs e)
         {
-            TourRequests tourRequests = new TourRequests(User);
+            TourRequests tourRequests = new TourRequests(CurrentUser);
             tourRequests.Owner = this;
             tourRequests.Show();
+        }
+
+        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Settings settings = new Settings(CurrentUser);
+            settings.Owner = this;
+            settings.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            settings.Show();
+
         }
     }
 }

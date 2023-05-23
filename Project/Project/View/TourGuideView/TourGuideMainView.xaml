@@ -36,8 +36,8 @@
 
 
                         <Image Grid.Row="1" Source="../../Resources/Images/avatar.png" Margin="5"/>
-                    <Button Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,3,0" Height="25" Width="25" 
-                            Background="Transparent" BorderBrush="Transparent">
+                    <Button x:Name="SettingsBtn" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,3,0" Height="25" Width="25" 
+                            Background="Transparent" BorderBrush="Transparent" Click="SettingsBtn_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="15"/>

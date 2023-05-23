@@ -13,5 +13,6 @@ namespace Project.RepositoryInterfaces
         public User GetByUsername(string username);
         public User GetById(int id);
         public User Update(User user);
+        public User ChangePassword(User user, string newPassword);
     }
 }
