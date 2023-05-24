@@ -22,10 +22,12 @@ namespace Project.View.TourGuideView
     /// </summary>
     public partial class Settings : Window
     {
-        public Settings(Model.User user)
+        public Settings(Model.User user, QuitSharedViewModel quitShared)
         {
             InitializeComponent();
-            DataContext = new SettingsViewModel(user);
+            var vm = new SettingsViewModel(user, quitShared);
+            DataContext = vm;
+            vm.ClosingRequest += (sender, e) => this.Close();
         }
     }
 }

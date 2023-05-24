@@ -33,6 +33,7 @@ namespace Project.Service
             return guestList;
         }
 
+
         public List<User> GetApproprietReservations(int appointmentId)
         {
             List<TourReservation> tourReservations = tourReservationRepository.GetAllTourReservations();
@@ -47,6 +48,32 @@ namespace Project.Service
             }
 
             return approprietReservations;
+        }
+
+        public List<TourReservation> GetReservationForAppointment(int appointmentId)
+        {
+            List<TourReservation> tourReservations = tourReservationRepository.GetAllTourReservations();
+            List<TourReservation> approprietReservations = new List<TourReservation>();
+
+            foreach (TourReservation reservation in tourReservations)
+            {
+                if (reservation.TourId == appointmentId)
+                {
+                    approprietReservations.Add(reservation);
+                }
+            }
+
+            return approprietReservations;
+
+        }
+
+        public void RemoveReservationsForAppointment(int appointmentId)
+        {
+            List<TourReservation> reservations = GetReservationForAppointment(appointmentId);
+            foreach(TourReservation reservation in reservations)
+            {
+                tourReservationRepository.Remove(reservation.Id);
+            }
         }
     }
 }

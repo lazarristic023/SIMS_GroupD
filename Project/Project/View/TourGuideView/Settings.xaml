@@ -39,7 +39,8 @@
             </Grid>
         </Button>
 
-        <Button Grid.Row="2"  Margin="10,0,10,20" MaxHeight="100" MaxWidth="300" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold">
+        <Button Grid.Row="2"  Margin="10,0,10,20" MaxHeight="100" MaxWidth="300" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold"
+                Command="{Binding QuitCommand}">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>

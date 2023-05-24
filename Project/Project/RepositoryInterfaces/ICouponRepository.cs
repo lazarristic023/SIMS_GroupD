@@ -15,5 +15,7 @@ namespace Project.RepositoryInterfaces
         public List<Coupon> GetAll();
         public void Remove(int id);
         public Coupon GetById(int id);
+
+        public void ChangeCouponUsabilityToAnywhere(int id);
     }
 }

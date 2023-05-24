@@ -17,6 +17,7 @@ namespace Project.Service
         
         private readonly CouponService couponService;
         private readonly TourReservationService tourReservationService;
+        private readonly NotificationService notificationService;
         public AppointmentService()
         {
             //appointmentRepository = new AppointmentRepository();
@@ -24,6 +25,7 @@ namespace Project.Service
 
             couponService = new CouponService();
             tourReservationService = new TourReservationService();
+            notificationService = new NotificationService();
         }
 
 
@@ -72,15 +74,34 @@ namespace Project.Service
             return appointmentRepository.GetById(id);
         }
 
-        public void Cancel(Appointment appointment)
+        public void Cancel(Appointment appointment, User guide, string tourName)
         {
             appointmentRepository.Cancel(appointment.Id);
             List<User> guests =  tourReservationService.GetGuestsWithReservation(appointment.Id);
 
             foreach(User guest in guests)
             {
-                couponService.Create(guest.Id, appointment.DateAndTimeOfAppointment.AddMonths(6));
+                couponService.Create(guest.Id, appointment.DateAndTimeOfAppointment.AddYears(1),guide.Id);
+                string message = $"Tour {tourName} ({appointment.DateAndTimeOfAppointment}) for which you have a reservation has been cancelled, as an apology, you received a coupon that you can use on any tour in the next year.";
+                notificationService.Create(guest.Id, message);
             }
+
+        }
+
+        public void CancelGuideTour(Appointment appointment,string tourName)
+        {
+            appointmentRepository.Cancel(appointment.Id);
+
+            List<User> guests = tourReservationService.GetGuestsWithReservation(appointment.Id);
+
+            foreach (User guest in guests)
+            {
+                couponService.Create(guest.Id, appointment.DateAndTimeOfAppointment.AddYears(2), -2);
+                string message = $"Tour {tourName} ({appointment.DateAndTimeOfAppointment}) for which you have a reservation has been cancelled, as an apology, you received a coupon that you can use on any tour in the next 2 years";
+                notificationService.Create(guest.Id, message);
+            }
+
+            tourReservationService.RemoveReservationsForAppointment(appointment.Id);
 
         }
 

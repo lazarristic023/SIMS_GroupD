@@ -184,7 +184,7 @@
 
                                 <Label Grid.Row="0" Grid.Column="0">Date:</Label>
                                 <DatePicker x:Name="date" Grid.Row="0" Grid.Column="1" Width="150" Height="30" FontSize="14"
-                                            
+                                           
                                             SelectedDate="{Binding Path=StartDate, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
                                             DisplayDateStart="{Binding DatePickerStartDate}"
                                             IsEnabled="{Binding IsEnabled}"></DatePicker>

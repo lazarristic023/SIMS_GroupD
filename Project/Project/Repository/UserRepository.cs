@@ -70,5 +70,13 @@ namespace Project.Repository
             return users.Find(v => v.Id == id);
         }
 
+        public void Remove(int id)
+        {
+            users = serializer.FromCSV(FilePath);
+            users.Remove(users.Find(v => v.Id == id));
+
+            SaveInFile();
+        }
+
     }
 }

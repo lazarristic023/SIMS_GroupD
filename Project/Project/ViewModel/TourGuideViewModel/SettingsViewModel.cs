@@ -1,5 +1,7 @@
 ﻿using Project.Command;
 using Project.Model;
+using Project.RepositoryInterfaces;
+using Project.Service;
 using Project.View.TourGuideView;
 using ScottPlot.Renderable;
 using System;
@@ -7,13 +9,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace Project.ViewModel.TourGuideViewModel
 {
-    public class SettingsViewModel:ViewModelBase
+    public class SettingsViewModel:CloseableViewModel
     {
+
+        private IUserRepository _userRepository;
 
         private User _currentUser = new User();
         public User CurrentUser
@@ -29,9 +34,21 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
-        public SettingsViewModel(Model.User user)
+        public EventHandler CloseRequested;
+
+        public QuitSharedViewModel QuitShared { get; set; }
+
+        private readonly TourService _tourService;
+        private readonly CouponService _couponeService;
+
+
+        public SettingsViewModel(Model.User user, QuitSharedViewModel quitShared)
         {
+            _userRepository = Injector.Injector.CreateInstance<IUserRepository>();
+            _tourService = new TourService();
+            _couponeService = new CouponService();
             CurrentUser = user;
+            QuitShared = quitShared;
             
         }
 
@@ -80,18 +97,49 @@ namespace Project.ViewModel.TourGuideViewModel
         }
         private void Quit()
         {
-            DialogResult dialogResult = MessageBox.Show("Sure", "Some Title", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+
+            if (System.Windows.MessageBox.Show("Are you sure you want to quit your job? This decision is final and cannot be reversed.",
+                    "Quit job",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                //do something
+                QuitShared.IsQuit = true;
+                _couponeService.GuideQuitJobCorection(CurrentUser.Id);
+                _tourService.CancelAllToursOfGude(CurrentUser);
+                RemoveUser(CurrentUser.Id);
+                Close();
             }
-            else if (dialogResult == DialogResult.No)
-            {
-                //do something else
-            }
+
 
         }
 
+        private void RemoveUser(int id)
+        {
+            _userRepository.Remove(id);
+        }
+
+        private RelayCommand closeCommand;
+        public ICommand CloseCommand
+        {
+            get
+            {
+                if (closeCommand == null)
+                {
+                    closeCommand = new RelayCommand(param => this.Close(), param => this.CanClose());
+                }
+                return closeCommand;
+            }
+        }
+
+        private bool CanClose()
+        {
+            return true;
+        }
+
+        private void Close()
+        {
+            this.OnClosingRequest();
+        }
 
     }
 }

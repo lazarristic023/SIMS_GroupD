@@ -48,9 +48,9 @@ namespace Project.Service
         }
 
 
-        public int Create(int guestId, DateTime dateOfExpire)
+        public int Create(int guestId, DateTime dateOfExpire,int guideId)
         {
-            Coupon coupon = new Coupon(guestId,dateOfExpire);
+            Coupon coupon = new Coupon(guestId,dateOfExpire,guideId);
 
             int couponId = couponRepository.Add(coupon);
 
@@ -76,6 +76,23 @@ namespace Project.Service
         public void ChangeCouponToUsed(int id)
         {
             couponRepository.ChangeToUsed(id);
+        }
+
+        public void ChangeCouponUsabilityToAnywhere(int id)
+        {
+            couponRepository.ChangeCouponUsabilityToAnywhere(id);
+        }
+
+        public void GuideQuitJobCorection(int guideId)
+        {
+            List<Coupon> allCoupones = couponRepository.GetAll();
+            foreach(Coupon coupon in allCoupones)
+            {
+                if(coupon.GuideId == guideId)
+                {
+                    ChangeCouponUsabilityToAnywhere(coupon.Id);
+                }
+            }
         }
 
     }

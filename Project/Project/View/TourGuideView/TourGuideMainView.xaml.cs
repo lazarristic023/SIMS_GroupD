@@ -69,7 +69,10 @@ namespace Project.View.TourGuideView
             }
         }
 
+
+
         public AddSharedViewModel SharedViewModel { get; set; } = new AddSharedViewModel();
+        public QuitSharedViewModel QuitShared { get; set; } = new QuitSharedViewModel();
 
 
         public TourGuideMainView(User user)
@@ -89,6 +92,8 @@ namespace Project.View.TourGuideView
             ImageSource = "../../Resources/Data/images.csv";
 
             Tours = new ObservableCollection<Tour>(_tourService.GetAllTourAppointments(CurrentUser.Id));
+
+
 
 
         }
@@ -177,7 +182,7 @@ namespace Project.View.TourGuideView
                     else
                     {
                         //yes
-                        _appointmentService.Cancel(SelectedTour.TourAppointment);
+                        _appointmentService.Cancel(SelectedTour.TourAppointment,CurrentUser,SelectedTour.Name);
                     }
 
                 }
@@ -225,11 +230,22 @@ namespace Project.View.TourGuideView
 
         private void SettingsBtn_Click(object sender, RoutedEventArgs e)
         {
-            Settings settings = new Settings(CurrentUser);
+            Settings settings = new Settings(CurrentUser, QuitShared);
             settings.Owner = this;
             settings.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            settings.Closed += new EventHandler(Settings_Closed);
             settings.Show();
 
+        }
+
+        private void Settings_Closed(object sender, EventArgs e)
+        {
+            if(QuitShared.IsQuit == true)
+            {
+                System.Windows.Forms.Application.Restart();
+                System.Windows.Application.Current.Shutdown();
+            }
+            
         }
     }
 }

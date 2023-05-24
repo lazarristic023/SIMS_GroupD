@@ -17,12 +17,14 @@ namespace Project.Service
         private ITourRepository tourRepository;
         LocationService locationService;
         AppointmentService appointmentService;
+        TourReservationService tourReservationService;
 
         public TourService()
         {
             tourRepository = Injector.Injector.CreateInstance<ITourRepository>();
             appointmentService = new AppointmentService();
             locationService = new LocationService();
+            tourReservationService = new TourReservationService();
 
         }
 
@@ -86,6 +88,27 @@ namespace Project.Service
 
 
             return tourAppointments;
+        }
+
+        public void CancelAllToursOfGude(User guide)
+        {
+            List<Tour> tours = GetAll(guide.Id);
+            appointmentService.RefreshAppointments();
+
+            foreach (Tour tour in tours)
+            {
+                List<Appointment> appointments = appointmentService.GetByTourId(tour.Id);
+                foreach (Appointment appointment in appointments)
+                {
+                    if(DateTime.Compare(appointment.DateAndTimeOfAppointment, DateTime.Now) > 0)
+                    {
+                        appointmentService.CancelGuideTour(appointment,tour.Name);
+                    } 
+                }
+            }
+
+
+
         }
 
         public List<Tour> GetAllTourAppointments(int guideId)

@@ -15,6 +15,7 @@ namespace Project.Model
         public enum STATUS { USED, NOTUSED}
         public int Id { get; set; }
         public int GuestId { get; set; }
+        public int GuideId { get; set; }
         public DateTime ExpiryDate { get; set; }
         public STATUS Status { get; set; }
 
@@ -22,14 +23,16 @@ namespace Project.Model
         {
             Id = -1;
             GuestId = -1;
+            GuideId = -1;
             ExpiryDate = DateTime.Now;
             Status = STATUS.NOTUSED;
         }
 
-        public Coupon(int guestId, DateTime dateOfExpire)
+        public Coupon(int guestId, DateTime dateOfExpire,int guideId)
         {   
             Id = -1;
             GuestId = guestId;
+            GuideId = guideId;
             ExpiryDate = dateOfExpire;
             Status = STATUS.NOTUSED;
         }
@@ -39,6 +42,7 @@ namespace Project.Model
             string[] csvValues = {
                 Id.ToString(),
                 GuestId.ToString(),
+                GuideId.ToString(),
                 ExpiryDate.ToString(),
                 Status.ToString(),
             };
@@ -49,8 +53,9 @@ namespace Project.Model
         {
             Id = int.Parse(values[0]);
             GuestId = int.Parse(values[1]);
-            ExpiryDate = DateTime.Parse(values[2]);
-            string status = values[3];
+            GuideId = int.Parse(values[2]);
+            ExpiryDate = DateTime.Parse(values[3]);
+            string status = values[4];
             switch(status)
             {
                 case "USED":

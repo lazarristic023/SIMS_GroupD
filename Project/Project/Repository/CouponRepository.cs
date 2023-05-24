@@ -95,5 +95,11 @@ namespace Project.Repository
             _observers.Remove(observer);
         }
 
+        public void ChangeCouponUsabilityToAnywhere(int id)
+        {
+            coupons.Find(c => c.Id == id).GuideId = -2;
+            SaveInFile();
+            NotifyObservers();
+        }
     }
 }
