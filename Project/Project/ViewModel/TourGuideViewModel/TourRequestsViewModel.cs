@@ -171,6 +171,20 @@ namespace Project.ViewModel.TourGuideViewModel
 			}
 		}
 
+		private ObservableCollection<ComplexTour> _complexTours;
+		public ObservableCollection<ComplexTour> ComplexTours
+		{
+			get
+			{
+				return _complexTours;
+			}
+			set
+			{
+				_complexTours = value;
+				OnPropertyChanged(nameof(ComplexTours));
+			}
+		}
+
 		private TourRequest _selectedRequest;
 		public TourRequest SelectedRequest
 		{
@@ -182,6 +196,20 @@ namespace Project.ViewModel.TourGuideViewModel
 			{
 				_selectedRequest = value;
 				OnPropertyChanged(nameof(SelectedRequest));
+			}
+		}
+
+		private ComplexTour _selectedComplexTour;
+		public ComplexTour SelectedComplexTour
+		{
+			get
+			{
+				return _selectedComplexTour;
+			}
+			set
+			{
+				_selectedComplexTour = value;
+				OnPropertyChanged(nameof(SelectedComplexTour));
 			}
 		}
 
@@ -203,6 +231,7 @@ namespace Project.ViewModel.TourGuideViewModel
 		private readonly TourRequestService tourRequestService;
 		private readonly TourService tourService;
 		private readonly AppointmentService appointmentService;
+		private readonly ComplexTourService complexTourService;
 
         List<TourRequest> tourRequests = new List<TourRequest>();
 
@@ -214,6 +243,8 @@ namespace Project.ViewModel.TourGuideViewModel
 
             locationService = new LocationService();
 			tourRequestService = new TourRequestService();
+			complexTourService = new ComplexTourService();
+			complexTourService.Subscribe(this);
 
 			tourService = new TourService();
 			tourService.Subscribe(this);
@@ -230,20 +261,11 @@ namespace Project.ViewModel.TourGuideViewModel
 
 			tourRequests = tourRequestService.GetAllNotAcceptedAndNotExpired();
 			Requests = new ObservableCollection<TourRequest>(tourRequestService.GetAllNotAcceptedAndNotExpired());
+
+
+			ComplexTours = new ObservableCollection<ComplexTour>(complexTourService.GetAll());
 			
         }
-
-		public void UpdateRequests()
-		{
-			Requests.Clear();
-
-			foreach (TourRequest request in tourRequestService.GetAllNotAcceptedAndNotExpired())
-			{
-				Requests.Add(request);
-			}
-		}
-
-		
 
 		private List<TourRequest> ApplyingFilter(List<TourRequest> torReq)
 		{
@@ -424,9 +446,53 @@ namespace Project.ViewModel.TourGuideViewModel
 			requestStatistic.Show();
         }
 
+        private RelayCommand viewDetailsCommand;
+        public ICommand ViewDetailsCommand
+        {
+            get
+            {
+                if (viewDetailsCommand == null)
+                {
+                    viewDetailsCommand = new RelayCommand(param => this.ViewDetails(), param => this.CanViewDetails());
+                }
+                return viewDetailsCommand;
+            }
+        }
+
+        private bool CanViewDetails()
+        {
+			return SelectedComplexTour != null ;
+        }
+
+        private void ViewDetails()
+        {
+			ComplexTourDetails complexTourDetails = new ComplexTourDetails(SelectedComplexTour,Guide,complexTourService);
+			complexTourDetails.Show();
+        }
+
         public void Update()
 		{
 			UpdateRequests();
+			UpdateComplex();
+		}
+
+        public void UpdateRequests()
+        {
+            Requests.Clear();
+
+            foreach (TourRequest request in tourRequestService.GetAllNotAcceptedAndNotExpired())
+            {
+                Requests.Add(request);
+            }
+        }
+
+		public void UpdateComplex()
+		{
+			ComplexTours.Clear();
+			foreach (ComplexTour complexTour in complexTourService.GetAll())
+			{
+				ComplexTours.Add(complexTour);
+			}
 		}
 	}
 }

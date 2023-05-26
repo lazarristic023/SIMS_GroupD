@@ -288,6 +288,7 @@ namespace Project.ViewModel.TourGuideViewModel
         private readonly LocationService _locationService;
         private readonly TourRequestService _tourRequestService;
         private readonly NotificationService _notificationService;
+        private readonly ComplexTourService _complexTourService;
 
         List<int> pointsIds = new List<int>();
 
@@ -304,6 +305,7 @@ namespace Project.ViewModel.TourGuideViewModel
             _locationService = new LocationService();
             _tourService = tourService;
             _appointmentService = appointmentService;
+            _complexTourService = new ComplexTourService();
             _tourRequestService = new TourRequestService();
             _notificationService = new NotificationService();
             SharedViewModel = sharedViewModel;
@@ -325,6 +327,35 @@ namespace Project.ViewModel.TourGuideViewModel
             _locationService = new LocationService();
             _tourService = tourService;
             _appointmentService = appointmentService;
+            _complexTourService = new ComplexTourService();
+            _tourRequestService = new TourRequestService();
+            _notificationService = new NotificationService();
+
+
+            SharedViewModel = sharedViewModel;
+
+            Countries = _locationService.GetAllCountries();
+            Cities = LoadCities();
+            Languages = LoadLanguages();
+            DatePickerStartDate = DateTime.Today;
+
+
+            Dates.Add(SharedViewModel.Appointment);
+            Guide = user;
+
+            RequestId = requestId;
+            IsEnabled = false;
+        }
+
+        public AddNewTourViewModel(AddSharedViewModel sharedViewModel, User user, int requestId, TourService tourService, AppointmentService appointmentService, ComplexTourService complexTourService)
+        {
+            _imageController = new ImageController();
+            _tourPointsListService = new TourPointsListService();
+            _tourPointService = new TourPointService();
+            _locationService = new LocationService();
+            _tourService = tourService;
+            _appointmentService = appointmentService;
+            _complexTourService = complexTourService;
             _tourRequestService = new TourRequestService();
             _notificationService = new NotificationService();
 
@@ -564,6 +595,7 @@ namespace Project.ViewModel.TourGuideViewModel
                     $" and scheduled it to start on {_tourRequestService.GetById(RequestId).AcceptedAppointment}. Name of tour is {NameOfTour}.";
                 _notificationService.Create(_tourRequestService.GetById(RequestId).GuestId,message);
                 MessageBox.Show("The tour was successfully created against the tour request");
+                _complexTourService.CheckStatus();
             }
 
             Close();

@@ -43,5 +43,13 @@ namespace Project.View.TourGuideView
             this.DataContext = vm;
             vm.ClosingRequest += (sender, e) => this.Close();
         }
+
+        public AddNewTour(AddSharedViewModel sharedViewModel, User user, int requestId, TourService tourService, AppointmentService appointmentService, ComplexTourService complexTourService)
+        {
+            InitializeComponent();
+            var vm = new AddNewTourViewModel(sharedViewModel, user, requestId, tourService, appointmentService, complexTourService);
+            this.DataContext = vm;
+            vm.ClosingRequest += (sender, e) => this.Close();
+        }
     }
 }

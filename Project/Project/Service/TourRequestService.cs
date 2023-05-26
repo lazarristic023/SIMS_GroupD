@@ -18,26 +18,32 @@ namespace Project.Service
             locationService = new LocationService();
         }
 
-        public void Create(int locationId, string description, string language, int guestNum, DateTime startDate, DateTime endDate, DateTime acceptedAppointment, TourRequest.STATUS status,int guestId)
+        public void Create(int locationId, string description, string language, int guestNum, DateTime startDate, DateTime endDate, DateTime acceptedAppointment, TourRequest.STATUS status,int guestId, TourRequest.TYPE requestType)
         {
-            TourRequest tourRequest = new TourRequest(locationId,description,language,guestNum,startDate,endDate,acceptedAppointment,status,guestId);
+            TourRequest tourRequest = new TourRequest(locationId,description,language,guestNum,startDate,endDate,acceptedAppointment,status,guestId, requestType);
 
             int requestId = tourRequestRepository.Add(tourRequest);
         }
 
         public TourRequest GetById(int id)
         {
-            return tourRequestRepository.GetById(id);
+            TourRequest tr = tourRequestRepository.GetById(id);
+            tr.Location = locationService.GetById(tr.LocationId);
+            return tr;
         }
 
-        public List<TourRequest> GetAll()
+        public List<TourRequest> GetAllRegular()
         {
             List<TourRequest> requests = new List<TourRequest>();
 
             foreach(TourRequest req in tourRequestRepository.GetAll())
             {
-                req.Location = locationService.GetById(req.LocationId);
-                requests.Add(req);
+                if(req.RequestType == TourRequest.TYPE.REGULAR)
+                {
+                    req.Location = locationService.GetById(req.LocationId);
+                    requests.Add(req);
+                }
+                
             }
 
             return requests;
@@ -45,12 +51,13 @@ namespace Project.Service
 
         public List<TourRequest> GetAllNotAcceptedAndNotExpired()
         {
+            tourRequestRepository.MarkAsExpired();
             List<TourRequest> requests = new List<TourRequest>();
 
             foreach (TourRequest req in tourRequestRepository.GetAll())
             {
                 req.Location = locationService.GetById(req.LocationId);
-                if(req.Status != TourRequest.STATUS.ACCEPTED && req.Status != TourRequest.STATUS.EXPIRED)
+                if(req.Status != TourRequest.STATUS.ACCEPTED && req.Status != TourRequest.STATUS.EXPIRED && req.RequestType == TourRequest.TYPE.REGULAR)
                 {
                     requests.Add(req);
                 }

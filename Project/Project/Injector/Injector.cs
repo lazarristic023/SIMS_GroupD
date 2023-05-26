@@ -35,6 +35,7 @@ namespace Project.Injector
             {typeof(ITourReservationRepository), new TourReservationRepository() },
             {typeof(ITourRequestRepository), new TourRequestRepository() },
             {typeof(INotificationRepository), new NotificationRepository() },
+            {typeof(IComplexTourRepository), new ComplexTourRepository() },
             
 
         // Services 

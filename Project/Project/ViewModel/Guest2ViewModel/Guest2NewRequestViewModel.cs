@@ -249,7 +249,7 @@ namespace Project.ViewModel.Guest2ViewModel
             _location = locationService.Create(City, Country);
 
             //TourRequest request = new TourRequest(_location.Id, Description, Language, GuestNumber, StartDate, EndDate, 4);
-            tourRequestService.Create(_location.Id, Description,Language,GuestNumber,StartDate,EndDate,new DateTime(),TourRequest.STATUS.ONHOLD, 4);
+            tourRequestService.Create(_location.Id, Description,Language,GuestNumber,StartDate,EndDate,new DateTime(),TourRequest.STATUS.ONHOLD, 4, TourRequest.TYPE.REGULAR);
         }
 
         private bool CanMakeNewRequest()

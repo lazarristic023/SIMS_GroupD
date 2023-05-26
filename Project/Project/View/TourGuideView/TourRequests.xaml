@@ -6,24 +6,29 @@
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
-        Title="TourRequests" Height="600" Width="600"
+        Title="TourRequests" Height="700" Width="800"
         >
     <Window.Resources>
         <Style TargetType="TabItem">
             <Setter Property="Height" Value="40"></Setter>
-            <Setter Property="Width" Value="290"/>
+            <Setter Property="Width" Value="390"/>
             <Setter Property="FontFamily" Value="Sylfaen"/>
         </Style>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="FontFamily" Value="Century Gothic"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="0,7,10,7"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
         <Style TargetType="DatePicker">
             <Setter Property="Margin" Value="0,7,0,7"/>
+            <Setter Property="Height" Value="25"/>
         </Style>
     </Window.Resources>
     <Grid Background="#28365e">
@@ -118,7 +123,7 @@
                             <DatePicker Grid.Row="0" Grid.Column="3" FontSize="14" SelectedDate="{Binding StartDate}" DisplayDateStart="{Binding DatePickerDates}" Validation.ErrorTemplate="{x:Null}"/>
                             <DatePicker Grid.Row="1" Grid.Column="3" FontSize="14" SelectedDate="{Binding EndDate}" DisplayDateStart="{Binding DatePickerDates}" Validation.ErrorTemplate="{x:Null}"/>
 
-                            <TextBox Grid.Row="2" Grid.Column="3" Margin="0,5,0,5" HorizontalAlignment="Left" Width="30" Height="25" Text="{Binding GuestNumber}" FontSize="14"/>
+                            <TextBox Grid.Row="2" Grid.Column="3" Margin="0,5,0,5" Height="25" HorizontalAlignment="Left" Width="30" Text="{Binding GuestNumber}" FontSize="14"/>
 
                         </Grid>
                     </GroupBox>
@@ -218,6 +223,81 @@
                 <TabItem.Header>
                     <TextBlock Text="Complex tours" FontSize="25"/>
                 </TabItem.Header>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.9*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0" Margin="10,10,10,5" Width="400"
+                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
+                  ItemsSource="{Binding ComplexTours, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedComplexTour, UpdateSourceTrigger=PropertyChanged}"
+                  GridLinesVisibility="None"
+                  IsSynchronizedWithCurrentItem="True"
+                  Background="#506dbb">
+                        <DataGrid.Resources>
+                            <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#3c528c"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+                                <Setter Property="Height" Value="30"/>
+                            </Style>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Background" Value="#465fa4"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Setter Property="Background" Value="#465fa4"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+                                <Setter Property="FontSize" Value="16"/>
+                            </Style>
+                        </DataGrid.RowStyle>
+
+
+                        <DataGrid.RowHeaderStyle>
+                            <Style TargetType="{x:Type DataGridRowHeader}">
+                                <Setter Property="Height" Value="30"/>
+                                <Setter Property="Width" Value="0"/>
+                            </Style>
+                        </DataGrid.RowHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Width="2*" Binding="{Binding Name}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Status" Width="*" Binding="{Binding Status}"></DataGridTextColumn>
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <Button Grid.Row="1" Margin="0,3,10,10" Width="200" Command="{Binding ViewDetailsCommand}">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0" Source="../../Resources/Images/details.png" Margin="0,5,10,5"/>
+                            <TextBlock Grid.Column="1" Text="View the details of the selected complex tour" FontSize="13" FontWeight="Bold" FontFamily="Verdana" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        </Grid>
+                    </Button>
+
+
+                </Grid>
+
+               
+
             </TabItem>
         </TabControl>
     </Grid>

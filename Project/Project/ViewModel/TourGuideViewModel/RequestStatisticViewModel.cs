@@ -235,7 +235,7 @@ namespace Project.ViewModel.TourGuideViewModel
         {
             _tourRequestService = new TourRequestService();
             locationService = new LocationService();
-            TourRequests = _tourRequestService.GetAll();
+            TourRequests = _tourRequestService.GetAllRegular();
             AppropriateRequests = filter.StatisticFiltering(TourRequests, Country, City, Language,Year);
 
             Years = GetYears();

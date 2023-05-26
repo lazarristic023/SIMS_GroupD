@@ -73,7 +73,7 @@ namespace Project.ViewModel.TourGuideViewModel
             Location location = new Location();
 
             Dictionary<Location, int> counter = new Dictionary<Location, int>();
-            List<TourRequest> allRequests = _tourRequestService.GetAll();
+            List<TourRequest> allRequests = _tourRequestService.GetAllRegular();
             List<TourRequest> requests = new List<TourRequest>();
 
             foreach (TourRequest req in allRequests)
@@ -111,7 +111,7 @@ namespace Project.ViewModel.TourGuideViewModel
             string language = string.Empty;
 
             Dictionary<string, int> counter = new Dictionary<string, int>();
-            List<TourRequest> allRequests = _tourRequestService.GetAll();
+            List<TourRequest> allRequests = _tourRequestService.GetAllRegular();
             List<TourRequest> requests = new List<TourRequest>();
 
             foreach(TourRequest req in allRequests)

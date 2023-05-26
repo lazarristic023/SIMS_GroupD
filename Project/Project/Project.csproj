@@ -17,6 +17,7 @@
     <None Remove="Resources\Images\burger_menu1.png" />
     <None Remove="Resources\Images\clockIcon.png" />
     <None Remove="Resources\Images\delete.png" />
+    <None Remove="Resources\Images\details.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\forumIcon.jpg" />
     <None Remove="Resources\Images\forum_icon.png" />
@@ -76,6 +77,7 @@
     <Resource Include="Resources\Images\burger_menu1.png" />
     <Resource Include="Resources\Images\clockIcon.png" />
     <Resource Include="Resources\Images\delete.png" />
+    <Resource Include="Resources\Images\details.png" />
     <Resource Include="Resources\Images\edit.png" />
     <Resource Include="Resources\Images\forumIcon.jpg" />
     <Resource Include="Resources\Images\forum_icon.png" />

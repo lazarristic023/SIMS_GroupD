@@ -10,6 +10,7 @@ namespace Project.Model
     public class TourRequest:ISerializable
     {
         public enum STATUS { ONHOLD,EXPIRED,ACCEPTED}
+        public enum TYPE { REGULAR, COMPLEX}
         public int Id { get; set; }
         public int LocationId { get; set; }
         public Location Location { get; set; }
@@ -22,6 +23,7 @@ namespace Project.Model
         public int GuideId { get; set; }
         public int GuestId { get; set; }
         public STATUS Status { get; set; }
+        public TYPE RequestType { get; set; }
         public DateTime CreatingDate { get; set; }
 
         public TourRequest()
@@ -39,10 +41,11 @@ namespace Project.Model
             GuestId = -1;
             Status = STATUS.ONHOLD;
             CreatingDate = DateTime.Today;
+            RequestType = TYPE.REGULAR;
         }
 
         public TourRequest(int locationId, string description, string language, int guestNum,
-                            DateTime startDate, DateTime endDate, DateTime acceptedAppointment, STATUS status, int guestId)
+                            DateTime startDate, DateTime endDate, DateTime acceptedAppointment, STATUS status, int guestId, TYPE requestType)
         {
             Id = -1;
             LocationId = locationId;
@@ -57,9 +60,10 @@ namespace Project.Model
             GuestId = guestId;
             Status = status;
             CreatingDate = DateTime.Today;
+            RequestType = requestType;
         }
 
-        public TourRequest(int locationId, string description, string language, int guestNum, DateTime startDate, DateTime endDate, int guestId)
+        public TourRequest(int locationId, string description, string language, int guestNum, DateTime startDate, DateTime endDate, int guestId, TYPE requestType)
         {
             Id = -1;
             LocationId = locationId;
@@ -74,6 +78,7 @@ namespace Project.Model
             GuestId = guestId;
             Status = STATUS.ONHOLD;
             CreatingDate = DateTime.Today;
+            RequestType = requestType;
 
         }
 
@@ -92,6 +97,7 @@ namespace Project.Model
                 GuestId.ToString(),
                 Status.ToString(),
                 CreatingDate.ToString(),
+                RequestType.ToString(),
             };
             return csvValues;
         }
@@ -110,6 +116,7 @@ namespace Project.Model
             GuestId = int.Parse(values[9]);
             string status = values[10];
             CreatingDate = DateTime.Parse(values[11]);
+            string type = values[12];
             switch (status)
             {
                 case "ACCEPTED":
@@ -120,6 +127,16 @@ namespace Project.Model
                     break;
                 default:
                     Status = STATUS.ONHOLD;
+                    break;
+            }
+
+            switch(type)
+            {
+                case "COMPLEX":
+                    RequestType = TYPE.COMPLEX;
+                    break;
+                default : 
+                    RequestType = TYPE.REGULAR;
                     break;
             }
         }
