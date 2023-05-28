@@ -52,6 +52,7 @@ namespace Project.Service
             return complexTours;
         }
 
+
         public List<ComplexTour> GetAllForGuest(int guestId)
         {
             List<ComplexTour> allComplexTours = GetAll();

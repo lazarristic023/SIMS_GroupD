@@ -122,5 +122,30 @@ namespace Project.Service
             tourReviewRepository.Subscribe(observer);
         }
 
+        public List<TourReview> GetByAppointment(int appointmentId)
+        {
+            return tourReviewRepository.GetByAppointment(appointmentId);
+        }
+
+        public double GetAvgRatingForAppointment(int appointmentId)
+        {
+            List<TourReview> tourReviews = GetByAppointment(appointmentId);
+            double sum = 0;
+            foreach(TourReview tr in tourReviews)
+            {
+                double avg = 0;
+                avg = (tr.GuideLanguageRating + tr.GuideKnowledgeRating + tr.InterestingRating) / 3;
+                sum += avg;
+            }
+
+            if (tourReviews.Count() > 0)
+            {
+                return sum / tourReviews.Count();
+            }
+            else return 0;
+            
+        }
+
+
     }
 }

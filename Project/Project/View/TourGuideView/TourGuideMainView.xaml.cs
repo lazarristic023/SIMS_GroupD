@@ -35,6 +35,7 @@ namespace Project.View.TourGuideView
 
         private readonly TourService _tourService;
         private readonly AppointmentService _appointmentService;
+        private readonly SuperGuideService superGuideService;
 
         public Tour SelectedTour { get; set; }
 
@@ -69,6 +70,20 @@ namespace Project.View.TourGuideView
             }
         }
 
+        private string _status;
+        public string Status
+        {
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                _status = value;
+                OnPropertyChanged(nameof(Status));
+            }
+        }
+
 
 
         public AddSharedViewModel SharedViewModel { get; set; } = new AddSharedViewModel();
@@ -82,7 +97,7 @@ namespace Project.View.TourGuideView
 
             CurrentUser = user;
             
-
+            superGuideService = new SuperGuideService();
             _appointmentService = new AppointmentService();
             _appointmentService.Subscribe(this);
 
@@ -90,14 +105,25 @@ namespace Project.View.TourGuideView
             _tourService.Subscribe(this);
 
             ImageSource = "../../Resources/Data/images.csv";
+            SetStatus();
+
 
             Tours = new ObservableCollection<Tour>(_tourService.GetAllTourAppointments(CurrentUser.Id));
 
 
-
-
         }
 
+        public void SetStatus()
+        {
+            if (superGuideService.IsSuper(CurrentUser.Id))
+            {
+                Status = "Super";
+            }
+            else
+            {
+                Status = "Regular";
+            }
+        }
 
         public void Update()
         {

@@ -25,7 +25,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="200"></RowDefinition>
-                        <RowDefinition Height="70"></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
@@ -49,13 +49,16 @@
 
                     <StackPanel Grid.Row="2">
                         <Label x:Name="usernameLabel" Content="{Binding User.Username}" HorizontalAlignment="Center" FontSize="20" FontFamily="Verdana" Foreground="White"></Label>
-                        <Label Content="Status: Regular" HorizontalAlignment="Center" FontSize="18" FontFamily="Malgun Ghotic" Foreground="White"/>
+                        <WrapPanel HorizontalAlignment="Center">
+                            <Label Content="Status: "  FontSize="18" FontFamily="Malgun Ghotic" Foreground="White"/>
+                            <Label Content="{Binding Status}"  FontSize="18" FontFamily="Malgun Ghotic" Foreground="White"/>
+                        </WrapPanel>
                     </StackPanel>
                     
 
                     <Grid Grid.Row="3">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.5*"></RowDefinition>
+                            <RowDefinition Height="0.1*"></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>

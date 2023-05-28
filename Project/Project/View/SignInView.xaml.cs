@@ -33,6 +33,7 @@ namespace Project.View
     {
         private readonly UserRepository _repository;
         private readonly SuperGuestService _superGuestService;
+        private readonly SuperGuideService _superGuideService;
         public static Window PreviousWindow { get; set; }
         //private readonly TourGuideController _controller;
         //private readonly TourService _tourService;
@@ -64,6 +65,9 @@ namespace Project.View
             DataContext = this;
             _repository = new UserRepository();
             _superGuestService = new SuperGuestService();
+            _superGuideService = new SuperGuideService();
+
+            RefreshSuperGuides();
             //_tourService = new TourService();
             //_controller = new TourGuideController();
         }
@@ -121,6 +125,25 @@ namespace Project.View
                 MessageBox.Show("Wrong username!");
             }
 
+        }
+
+        private void RefreshSuperGuides()
+        {
+            List<SuperGuide> superGuides = new List<SuperGuide> ();
+            foreach(User user in _repository.GetAllGuide())
+            {
+                    foreach(string language in _superGuideService.SuperLanguages(user.Id))
+                    {
+                        superGuides.Add(new SuperGuide(user.Id, language));
+                    }
+            }
+
+            _superGuideService.ClearAllSuperGuides();
+
+            foreach(SuperGuide superGuide in superGuides)
+            {
+                _superGuideService.Create(superGuide.GuideId, superGuide.Language);
+            }
         }
 
     }

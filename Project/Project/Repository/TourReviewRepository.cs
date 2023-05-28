@@ -124,5 +124,18 @@ namespace Project.Repository
         {
             _observers.Remove(observer);
         }
+
+        public List<TourReview> GetByAppointment(int appointmentId)
+        {
+            List<TourReview> tourRevs = new List<TourReview>();
+            foreach(TourReview tr in tourReviews)
+            {
+                if(tr.AppointmentId == appointmentId)
+                {
+                    tourRevs.Add(tr);
+                }
+            }
+            return tourRevs;
+        }
     }
 }

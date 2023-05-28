@@ -15,6 +15,7 @@ namespace Project.RepositoryInterfaces
         public List<TourReview> GetGuestsReview(int id);
         public void Remove(int id);
         public TourReview GetById(int id);
+        public List<TourReview> GetByAppointment(int appointmentId);
         public void MarkAsInvalid(int id);
         public bool IsValid(int id);
         public void NotifyObservers();

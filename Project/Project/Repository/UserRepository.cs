@@ -8,7 +8,6 @@ using System.Windows.Input;
 using Project.Model;
 using Project.Serializer;
 using Project.RepositoryInterfaces;
-using Microsoft.VisualBasic.ApplicationServices;
 
 namespace Project.Repository
 {
@@ -17,13 +16,13 @@ namespace Project.Repository
 
         private const string FilePath = "../../../Resources/Data/users.csv";
 
-        private readonly Serializer<Model.User> serializer;
+        private readonly Serializer<User> serializer;
 
-        private List<Model.User> users;
+        private List<User> users;
 
         public UserRepository()
         {
-            serializer = new Serializer<Model.User>();
+            serializer = new Serializer<User>();
             users = serializer.FromCSV(FilePath);
         }
 
@@ -32,7 +31,20 @@ namespace Project.Repository
             serializer.ToCSV(FilePath, users);
         }
 
-        public Model.User Update(Model.User user)
+        public List<User> GetAllGuide()
+        {
+            List<User> Guides = new List<User>();
+            foreach (var user in users)
+            {
+                if(user.Role == Role.GUIDE)
+                {
+                    Guides.Add(user);
+                }
+            }
+            return Guides;
+        }
+
+        public User Update(User user)
         {
             Model.User oldUser = GetById(user.Id);
             if (oldUser == null) return null;
@@ -48,9 +60,9 @@ namespace Project.Repository
             return oldUser;
         }
 
-        public Model.User ChangePassword(Model.User user, string newPassword)
+        public User ChangePassword(User user, string newPassword)
         {
-            Model.User oldUser = GetById(user.Id);
+            User oldUser = GetById(user.Id);
             if (oldUser == null) return null;
             oldUser.Password = newPassword;
 
@@ -58,13 +70,13 @@ namespace Project.Repository
             return oldUser;
         }
 
-        public Model.User GetByUsername(string username)
+        public User GetByUsername(string username)
         {
             users = serializer.FromCSV(FilePath);
             return users.FirstOrDefault(u => u.Username == username);
         }
 
-        public Model.User GetById(int id)
+        public User GetById(int id)
         {
             users = serializer.FromCSV(FilePath);
             return users.Find(v => v.Id == id);
