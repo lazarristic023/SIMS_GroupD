@@ -7,7 +7,7 @@
         xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml" x:Class="Project.View.TourGuideView.Statistic"
         mc:Ignorable="d"
         Title="Statistic" Height="600" Width="800"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="TabItem">
             <Setter Property="Height" Value="40"></Setter>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
-        Title="TourGuideMainView" Height="800" Width="1100" Loaded="Window_Loaded"
+        Title="TourGuideMainView" Height="800" Width="1100"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -37,7 +37,7 @@
 
                         <Image Grid.Row="1" Source="../../Resources/Images/avatar.png" Margin="5"/>
                     <Button x:Name="SettingsBtn" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,3,0" Height="25" Width="25" 
-                            Background="Transparent" BorderBrush="Transparent" Click="SettingsBtn_Click">
+                            Background="Transparent" BorderBrush="Transparent" Command="{Binding SettingsClickCommand}">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="15"/>
@@ -48,7 +48,7 @@
 
 
                     <StackPanel Grid.Row="2">
-                        <Label x:Name="usernameLabel" Content="{Binding User.Username}" HorizontalAlignment="Center" FontSize="20" FontFamily="Verdana" Foreground="White"></Label>
+                        <Label x:Name="usernameLabel" Content="{Binding Username}" HorizontalAlignment="Center" FontSize="20" FontFamily="Verdana" Foreground="White"></Label>
                         <WrapPanel HorizontalAlignment="Center">
                             <Label Content="Status: "  FontSize="18" FontFamily="Malgun Ghotic" Foreground="White"/>
                             <Label Content="{Binding Status}"  FontSize="18" FontFamily="Malgun Ghotic" Foreground="White"/>
@@ -66,7 +66,7 @@
                         </Grid.RowDefinitions>
 
 
-                        <Button x:Name="ReviewsBtn" Grid.Row="1"  Margin="5,0,5,10" Click="ReviewsBtn_Click" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold">
+                        <Button x:Name="ReviewsBtn" Grid.Row="1"  Margin="5,0,5,10" Command="{Binding ReviewsClickCommand}" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>
@@ -84,7 +84,7 @@
                             </Grid>
                         </Button>
 
-                        <Button x:Name="StatisticBtn" Grid.Row="2" Margin="5,0,5,10" Click="StatisticBtn_Click" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold">
+                        <Button x:Name="StatisticBtn" Grid.Row="2" Margin="5,0,5,10" Command="{Binding StatisticClickCommand}" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>
@@ -101,7 +101,7 @@
                             </Grid>
                         </Button>
 
-                        <Button x:Name="tourrequestBtn" Grid.Row="3" Margin="5,0,5,10" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Click="tourrequestBtn_Click">
+                        <Button x:Name="tourrequestBtn" Grid.Row="3" Margin="5,0,5,10" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Command="{Binding RequestsClickCommand}">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>
@@ -119,7 +119,7 @@
                             </Grid>
                         </Button>
 
-                        <Button Grid.Row="4" Margin="5,0,5,10" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold">
+                        <Button Grid.Row="4" Margin="5,0,5,10" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Command="{Binding GeneratePdfCommand}">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>
@@ -180,7 +180,6 @@
                               SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                               AutoGenerateColumns="False" IsReadOnly="True"
                               SelectionMode="Single"
-                              SelectionChanged="myTourDataGrid_SelectionChanged"
                               Background="#506dbb"
                               GridLinesVisibility="None">
                                 
@@ -208,7 +207,6 @@
                         </DataGrid.Resources>
                         <DataGrid.RowStyle>
                             <Style TargetType="{x:Type DataGridRow}">
-                                <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
                                 <Setter Property="IsEnabled" Value="{Binding TourAppointment.IsNotCanceled}"/>
                                 <Setter Property="Background" Value="#465fa4"/>
                                 <Setter Property="Foreground" Value="White"/>
@@ -216,6 +214,13 @@
                                 <Setter Property="FontSize" Value="18"/>
                             </Style>
                         </DataGrid.RowStyle>
+
+                        <DataGrid.InputBindings>
+                            <MouseBinding
+                                MouseAction="LeftDoubleClick"
+                                Command="{Binding DataGridDoubleClickCommand}"
+                                CommandParameter="{Binding Tours/}"/>
+                        </DataGrid.InputBindings>
 
                         <DataGrid.CellStyle>
                             <Style TargetType="{x:Type DataGridCell}">
@@ -257,7 +262,7 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
-                        <Button x:Name="addTourButton" Grid.Column="0" Margin="5,5,10,10" Click="addTourButton_Click" FontFamily="Verdana">
+                        <Button x:Name="addTourButton" Grid.Column="0" Margin="5,5,10,10" Command="{Binding AddTourCommand}" FontFamily="Verdana">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>
@@ -269,7 +274,7 @@
                             </WrapPanel>
                         </Button>
 
-                        <Button x:Name="cancelTour" Grid.Column="1"  Margin="5,5,10,10" Click="cancelTour_Click" FontFamily="Verdana">
+                        <Button x:Name="cancelTour" Grid.Column="1"  Margin="5,5,10,10" Command="{Binding CancelTourCommand}" IsEnabled="{Binding IsCancelEnabled, UpdateSourceTrigger=PropertyChanged}" FontFamily="Verdana">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>

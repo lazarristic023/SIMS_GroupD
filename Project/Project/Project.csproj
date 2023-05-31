@@ -59,6 +59,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ceTe.DynamicPDF.CoreSuite.NET" Version="12.4.0" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
@@ -120,6 +121,7 @@
 
   <ItemGroup>
     <Folder Include="Command\TourGuideCommand\" />
+    <Folder Include="Resources\PDFReports\" />
   </ItemGroup>
 
 </Project>

@@ -81,6 +81,36 @@ namespace Project.Service
             return requests;
         }
 
+        public List<TourRequest> GetAllGuideAccepted(int guideId)
+        {
+            List<TourRequest> requests = new List<TourRequest>();
+            foreach (TourRequest request in tourRequestRepository.GetAll())
+            {
+                if (request.GuideId == guideId)
+                {
+                    requests.Add(request);
+                }
+            }
+
+            return requests;
+
+        }
+
+        public List<TourRequest> GetAllGuideAcceptedThisYear(int guideId)
+        {
+            List<TourRequest> requests = new List<TourRequest>();
+            foreach (TourRequest request in tourRequestRepository.GetAll())
+            {
+                if (request.GuideId == guideId && request.AcceptedAppointment.Year == DateTime.Today.Year)
+                {
+                    requests.Add(request);
+                }
+            }
+
+            return requests;
+
+        }
+
         public void Remove(int id)
         {
             tourRequestRepository.Remove(id);

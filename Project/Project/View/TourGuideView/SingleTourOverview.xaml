@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="SingleTourOverview" Height="450" Width="800"
         Loaded="Window_Loaded"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="Background" Value="#5a7ad3"/>

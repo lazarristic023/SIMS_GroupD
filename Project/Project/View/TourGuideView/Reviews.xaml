@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Project.View.TourGuideView"
         mc:Ignorable="d"
         Title="Reviews" Height="450" Width="800"
-        WindowStartupLocation="CenterOwner" Background="#28365e">
+        WindowStartupLocation="CenterScreen" Background="#28365e">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>

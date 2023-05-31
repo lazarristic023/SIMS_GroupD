@@ -36,20 +36,17 @@ namespace Project.ViewModel.TourGuideViewModel
 
         public EventHandler CloseRequested;
 
-        public QuitSharedViewModel QuitShared { get; set; }
 
         private readonly TourService _tourService;
         private readonly CouponService _couponeService;
 
 
-        public SettingsViewModel(Model.User user, QuitSharedViewModel quitShared)
+        public SettingsViewModel(Model.User user)
         {
             _userRepository = Injector.Injector.CreateInstance<IUserRepository>();
             _tourService = new TourService();
             _couponeService = new CouponService();
             CurrentUser = user;
-            QuitShared = quitShared;
-            
         }
 
         private RelayCommand changePasswordCommand;
@@ -103,14 +100,17 @@ namespace Project.ViewModel.TourGuideViewModel
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                QuitShared.IsQuit = true;
                 _couponeService.GuideQuitJobCorection(CurrentUser.Id);
                 _tourService.CancelAllToursOfGude(CurrentUser);
                 RemoveUser(CurrentUser.Id);
-                Close();
+                RestartApp();
             }
+        }
 
-
+        private void RestartApp()
+        {
+            System.Windows.Forms.Application.Restart();
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void RemoveUser(int id)
