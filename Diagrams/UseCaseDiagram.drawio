@@ -1,0 +1,391 @@
+<mxfile host="app.diagrams.net" modified="2023-06-05T14:06:16.302Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="JZ_sHmCzvY5cI9LU93KL" version="21.3.7" type="device" pages="12">
+  <diagram name="Page-1" id="ui82PGtMrwErfeL2z1jY">
+    <mxGraphModel dx="1235" dy="578" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="140" width="1040" height="780" as="geometry" />
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-15" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="630" y="10" width="60" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-13" value="" style="shape=actor;whiteSpace=wrap;html=1;labelBackgroundColor=none;" vertex="1" parent="k02FuHKF3fHv9NQlOWMf-15">
+          <mxGeometry x="12" y="30" width="40" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-14" value="&lt;i&gt;User&lt;/i&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="k02FuHKF3fHv9NQlOWMf-15">
+          <mxGeometry width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-26" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="k02FuHKF3fHv9NQlOWMf-21" target="k02FuHKF3fHv9NQlOWMf-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1270" y="80" as="sourcePoint" />
+            <mxPoint x="1300" y="30" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1290" y="80" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-27" value="" style="group;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="1260" y="450" width="60" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-21" value="" style="shape=actor;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="k02FuHKF3fHv9NQlOWMf-27">
+          <mxGeometry x="10" width="40" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-22" value="Guide" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="k02FuHKF3fHv9NQlOWMf-27">
+          <mxGeometry y="58" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-29" value="Sign in" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="592" y="188" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-30" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="k02FuHKF3fHv9NQlOWMf-29" target="k02FuHKF3fHv9NQlOWMf-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="745" y="398" as="sourcePoint" />
+            <mxPoint x="667" y="108" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="Kreiranje&lt;br&gt;ture" link="data:page/id,16tujXw-naZLOoRNAW_3" id="k02FuHKF3fHv9NQlOWMf-31">
+          <mxCell style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+            <mxGeometry x="790" y="240" width="140" height="70" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Otkaz" link="data:page/id,IERsvrzTrN7fZkEJstN6" id="k02FuHKF3fHv9NQlOWMf-35">
+          <mxCell style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+            <mxGeometry x="1010" y="750" width="140" height="70" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Pregled statistike&lt;br&gt;o turama" link="data:page/id,NbBVPEYNjlmfP-zBl2vn" id="k02FuHKF3fHv9NQlOWMf-36">
+          <mxCell style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+            <mxGeometry x="950" y="560" width="140" height="70" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Pracenje ture&lt;br&gt;uzivo" link="data:page/id,CX0ABDplaBhs7XLENf1h" id="k02FuHKF3fHv9NQlOWMf-37">
+          <mxCell style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+            <mxGeometry x="950" y="470" width="140" height="70" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Otkazivanje&lt;br&gt;ture" link="data:page/id,SI4qBDpXelwMW4suWT8A" id="k02FuHKF3fHv9NQlOWMf-38">
+          <mxCell style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+            <mxGeometry x="890" y="350" width="140" height="70" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Prikaz&lt;br&gt;recenzija" link="data:page/id,ywpsD8g73bQlEtp1Dz5u" id="k02FuHKF3fHv9NQlOWMf-39">
+          <mxCell style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+            <mxGeometry x="930" y="160" width="140" height="70" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Prikaz zahteva za slozenu turu i prihvatanje dela slozene ture" link="data:page/id,xyIQuVYi_XiM5OonVVwD" id="k02FuHKF3fHv9NQlOWMf-41">
+          <mxCell style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+            <mxGeometry x="940" y="650" width="160" height="90" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Prihvatanje&lt;br&gt;zahteva za&lt;br&gt;turu" link="data:page/id,10H29v-u0LJN9RNKZgpU" id="k02FuHKF3fHv9NQlOWMf-42">
+          <mxCell style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+            <mxGeometry x="790" y="420" width="140" height="70" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Prikaz statistike o zahtevima za ture" link="data:page/id,u-U_fqaOGz0wImjImHKB" id="k02FuHKF3fHv9NQlOWMf-44">
+          <mxCell style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+            <mxGeometry x="970" y="258" width="140" height="70" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-45" value="" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=1;entryDx=0;entryDy=0;exitX=0.1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="k02FuHKF3fHv9NQlOWMf-21" target="k02FuHKF3fHv9NQlOWMf-31">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="890" y="370" as="sourcePoint" />
+            <mxPoint x="940" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-46" value="" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="k02FuHKF3fHv9NQlOWMf-21" target="k02FuHKF3fHv9NQlOWMf-38">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="890" y="370" as="sourcePoint" />
+            <mxPoint x="940" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-47" value="" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="k02FuHKF3fHv9NQlOWMf-21" target="k02FuHKF3fHv9NQlOWMf-39">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="890" y="370" as="sourcePoint" />
+            <mxPoint x="940" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-48" value="" style="endArrow=none;html=1;rounded=0;entryX=0.1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="k02FuHKF3fHv9NQlOWMf-37" target="k02FuHKF3fHv9NQlOWMf-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="900" y="380" as="sourcePoint" />
+            <mxPoint x="950" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-49" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="k02FuHKF3fHv9NQlOWMf-42" target="k02FuHKF3fHv9NQlOWMf-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="900" y="380" as="sourcePoint" />
+            <mxPoint x="950" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-50" value="" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0;entryDx=0;entryDy=0;exitX=0.1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="k02FuHKF3fHv9NQlOWMf-21" target="k02FuHKF3fHv9NQlOWMf-36">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="920" y="570" as="sourcePoint" />
+            <mxPoint x="970" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-51" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="k02FuHKF3fHv9NQlOWMf-35" target="k02FuHKF3fHv9NQlOWMf-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="920" y="570" as="sourcePoint" />
+            <mxPoint x="970" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-53" value="" style="endArrow=none;html=1;rounded=0;entryX=0.1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="k02FuHKF3fHv9NQlOWMf-44" target="k02FuHKF3fHv9NQlOWMf-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1020" y="380" as="sourcePoint" />
+            <mxPoint x="1070" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k02FuHKF3fHv9NQlOWMf-54" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="k02FuHKF3fHv9NQlOWMf-41" target="k02FuHKF3fHv9NQlOWMf-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1010" y="560" as="sourcePoint" />
+            <mxPoint x="1060" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bb0tnAJs2uynP07LV9t3-3" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="600" y="950" width="60" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="bb0tnAJs2uynP07LV9t3-1" value="" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="bb0tnAJs2uynP07LV9t3-3">
+          <mxGeometry x="10" width="40" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bb0tnAJs2uynP07LV9t3-2" value="Sistem" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="bb0tnAJs2uynP07LV9t3-3">
+          <mxGeometry y="60" width="60" height="30" as="geometry" />
+        </mxCell>
+        <UserObject label="Odredjivanje super&lt;br&gt;vodica" link="data:page/id,qHhKnTzDArHIy-tX65gC" id="bb0tnAJs2uynP07LV9t3-4">
+          <mxCell style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+            <mxGeometry x="560" y="760" width="140" height="70" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bb0tnAJs2uynP07LV9t3-5" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="bb0tnAJs2uynP07LV9t3-1" target="bb0tnAJs2uynP07LV9t3-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="860" y="850" as="sourcePoint" />
+            <mxPoint x="910" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="16tujXw-naZLOoRNAW_3" name="Kreiranje ture">
+    <mxGraphModel dx="1050" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="MtK553Ue0QxPSUH9Ll_z-2" value="&lt;p style=&quot;margin: 4px 0px 0px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&amp;nbsp;Preduslov: &lt;/b&gt;Vodic je prijavljen&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Posledica: &lt;/b&gt;Kreirana je nova tura&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Osnovni tok:&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;1. Vodic otvara formu za kreiranje nove ture klikom na dugme &quot;Add new tour&quot;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;2. Vodic popunjava formu sa neophodnim podacima&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;3. Voidc kreira turu klikom na &quot;Submit dugme&quot;. [Alternativni tok A]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="370" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="Bmk5BL8jr9U9RLD4dR0y-1" value="&lt;b&gt;Alternativni tok A: &lt;/b&gt;Vodic odustaje od kreiranja ture" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="490" y="30" width="300" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Bmk5BL8jr9U9RLD4dR0y-2" value="1. Vodic klikne na dugme &quot;Dismiss&quot;&lt;br&gt;2. Sistem vraca vodica na pocetni meni" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="Bmk5BL8jr9U9RLD4dR0y-1">
+          <mxGeometry y="26" width="300" height="104" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="SI4qBDpXelwMW4suWT8A" name="Otkazivanje ture">
+    <mxGraphModel dx="1050" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Biywla8ivkZmDy_ALtEk-1" value="&lt;p style=&quot;margin: 4px 0px 0px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&amp;nbsp;Preduslov: &lt;/b&gt;Vodic je prijavljen, vodic je odabrao turu za otkazivanje&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Posledica: &lt;/b&gt;Odabrana tura je otkazana&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Osnovni tok:&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;1. Vodic odabire turu koju zeli da otkaze&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;2. Vodic klikne na dugme &quot;Cancel tour&quot;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;3. Odabrana tura se otkazuje [Alternativni tok A]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="370" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="Biywla8ivkZmDy_ALtEk-2" value="&lt;b&gt;Alternativni tok A: &lt;/b&gt;Istekao je rok za otkazivanje" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="490" y="30" width="300" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Biywla8ivkZmDy_ALtEk-3" value="1. Vodicu iskace obavestenje da ne moze da otkaze&lt;br&gt;&amp;nbsp; &amp;nbsp; turu jer je rok za otkazivanje istekao.&lt;br&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="Biywla8ivkZmDy_ALtEk-2">
+          <mxGeometry y="26" width="300" height="104" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="ywpsD8g73bQlEtp1Dz5u" name="Prikaz recenzija">
+    <mxGraphModel dx="1050" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="oIf7qDrxBUe_Vdws1GzQ-1" value="&lt;p style=&quot;margin: 4px 0px 0px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&amp;nbsp;Preduslov: &lt;/b&gt;Vodic je prijavljen&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Posledica: &lt;/b&gt;Prikaz recenzija&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Osnovni tok:&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;1. Vodic klikne na dugme &quot;Reviews&quot;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;2. Vodicu se otvara prozor sa svim turama&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;3. [Alternativni tok A]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="370" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="oIf7qDrxBUe_Vdws1GzQ-2" value="&lt;b&gt;Alternativni tok A: &lt;/b&gt;Prikaz pojedinacne recenzije" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="490" y="30" width="300" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="oIf7qDrxBUe_Vdws1GzQ-3" value="1. Vodic uradi dvoklik na odredjenu recenziju&lt;br&gt;2. Vodicu se prikazuju detalji odabrane recenzije&lt;br&gt;3. [Alternativni tok B]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="oIf7qDrxBUe_Vdws1GzQ-2">
+          <mxGeometry y="26" width="300" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="yVP9Nt_QuF_IVtXxvkR5-1" value="&lt;b&gt;Alternativni tok B: &lt;/b&gt;Ozacavanje recenzije kao nevalidne" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="490" y="180" width="340" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="yVP9Nt_QuF_IVtXxvkR5-2" value="1. Vodic klikne na dugme &quot;Mark as Invalid&quot; ukoliko zakljuci da recenzija nije validna" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="yVP9Nt_QuF_IVtXxvkR5-1">
+          <mxGeometry y="26" width="340" height="104" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="CX0ABDplaBhs7XLENf1h" name="Pracenje ture uzivo">
+    <mxGraphModel dx="1050" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="VhsFqnnwMJ_tHOylrqHz-1" value="&lt;p style=&quot;margin: 4px 0px 0px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&amp;nbsp;Preduslov: &lt;/b&gt;Vodic je prijavljen, poceo je zakazani termin&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Posledica: &lt;/b&gt;Pracenje ture uzivo i zavrsavanje iste&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Osnovni tok:&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;1. Vodic uradi dvoklik na zeljenu turu&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;2. Otvara se prozor za detaljima o turi i dugmetom za zapocinjanje ture&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;3. Vodic klikom na dugme &quot;Start tour&quot; zapocinje turu [Alternativni tok A]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;4. Vodic prelazi sa jedne tacke na drugu klikom na dugme &quot;Next point&quot;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; sve dok se ne prodju sve tacke [Alternativni tok B]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;5. [Alternativni tok C]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;6. Tura se zavrsava, a vodicu se prikazuje pocetni meni&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="390" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="VhsFqnnwMJ_tHOylrqHz-2" value="&lt;b&gt;Alternativni tok A: &lt;/b&gt;Nemogucnost startovanja ture" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="490" y="30" width="300" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="VhsFqnnwMJ_tHOylrqHz-3" value="1. Termin ture jos nije poceo ili je tura vec zavrsena, tako da je dugme za start onemoguceno" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="VhsFqnnwMJ_tHOylrqHz-2">
+          <mxGeometry y="26" width="300" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="VhsFqnnwMJ_tHOylrqHz-4" value="&lt;b&gt;Alternativni tok B: &lt;/b&gt;Prisilno zaustavljanje ture" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="490" y="180" width="340" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="VhsFqnnwMJ_tHOylrqHz-5" value="1. Vodic prisilno zaustavlja turu klikom na dugme &quot;Finish the tour&quot;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="VhsFqnnwMJ_tHOylrqHz-4">
+          <mxGeometry y="26" width="340" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="VhsFqnnwMJ_tHOylrqHz-6" value="&lt;b&gt;Alternativni tok C: &lt;/b&gt;Dodavanje gostiju sa rezervacijom na turu" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="450" y="320" width="380" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="VhsFqnnwMJ_tHOylrqHz-7" value="1. Vodic je kliknuo na dugme &quot;Add guest to current point&quot;&lt;br&gt;2. Sistem prikazuje listu korisnika sa rezervacijom&lt;br&gt;3. Odabire gosta i dodaje ga kao prisutnog na turu" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="VhsFqnnwMJ_tHOylrqHz-6">
+          <mxGeometry y="26" width="380" height="104" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="10H29v-u0LJN9RNKZgpU" name="Prihvatanje zahteva za turu">
+    <mxGraphModel dx="1050" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vkV2MvF70xdshmURmsRw-1" value="&lt;p style=&quot;margin: 4px 0px 0px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&amp;nbsp;Preduslov: &lt;/b&gt;Vodic je prijavljen, vodic je selektovao neki od zahteva&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Posledica: &lt;/b&gt;Kreirana je tura spram zahteva&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Osnovni tok:&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;1. Vodic klikne na dugme &quot;Tour requests&quot;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;2. Iz novootvorenog prozora vodic bira meni Regular tours&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;3. Iz liste zahteva vodic selektuje jedan zahtev&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;4. Vodic klikne na dugme &quot;Accept selected request&quot;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;5. Vodicu iskace prozor za odabir termina&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;6. Vodic odabire termin a zatim se pokrece funkcionalnost &quot;Kreiranje&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; ture&quot; sa zadatim parametrima [Alternativni tok A]&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="390" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="vkV2MvF70xdshmURmsRw-2" value="&lt;b&gt;Alternativni tok A: &lt;/b&gt;Vodic vec ima zakazanu turu u tom terminu" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="480" y="30" width="340" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="vkV2MvF70xdshmURmsRw-3" value="1. Vodicu iskace obavestenje da je zauzet u datom terminu.&lt;br&gt;2. Voidc ponovo odabire termin [Alternativni tok B]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="vkV2MvF70xdshmURmsRw-2">
+          <mxGeometry y="26" width="340" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="vkV2MvF70xdshmURmsRw-4" value="&lt;b&gt;Alternativni tok B: &lt;/b&gt;Odustajanje od kreiranja ture spram zahteva" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="450" y="180" width="380" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="vkV2MvF70xdshmURmsRw-5" value="1. Vodic odustaje od kreiranja ture zatvaranjem form za izbor termina" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="vkV2MvF70xdshmURmsRw-4">
+          <mxGeometry y="26" width="380" height="104" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="u-U_fqaOGz0wImjImHKB" name="Prikaz statistike o zahtevima za turu">
+    <mxGraphModel dx="1050" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gOqXnmY2LDkxief6f3JU-1" value="&lt;p style=&quot;margin: 4px 0px 0px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&amp;nbsp;Preduslov: &lt;/b&gt;Vodic je prijavljen&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Posledica: &lt;/b&gt;Prikaz statistike o zahtevima za ture&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Osnovni tok:&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;1. Vodic klikne na dugme &quot;Tour requests&quot;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;2. Iz novootvorenog prozora vodic bira meni Regular tours&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;3. Vodic klikne na dugme &quot;Tour request statistic&quot;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;4. Otvara se prozor sa prikazom statistike o zahtevima&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="390" height="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="NbBVPEYNjlmfP-zBl2vn" name="Statistika o turama">
+    <mxGraphModel dx="1050" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="B2GgWCz_3WlDp0B-gldf-1" value="&lt;p style=&quot;margin: 4px 0px 0px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&amp;nbsp;Preduslov: &lt;/b&gt;Vodic je prijavljen&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Posledica: &lt;/b&gt;Prikaz statistike o turama&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Osnovni tok:&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;1. Vodic klikne na dugme &quot;Statistic&quot;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;2. Iz novootvorenog prozora vodic bira meni &quot;Highest attended&quot; [Alternativni tok A]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;3. Vodic bira jednu od tura iz liste i prikazuje mu se statistika o njoj&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="20" y="30" width="510" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="B2GgWCz_3WlDp0B-gldf-2" value="&lt;b&gt;Alternativni tok A: &lt;/b&gt;Statistika o svim turama" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="540" y="30" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B2GgWCz_3WlDp0B-gldf-3" value="1. Vodic otvara statistiku o svim turama." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="B2GgWCz_3WlDp0B-gldf-2">
+          <mxGeometry y="26" width="300" height="34" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="IERsvrzTrN7fZkEJstN6" name="Otkaz">
+    <mxGraphModel dx="1050" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rnyvWJFSm6HxC0RqvFOO-1" value="&lt;p style=&quot;margin: 4px 0px 0px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&amp;nbsp;Preduslov: &lt;/b&gt;Vodic je prijavljen&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Posledica: &lt;/b&gt;Brisanje vodica iz liste vodica&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Osnovni tok:&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;1. Vodic klikne na dugme sa oznakom zupcanika&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;2. Iz novotvorenog prozora vodic bira opciju Quit job&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;3. Vodicu iskace obavestenje o tome da je odluka o otkazu&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; permamentna i pitanjem da li je siguran da zeli to da uradi&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;4. Vodic klikne na &quot;Yes&quot; i daje otkaz [Alternativni tok A]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="370" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="rnyvWJFSm6HxC0RqvFOO-2" value="&lt;b&gt;Alternativni tok A: &lt;/b&gt;Vodic odustaje od davanja otkaza" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="490" y="30" width="300" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="rnyvWJFSm6HxC0RqvFOO-3" value="1. Vodic klikne na &quot;No&quot;&lt;br&gt;2. Sistem vodica vrati na pocetni meni" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="rnyvWJFSm6HxC0RqvFOO-2">
+          <mxGeometry y="26" width="300" height="104" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="xyIQuVYi_XiM5OonVVwD" name="Slozena tura">
+    <mxGraphModel dx="1050" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="CbssgIBA4dZ7nhPmCREy-1" value="&lt;p style=&quot;margin: 4px 0px 0px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&amp;nbsp;Preduslov: &lt;/b&gt;Vodic je prijavljen&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Posledica: &lt;/b&gt;Za deo slozene ture je zakazan termin i kreirana tura&amp;nbsp;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Osnovni tok:&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;1. Vodic uradi klikne na dugme &quot;Tour requests&quot;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;2. U novootvorenom prozoru vodic bira meni &quot;Complex tours&quot;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;3. Vodicu se prikazuju svi zahtevi za slozene ture&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;4. [Alternativni tok A]&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="390" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="CbssgIBA4dZ7nhPmCREy-2" value="&lt;b&gt;Alternativni tok A:&amp;nbsp;&amp;nbsp;&lt;/b&gt;Pregled detalja slozene ture" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="490" y="30" width="300" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="CbssgIBA4dZ7nhPmCREy-3" value="1. Vodic odabere odredjeni zahtev za slozenu turu a zatim klikne na dugme&amp;nbsp;&quot;View the details of the selected complex tour&quot;&lt;br&gt;2. Vodicu se prikazu svi delovi slozene ture i detalji&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; vezani za iste&lt;br&gt;3. [Alternativni tok B]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="CbssgIBA4dZ7nhPmCREy-2">
+          <mxGeometry y="26" width="300" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="CbssgIBA4dZ7nhPmCREy-4" value="&lt;b&gt;Alternativni tok B: &lt;/b&gt;Prikaz svih detalja vezanih za deo zahteva" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="490" y="180" width="340" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="CbssgIBA4dZ7nhPmCREy-8" value="1. Vodic uradi dvoklik na odredjeni deo&lt;br&gt;2. Vodicu se prikaze prozor sa svim detaljima o delu ture i&lt;br&gt;&amp;nbsp;dugmetom za prihvatanje dela ture&lt;br&gt;3.[Alternativni tok C]" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="CbssgIBA4dZ7nhPmCREy-4">
+          <mxGeometry y="26" width="340" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="CbssgIBA4dZ7nhPmCREy-6" value="&lt;b&gt;Alternativni tok C: &lt;/b&gt;Prihvatanje dela ture" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="460" y="290" width="380" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="CbssgIBA4dZ7nhPmCREy-7" value="1. Vodic unese termin za kada zeli da zakaze turu i klikne na dugme &quot;Schedule&quot;&lt;br&gt;2. Pokrece se slucaj &quot;Dodavanje ture&quot; sa zadatim parametrima [Alternativni tok D]&lt;br&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="CbssgIBA4dZ7nhPmCREy-6">
+          <mxGeometry y="26" width="380" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="CbssgIBA4dZ7nhPmCREy-9" value="&lt;b&gt;Alternativni tok C: &lt;/b&gt;Termin je odbijen" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="460" y="430" width="380" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="CbssgIBA4dZ7nhPmCREy-10" value="1. Vodic dobija obavestenje da ne moze da prihvati deo ture jer je vec prihvatio jedan deo u istoj kompleksnoj turi ili je taj termin vec zauzet" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="CbssgIBA4dZ7nhPmCREy-9">
+          <mxGeometry y="26" width="380" height="104" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="qHhKnTzDArHIy-tX65gC" name="Super vodic">
+    <mxGraphModel dx="1050" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZmTZg9I-K0VpBG885J2w-1" value="&lt;p style=&quot;margin: 4px 0px 0px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&amp;nbsp;Preduslov: &lt;/b&gt;Vodic je prijavljen&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Posledica: &lt;/b&gt;Vodic dobija status Super ili Regular&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Osnovni tok:&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;1.Proverava se da li vodic ispunjava zahteve da dobije status Super vodica&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;2. Vodic dobija status Super [Alternativni tok A]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="370" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmTZg9I-K0VpBG885J2w-2" value="&lt;b&gt;Alternativni tok A: &lt;/b&gt;Status Regular" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="490" y="30" width="300" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="ZmTZg9I-K0VpBG885J2w-3" value="1. Vodic dobija status Regular" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ZmTZg9I-K0VpBG885J2w-2">
+          <mxGeometry y="26" width="300" height="104" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="X23vJCrX9vY_gZMMC1J5" name="Sign in">
+    <mxGraphModel dx="1050" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sEz6PtUBh8kn8dqXlwX5-1" value="&lt;p style=&quot;margin: 4px 0px 0px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Posledica: &lt;/b&gt;Prijavljivanje korisnika&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;b&gt;Osnovni tok:&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;1. Korisnik unosi username i password&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;2. Proverava se da li postoji korisnik sa zadatim kredencijalima&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;3. Prijavljivanje korisnika [Alternativni tok A]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="370" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="sEz6PtUBh8kn8dqXlwX5-2" value="&lt;b&gt;Alternativni tok A: &lt;/b&gt;Greska" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="490" y="30" width="300" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="sEz6PtUBh8kn8dqXlwX5-3" value="1. Ispis poruke o gresci" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="sEz6PtUBh8kn8dqXlwX5-2">
+          <mxGeometry y="26" width="300" height="104" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
