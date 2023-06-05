@@ -13,6 +13,7 @@
     <None Remove="Resources\Images\alert.png" />
     <None Remove="Resources\Images\ask.png" />
     <None Remove="Resources\Images\avatar.png" />
+	  <None Remove="Resources\Images\bell.png" />
     <None Remove="Resources\Images\check.png" />
     <None Remove="Resources\Images\burger_menu1.png" />
     <None Remove="Resources\Images\clockIcon.png" />
@@ -59,6 +60,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Images\bell.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ceTe.DynamicPDF.CoreSuite.NET" Version="12.4.0" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
@@ -72,13 +77,18 @@
     <Resource Include="Resources\Images\add.png" />
     <Resource Include="Resources\Images\add_present.png" />
     <Resource Include="Resources\Images\alert.png" />
+	  <Resource Include="Resources\Images\ancient-scroll.png" />
     <Resource Include="Resources\Images\ask.png" />
     <Resource Include="Resources\Images\avatar.png" />
+	  <Resource Include="Resources\Images\bell.png" />
+	  <Resource Include="Resources\Images\book.png" />
     <Resource Include="Resources\Images\check.png" />
+	  <Resource Include="Resources\Images\compass.png" />
     <Resource Include="Resources\Images\burger_menu1.png" />
     <Resource Include="Resources\Images\clockIcon.png" />
     <Resource Include="Resources\Images\delete.png" />
     <Resource Include="Resources\Images\details.png" />
+	  <Resource Include="Resources\Images\discount.png" />
     <Resource Include="Resources\Images\edit.png" />
     <Resource Include="Resources\Images\forumIcon.jpg" />
     <Resource Include="Resources\Images\forum_icon.png" />
@@ -91,6 +101,7 @@
     <Resource Include="Resources\Images\lightbulb.png" />
     <Resource Include="Resources\Images\location.png" />
     <Resource Include="Resources\Images\logo.jpg" />
+	  <Resource Include="Resources\Images\logout.png" />
     <Resource Include="Resources\Images\next-location.png" />
     <Resource Include="Resources\Images\padlock.ico" />
     <Resource Include="Resources\Images\padlock.png" />
@@ -99,9 +110,11 @@
     <Resource Include="Resources\Images\plane.png" />
     <Resource Include="Resources\Images\plus.ico" />
     <Resource Include="Resources\Images\question.png" />
+	  <Resource Include="Resources\Images\question-mark.png" />
     <Resource Include="Resources\Images\quitjob.png" />
     <Resource Include="Resources\Images\rating.png" />
     <Resource Include="Resources\Images\request.png" />
+	  <Resource Include="Resources\Images\request1.png" />
     <Resource Include="Resources\Images\return_icon.png" />
     <Resource Include="Resources\Images\reviews.png" />
     <Resource Include="Resources\Images\searchIcon.png" />

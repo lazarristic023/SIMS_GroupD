@@ -291,6 +291,8 @@ namespace Project.View
         private void tbViewDetails_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             TourInfoView tourInfoView = new TourInfoView(controller, SelectedTour);
+            tourInfoView.Top = this.Top;
+            tourInfoView.Left = this.Left;
             tourInfoView.Show();
         }
 
@@ -322,7 +324,24 @@ namespace Project.View
         {
             cbCountry.SelectedValue = string.Empty;
             cbLanguage.SelectedValue = string.Empty;
+            tbGuestNumber.Text = string.Empty;
+            tbHours.Text = string.Empty;
             btnSearch_Click(this, e);
+        }
+
+        private void Button_Click_Vouchers(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_Tour_History(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_Profile(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void tbReview_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
