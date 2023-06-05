@@ -125,7 +125,7 @@ namespace Project.ViewModel.TourGuideViewModel
 
         //public ObservableCollection<Tour> Tours { get; set; }
 
-        private ObservableCollection<Tour> _tours;
+        private ObservableCollection<Tour> _tours = new ObservableCollection<Tour>();
         public ObservableCollection<Tour> Tours
         {
             get
@@ -153,6 +153,35 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
+        private string _comboBoxTour;
+        public string ComboBoxTour
+        {
+            get
+            {
+                return _comboBoxTour;
+            }
+            set
+            {
+                _comboBoxTour = value;
+                OnPropertyChanged(nameof(ComboBoxTour));
+                UpdateTours();
+            }
+        }
+
+        private List<string> _comboBoxValues;
+        public List<string> ComboBoxValues
+        {
+            get
+            {
+                return _comboBoxValues;
+            }
+            set
+            {
+                _comboBoxValues = value;
+                OnPropertyChanged(nameof(ComboBoxValues));
+            }
+        }
+
 
         public TourGuideMainViewViewModel(User user)
         {
@@ -172,12 +201,26 @@ namespace Project.ViewModel.TourGuideViewModel
             Username = CurrentUser.Username;
             IsCancelEnabled = false;
 
+            
+            ComboBoxValues = new List<string>
+            {
+                "Not started",
+                "Completed",
+                "Canceled",
+            };
+
+            ComboBoxTour = ComboBoxValues[0];
+
+
+
 
             ImageSource = "../../Resources/Data/images.csv";
             SetStatus();
 
 
-            Tours = new ObservableCollection<Tour>(_tourService.GetAllTourAppointments(CurrentUser.Id));
+            //Tours = new ObservableCollection<Tour>(_tourService.GetAllTourAppointments(CurrentUser.Id));
+
+            LoadTours(CurrentUser.Id);
 
         }
 
@@ -193,7 +236,23 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
+        public void LoadTours(int id)
+        {
+            if (ComboBoxTour == "Canceled")
+            {
+                Tours = new ObservableCollection<Tour>(_tourService.GetCanceled(id));
+            }
+            else if (ComboBoxTour == "Completed")
+            {
+                Tours = new ObservableCollection<Tour>(_tourService.GetCompleted(id));
+            }
+            else
+            {
+                Tours = new ObservableCollection<Tour>(_tourService.GetNotStarted(id));
+            }
+            
 
+        }
 
         public void Update()
         {
@@ -204,10 +263,28 @@ namespace Project.ViewModel.TourGuideViewModel
         {
             Tours.Clear();
 
-            foreach (var tour in _tourService.GetAllTourAppointments(CurrentUser.Id))
+            if (ComboBoxTour == "Not started")
             {
-                Tours.Add(tour);
+                foreach (var tour in _tourService.GetNotStarted(CurrentUser.Id))
+                {
+                    Tours.Add(tour);
+                }
             }
+            else if (ComboBoxTour == "Completed")
+            {
+                foreach (var tour in _tourService.GetCompleted(CurrentUser.Id))
+                {
+                    Tours.Add(tour);
+                }
+            }
+            else
+            {
+                foreach (var tour in _tourService.GetCanceled(CurrentUser.Id))
+                {
+                    Tours.Add(tour);
+                }
+            }
+
         }
 
         /*   -- Commands --     */
@@ -411,7 +488,6 @@ namespace Project.ViewModel.TourGuideViewModel
         private void SettingsClick()
         {
             Settings settings = new Settings(CurrentUser);
-            settings.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             settings.Show();
         }
 

@@ -132,6 +132,45 @@ namespace Project.Service
             return tourAppointments;
         }
 
+        public List<Tour> GetCompleted(int guideId)
+        {
+            List<Tour> completedTours = new List<Tour>();
+            foreach(Tour tour in GetAllTourAppointments(guideId))
+            {
+                if(tour.TourAppointment.Status == Appointment.STATUS.COMPLETED)
+                {
+                    completedTours.Add(tour);
+                }
+            }
+            return completedTours;
+        }
+
+        public List<Tour> GetNotStarted(int guideId)
+        {
+            List<Tour> notStartedTours = new List<Tour>();
+            foreach (Tour tour in GetAllTourAppointments(guideId))
+            {
+                if (tour.TourAppointment.Status == Appointment.STATUS.NOTSTARTED && tour.TourAppointment.IsNotCanceled)
+                {
+                    notStartedTours.Add(tour);
+                }
+            }
+            return notStartedTours;
+        }
+
+        public List<Tour> GetCanceled(int guideId)
+        {
+            List<Tour> canceledTours = new List<Tour>();
+            foreach (Tour tour in GetAllTourAppointments(guideId))
+            {
+                if (!tour.TourAppointment.IsNotCanceled)
+                {
+                    canceledTours.Add(tour);
+                }
+            }
+            return canceledTours;
+        }
+
         public List<Tour> GetCompletedTours(int guideId)
         {
             List<Tour> allTours = GetAllTourAppointments(guideId);

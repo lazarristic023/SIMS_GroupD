@@ -9,12 +9,17 @@
         WindowStartupLocation="CenterScreen" Background="#28365e">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="12*"></RowDefinition>
             
         </Grid.RowDefinitions>
-        <Label Content="*Double click on column to see details about review" FontSize="14" Foreground="White" FontFamily="Century Gothic"/>
-        <DataGrid Grid.Row="1" Margin="10,5,10,20"
+        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontFamily="Century gothic" FontSize="30">
+            <TextBlock Text="Reviews"></TextBlock>
+        </Label>
+
+            <Label Grid.Row="1" Content="*Double click on column to see details about review" FontSize="12" Foreground="White" FontFamily="Century Gothic" VerticalAlignment="Bottom"/>
+        <DataGrid Grid.Row="2" Margin="10,5,10,20"
                   AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
                   ItemsSource="{Binding TourReviews, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedReview, UpdateSourceTrigger=PropertyChanged}"

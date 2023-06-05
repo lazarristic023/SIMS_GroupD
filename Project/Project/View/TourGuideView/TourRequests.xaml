@@ -47,7 +47,7 @@
                     </Grid.RowDefinitions>
 
 
-                    <Button Grid.Row="0" HorizontalAlignment="Center" Width="300" FontSize="15" Margin="10,5,0,0" Command="{Binding OpenStatisticCommand}">
+                    <Button Grid.Row="0" HorizontalAlignment="Center" Width="300" FontSize="15" Margin="10,5,0,0" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Command="{Binding OpenStatisticCommand}">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
@@ -89,14 +89,14 @@
                             <Label Grid.Row="1" Grid.Column="2" Content="End date:"/>
                             <Label Grid.Row="2" Grid.Column="2" Content="Number of guests:"/>
 
-                            <Button Grid.Row="3" Grid.Column="0" Content="Clear filter" Height="25" FontSize="14" FontFamily="Sylften" Command="{Binding ClearFilterCommand}">
+                            <Button Grid.Row="3" Grid.Column="0" Content="Clear filter" Height="25" FontSize="14" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Command="{Binding ClearFilterCommand}">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="5"/>
                                     </Style>
                                 </Button.Resources>
                             </Button>
-                            <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="25" Content="Apply filter" Width="200" FontSize="14" FontFamily="Sylften" Command="{Binding ApplyFilterCommand}">
+                            <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="25" Content="Apply filter" Width="200" FontSize="14" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Command="{Binding ApplyFilterCommand}">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="5"/>
@@ -134,14 +134,14 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0" Content="Close" Width="100" FontFamily="Sylften" Margin="0,3,0,3" Command="{Binding CloseCommand}">
+                        <Button Grid.Column="0" Content="Close" Width="100" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Margin="0,3,0,3" Command="{Binding CloseCommand}">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>
                                 </Style>
                             </Button.Resources>
                         </Button>
-                        <Button Grid.Column="1" FontFamily="Sylften" Margin="0,3,10,3" Command="{Binding AcceptCommand}">
+                        <Button Grid.Column="1" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Margin="0,3,10,3" Command="{Binding AcceptCommand}">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>

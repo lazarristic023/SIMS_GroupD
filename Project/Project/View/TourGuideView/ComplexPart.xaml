@@ -82,7 +82,7 @@
                         SelectedDate="{Binding Path=AppointmentDate, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="Time (hh:mm):"/>
             <TextBox Height="23" Width="50" Text="{Binding AppointmentTime, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Content="Schedule" Width="200" Height="25" Margin="10,0,0,0" Command="{Binding ScheduleCommand}"/>
+            <Button Content="Schedule" Width="200" Height="25" Margin="10,0,0,0" Background="#e8e4c9" FontFamily="Verdana"  FontWeight="Bold" Command="{Binding ScheduleCommand}"/>
         </StackPanel>
 
 

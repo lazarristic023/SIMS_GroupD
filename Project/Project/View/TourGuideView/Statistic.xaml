@@ -29,7 +29,7 @@
     </Window.Resources>
     <Grid >
         <TabControl Background="#28365e" Margin="0,0,0,0">
-            <TabControl.Resources>
+            <!--<TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Template">
                         <Setter.Value>
@@ -56,10 +56,10 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-            </TabControl.Resources>
-            <TabItem>
+            </TabControl.Resources>-->
+            <TabItem Background="#506dbb">
                 <TabItem.Header>
-                    <TextBlock Text="Highest attended" FontSize="25" Foreground="White"/>
+                    <TextBlock Text="Highest attended" FontSize="25"/>
                 </TabItem.Header>
 
                 <StackPanel  Background="#28365e" Margin="5,0,0,5">
@@ -130,9 +130,9 @@
                 </StackPanel>
 
             </TabItem>
-            <TabItem>
+            <TabItem Background="#506dbb">
                 <TabItem.Header>
-                    <TextBlock Text="Other tours" FontSize="25" Foreground="White"/>
+                    <TextBlock Text="Other tours" FontSize="25"/>
                 </TabItem.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>

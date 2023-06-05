@@ -33,7 +33,7 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="nextPoint" Grid.Column="0"  Margin="10" Click="nextPoint_Click">
+                <Button x:Name="nextPoint" Grid.Column="0" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Margin="10" Click="nextPoint_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -50,7 +50,7 @@
                         <TextBlock Grid.Column="1" Foreground="Black" Text="Next point" VerticalAlignment="Center" TextWrapping="Wrap"/>
                     </Grid>
                 </Button>
-                <Button x:Name="endTour" Grid.Column="1" Margin="10" Click="endTour_Click">
+                <Button x:Name="endTour" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Grid.Column="1" Margin="10" Click="endTour_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -98,7 +98,7 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button x:Name="AddGuests" Margin="5" Grid.Row="1" Click="AddGuests_Click">
+                    <Button x:Name="AddGuests" Margin="5,5,5,0" Grid.Row="1" Click="AddGuests_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
@@ -112,7 +112,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Image Grid.Column="0" Source="../../Resources/Images/invite.png" Margin="0,5,10,5"/>
-                            <TextBlock Grid.Column="1" Foreground="Black" Text="Add guests to current point" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock Grid.Column="1" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Text="Add guests to current point" VerticalAlignment="Center" TextWrapping="Wrap"/>
                         </Grid>
                     </Button>
 

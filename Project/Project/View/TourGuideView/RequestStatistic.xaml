@@ -24,11 +24,17 @@
     </Window.Resources>
     <Grid Background="#28365e">
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition Height="2.5*"/>
             <RowDefinition Height="7.5*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Background="#141b2f">
+            <Label Content="Statistics on tour requests" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="century Gothic" FontSize="30"/>
+        </Grid>
+        
+
+        <Grid Grid.Row="1" Margin="0,10,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -59,16 +65,48 @@
                       ItemsSource="{Binding Years, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding Year, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Button Grid.Row="2" Grid.ColumnSpan="4" Margin="200,10,200,5" Command="{Binding ClearFilterCommand}">
-                <TextBlock Text="Clear filter" FontSize="15" FontFamily="Century Gothic"/>
+            <Button Grid.Row="2" Grid.ColumnSpan="4" Background="#e8e4c9" FontFamily="Verdana" Foreground="#212020" FontWeight="Bold" Margin="200,10,200,5" Command="{Binding ClearFilterCommand}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+                <TextBlock Text="Clear filter" FontSize="15"/>
             </Button>
 
         </Grid>
 
 
-        <DataGrid Grid.Row="1" Margin="10" Width="250" IsReadOnly="true" AutoGenerateColumns="False"
-                  ItemsSource="{Binding ChartData}">
-            
+        <DataGrid Grid.Row="2" Margin="10" Width="250" IsReadOnly="true" AutoGenerateColumns="False"
+                  ItemsSource="{Binding ChartData}"
+                  Background="#506dbb">
+            <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#3c528c"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Height" Value="30"/>
+                </Style>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="#465fa4"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background" Value="#465fa4"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontFamily" Value="Century Gothic"/>
+                    <Setter Property="FontSize" Value="16"/>
+                </Style>
+            </DataGrid.RowStyle>
+
+            <DataGrid.RowHeaderStyle>
+                <Style TargetType="{x:Type DataGridRowHeader}">
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Width" Value="0"/>
+                </Style>
+            </DataGrid.RowHeaderStyle>
+
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Date}" Width="3*">
                     <DataGridTextColumn.Header>

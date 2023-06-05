@@ -12,14 +12,17 @@
         <Style TargetType="TextBox">
             <Setter Property="Background" Value="#5a7ad3"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
         </Style>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="15"/>
         </Style>
         <Style TargetType="ListBox">
             <Setter Property="Background" Value="#5a7ad3"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
         </Style>
     </Window.Resources>
     <Grid Background="#28365e">
@@ -81,8 +84,8 @@
                 </TextBox.Resources>
             </TextBox>
 
-            <Label Grid.Row="5" Grid.Column="0" Content="Max number of guests:" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=MaxGuests, UpdateSourceTrigger=PropertyChanged}" Height="25" IsReadOnly="True" Margin="0,0,10,0">
+            <Label Grid.Row="5" Grid.Column="0" Content="Max number of guests:" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="5" Width="190" HorizontalAlignment="Right" Grid.Column="1" Text="{Binding Path=MaxGuests, UpdateSourceTrigger=PropertyChanged}" Height="25" IsReadOnly="True" Margin="0,0,10,0">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="5"/>
