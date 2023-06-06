@@ -267,7 +267,6 @@
                         </DataGrid.RowHeaderStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Width="2*" Binding="{Binding Name}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Status" Width="*" Binding="{Binding Status}"></DataGridTextColumn>
 
 
                         </DataGrid.Columns>

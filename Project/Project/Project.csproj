@@ -34,6 +34,7 @@
     <None Remove="Resources\Images\padlock.ico" />
     <None Remove="Resources\Images\padlock.png" />
     <None Remove="Resources\Images\paper-plane.png" />
+    <None Remove="Resources\Images\pause.png" />
     <None Remove="Resources\Images\pdf.png" />
     <None Remove="Resources\Images\plane.png" />
     <None Remove="Resources\Images\plus.ico" />
@@ -95,6 +96,7 @@
     <Resource Include="Resources\Images\padlock.ico" />
     <Resource Include="Resources\Images\padlock.png" />
     <Resource Include="Resources\Images\paper-plane.png" />
+    <Resource Include="Resources\Images\pause.png" />
     <Resource Include="Resources\Images\pdf.png" />
     <Resource Include="Resources\Images\plane.png" />
     <Resource Include="Resources\Images\plus.ico" />

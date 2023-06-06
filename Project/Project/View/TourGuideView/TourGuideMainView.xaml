@@ -162,7 +162,9 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Column="0" Grid.ColumnSpan="2" Content="MY TOURS" FontSize="25" FontFamily="Century Gothic" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="white" Margin="10,0,0,0"></Label>
-                        <Button Grid.Column="1" Background="Transparent" Height="30" Width="100" Margin="0,2,3,0" BorderBrush="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        
+                        <Button Grid.Column="1" Background="Transparent" Height="30" Width="100" Margin="0,2,3,0" BorderBrush="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right"
+                                Command="{Binding StartTutorialCommand}">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="15"/>

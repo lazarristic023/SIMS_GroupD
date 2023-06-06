@@ -16,11 +16,16 @@ using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Diagnostics;
+using System.ComponentModel;
+using System.Xml.Linq;
 
 namespace Project.ViewModel.TourGuideViewModel
 {
-    public class AddNewTourViewModel:CloseableViewModel
+    public class AddNewTourViewModel:CloseableViewModel, IDataErrorInfo
     {
+
+        public string Error { get { return null; } }
+        public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
 
         private string[] _countries;
         public string[] Countries
@@ -108,7 +113,7 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
-        private DateTime _startDate;
+        private DateTime _startDate = DateTime.Today;
         public DateTime StartDate
         {
             get
@@ -273,8 +278,24 @@ namespace Project.ViewModel.TourGuideViewModel
             {
                 _dates = value;
                 OnPropertyChanged(nameof(Dates));
+                CheckListEmpty();
             }
         }
+
+        private bool _isListEmpty = true;
+        public bool IsListEmpty
+        {
+            get
+            {
+                return _isListEmpty;
+            }
+            set
+            {
+                _isListEmpty = value;
+                OnPropertyChanged(nameof(IsListEmpty));
+            }
+        }
+
 
         public AddSharedViewModel SharedViewModel { get; set; }
 
@@ -294,8 +315,11 @@ namespace Project.ViewModel.TourGuideViewModel
 
         private User Guide;
 
+        
+
         public bool IsEnabled { get; set; }
         public int RequestId { get; set; }
+
 
         public AddNewTourViewModel(TourService tourService, AppointmentService appointmentService, User user, AddSharedViewModel sharedViewModel)
         {
@@ -310,6 +334,7 @@ namespace Project.ViewModel.TourGuideViewModel
             _notificationService = new NotificationService();
             SharedViewModel = sharedViewModel;
 
+            
 
             Countries = _locationService.GetAllCountries();
             Cities = LoadCities();
@@ -405,6 +430,15 @@ namespace Project.ViewModel.TourGuideViewModel
         }
 
 
+        public void CheckListEmpty()
+        {
+            if(Dates.Count == 0)
+            {
+                IsListEmpty = true;
+            }
+            else { IsListEmpty = false; }
+        }
+
 
 
         /* ------------- COMANDS ------------------- */
@@ -432,6 +466,7 @@ namespace Project.ViewModel.TourGuideViewModel
             DateTime dateAndTime = _tourService.BuildDate(StartDate, StartTime);
 
             Dates.Add(dateAndTime);
+            CheckListEmpty();
             StartTime = "";
         }
 
@@ -552,7 +587,7 @@ namespace Project.ViewModel.TourGuideViewModel
             
             //KREIRANJE TOUR-a
 
-            int tourId = _tourService.Create(_location, NameOfTour, Description, SharedViewModel.Language, MaxGuests, Duration, Guide.Id);
+            int tourId = _tourService.Create(_location, NameOfTour, Description, SharedViewModel.Language, SharedViewModel.GuestNumber, Duration, Guide.Id);
 
             //KREIRANJE APPOINTMENT-a
 
@@ -622,6 +657,9 @@ namespace Project.ViewModel.TourGuideViewModel
             }
 
         }
+
+
+
         private bool CanCreateSuggestion()
         {
             return IsEnabled;
@@ -633,6 +671,62 @@ namespace Project.ViewModel.TourGuideViewModel
             suggestion.Show();
 
         }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+
+                switch (columnName)
+                {
+                    case "NameOfTour":
+                        if (string.IsNullOrWhiteSpace(NameOfTour))
+                            result = "Name cannot be empty";
+                        break;
+                    case "SharedViewModel.GuestNumber":
+                        if (SharedViewModel.GuestNumber == 0)
+                            result = "Enter the number of guests";
+                        else if(string.IsNullOrWhiteSpace(SharedViewModel.GuestNumber.ToString()))
+                            result = "Enter the number of guests";
+                        break;
+
+                    case "Dates":
+                            if (IsListEmpty)
+                            result = "You must add at least one appointment to list";
+                        break;
+
+                    case "StartPoint":
+                        if (string.IsNullOrWhiteSpace(StartPoint))
+                            result = "Start point cannot be empty";
+                        break;
+
+                    case "EndPoint":
+                        if (string.IsNullOrWhiteSpace(EndPoint))
+                            result = "End point cannot be empty";
+                        break;
+
+                    case "Description":
+                        if (string.IsNullOrWhiteSpace(Description))
+                            result = "You must add a description";
+                        break;
+                }
+
+                if (ErrorCollection.ContainsKey(columnName))
+                    ErrorCollection[columnName] = result;
+                else if (result != null)
+                    ErrorCollection.Add(columnName, result);
+
+                OnPropertyChanged(nameof(ErrorCollection));
+
+                return result;
+            }
+        }
+
+        
+
+
+
 
     }
 }

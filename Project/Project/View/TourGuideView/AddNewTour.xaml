@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View.TourGuideView"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="AddNewTour" Height="800" Width="1000"
         WindowStartupLocation="CenterScreen">
@@ -41,7 +42,6 @@
             <Setter Property="Height" Value="25"/>
         </Style>
 
-        
         
     </Window.Resources>
     <Grid Background="#28365e">
@@ -103,7 +103,9 @@
 
 
                         <Label  Grid.Column="0">Tour name:</Label>
-                        <TextBox x:Name="tourNameTextbox" Grid.Column="1" Text="{Binding Path=NameOfTour, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox x:Name="tourNameTextbox" Grid.Column="1" Text="{Binding Path=NameOfTour, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 ToolTip="{Binding ErrorCollection[NameOfTour]}">
+                           
                         </TextBox>
 
 
@@ -138,8 +140,9 @@
 
                                     <ComboBox x:Name="countryComboBox" Width="120" Height="25" VerticalContentAlignment="Center"
                                               ItemsSource="{Binding Path=Countries, UpdateSourceTrigger=PropertyChanged}" 
-                                              SelectedValue="{Binding Path=SharedViewModel.Country, UpdateSourceTrigger=PropertyChanged}"
-                                              IsEnabled="{Binding IsEnabled}">
+                                              SelectedValue="{Binding Path=SharedViewModel.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                              IsEnabled="{Binding IsEnabled}"
+                                              ToolTip="{Binding ErrorCollection[SharedViewModel.Country]}">
 
                                     </ComboBox>
 
@@ -149,8 +152,9 @@
                                     <ComboBox x:Name="cityComboBox" Width="130" Height="25" VerticalContentAlignment="Center"
                                               Text="{Binding Path=SharedViewModel.City, UpdateSourceTrigger=PropertyChanged}"
                                               ItemsSource="{Binding Path=Cities, UpdateSourceTrigger=PropertyChanged}"
-                                              SelectedValue="{Binding Path=SharedViewModel.City, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectedValue="{Binding Path=SharedViewModel.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                                               IsEnabled="{Binding IsEnabled}"
+                                              ToolTip="{Binding ErrorCollection[SharedViewModel.City]}"
                                                 ></ComboBox>
                                 </WrapPanel>
                             </Grid>
@@ -185,8 +189,10 @@
                                 <Label Grid.Row="0" Grid.Column="0">Date:</Label>
                                 <DatePicker x:Name="date" Grid.Row="0" Grid.Column="1" Width="150" Height="30" FontSize="14"
                                            
-                                            SelectedDate="{Binding Path=StartDate, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
-                                            DisplayDateStart="{Binding DatePickerStartDate}"
+                                            SelectedDate="{Binding Path=StartDate, UpdateSourceTrigger=PropertyChanged}" 
+                                            DisplayDateStart="{x:Static sys:DateTime.Today}"
+                                            
+                                            
                                             IsEnabled="{Binding IsEnabled}"></DatePicker>
 
                             
@@ -199,7 +205,8 @@
                                     Content="Add date to list"
                                     Command="{Binding AddDateCommand}"/>
 
-                            <ListBox x:Name="dateTimeList" Grid.Row="2" Grid.ColumnSpan="3" ItemsSource="{Binding Dates, UpdateSourceTrigger=PropertyChanged, StringFormat=g, ConverterCulture=fr-FR}">
+                            <ListBox x:Name="dateTimeList" Grid.Row="2" Grid.ColumnSpan="3" ItemsSource="{Binding Dates, UpdateSourceTrigger=PropertyChanged, StringFormat=g, ConverterCulture=fr-FR,ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                     ToolTip="{Binding ErrorCollection[Dates]}">
 
                             </ListBox>
 
@@ -250,8 +257,9 @@
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Max number of guests:</Label>
                         <TextBox Grid.Column="1" 
-                                 Text="{Binding Path=SharedViewModel.GuestNumber, UpdateSourceTrigger=PropertyChanged}" 
-                                 IsEnabled="{Binding IsEnabled}"></TextBox>
+                                 Text="{Binding Path=SharedViewModel.GuestNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                 IsEnabled="{Binding IsEnabled}"
+                                 ToolTip="{Binding ErrorCollection[SharedViewModel.GuestNumber]}"></TextBox>
                     </Grid>
 
 
@@ -318,12 +326,14 @@
 
 
                         <Label Grid.Column="0" Grid.Row="0">Start point:</Label>
-                        <TextBox x:Name="startPointTextBox" Grid.Column="1" Grid.Row="0" Text="{Binding Path=StartPoint, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                        <TextBox x:Name="startPointTextBox" Grid.Column="1" Grid.Row="0" Text="{Binding Path=StartPoint, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                 ToolTip="{Binding ErrorCollection[StartPoint]}"></TextBox>
 
 
 
                         <Label Grid.Column="0" Grid.Row="1">End point:</Label>
-                        <TextBox x:Name="endPointTextBox" Grid.Column="1" Grid.Row="1" Text="{Binding Path=EndPoint, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBox x:Name="endPointTextBox" Grid.Column="1" Grid.Row="1" Text="{Binding Path=EndPoint, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 ToolTip="{Binding ErrorCollection[EndPoint]}"></TextBox>
 
 
                         <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="14" Foreground="White" VerticalAlignment="Bottom">Add more points in the order in which they will be visited (optional):</TextBlock>
@@ -347,7 +357,8 @@
 
 
                 <Label Grid.Row="1">Description:</Label>
-                <TextBox Grid.Row="2" Width="430" Height="150" TextWrapping="Wrap" VerticalContentAlignment="Top" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Grid.Row="2" Width="430" Height="150" TextWrapping="Wrap" VerticalContentAlignment="Top" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         ToolTip="{Binding ErrorCollection[Description]}"></TextBox>
                 <Button x:Name="AddPictureButton" Grid.Row="4" Margin="10,0,10,5" Command="{Binding AddPictureCommand}">
                     <Grid>
                         <Grid.ColumnDefinitions>

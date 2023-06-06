@@ -263,7 +263,7 @@ namespace Project.ViewModel.TourGuideViewModel
 			Requests = new ObservableCollection<TourRequest>(tourRequestService.GetAllNotAcceptedAndNotExpired());
 
 
-			ComplexTours = new ObservableCollection<ComplexTour>(complexTourService.GetAll());
+			ComplexTours = new ObservableCollection<ComplexTour>(complexTourService.GetAllOnHold());
 			
         }
 
@@ -489,7 +489,7 @@ namespace Project.ViewModel.TourGuideViewModel
 		public void UpdateComplex()
 		{
 			ComplexTours.Clear();
-			foreach (ComplexTour complexTour in complexTourService.GetAll())
+			foreach (ComplexTour complexTour in complexTourService.GetAllOnHold())
 			{
 				ComplexTours.Add(complexTour);
 			}

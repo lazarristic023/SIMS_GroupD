@@ -393,6 +393,19 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
+        private RelayCommand startTutorialCommand;
+        public ICommand StartTutorialCommand
+        {
+            get
+            {
+                if (startTutorialCommand == null)
+                {
+                    startTutorialCommand = new RelayCommand(param => this.StartTutorial(), param => this.CanStartTutorial());
+                }
+                return startTutorialCommand;
+            }
+        }
+
         private bool CanGeneratePDF()
         {
             return true;
@@ -423,6 +436,11 @@ namespace Project.ViewModel.TourGuideViewModel
             return true;
         }
         private bool CanSettingsClick()
+        {
+            return true;
+        }
+
+        private bool CanStartTutorial()
         {
             return true;
         }
@@ -489,6 +507,12 @@ namespace Project.ViewModel.TourGuideViewModel
         {
             Settings settings = new Settings(CurrentUser);
             settings.Show();
+        }
+
+        private void StartTutorial()
+        {
+            Tutorial tutorial = new Tutorial();
+            tutorial.Show();
         }
 
         private void GeneratePDF()

@@ -36,20 +36,52 @@ namespace Project.Service
             return ComplexTourId;
         }
 
+
         public List<ComplexTour> GetAll()
         {
             List<ComplexTour> complexTours = _complexTourRepository.GetAll();
 
-            foreach(var complexTour in complexTours)
+            foreach (var complexTour in complexTours)
             {
-                complexTour.complexTourParts.Clear();
-                foreach(int partId in complexTour.complexTourPartsIds)
-                {
-                    complexTour.complexTourParts.Add(_tourRequestService.GetById(partId));
-                }
+
+                    complexTour.complexTourParts.Clear();
+                    foreach (int partId in complexTour.complexTourPartsIds)
+                    {
+                        complexTour.complexTourParts.Add(_tourRequestService.GetById(partId));
+                    }
+                
+
             }
 
             return complexTours;
+        }
+
+        public List<ComplexTour> GetAllOnHold()
+        {
+            List<ComplexTour> complexTours = _complexTourRepository.GetAll();
+            List<ComplexTour> onHold = new List<ComplexTour>();
+            
+            foreach(ComplexTour ct in complexTours)
+            {
+                if(ct.Status == ComplexTour.STATUS.ONHOLD)
+                {
+                    onHold.Add(ct);
+                }
+            }
+
+            foreach (var complexTour in onHold)
+            {
+                
+                    complexTour.complexTourParts.Clear();
+                    foreach (int partId in complexTour.complexTourPartsIds)
+                    {
+                        complexTour.complexTourParts.Add(_tourRequestService.GetById(partId));
+                    }
+                
+
+            }
+
+            return onHold;
         }
 
 
