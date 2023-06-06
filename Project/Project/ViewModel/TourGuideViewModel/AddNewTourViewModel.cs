@@ -296,8 +296,54 @@ namespace Project.ViewModel.TourGuideViewModel
             }
         }
 
+        private string _city = string.Empty;
+        public string City
+        {
+            get
+            {
+                return _city;
+            }
+            set
+            {
+                _city = value;
+                OnPropertyChanged(nameof(City));
+            }
+        }
 
-        public AddSharedViewModel SharedViewModel { get; set; }
+        private string _county = string.Empty;
+        public string Country
+        {
+            get
+            {
+                return _county;
+            }
+            set
+            {
+                _county = value;
+                OnPropertyChanged(nameof(Country));
+                LoadCities();
+            }
+        }
+
+
+        //public AddSharedViewModel SharedViewModel { get; set; }
+
+        private AddSharedViewModel _sharedViewModel;
+        public AddSharedViewModel SharedViewModel
+        {
+            get
+            {
+                return _sharedViewModel;
+            }
+            set
+            {
+                _sharedViewModel = value;
+                OnPropertyChanged(nameof(SharedViewModel));
+                Country = _sharedViewModel.Country;
+                City = _sharedViewModel.City;
+            }
+        }
+
 
 
         private readonly ImageController _imageController;

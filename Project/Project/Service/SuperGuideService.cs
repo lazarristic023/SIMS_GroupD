@@ -78,7 +78,7 @@ namespace Project.Service
 
             foreach (Tour tour in _tourService.GetCompletedTours(guideId))
             {
-                if (tour.TourAppointment.DateAndTimeOfAppointment > DateTime.Today.AddYears(-1))
+                if (tour.TourAppointment.DateAndTimeOfAppointment.Year == DateTime.Today.AddYears(-1).Year)
                 {
                     completedTours.Add(tour);   
                 }

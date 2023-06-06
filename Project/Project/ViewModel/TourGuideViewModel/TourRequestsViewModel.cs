@@ -55,6 +55,10 @@ namespace Project.ViewModel.TourGuideViewModel
 			{
 				_country = value;
 				OnPropertyChanged(nameof(Country));
+				if(City != string.Empty)
+				{
+					City = string.Empty;
+				}
 				Cities = LoadCities();
 			}
 		}
