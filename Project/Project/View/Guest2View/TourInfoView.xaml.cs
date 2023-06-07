@@ -40,5 +40,40 @@ namespace Project.View
             ReserveTourSpotView reserveSpot = new ReserveTourSpotView(Controller, ChosenTour);
             reserveSpot.Show();
         }
+
+        private void btSignOut_Click(object sender, RoutedEventArgs e)
+        {
+            SignInView signInView = new SignInView();
+            Close();
+            signInView.Show();
+        }
+
+        private void Button_Click_Back(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Button_Click_AvailableTours(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Button_Click_Vouchers(object sender, RoutedEventArgs e)
+        {
+            VoucherView voucherView = new VoucherView();
+            voucherView.Top = this.Top;
+            voucherView.Left = this.Left;
+            this.Close();
+            voucherView.Show();
+        }
+
+        private void Button_Click_Tour_History(object sender, RoutedEventArgs e)
+        {
+            TourHistoryView tourHistory = new TourHistoryView();
+            tourHistory.Top = this.Top;
+            tourHistory.Left = this.Left;
+            this.Close();
+            tourHistory.Show();
+        }
     }
 }

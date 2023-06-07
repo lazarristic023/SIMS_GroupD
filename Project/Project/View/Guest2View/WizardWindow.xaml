@@ -1,0 +1,91 @@
+﻿<Window x:Class="Project.WizardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="WizardWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="137*" />
+            <ColumnDefinition Width="663*" />
+        </Grid.ColumnDefinitions>
+        <xctk:Wizard
+            Grid.ColumnSpan="2"
+            CanCancel="True"
+            CanHelp="False"
+            CancelButtonClosesWindow="True"
+            CancelButtonVisibility="Visible"
+            HelpButtonVisibility="Collapsed">
+            <xctk:WizardPage
+                x:Name="IntroWizardPage"
+                Title="Welcome to Booking Application!"
+                Description="This Wizard will help you through the user interface and the main functionalities of the application." />
+            <!--<xctk:WizardPage
+                x:Name="WizardPage2"
+                Title="Home Page"
+                Description="This page shows all the accommodations that you can search for. You can also view new notifications."
+                NextPage="{Binding ElementName=WizardPage3}"
+                PageType="Interior"
+                PreviousPage="{Binding ElementName=IntroWizardPage}">
+                <Image Source="/Resources/Images/WizardImages/Screenshot1.png" />
+            </xctk:WizardPage>-->
+            <xctk:WizardPage
+                x:Name="WizardPage3"
+                Title="Search Available Tours"
+                Description="Here you can search for available tours according to certain parameters and choose the one you want to make a reservation for."
+                NextPage="{Binding ElementName=WizardPage4}"
+                PageType="Interior"
+                PreviousPage="{Binding ElementName=IntroWizardPage}">
+                <Image Source="../../Resources/Images/Screenshot1.png" />
+            </xctk:WizardPage>
+            <xctk:WizardPage
+                x:Name="WizardPage4"
+                Title="Active tours"
+                Description="Here you can see active tours thta you have made a reservation for and you can confirm your attendance. In the table you can see the tours you reserved. Clicking on button View details you can see information about said tour and you can generate the pdf."
+                NextPage="{Binding ElementName=WizardPage5}"
+                PageType="Interior"
+                PreviousPage="{Binding ElementName=WizardPage3}">
+                <Image Source="../../Resources/Images/Screenshot2.png" />
+            </xctk:WizardPage>
+            <xctk:WizardPage
+                x:Name="WizardPage5"
+                Title="Previous Trip"
+                Description="On this page you can make a new tour request. In the table you can see all your expired and accepted requests. Request statistic button will show you statistics for your requests."
+                NextPage="{Binding ElementName=WizardPage6}"
+                PageType="Interior"
+                PreviousPage="{Binding ElementName=WizardPage4}">
+                <Image Source="../../Resources/Images/Screenshot3.png" />
+            </xctk:WizardPage>
+            <xctk:WizardPage
+                x:Name="WizardPage6"
+                Title="My Reservations"
+                Description="On this page you can make a new complex tour request. In the table you can see all your complex requests. View details button will show you a list of tour that are a part of complex tour."
+                NextPage="{Binding ElementName=WizardPage7}"
+                PageType="Interior"
+                PreviousPage="{Binding ElementName=WizardPage5}">
+                <Image Source="../../Resources/Images/Screenshot4.png" />
+            </xctk:WizardPage>
+            <xctk:WizardPage
+                x:Name="WizardPage7"
+                Title="Anywhere/Anytime"
+                Description="On this page you can see what vouchers are used for and a list of your aquired vouchers."
+                NextPage="{Binding ElementName=WizardPage8}"
+                PageType="Interior"
+                PreviousPage="{Binding ElementName=WizardPage6}">
+                <Image Source="../../Resources/Images/Screenshot5.png" />
+            </xctk:WizardPage>
+            <xctk:WizardPage
+                x:Name="LastWizardPage"
+                Title="Forum"
+                CanCancel="False"
+                CanFinish="True"
+                Description="On tour history page, you can see your all attended tours and you can review them."
+                PageType="Interior">
+                <Image Source="../../Resources/Images/Screenshot6.png" />
+            </xctk:WizardPage>
+        </xctk:Wizard>
+    </Grid>
+</Window>

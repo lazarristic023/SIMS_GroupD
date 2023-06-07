@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <None Remove="Resources\Screenshot1.png" />
+	  <None Remove="Resources\Screenshot2.png" />
+	  <None Remove="Resources\Screenshot3.png" />
+	  <None Remove="Resources\Screenshot4.png" />
+	  <None Remove="Resources\Screenshot5.png" />
+	  <None Remove="Resources\Screenshot6.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\add_present.png" />
     <None Remove="Resources\Images\alert.png" />
@@ -65,6 +71,7 @@
 
   <ItemGroup>
     <PackageReference Include="ceTe.DynamicPDF.CoreSuite.NET" Version="12.4.0" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
@@ -74,6 +81,12 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <Resource Include="Resources\Images\Screenshot1.png"/>
+	  <Resource Include="Resources\Images\Screenshot2.png"/>
+	  <Resource Include="Resources\Images\Screenshot3.png"/>
+	  <Resource Include="Resources\Images\Screenshot4.png"/>
+	  <Resource Include="Resources\Images\Screenshot5.png"/>
+	  <Resource Include="Resources\Images\Screenshot6.png"/>
     <Resource Include="Resources\Images\add.png" />
     <Resource Include="Resources\Images\add_present.png" />
     <Resource Include="Resources\Images\alert.png" />

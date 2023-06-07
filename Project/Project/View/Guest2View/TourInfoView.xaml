@@ -5,25 +5,162 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View"
         mc:Ignorable="d"
-        Title="TourInfoView" Height="500" Width="800">
-    <Grid>
-        <TextBlock FontWeight="Bold" FontSize="24" Text="Tour info" HorizontalAlignment="Center" Margin="0,12,0,0" VerticalAlignment="Top"/>
-        <Label Content="Name:" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="142,83,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="190,88,0,0" Width="auto" Text="{Binding Path=ChosenTour.Name}" VerticalAlignment="Top"/>
+        Title="TourInfoView" Height="768" Width="1024">
 
-        <Label Content="Location:" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="126,118,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="190,123,0,0" Width="auto" Text="{Binding Path=ChosenTour.Location.City}" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="190,150,0,0" Width="auto" Text="{Binding Path=ChosenTour.Location.Country}" VerticalAlignment="Top"/>
+    <Grid Background="#cce0d2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <Label Content="Max number of guests:" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="52,217,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="190,222,0,0" Width="auto" Text="{Binding Path=ChosenTour.MaxGuests}" VerticalAlignment="Top"/>
-        <Label Content="Duration (in hours):" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="71,256,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="190,261,0,0" Width="auto" Text="{Binding Path=ChosenTour.Duration}" VerticalAlignment="Top"/>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="170"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="160"/>
+            </Grid.RowDefinitions>
 
-        <Label Content="Language:" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="119,291,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="190,295,0,0" Width="auto" Text="{Binding Path=ChosenTour.Language}" VerticalAlignment="Top"/>
+            <GroupBox Background="WhiteSmoke" BorderBrush="Black" BorderThickness="2" Margin="2,10,0,0" Height="160" VerticalAlignment="Top" HorizontalAlignment="Left" Width="255">
+                <WrapPanel>
+                    <Image Height="74" Source="../../Resources/Images/avatar.png" Width="53" VerticalAlignment="Top" Margin="10,50"/>
+                    <Label FontSize="20" HorizontalContentAlignment="Center" FontWeight="Bold" Content="Bob Smith" Height="38"/>
+                    <Image Height="62" Source="../../Resources/Images/bell.png" Width="47" Margin="10,0,0,0"/>
+                </WrapPanel>
+            </GroupBox>
 
-        <Button x:Name="btMakeReserv" Click="btMakeReserv_Click" Background="LightBlue" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="40" Width="100" Content="Make reservation" FontWeight="DemiBold" Margin="0,406,0,0"/>
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/book.png"/>
+                <Button  Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="_Active and reserved tours"/>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/compass.png"/>
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Available tours" Click="Button_Click_AvailableTours"/>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/request1.png"/>
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Tour requests"/>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/question-mark.png"/>
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Complex tour requests"/>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/discount.png"/>
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Vouchers" Click="Button_Click_Vouchers"/>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="6" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/ancient-scroll.png"/>
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Tour history" Click="Button_Click_Tour_History"/>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="7" Margin="10,0,0,0">
+                <Image Height="25" Source="../../Resources/Images/logout.png"/>
+                <Button x:Name="btSignOut" Background="Transparent" BorderBrush="Transparent" Content="Sign out" Margin="2" HorizontalAlignment="Right" Click="btSignOut_Click" FontWeight="DemiBold" FontSize="19"/>
+            </WrapPanel>
+
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Background="WhiteSmoke" BorderBrush="Black" BorderThickness="2" Margin="10" Grid.Row="0">
+                <Grid Grid.Row="0">
+                    <Button Height="50" Width="50" Margin="10,3,690,274" Content="&lt;" Background="Transparent" BorderThickness="0" FontSize="30" Click="Button_Click_Back">
+
+                    </Button>
+
+                    <TextBlock FontWeight="Bold" FontSize="35" Text="Tour info" HorizontalAlignment="Center" Margin="0,8,0,0" VerticalAlignment="Top"/>
+
+                    <Separator Margin="0,46,0,251" Background="Black"/>
+
+                    <Label Content="Name:" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="158, 72,0,0" VerticalAlignment="Top" FontSize="15"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="332,79,0,0" Width="auto" Text="{Binding ChosenTour.Name}" VerticalAlignment="Top" FontSize="15"/>
+
+                    <Label Content="City:" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="158,109,0,0" VerticalAlignment="Top" FontSize="15"/>
+                    <Label Content="Country:" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="156,146,0,0" VerticalAlignment="Top" FontSize="15"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="332,116,0,0" Width="auto" Text="{Binding ChosenTour.Location.City}" VerticalAlignment="Top" FontSize="15"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="332,153,0,0" Width="auto" Text="{Binding ChosenTour.Location.Country}" VerticalAlignment="Top" FontSize="15"/>
+
+                    <Label Content="Max number of guests:" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="156,183,0,0" VerticalAlignment="Top" FontSize="15"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="332,190,0,0" Width="auto" Text="{Binding ChosenTour.MaxGuests}" VerticalAlignment="Top" FontSize="15"/>
+
+                    <Label Content="Duration (in hours):" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="156,220,0,0" VerticalAlignment="Top" FontSize="15"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="332,227,0,0" Width="auto" Text="{Binding ChosenTour.Duration}" VerticalAlignment="Top" FontSize="15"/>
+
+                    <Label Content="Language:" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="156,257,0,0" VerticalAlignment="Top" FontSize="15"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="332,268,0,0" Width="auto" Text="{Binding ChosenTour.Language}" VerticalAlignment="Top" FontSize="15"/>
+
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Background="WhiteSmoke" BorderBrush="Black" BorderThickness="2" Margin="10" Grid.Row="1">
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox Grid.Column="0" BorderBrush="Transparent" BorderThickness="0">
+                        <Grid>
+                            <TextBlock FontFamily="Segoe UI" FontWeight="Medium" FontSize="20" Text="Availability" HorizontalAlignment="Center" Margin="0,12,0,0" VerticalAlignment="Top"/>
+
+                            <TextBlock FontSize="17" Text="Remaining spots:" Margin="28,148,190,199"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="173,152,0,0" Width="auto" Text="{Binding ChosenTour.MaxGuests}" VerticalAlignment="Top" FontSize="17" Height="44"/>
+
+                            <TextBlock FontSize="17" Text="Number of guests:" Margin="28,192,177,142"/>
+                            <TextBox Name="tbNumberOfGuests" HorizontalAlignment="Left" Margin="177,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" FontSize="17">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Column="1" BorderBrush="Transparent" BorderThickness="0">
+                        <Grid>
+                            <TextBlock FontWeight="Medium" FontSize="20" Text="Tour images" HorizontalAlignment="Center" Margin="0,12,0,0" VerticalAlignment="Top"/>
+
+                            <Image Source="../../Resources/Images/forumIcon.jpg" Margin="0,54,0,163"/>
+                            <Button FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40" Content="&lt;" Margin="138,265,0,0" Background="Transparent" BorderThickness="0">
+
+                            </Button>
+
+                            <Button FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Content="&gt;" Margin="192,265,0,0" Background="Transparent" BorderThickness="0">
+
+                            </Button>
+
+                            <Button FontSize="17" x:Name="btMakeReserv" Click="btMakeReserv_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" Width="145" Content="Make reservation" FontWeight="DemiBold" Margin="0,338,0,0" Grid.Column="1">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </Grid>
+                    </GroupBox>
+
+                </Grid>
+
+            </GroupBox>
+
+        </Grid>
 
     </Grid>
+
 </Window>

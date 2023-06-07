@@ -17,12 +17,29 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using Project.Service;
+using System.Globalization;
 
 namespace Project.View
 {
     /// <summary>
     /// Interaction logic for Guest2View.xaml
     /// </summary>
+    /// 
+    public class NumericValidationRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (value is string inputText)
+            {
+                if (int.TryParse(inputText, out _))
+                {
+                    return ValidationResult.ValidResult;
+                }
+            }
+
+            return new ValidationResult(false, "Input must be a numeric value.");
+        }
+    }
     public partial class Guest2View : Window, IObserver
     {
         private Guest2Controller controller;
@@ -74,6 +91,18 @@ namespace Project.View
             Tours = new ObservableCollection<Tour>(tourService.GetAllTourAppointments());
             FillCountriesList();
             FillLanguagesList();
+
+            WizardWindow wizard = new WizardWindow();
+            wizard.Show();
+            
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Binding binding = new Binding("Hours");
+            binding.ValidationRules.Add(new NumericValidationRule());
+            binding.NotifyOnValidationError = true;
+            tbHours.SetBinding(TextBox.TextProperty, binding);
         }
 
         private void btSignOut_Click(object sender, RoutedEventArgs e)
@@ -331,17 +360,26 @@ namespace Project.View
 
         private void Button_Click_Vouchers(object sender, RoutedEventArgs e)
         {
-
+            VoucherView voucherView = new VoucherView();
+            voucherView.Top = this.Top;
+            voucherView.Left = this.Left;
+            voucherView.Show();
         }
 
         private void Button_Click_Tour_History(object sender, RoutedEventArgs e)
         {
-
+            TourHistoryView tourHistory = new TourHistoryView();
+            tourHistory.Top = this.Top;
+            tourHistory.Left = this.Left;
+            tourHistory.Show();
         }
 
         private void Button_Click_Profile(object sender, RoutedEventArgs e)
         {
-
+            ProfileGuest2 profileGuest2 = new ProfileGuest2();
+            profileGuest2.Top = this.Top;
+            profileGuest2.Left = this.Left;
+            profileGuest2.Show();
         }
 
         private void tbReview_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -353,7 +391,17 @@ namespace Project.View
         private void btTourRequest_Click(object sender, RoutedEventArgs e)
         {
             Guest2TourRequests tourRequests = new Guest2TourRequests(user);
+            tourRequests.Top = this.Top;
+            tourRequests.Left = this.Left;
             tourRequests.Show();
+        }
+
+        private void Button_Click_Complex_Tour(object sender, RoutedEventArgs e)
+        {
+            ComplexTourRequest complexTour = new ComplexTourRequest();
+            complexTour.Top = this.Top;
+            complexTour.Left = this.Left;
+            complexTour.Show();
         }
     }
 }

@@ -5,9 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.View"
         mc:Ignorable="d"
-        Title="Guest2View" Height="768" Width="1024">
-    
-    
+        Title="Guest2View" Loaded="Window_Loaded" Height="768" Width="1024">
+
+    <Window.Resources>
+        <Style TargetType="TextBox" x:Key="NumberValidationTextBoxStyle">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <AdornedElementPlaceholder x:Name="placeholder"/>
+                        </DockPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="placeholder" Property="Validation.HasError" Value="True">
+                                <Setter TargetName="placeholder" Property="Border.BorderBrush" Value="Red"/>
+                                <Setter TargetName="placeholder" Property="Border.BorderThickness" Value="1"/>
+                            </Trigger>
+                            <Trigger SourceName="placeholder" Property="Validation.HasError" Value="False">
+                                <Setter TargetName="placeholder" Property="Border.BorderBrush" Value="Gray"/>
+                                <Setter TargetName="placeholder" Property="Border.BorderThickness" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
     <Grid Background="#cce0d2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="260"/>
@@ -47,12 +71,12 @@
 
             <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Margin="10,0,0,0">
                 <Image Height="25" Source="../../Resources/Images/request1.png" />
-                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Tour requests" />
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Tour requests" Click="btTourRequest_Click"/>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Margin="10,0,0,0">
                 <Image Height="25" Source="../../Resources/Images/question-mark.png" />
-                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Complex tour requests" />
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="19" Content="Complex tour requests" Click="Button_Click_Complex_Tour" />
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5" Margin="10,0,0,0">
@@ -97,34 +121,65 @@
                     <WrapPanel Grid.Row="0" Grid.Column="0">
                         <Label Content="Country: " HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="15"/>
                         <ComboBox x:Name="cbCountry" SelectionChanged="cbCountry_SelectionChanged" ItemsSource="{Binding Countries, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedCountry, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="37,27,0,0" VerticalAlignment="Top" Width="159"/>
+                              SelectedItem="{Binding SelectedCountry, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="37,27,0,0" VerticalAlignment="Top" Width="159" Height="30"/>
                     </WrapPanel>
 
                     <WrapPanel Grid.Row="0" Grid.Column="1">
                         <Label Content="City: " HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="15"/>
                         <ComboBox ItemsSource="{Binding Path=CountryCities, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding Path=SelectedCity, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="118,27,0,0" VerticalAlignment="Top" Width="159"/>
+                              SelectedItem="{Binding Path=SelectedCity, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="118,27,0,0" VerticalAlignment="Top" Width="159" Height="30"/>
                     </WrapPanel>
                     
                     <WrapPanel Grid.Row="1" Grid.Column="0">
                         <Label Content="Language:" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="15"/>
                         <ComboBox x:Name="cbLanguage" SelectionChanged="cbLanguage_SelectionChanged" ItemsSource="{Binding Path=Languages, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedItem="{Binding Path=SelectedLanguage, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="27,27,0,0" VerticalAlignment="Top" Width="159"/>
+                                  SelectedItem="{Binding Path=SelectedLanguage, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="27,27,0,0" VerticalAlignment="Top" Width="162" Height="30"/>
                     </WrapPanel>
 
                     <WrapPanel Grid.Row="2" Grid.Column="0">
                         <Label Content="Tour dration:" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="15"/>
-                        <TextBox Name="tbHours" Text="{Binding Hours, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="4,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159"/>
+                        <TextBox x:Name="tbHours" Style="{StaticResource NumberValidationTextBoxStyle}"  HorizontalAlignment="Left" Margin="4,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Height="35">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </TextBox.Resources>
+                            <TextBox.Text>
+                            <Binding Path="Hours" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <local:NumericValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                     </WrapPanel>
 
                     <WrapPanel Grid.Row="2" Grid.Column="1">
                         <Label Content="Number of guests:" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="15"/>
-                        <TextBox x:Name="tbGuestNumber" Text="{Binding Guests, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,27,0,0" TextWrapping="Wrap" Width="159"/>
+                        <TextBox x:Name="tbGuestNumber" Text="{Binding Guests, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,27,0,0" TextWrapping="Wrap" Width="159" Height="37">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
                     </WrapPanel>
 
-                    <Button Grid.Row="3" Grid.Column="1" Name="btnSearch" Click="btnSearch_Click" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Height="40" Width="80" Margin="263,0,0,0" />
+                    <Button Grid.Row="3" Grid.Column="1" Name="btnSearch" Click="btnSearch_Click" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Height="40" Width="80" Margin="263,0,0,0" >
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
 
-                    <Button Grid.Row="3" Grid.Column="0" Name="btnReset" Click="btnReset_Click" Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Height="40" Width="80" Margin="204,0,0,0"/>
+                    <Button Grid.Row="3" Grid.Column="0" Name="btnReset" Click="btnReset_Click" Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Height="40" Width="80" Margin="204,0,0,0">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
 
                 </Grid>
 
